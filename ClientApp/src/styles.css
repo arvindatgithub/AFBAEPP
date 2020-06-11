@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
@@ -14,3 +14,20 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+h3 {
+  font-size: 22px;
+  font-weight: normal;
+  font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+h1, h2, h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  line-height: 1.1;
+}
+
+
+.text-muted {
+  color: #999999 !important;
+}
+

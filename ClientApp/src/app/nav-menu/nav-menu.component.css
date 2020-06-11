@@ -5,14 +5,15 @@ a.navbar-brand {
 }
 
 html {
-  font-size: 14px;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+  font-size: 19px;
+  font-weight: normal;
+  font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
+/* li.nav-item.link-active {
+  background-color: #428bca !important;
+  color: #fff !important;
+
+} */
+
+
