@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AFBA.EPP.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -11,6 +12,8 @@ namespace AFBA.EPP.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+        private EppAppDbContext _context;
+      
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -18,14 +21,19 @@ namespace AFBA.EPP.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, EppAppDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
+
+            var a = _context.EppGrpmstr.ToList<EppGrpmstr>();
+            var b = _context.EppProduct.ToList<EppProduct>();
+
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
@@ -35,5 +43,7 @@ namespace AFBA.EPP.Controllers
             })
             .ToArray();
         }
+
+      
     }
 }
