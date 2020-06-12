@@ -1,0 +1,44 @@
+<div class="example-container">
+    <mat-form-field hintLabel="Max 10 characters" appearance="fill">
+      <mat-label>Enter Products</mat-label>
+      <input matInput #input maxlength="10" placeholder="Product Name">
+      <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker">
+          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      
+    <mat-form-field appearance="fill">
+      <mat-label>Select me</mat-label>
+      <mat-select>
+        <mat-option value="option">Accident Situs State</mat-option>
+      </mat-select>
+      <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
+    </mat-form-field>
+
+  </div>
+    <div class="container">
+      <div class="row mt-4">
+        <mat-checkbox class="example-margin" [(ngModel)]="checked"></mat-checkbox>
+        <table class="ml-2">
+          <th style="padding: 4px; background: #2980b9; 
+          background: -webkit-linear-gradient(to right, #2980b9, #6dd5fa, #ffffff);
+          background: linear-gradient(to right, #2980b9, #6dd5fa, #ffffff);">
+            Accident Rate Level
+          </th>
+          <tr>
+            <h5>1,2 or 3
+            </h5>
+          </tr>
+        </table>
+    </div>
+    </div>
+   
+
+   

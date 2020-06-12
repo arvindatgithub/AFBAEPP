@@ -1,0 +1,16 @@
+.example-container .mat-form-field + .mat-form-field {
+    margin-left: 8px;
+  }
+
+  table, th, td {
+    border: 1px solid black;
+  }
+ 
+  
+  .example-section {
+    display: table-caption;
+   
+    align-items: center;
+  }
+  
+  

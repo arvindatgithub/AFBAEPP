@@ -29,8 +29,3 @@ table {
   .mat-input-element {
       width: 96% !important;
   }
-
-  .mat-header-cell {
-    font-size: 15px;
-    font-weight: 600;
-}
