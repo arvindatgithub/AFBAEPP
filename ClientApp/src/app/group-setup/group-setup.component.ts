@@ -24,16 +24,11 @@ export class GroupSetupComponent implements OnInit {
   myForm: FormGroup;
 
   public dataList = [
-    {name: 'Accident'},
+    {name: 'Accident'}, 
     {name: 'Hospital Indemnity'},
     {name: 'Basic Group Life'},
     {name: 'Employer Paid CI'},
    
-    // <option value="1">Accident</option>
-    // <option value="1"> Hospital Indemnity</option>
-    // <option value="1">Basic Group Life</option>
-    // <option value="1">Employer Paid CI</option>
-    // {name: 'Bob'},
   ]
 
   date: FormControl;

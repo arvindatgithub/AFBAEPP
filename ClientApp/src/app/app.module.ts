@@ -25,6 +25,16 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {
    MatButtonModule,
 } from '@angular/material';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { AccidentComponent } from './accident/accident.component';
+import { FPPGComponent } from './fppg/fppg.component';
+import { HospitalIndemnityComponent } from './hospital-indemnity/hospital-indemnity.component';
+import { FPPIndividualComponent } from './fpp-individual/fpp-individual.component';
+import { EmployerPaidCIComponent } from './employer-paid-ci/employer-paid-ci.component';
+import { VoluntaryCIComponent } from './voluntary-ci/voluntary-ci.component';
+import { VolGroupLifeComponent } from './vol-group-life/vol-group-life.component';
+import { BasicGroupLifeComponent } from './basic-group-life/basic-group-life.component';
+import {MatRadioModule} from '@angular/material/radio';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,11 +44,21 @@ import {
     HeaderComponent,
     FooterComponent,
     GroupSearchComponent,
-    GroupSetupComponent
+    GroupSetupComponent,
+    AccidentComponent,
+    FPPGComponent,
+    HospitalIndemnityComponent,
+    FPPIndividualComponent,
+    EmployerPaidCIComponent,
+    VoluntaryCIComponent,
+    VolGroupLifeComponent,
+    BasicGroupLifeComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
+    MatRadioModule,
+    MatCheckboxModule,
     MatButtonModule,
     MatTooltipModule,
     MatDatepickerModule,
@@ -56,7 +76,15 @@ import {
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'group-search', component: GroupSearchComponent },
-      { path: 'group-setup', component: GroupSetupComponent}
+      { path: 'group-setup', component: GroupSetupComponent},
+      { path: 'accident', component: AccidentComponent},
+      { path: 'basic-group-life', component: BasicGroupLifeComponent},
+      { path: 'employer-paid-ci', component: EmployerPaidCIComponent},
+      { path: 'fppg', component: FPPGComponent},
+      { path: 'fpp-individual', component: FPPIndividualComponent},
+      { path: 'hospital-indemnity', component: HospitalIndemnityComponent},
+      { path: 'vol-group-life', component: VolGroupLifeComponent},
+      { path: 'voluntary-ci', component: VoluntaryCIComponent}
     ])
   ],
   providers: [],
