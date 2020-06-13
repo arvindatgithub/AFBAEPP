@@ -1,9 +1,7 @@
-
-
-<div class="container-fluid" id="container">
+<div class="container">
   <form>
-    <!-- Group 1 -->
-    <div class="row" style="justify-content:space-evenly;">
+    <!-- Group Section -->
+    <div class="row">
       <div class="col-md-3">
         <input type="text" class="form-control mb-2" style="width: 100%;" id="inlineFormInputName2"
           placeholder="Group Number Field">
@@ -17,40 +15,36 @@
           placeholder="Group Effective Date">
       </div>
     </div>
-    
-    <!-- Group 1 ends here -->
-
-    <!-- Group 2 -->
-    <div class="row" style="justify-content:space-evenly;">
+    <div class="row">
       <div class="col-md-3">
         <input type="text" class="form-control mb-2 " id="inlineFormInputName2" placeholder="Group Vendor Name">
       </div>
-     
+
       <div class="col-md-3">
         <input type="text" class="form-control mb-2 " id="inlineFormInputName2"
           placeholder="Group Vendor Email Address">
       </div>
       <div class="col-md-3">
         <div>
-          <select class="custom-select my-1 " id="inlineFormCustomSelectPref">
+          <select class="select-dropdown my-1 " id="inlineFormCustomSelectPref">
             <option selected>Choose...</option>
             <option value="1">Occ Class</option>
           </select>
         </div>
-        <select class="custom-select my-1 " id="inlineFormCustomSelectPref">
+        <select class="select-dropdown my-1 " id="inlineFormCustomSelectPref">
           <option selected>Choose...</option>
           <option value="1">Group Payment Mode</option>
         </select>
-        
+      </div>
+      <div class="col-md-3">
+        <select class="select-dropdown my-1 " id="inlineFormCustomSelectPref">
+          <option selected>New hire</option>
+          <option value="1">30</option>
+        </select>
       </div>
     </div>
-    
 
-    <!-- Group 2 ends here -->
-
-    <!-- Group 3 starts -->
-
-    <div class="row" style="justify-content:space-evenly;">
+    <div class="row">
       <div class="col-md-3">
         <input type="text" class="form-control mb-2 " placeholder="Account Manager Name">
       </div>
@@ -58,70 +52,63 @@
         <input type="text" class="form-control mb-2 " placeholder="Account Manager Email">
       </div>
       <div class="col-md-3">
-        <select class="custom-select my-1 ">
+        <select class="select-dropdown my-1 ">
           <option selected>Choose...</option>
           <option value="1">Group Level Situs State</option>
 
         </select>
       </div>
+      <div class="col-md-3">
+        <select class="select-dropdown my-1 ">
+          <option selected>Perpetual or Annual enrollment</option>
+          <option value="1">Perpetual or Annual enrollment</option>
+
+        </select>
+      </div>
     </div>
 
-    <!-- Group 3 ends here -->
+    <!-- Product section -->
 
+    <div class="row" style="margin-top: 20px;">
+      <div class="col-md-3">
+        <!-- <button (click)="addGroups()"  class="btn btn-primary mb-4">Add Group</button> -->
+        <mat-form-field>
+          <mat-label>Search for Products</mat-label>
+          <mat-select (selectionChange)="selected($event.value)">
+            <mat-option value="Accident">Accident</mat-option>
+            <mat-option value="FPPG">FPPG</mat-option>
+            <mat-option value="FPP Individual">FPP Individual</mat-option>
+            <mat-option value="Hospital Indemnity">Hospital Indemnity</mat-option>
+            <mat-option value="Vol Group Life">Vol Group Life</mat-option>
+            <mat-option value="Voluntary CI">Voluntary CI</mat-option>
+            <mat-option value="Employer Paid CI">Employer Paid CI</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <button mat-flat-button (click)="addProducts()" style="margin-left: 20px;color:#fff;background-color: #428bca!important;
+        border-color: #428bca;">
+          <mat-icon>add</mat-icon> Add Products
+        </button>
+      </div>
+    </div>
+    <!-- Selected Products Listing Section -->
+    <section>
+      <div *ngFor="let product of addedProducts; let i = index">
+        <div style="float:left">
+          <mat-icon (click)="deleteProduct(product)" style="color:#000;cursor:pointer;">close</mat-icon>
+        </div>
+        <app-accident *ngIf="product === 'Accident'"></app-accident>
+        <app-fppg *ngIf="product === 'FPPG'"></app-fppg>
+        <app-fpp-individual *ngIf="product === 'FPP Individual'"></app-fpp-individual>
+        <app-hospital-indemnity *ngIf="product === 'Hospital Indemnity'"></app-hospital-indemnity>
+        <app-vol-group-life *ngIf="product === 'Vol Group Life'"></app-vol-group-life>
+        <app-voluntary-ci *ngIf="product === 'Voluntary CI'"></app-voluntary-ci>
+        <app-employer-paid-ci *ngIf="product === 'Employer Paid CI'"></app-employer-paid-ci>
+        <app-agent-setup></app-agent-setup>
+      </div>
+    </section>
+    <button type="button" class="btn btn-success">Submit Group
+      Setup Information</button>
   </form>
-
-
-
-<div class="container-fluid" id="main" style="margin: 83px">
-  <div class="row" >
-  <form [formGroup]="myForm">
-
-    <!-- <button (click)="addGroups()"  class="btn btn-primary mb-4">Add Group</button> -->
-    <mat-form-field appearance="fill">
-      <mat-label>Select Products</mat-label>
-      <mat-select (selectionChange)="selectedProducts($event.value)">
-        <mat-option value="Accident">Accident</mat-option>
-        <mat-option value="FPPG">FPPG</mat-option>
-        <mat-option value="FPP Individual">FPP Individual</mat-option>
-        <mat-option value="Hospital Indemnity">Hospital Indemnity</mat-option>
-        <mat-option value="Vol Group Life">Vol Group Life</mat-option>
-        <mat-option value="Voluntary CI">Voluntary CI</mat-option>
-        <mat-option value="Employer Paid CI">Employer Paid CI</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <button mat-flat-button (click)="addProducts()" style="margin-left: 20px;color:#fff;background-color: #428bca!important;
-    border-color: #428bca;">
-      <mat-icon>add</mat-icon> Add Products
-    </button>
-<section>
-  <div *ngIf="accidentProductSelected">
-    <div style="float:left">
-      <mat-icon (click)="deleteAccident()" style="color:#000;cursor:pointer;">close</mat-icon>
-    </div>
-    <app-accident></app-accident>
-  </div>
-  <div *ngIf="fppgProductSelected">
-    <div style="float:left">
-      <mat-icon (click)="deleteAccident()" style="color:#000;cursor:pointer;">close</mat-icon>
-    </div>
-    <app-fppg></app-fppg>
-  </div>
-  <div *ngIf="fppgIndivProductSelected">
-    <div style="float:left">
-      <mat-icon (click)="deleteAccident()" style="color:#000;cursor:pointer;">close</mat-icon>
-    </div>
-    <app-fpp-individual></app-fpp-individual>
-  </div>
-  <div *ngIf="hospProductSelected">
-    <div style="float:left">
-      <mat-icon (click)="deleteAccident()" style="color:#000;cursor:pointer;">close</mat-icon>
-    </div>
-    <app-hospital-indemnity></app-hospital-indemnity>
-  </div>
-</section> 
-  <button type="button" class="btn btn-success">Submit Group
-    Setup Information</button>
-  </form>
-</div>
-</div>
 </div>

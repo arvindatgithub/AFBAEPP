@@ -17,12 +17,8 @@ interface place {
 })
 export class GroupSetupComponent implements OnInit {
 
-  accidentProductSelected: boolean = false;
-  fppgProductSelected: boolean = false;
-  fppgIndivProductSelected: boolean =false;
-  hospProductSelected: boolean = false;
-  addedProducts:any =[];
-
+  addedProducts : any = [];
+  selectedProducts: any = [];
 
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
   position = new FormControl(this.positionOptions[0]);
@@ -67,36 +63,18 @@ export class GroupSetupComponent implements OnInit {
   }
 
   addProducts() {
-    // const group = this.myForm.controls.groupSetup as FormArray;
-    
-    // group.push(this.formBuilder.group({
-    //   input1: new FormControl('data'),
-    //   date: new Date(),
-    //   selectState: new FormControl(),
-    //   selectPlace:this.places[0].value,
-    //   dltButton:''
-    // }));
-    this.addedProducts.forEach(element => {
-      if(element === "Accident"){
-        this.accidentProductSelected = true;
-      }else if(element === "FPPG"){
-        this.fppgProductSelected = true;
-      }else if(element === "FPP Individual"){
-        this.fppgIndivProductSelected = true;
-      }else if(element === "Hospital Indemnity"){
-        this.hospProductSelected = true;
-      }
-    });
-
+   this.addedProducts = this.selectedProducts;
   }
 
-  deleteAccident(){
-    this.accidentProductSelected = false;
+  deleteProduct(product){
+    if (this.addedProducts.indexOf(product) > -1) {
+      this.addedProducts.splice(this.addedProducts.indexOf(product), 1);
+    }
   }
 
-  selectedProducts(value) {
-    this.addedProducts.push(value);
-    console.log('producta added' + this.addedProducts);
+  selected(value) {
+    this.selectedProducts.push(value);
+    console.log('producta added' + this.selectedProducts);
     
   }
 }
