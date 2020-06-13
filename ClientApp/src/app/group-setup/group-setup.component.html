@@ -1,49 +1,81 @@
-<div class="group-setup-section" style="overflow-y: auto;">
-<h3 class="text-muted">Group Setup Screen</h3>
 
 
-   
-        <form class="form-inline">
-           
-            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Group Number Field (5 
-            Alpha numeric characters)">
-            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Group Name Field">
-            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Group Effective Date">
-           
-          </form>
-          <form class="form-inline">
-           
-            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Group Vendor Name">
-            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Group Vendor Email Address">
-          
-            <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-                <option selected>Choose...</option>
-                <option value="1">Group Payment Mode</option>
-               
-              </select>
-           
-          </form>
+<div class="container-fluid" id="container">
+  <form>
+    <!-- Group 1 -->
+    <div class="row" style="justify-content:space-evenly;">
+      <div class="col-md-3">
+        <input type="text" class="form-control mb-2" style="width: 100%;" id="inlineFormInputName2"
+          placeholder="Group Number Field">
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="form-control mb-2 " style="width: 100%;" id="inlineFormInputName2"
+          placeholder="Group Name Field">
+      </div>
+      <div class="col-md-3">
+        <input type="date" class="form-control mb-2 " style="width: 100%;" id="inlineFormInputName2"
+          placeholder="Group Effective Date">
+      </div>
+    </div>
+    
+    <!-- Group 1 ends here -->
 
-          <form class="form-inline">
-           
-            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Account Manager Name">
-            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Account Manager Email 
-            Address">
-            <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-                <option selected>Choose...</option>
-                <option value="1">Group Level Situs State</option>
-               
-              </select>
-           
-          </form>
+    <!-- Group 2 -->
+    <div class="row" style="justify-content:space-evenly;">
+      <div class="col-md-3">
+        <input type="text" class="form-control mb-2 " id="inlineFormInputName2" placeholder="Group Vendor Name">
+      </div>
+     
+      <div class="col-md-3">
+        <input type="text" class="form-control mb-2 " id="inlineFormInputName2"
+          placeholder="Group Vendor Email Address">
+      </div>
+      <div class="col-md-3">
+        <div>
+          <select class="custom-select my-1 " id="inlineFormCustomSelectPref">
+            <option selected>Choose...</option>
+            <option value="1">Occ Class</option>
+          </select>
+        </div>
+        <select class="custom-select my-1 " id="inlineFormCustomSelectPref">
+          <option selected>Choose...</option>
+          <option value="1">Group Payment Mode</option>
+        </select>
+        
+      </div>
+    </div>
+    
+
+    <!-- Group 2 ends here -->
+
+    <!-- Group 3 starts -->
+
+    <div class="row" style="justify-content:space-evenly;">
+      <div class="col-md-3">
+        <input type="text" class="form-control mb-2 " placeholder="Account Manager Name">
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="form-control mb-2 " placeholder="Account Manager Email">
+      </div>
+      <div class="col-md-3">
+        <select class="custom-select my-1 ">
+          <option selected>Choose...</option>
+          <option value="1">Group Level Situs State</option>
+
+        </select>
+      </div>
+    </div>
+
+    <!-- Group 3 ends here -->
+
+  </form>
 
 
 
+<div class="container-fluid" id="main" style="margin: 83px">
+  <div class="row" >
+  <form [formGroup]="myForm">
 
-
-
-<form [formGroup]="myForm">
-   
     <!-- <button (click)="addGroups()"  class="btn btn-primary mb-4">Add Group</button> -->
     <mat-form-field appearance="fill">
       <mat-label>Select Products</mat-label>
@@ -58,26 +90,38 @@
       </mat-select>
     </mat-form-field>
     <button mat-flat-button (click)="addProducts()" style="margin-left: 20px;color:#fff;background-color: #428bca!important;
-    border-color: #428bca;"><mat-icon>add</mat-icon> Add Products</button>
-      
-    <div *ngIf="accidentProductSelected">
-     <div style="float:left"> <mat-icon (click)="deleteAccident()" style="color:#000;cursor:pointer;">close</mat-icon> </div>
-      <app-accident></app-accident>
+    border-color: #428bca;">
+      <mat-icon>add</mat-icon> Add Products
+    </button>
+<section>
+  <div *ngIf="accidentProductSelected">
+    <div style="float:left">
+      <mat-icon (click)="deleteAccident()" style="color:#000;cursor:pointer;">close</mat-icon>
     </div>
-    <div *ngIf="fppgProductSelected">
-      <div style="float:left"> <mat-icon (click)="deleteAccident()" style="color:#000;cursor:pointer;">close</mat-icon> </div>
-       <app-fppg></app-fppg>
-     </div>
-     <div *ngIf="fppgIndivProductSelected">
-      <div style="float:left"> <mat-icon (click)="deleteAccident()" style="color:#000;cursor:pointer;">close</mat-icon> </div>
-       <app-fpp-individual></app-fpp-individual>
-     </div>
-     <div *ngIf="hospProductSelected">
-      <div style="float:left"> <mat-icon (click)="deleteAccident()" style="color:#000;cursor:pointer;">close</mat-icon> </div>
-       <app-hospital-indemnity></app-hospital-indemnity>
-     </div>
-</form>
-
-<button type="button" class="btn btn-success">Submit Group 
-    Setup Information</button>
+    <app-accident></app-accident>
   </div>
+  <div *ngIf="fppgProductSelected">
+    <div style="float:left">
+      <mat-icon (click)="deleteAccident()" style="color:#000;cursor:pointer;">close</mat-icon>
+    </div>
+    <app-fppg></app-fppg>
+  </div>
+  <div *ngIf="fppgIndivProductSelected">
+    <div style="float:left">
+      <mat-icon (click)="deleteAccident()" style="color:#000;cursor:pointer;">close</mat-icon>
+    </div>
+    <app-fpp-individual></app-fpp-individual>
+  </div>
+  <div *ngIf="hospProductSelected">
+    <div style="float:left">
+      <mat-icon (click)="deleteAccident()" style="color:#000;cursor:pointer;">close</mat-icon>
+    </div>
+    <app-hospital-indemnity></app-hospital-indemnity>
+  </div>
+</section> 
+  <button type="button" class="btn btn-success">Submit Group
+    Setup Information</button>
+  </form>
+</div>
+</div>
+</div>

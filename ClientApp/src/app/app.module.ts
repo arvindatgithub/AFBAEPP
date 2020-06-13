@@ -35,6 +35,7 @@ import { VoluntaryCIComponent } from './voluntary-ci/voluntary-ci.component';
 import { VolGroupLifeComponent } from './vol-group-life/vol-group-life.component';
 import { BasicGroupLifeComponent } from './basic-group-life/basic-group-life.component';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatGridListModule} from '@angular/material'
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,6 +58,7 @@ import {MatRadioModule} from '@angular/material/radio';
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
+    MatGridListModule,
     MatRadioModule,
     MatCheckboxModule,
     MatButtonModule,
