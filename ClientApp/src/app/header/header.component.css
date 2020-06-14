@@ -1,0 +1,17 @@
+/* css styles copied from taa taa-legacy.min.css*/
+.header {
+    line-height: 28px;
+    margin-bottom: 16px;
+    margin-top: 18px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #CCC;
+}
+
+th, td, .table-bordered {
+    border-radius: 0!important;
+}
+img {
+    vertical-align: middle;
+    border: 0;
+}
+

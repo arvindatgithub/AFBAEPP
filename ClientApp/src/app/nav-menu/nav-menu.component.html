@@ -1,9 +1,8 @@
 <header>
   <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
+    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light"
   >
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">AFBA.EPP</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -25,10 +24,10 @@
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
           >
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+            <a class="nav-link" style="color: #428bca;" [routerLink]="['/']">Home</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/fetch-data']">Groups</a>
+            <a class="nav-link" style="color: #428bca;" [routerLink]="['/group-search']">Groups</a>
           </li>
         </ul>
       </div>

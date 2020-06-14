@@ -1,0 +1,31 @@
+/* Structure */
+table {
+    width: 80%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 80%;
+  }
+  
+  mat-label {
+    font-weight: normal;
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+  }
+
+  mat-table td {
+    font-weight: normal;
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 18px;
+  }
+  
+  mat-table th {
+    font-size: 20px;
+    font-weight: normal;
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+
+  .mat-input-element {
+      width: 96% !important;
+  }

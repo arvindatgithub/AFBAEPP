@@ -1,0 +1,47 @@
+<div>
+    <div>
+        <button mat-button style="color:#fff;background-color: #428bca!important;
+        border-color: #428bca;margin-bottom: 20px;" (click)="GroupSetup()">Add Group</button>
+    </div>
+    <mat-form-field>
+        <mat-label>Search by Group Name / Number</mat-label>
+        <input matInput (keyup)="applyFilter($event)">
+        <mat-icon>search</mat-icon>
+    </mat-form-field>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-muted"> Group Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-muted"> Group Number </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-button style="color:#fff;background-color: #428bca!important;
+                border-color: #428bca;" (click)="GroupSetup()">{{element.edit}} </button>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="clone">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+            <td mat-cell *matCellDef="let element"> 
+                <button mat-button style="color:#fff;background-color: #428bca!important;
+                border-color: #428bca;" (click)="GroupSetup()">{{element.clone}} </button>
+            </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+</div>

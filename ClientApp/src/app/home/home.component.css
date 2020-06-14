@@ -1,0 +1,11 @@
+mat-card-title, mat-card-content, mat-card-actions {
+    font-size: 19px;
+    font-weight: normal;
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+mat-card {
+    max-width: 500px;
+}
+.mat-card-header .mat-card-title {
+    margin-bottom: 0px; 
+}
