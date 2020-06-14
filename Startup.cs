@@ -1,4 +1,6 @@
 using AFBA.EPP.Models;
+using AFBA.EPP.Repositories;
+using AFBA.EPP.Repositories.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +33,14 @@ namespace AFBA.EPP
 
             services.AddEntityFrameworkNpgsql().AddDbContext<EppAppDbContext>(opt =>
                 opt.UseNpgsql(Configuration.GetConnectionString("PostgreSqlConection")));
+
+            services.AddScoped(typeof(IRepository<>), typeof(EPPRepository<>));
+            services.AddScoped(typeof(IUnitofWork), typeof(UnitofWork));
+         
+
+
+            //services.AddScoped<EppActionRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
