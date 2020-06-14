@@ -14,6 +14,12 @@
         <input type="date" class="form-control mb-2 " style="width: 100%;" id="inlineFormInputName2"
           placeholder="Group Effective Date">
       </div>
+      <div class="col-md-3">
+        <select class="select-dropdown my-1 " id="inlineFormCustomSelectPref">
+          <option selected>Select Group Payment</option>
+          <option value="1">Group Payment Mode</option>
+        </select>
+      </div>
     </div>
     <div class="row">
       <div class="col-md-3">
@@ -27,19 +33,19 @@
       <div class="col-md-3">
         <div>
           <select class="select-dropdown my-1 " id="inlineFormCustomSelectPref">
-            <option selected>Choose...</option>
+            <option selected>Select Occupation Class</option>
             <option value="1">Occ Class</option>
           </select>
         </div>
-        <select class="select-dropdown my-1 " id="inlineFormCustomSelectPref">
-          <option selected>Choose...</option>
-          <option value="1">Group Payment Mode</option>
-        </select>
+       
       </div>
       <div class="col-md-3">
         <select class="select-dropdown my-1 " id="inlineFormCustomSelectPref">
-          <option selected>New hire</option>
+          <option selected>Select New hire</option>
           <option value="1">30</option>
+          <option value="2">60</option>
+          <option value="3">90</option>
+          <option value="4">free</option>
         </select>
       </div>
     </div>
@@ -53,7 +59,7 @@
       </div>
       <div class="col-md-3">
         <select class="select-dropdown my-1 ">
-          <option selected>Choose...</option>
+          <option selected> Situs State</option>
           <option value="1">Group Level Situs State</option>
 
         </select>
@@ -71,7 +77,7 @@
 
     <div class="row" style="margin-top: 20px;">
       <div class="col-md-3">
-        <!-- <button (click)="addGroups()"  class="btn btn-primary mb-4">Add Group</button> -->
+     
         <mat-form-field>
           <mat-label>Search for Products</mat-label>
           <mat-select (selectionChange)="selected($event.value)">
@@ -96,7 +102,7 @@
     <section>
       <div *ngFor="let product of addedProducts; let i = index">
         <div style="float:left">
-          <mat-icon (click)="deleteProduct(product)" style="color:#000;cursor:pointer;">close</mat-icon>
+          <mat-icon (click)="deleteProduct(product)" class="mt-2 mr-2" style="color:rgb(255, 94, 0);cursor:pointer;">close</mat-icon>
         </div>
         <app-accident *ngIf="product === 'Accident'"></app-accident>
         <app-fppg *ngIf="product === 'FPPG'"></app-fppg>
@@ -105,10 +111,10 @@
         <app-vol-group-life *ngIf="product === 'Vol Group Life'"></app-vol-group-life>
         <app-voluntary-ci *ngIf="product === 'Voluntary CI'"></app-voluntary-ci>
         <app-employer-paid-ci *ngIf="product === 'Employer Paid CI'"></app-employer-paid-ci>
-        <app-agent-setup></app-agent-setup>
+        <!-- <app-agent-setup></app-agent-setup> -->
       </div>
     </section>
-    <button type="button" class="btn btn-success">Submit Group
+    <button type="button" class="btn btn-success mt-4 mb-4" style="float: right;">Submit Group
       Setup Information</button>
   </form>
 </div>

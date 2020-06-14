@@ -35,6 +35,8 @@ import { BasicGroupLifeComponent } from './basic-group-life/basic-group-life.com
 import {MatRadioModule} from '@angular/material/radio';
 import {MatGridListModule} from '@angular/material'
 import { AgentSetupComponent } from './agent-setup/agent-setup.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatExpansionModule} from '@angular/material/expansion';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,6 +60,8 @@ import { AgentSetupComponent } from './agent-setup/agent-setup.component';
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
+    MatExpansionModule,
+    MatSnackBarModule,
     MatGridListModule,
     MatRadioModule,
     MatCheckboxModule,

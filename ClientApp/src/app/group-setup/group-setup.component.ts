@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray,FormControl } from '@angular/forms';
 import {TooltipPosition} from '@angular/material/tooltip';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 interface state {
   value: string;
   viewValue: string;
@@ -16,9 +18,10 @@ interface place {
   styleUrls: ['./group-setup.component.css']
 })
 export class GroupSetupComponent implements OnInit {
-
-  addedProducts : any = [];
-  selectedProducts: any = [];
+  
+  addedProducts = [];
+  selectedProducts= [];
+  titleName:string = "";
 
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
   position = new FormControl(this.positionOptions[0]);
@@ -53,7 +56,7 @@ export class GroupSetupComponent implements OnInit {
   selectedPlace = this.places[0].value;
   selectedData = this.dataList[0].name;
 
-  constructor(private formBuilder: FormBuilder){
+  constructor(private formBuilder: FormBuilder,private snackBar: MatSnackBar){
   }
 
   ngOnInit(){
@@ -62,10 +65,17 @@ export class GroupSetupComponent implements OnInit {
     })
   }
 
+  
   addProducts() {
-   this.addedProducts = this.selectedProducts;
-  }
 
+   this.addedProducts = [...this.selectedProducts];
+    // this.titleName = this.addedProducts.toString();
+   this.snackBar.open(this.addedProducts +" "+ "Added Successfully", 'End now',{
+    duration: 1000,
+    verticalPosition: 'top'
+  });
+  console.log("this.addedProducts",this.addedProducts);
+  }
   deleteProduct(product){
     if (this.addedProducts.indexOf(product) > -1) {
       this.addedProducts.splice(this.addedProducts.indexOf(product), 1);
@@ -73,6 +83,8 @@ export class GroupSetupComponent implements OnInit {
   }
 
   selected(value) {
+    // this.selectedProducts = [];
+   
     this.selectedProducts.push(value);
     console.log('producta added' + this.selectedProducts);
     
