@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./accident.component.css']
 })
 export class AccidentComponent implements OnInit {
-
+  checked: any
   constructor() { }
 
   ngOnInit() {
