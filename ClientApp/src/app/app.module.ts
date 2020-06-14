@@ -22,9 +22,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatOptionModule, MatNativeDateModule } from '@angular/material/core';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {
-   MatButtonModule,
-} from '@angular/material';
+import {MatButtonModule} from '@angular/material';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AccidentComponent } from './accident/accident.component';
 import { FPPGComponent } from './fppg/fppg.component';
@@ -35,6 +33,8 @@ import { VoluntaryCIComponent } from './voluntary-ci/voluntary-ci.component';
 import { VolGroupLifeComponent } from './vol-group-life/vol-group-life.component';
 import { BasicGroupLifeComponent } from './basic-group-life/basic-group-life.component';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatGridListModule} from '@angular/material'
+import { AgentSetupComponent } from './agent-setup/agent-setup.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,11 +52,13 @@ import {MatRadioModule} from '@angular/material/radio';
     EmployerPaidCIComponent,
     VoluntaryCIComponent,
     VolGroupLifeComponent,
-    BasicGroupLifeComponent
+    BasicGroupLifeComponent,
+    AgentSetupComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
+    MatGridListModule,
     MatRadioModule,
     MatCheckboxModule,
     MatButtonModule,

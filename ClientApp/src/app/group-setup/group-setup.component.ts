@@ -17,6 +17,9 @@ interface place {
 })
 export class GroupSetupComponent implements OnInit {
 
+  addedProducts : any = [];
+  selectedProducts: any = [];
+
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
   position = new FormControl(this.positionOptions[0]);
   minDate=new Date();
@@ -59,20 +62,19 @@ export class GroupSetupComponent implements OnInit {
     })
   }
 
-  addGroups() {
-    const group = this.myForm.controls.groupSetup as FormArray;
-    
-    group.push(this.formBuilder.group({
-      input1: new FormControl('data'),
-      date: new Date(),
-      selectState: new FormControl(),
-      selectPlace:this.places[0].value,
-      dltButton:''
-    }));
+  addProducts() {
+   this.addedProducts = this.selectedProducts;
   }
 
-  deleteRow(index: number){
-    const dltgroup = this.myForm.controls.groupSetup as FormArray;
-    dltgroup.removeAt(index);
+  deleteProduct(product){
+    if (this.addedProducts.indexOf(product) > -1) {
+      this.addedProducts.splice(this.addedProducts.indexOf(product), 1);
+    }
+  }
+
+  selected(value) {
+    this.selectedProducts.push(value);
+    console.log('producta added' + this.selectedProducts);
+    
   }
 }

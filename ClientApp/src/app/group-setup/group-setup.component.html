@@ -1,106 +1,114 @@
-<h3 class="text-muted">Group Setup Screen</h3>
-
-
-   
-        <form class="form-inline">
-           
-            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Group Number Field (5 
-            Alpha numeric characters)">
-            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Group Name Field">
-            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Group Effective Date">
-           
-          </form>
-          <form class="form-inline">
-           
-            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Group Vendor Name">
-            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Group Vendor Email Address">
-          
-            <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-                <option selected>Choose...</option>
-                <option value="1">Group Payment Mode</option>
-               
-              </select>
-           
-          </form>
-
-          <form class="form-inline">
-           
-            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Account Manager Name">
-            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Account Manager Email 
-            Address">
-            <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-                <option selected>Choose...</option>
-                <option value="1">Group Level Situs State</option>
-               
-              </select>
-           
-          </form>
-
-
-
-
-
-
-<form [formGroup]="myForm">
-   
-    <!-- <button (click)="addGroups()"  class="btn btn-primary mb-4">Add Group</button> -->
-    <button mat-flat-button (click)="addGroups()" 
-    color="primary"><mat-icon>add</mat-icon> Add Products</button>
-      <hr>
-    <div formArrayName="groupSetup" class="mb-2"
-     *ngFor="let groupsItem of myForm.controls.groupSetup?.controls ; let i = index; trackBy: trackByFn"
-     >
-      <div [formGroupName]="i">
-          <div class="row">
-              <div class="col">
-                
-                <mat-form-field>
-                    <mat-select [(value)] = dataList[0].name >
-                      <mat-option *ngFor="let data of dataList" [value]= data.name>
-                        {{data.name}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                  
-              
-                    
-              </div>
-              <div class="col">
-                  <mat-form-field>
-                      <input [min]="minDate" matInput formControlName="date" [matDatepicker]="picker" placeholder="Choose a date">
-                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                      <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-              </div>
-              <div class="col">
-                  <mat-form-field>
-                      <mat-select [(value)] = selectedValue>
-                        <mat-option *ngFor="let state of states" [value]=state.value>
-                          {{state.viewValue}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                    
-              </div>
-              <div class="col">
-                  <mat-form-field>
-                      <mat-select [(value)] = selectedPlace>
-                        <mat-option *ngFor="let place of places" [value]=place.value>
-                          {{place.value}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-              </div>
-              <div class="col">
-                        <button mat-icon-button color="warn" class="mt-2" (click)="deleteRow(i)">
-                            <mat-icon>delete_outline</mat-icon>
-                          </button>
-              </div>
-          </div>
+<div class="container">
+  <form>
+    <!-- Group Section -->
+    <div class="row">
+      <div class="col-md-3">
+        <input type="text" class="form-control mb-2" style="width: 100%;" id="inlineFormInputName2"
+          placeholder="Group Number Field">
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="form-control mb-2 " style="width: 100%;" id="inlineFormInputName2"
+          placeholder="Group Name Field">
+      </div>
+      <div class="col-md-3">
+        <input type="date" class="form-control mb-2 " style="width: 100%;" id="inlineFormInputName2"
+          placeholder="Group Effective Date">
       </div>
     </div>
-    <hr>
-</form>
+    <div class="row">
+      <div class="col-md-3">
+        <input type="text" class="form-control mb-2 " id="inlineFormInputName2" placeholder="Group Vendor Name">
+      </div>
 
-<button type="button" class="btn btn-success">Submit Group 
-    Setup Information</button>
+      <div class="col-md-3">
+        <input type="text" class="form-control mb-2 " id="inlineFormInputName2"
+          placeholder="Group Vendor Email Address">
+      </div>
+      <div class="col-md-3">
+        <div>
+          <select class="select-dropdown my-1 " id="inlineFormCustomSelectPref">
+            <option selected>Choose...</option>
+            <option value="1">Occ Class</option>
+          </select>
+        </div>
+        <select class="select-dropdown my-1 " id="inlineFormCustomSelectPref">
+          <option selected>Choose...</option>
+          <option value="1">Group Payment Mode</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <select class="select-dropdown my-1 " id="inlineFormCustomSelectPref">
+          <option selected>New hire</option>
+          <option value="1">30</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <input type="text" class="form-control mb-2 " placeholder="Account Manager Name">
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="form-control mb-2 " placeholder="Account Manager Email">
+      </div>
+      <div class="col-md-3">
+        <select class="select-dropdown my-1 ">
+          <option selected>Choose...</option>
+          <option value="1">Group Level Situs State</option>
+
+        </select>
+      </div>
+      <div class="col-md-3">
+        <select class="select-dropdown my-1 ">
+          <option selected>Perpetual or Annual enrollment</option>
+          <option value="1">Perpetual or Annual enrollment</option>
+
+        </select>
+      </div>
+    </div>
+
+    <!-- Product section -->
+
+    <div class="row" style="margin-top: 20px;">
+      <div class="col-md-3">
+        <!-- <button (click)="addGroups()"  class="btn btn-primary mb-4">Add Group</button> -->
+        <mat-form-field>
+          <mat-label>Search for Products</mat-label>
+          <mat-select (selectionChange)="selected($event.value)">
+            <mat-option value="Accident">Accident</mat-option>
+            <mat-option value="FPPG">FPPG</mat-option>
+            <mat-option value="FPP Individual">FPP Individual</mat-option>
+            <mat-option value="Hospital Indemnity">Hospital Indemnity</mat-option>
+            <mat-option value="Vol Group Life">Vol Group Life</mat-option>
+            <mat-option value="Voluntary CI">Voluntary CI</mat-option>
+            <mat-option value="Employer Paid CI">Employer Paid CI</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <button mat-flat-button (click)="addProducts()" style="margin-left: 20px;color:#fff;background-color: #428bca!important;
+        border-color: #428bca;">
+          <mat-icon>add</mat-icon> Add Products
+        </button>
+      </div>
+    </div>
+    <!-- Selected Products Listing Section -->
+    <section>
+      <div *ngFor="let product of addedProducts; let i = index">
+        <div style="float:left">
+          <mat-icon (click)="deleteProduct(product)" style="color:#000;cursor:pointer;">close</mat-icon>
+        </div>
+        <app-accident *ngIf="product === 'Accident'"></app-accident>
+        <app-fppg *ngIf="product === 'FPPG'"></app-fppg>
+        <app-fpp-individual *ngIf="product === 'FPP Individual'"></app-fpp-individual>
+        <app-hospital-indemnity *ngIf="product === 'Hospital Indemnity'"></app-hospital-indemnity>
+        <app-vol-group-life *ngIf="product === 'Vol Group Life'"></app-vol-group-life>
+        <app-voluntary-ci *ngIf="product === 'Voluntary CI'"></app-voluntary-ci>
+        <app-employer-paid-ci *ngIf="product === 'Employer Paid CI'"></app-employer-paid-ci>
+        <app-agent-setup></app-agent-setup>
+      </div>
+    </section>
+    <button type="button" class="btn btn-success">Submit Group
+      Setup Information</button>
+  </form>
+</div>
