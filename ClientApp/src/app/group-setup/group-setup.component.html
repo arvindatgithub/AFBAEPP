@@ -100,7 +100,7 @@
     </div>
     <!-- Selected Products Listing Section -->
     <section>
-      <div *ngFor="let product of addedProducts; let i = index">
+      <div style="margin-bottom: 10px;" *ngFor="let product of addedProducts; let i = index">
         <div style="float:left">
           <mat-icon (click)="deleteProduct(product)" class="mt-2 mr-2" style="color:rgb(255, 94, 0);cursor:pointer;">close</mat-icon>
         </div>
