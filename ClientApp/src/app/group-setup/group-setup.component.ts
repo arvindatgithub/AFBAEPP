@@ -23,6 +23,7 @@ export class GroupSetupComponent implements OnInit {
   public selectedProducts: any = [];
   titleName:string = "";
   selectedOption = [];
+  accident = "";
 
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
   position = new FormControl(this.positionOptions[0]);
@@ -56,6 +57,13 @@ export class GroupSetupComponent implements OnInit {
   selectedValue = this.states[0].value;
   selectedPlace = this.places[0].value;
   selectedData = this.dataList[0].name;
+  fppg: any;
+  hospitalIndemity: any;
+  fppIndivisual: any;
+  employerPaidCi: any;
+  voluntaryCi: any;
+  volGroup: any;
+  basicGroup: any;
 
   constructor(private formBuilder: FormBuilder,private snackBar: MatSnackBar){
   }
@@ -101,4 +109,32 @@ export class GroupSetupComponent implements OnInit {
     // console.log('products added ' , this.selectedProducts);
     
   }
+
+  addAccident(value:any){
+    this.accident = value;
+  }
+
+  addfppg(value:any){
+    this.fppg = value;
+  }
+  addhospitalIndemity(value:any){
+    this.hospitalIndemity = value;
+  }
+  addfppIndivisual(value:any){
+    this.fppIndivisual = value;
+  }
+  addemployerPaidCi(value:any){
+    this.employerPaidCi = value;
+  }
+  addvoluntaryCi(value:any){
+    this.voluntaryCi = value;
+  }
+  addvolGroup(value:any){
+    this.volGroup = value;
+  }
+  addbasicGroup(value:any){
+    this.basicGroup = value;
+  }
+ 
+
 }

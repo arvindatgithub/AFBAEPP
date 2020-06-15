@@ -33,12 +33,12 @@ h1, h2, h3 {
 }
 
 .red-snackbar{
-  background: red;
-  color: black;
+  background: #FF9800;
+  color: white;
   font-weight: 500;
 }
 .blue-snackbar{
-  background: blue;
+  background: #428BCA;
   color: white;
   font-weight: 500;
 }
