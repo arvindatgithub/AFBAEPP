@@ -32,7 +32,7 @@ namespace AFBA.EPP
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.WithOrigins("https://localhost:44394/");
+                        builder.WithOrigins("https://localhost:44394");
                     });
             });
 
