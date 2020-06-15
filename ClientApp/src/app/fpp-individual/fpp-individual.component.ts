@@ -11,5 +11,9 @@ export class FPPIndividualComponent implements OnInit {
 
   ngOnInit() {
   }
+  checked = false;
+  indeterminate = false;
+  labelPosition: 'before' | 'after' = 'after';
+  disabled = false;
 
 }
