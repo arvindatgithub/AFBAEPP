@@ -18,7 +18,7 @@ interface place {
   styleUrls: ['./group-setup.component.css']
 })
 export class GroupSetupComponent implements OnInit {
-  
+  public product : any; 
   public addedProducts = [];
   public selectedProducts: any = [];
   titleName:string = "";
