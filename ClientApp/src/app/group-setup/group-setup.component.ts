@@ -19,9 +19,10 @@ interface place {
 })
 export class GroupSetupComponent implements OnInit {
   
-  addedProducts = [];
-  selectedProducts= [];
+  public addedProducts = [];
+  public selectedProducts: any = [];
   titleName:string = "";
+  selectedOption = [];
 
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
   position = new FormControl(this.positionOptions[0]);
@@ -67,14 +68,25 @@ export class GroupSetupComponent implements OnInit {
 
   
   addProducts() {
-
-   this.addedProducts = [...this.selectedProducts];
+     this.selectedOption.findIndex((ele,i)=> {
+      if(this.addedProducts.indexOf(ele) == i){
+        this.snackBar.open(this.addedProducts +" "+ "Already Added", 'Close',{
+          duration: 3000,
+          verticalPosition: 'top',
+          panelClass: ['red-snackbar']
+        });
+      }
+      else{
+        this.addedProducts = [...this.selectedOption];
+        this.snackBar.open(this.addedProducts +" "+ "Added Successfully", 'Close',{
+          duration: 3000,
+          verticalPosition: 'top',
+          panelClass:['blue-snackbar']
+        });
+      }
+    });
     // this.titleName = this.addedProducts.toString();
-   this.snackBar.open(this.addedProducts +" "+ "Added Successfully", 'End now',{
-    duration: 1000,
-    verticalPosition: 'top'
-  });
-  console.log("this.addedProducts",this.addedProducts);
+    
   }
   deleteProduct(product){
     if (this.addedProducts.indexOf(product) > -1) {
@@ -82,11 +94,11 @@ export class GroupSetupComponent implements OnInit {
     }
   }
 
-  selected(value) {
-    // this.selectedProducts = [];
-   
-    this.selectedProducts.push(value);
-    console.log('producta added' + this.selectedProducts);
+  selected(event:any) {
+    console.log(event)
+    this.selectedProducts.push(event.value);
+    this.selectedOption =  [...new Set(this.selectedProducts)]
+    // console.log('products added ' , this.selectedProducts);
     
   }
 }

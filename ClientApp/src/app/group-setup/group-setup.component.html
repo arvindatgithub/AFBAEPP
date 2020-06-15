@@ -80,7 +80,7 @@
      
         <mat-form-field>
           <mat-label>Search for Products</mat-label>
-          <mat-select (selectionChange)="selected($event.value)">
+          <mat-select (selectionChange)="selected($event)">
             <mat-option value="Accident">Accident</mat-option>
             <mat-option value="FPPG">FPPG</mat-option>
             <mat-option value="FPP Individual">FPP Individual</mat-option>
@@ -92,7 +92,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-3">
-        <button mat-flat-button (click)="addProducts()" style="margin-left: 20px;color:#fff;background-color: #428bca!important;
+        <button mat-flat-button (click)="addProducts(product)" style="margin-left: 20px;color:#fff;background-color: #428bca!important;
         border-color: #428bca;">
           <mat-icon>add</mat-icon> Add Products
         </button>

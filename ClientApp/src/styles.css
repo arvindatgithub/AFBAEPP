@@ -32,3 +32,13 @@ h1, h2, h3 {
   color: #999999 !important;
 }
 
+.red-snackbar{
+  background: red;
+  color: black;
+  font-weight: 500;
+}
+.blue-snackbar{
+  background: blue;
+  color: white;
+  font-weight: 500;
+}
