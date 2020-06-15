@@ -12,8 +12,11 @@ using Microsoft.Extensions.Hosting;
 
 namespace AFBA.EPP
 {
+   
     public class Startup
     {
+        
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -24,6 +27,16 @@ namespace AFBA.EPP
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("https://localhost:44394/");
+                    });
+            });
+
+
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -65,6 +78,7 @@ namespace AFBA.EPP
             }
 
             app.UseRouting();
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {
