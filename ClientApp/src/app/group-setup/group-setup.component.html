@@ -1,20 +1,24 @@
 <div class="container">
-  <form>
+  
     <!-- Group Section -->
     <div class="row">
       <div class="col-md-3">
+        <span class ="label label-default">Group Number</span>
         <input type="text" class="form-control mb-2" style="width: 100%;" id="inlineFormInputName2"
           placeholder="Group Number Field">
       </div>
       <div class="col-md-3">
+        <span class ="label label-default">Group Name</span>
         <input type="text" class="form-control mb-2 " style="width: 100%;" id="inlineFormInputName2"
           placeholder="Group Name Field">
       </div>
       <div class="col-md-3">
+        <span class ="label label-default">Date</span>
         <input type="date" class="form-control mb-2 " style="width: 100%;" id="inlineFormInputName2"
           placeholder="Group Effective Date">
       </div>
       <div class="col-md-3">
+        <span class ="label label-default">Group Payment Mode</span>
         <select class="select-dropdown my-1 " id="inlineFormCustomSelectPref">
           <option selected>Select Group Payment</option>
           <option value="1">Group Payment Mode</option>
@@ -23,15 +27,18 @@
     </div>
     <div class="row">
       <div class="col-md-3">
+        <span class ="label label-default">Group Vendor</span>
         <input type="text" class="form-control mb-2 " id="inlineFormInputName2" placeholder="Group Vendor Name">
       </div>
 
       <div class="col-md-3">
-        <input type="text" class="form-control mb-2 " id="inlineFormInputName2"
+        <span class ="label label-default">Group Vendor Email</span>
+        <input type="text" class="form-control mb-2" id="inlineFormInputName2"
           placeholder="Group Vendor Email Address">
       </div>
       <div class="col-md-3">
         <div>
+          <span class ="label label-default">Occupation Class</span>
           <select class="select-dropdown my-1 " id="inlineFormCustomSelectPref">
             <option selected>Select Occupation Class</option>
             <option value="1">Occ Class</option>
@@ -40,6 +47,7 @@
        
       </div>
       <div class="col-md-3">
+        <span class ="label label-default">New Hire</span>
         <select class="select-dropdown my-1 " id="inlineFormCustomSelectPref">
           <option selected>Select New hire</option>
           <option value="1">30</option>
@@ -52,12 +60,15 @@
 
     <div class="row">
       <div class="col-md-3">
+        <span class ="label label-default">Account Manager Name</span>
         <input type="text" class="form-control mb-2 " placeholder="Account Manager Name">
       </div>
       <div class="col-md-3">
+        <span class ="label label-default">Account Manager Email</span>
         <input type="text" class="form-control mb-2 " placeholder="Account Manager Email">
       </div>
       <div class="col-md-3">
+        <span class ="label label-default">Situs State</span>
         <select class="select-dropdown my-1 ">
           <option selected> Situs State</option>
           <option value="1">Group Level Situs State</option>
@@ -65,6 +76,7 @@
         </select>
       </div>
       <div class="col-md-3">
+        <span class ="label label-default">Perpetual</span>
         <select class="select-dropdown my-1 ">
           <option selected>Perpetual or Annual enrollment</option>
           <option value="1">Perpetual or Annual enrollment</option>
@@ -72,49 +84,155 @@
         </select>
       </div>
     </div>
-
+<div class="row mb-4">
+  <div class="col">
+    <button type="button" class="btn btn-primary"  (click)="addAccident('Accident')">
+      <i class="fa fa-plus" aria-hidden="true"></i> Accident</button> 
+  </div>
+  <div class="col">
+    <button class="btn btn-primary" (click)="addfppg('FPPG')"> <span class="glyphicon glyphicon-plus"></span>FPPG</button>
+  </div>
+  <div class="col">
+    <button class="btn btn-primary "(click)="addhospitalIndemity('HospitalIndemnity')">  <span class="glyphicon glyphicon-plus"></span>Hospital Indemnity</button>
+  </div>
+  <div class="col">
+    <button class="btn btn-primary" (click)="addfppIndivisual('FPPIndividual')"> FPP Individual</button>
+  </div>
+</div>
+<div class="row mb-4">
+  <div class="col">
+    <button class="btn btn-primary" (click)="addemployerPaidCi('EmployerPaidCI')"> Employer Paid CI</button>
+  </div>
+  <div class="col">
+    <button class="btn btn-primary" (click)="addvoluntaryCi('VoluntaryCI')"> Voluntary CI
+    </button>
+  </div>
+  <div class="col">
+    <button class="btn btn-primary" (click)="addvolGroup('VolGroupLife')">Vol Group Life</button>
+  </div>
+  <div class="col">
+    <button class="btn btn-primary" (click)="addbasicGroup('BasicGroupLife')">Basic Group Life</button>
+  </div>
+</div>
     <!-- Product section -->
-
-    <div class="row" style="margin-top: 20px;">
-      <div class="col-md-3">
-     
-        <mat-form-field>
-          <mat-label>Search for Products</mat-label>
-          <mat-select (selectionChange)="selected($event)">
-            <mat-option value="Accident">Accident</mat-option>
-            <mat-option value="FPPG">FPPG</mat-option>
-            <mat-option value="FPP Individual">FPP Individual</mat-option>
-            <mat-option value="Hospital Indemnity">Hospital Indemnity</mat-option>
-            <mat-option value="Vol Group Life">Vol Group Life</mat-option>
-            <mat-option value="Voluntary CI">Voluntary CI</mat-option>
-            <mat-option value="Employer Paid CI">Employer Paid CI</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-md-3">
-        <button mat-flat-button (click)="addProducts()" style="margin-left: 20px;color:#fff;background-color: #428bca!important;
-        border-color: #428bca;">
-          <mat-icon>add</mat-icon> Add Products
-        </button>
-      </div>
-    </div>
-    <!-- Selected Products Listing Section -->
-    <section>
-      <div style="margin-bottom: 10px;" *ngFor="let product of addedProducts; let i = index">
-        <div style="float:left">
-          <mat-icon (click)="deleteProduct(product)" class="mt-2 mr-2" style="color:rgb(255, 94, 0);cursor:pointer;">close</mat-icon>
+    <div id="accordion">
+      <div class="card" *ngIf="accident == 'Accident'">
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0">
+            <button class="btn btn-primary collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Accident
+            
+            </button>
+          </h5>
         </div>
-        <app-accident *ngIf="product === 'Accident'"></app-accident>
-        <app-fppg *ngIf="product === 'FPPG'"></app-fppg>
-        <app-fpp-individual *ngIf="product === 'FPP Individual'"></app-fpp-individual>
-        <app-hospital-indemnity *ngIf="product === 'Hospital Indemnity'"></app-hospital-indemnity>
-        <app-vol-group-life *ngIf="product === 'Vol Group Life'"></app-vol-group-life>
-        <app-voluntary-ci *ngIf="product === 'Voluntary CI'"></app-voluntary-ci>
-        <app-employer-paid-ci *ngIf="product === 'Employer Paid CI'"></app-employer-paid-ci>
-        <!-- <app-agent-setup></app-agent-setup> -->
+    
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+          <div class="card-body">
+            <app-accident></app-accident>
+          </div>
+        </div>
       </div>
-    </section>
+      <div class="card" *ngIf="fppg == 'FPPG'">
+        <div class="card-header" id="headingTwo">
+          <h5 class="mb-0">
+            <button class="btn btn-primary collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              FPPG
+            </button>
+          </h5>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+          <div class="card-body">
+            <app-fppg></app-fppg>
+          </div>
+        </div>
+      </div>
+      <div class="card"  *ngIf="hospitalIndemity == 'HospitalIndemnity'">
+        <div class="card-header" id="headingThree">
+          <h5 class="mb-0">
+            <button class="btn btn-primary collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseFour">
+              Hospital Indemnity
+            </button>
+          </h5>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+          <div class="card-body">
+            <app-hospital-indemnity></app-hospital-indemnity>
+          </div>
+        </div>
+      </div>
+      <div class="card"  *ngIf="fppIndivisual == 'FPPIndividual'">
+        <div class="card-header" id="headingFour">
+          <h5 class="mb-0">
+            <button class="btn btn-primary collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+              FPP Individual 
+            </button>
+          </h5>
+        </div>
+        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+          <div class="card-body">
+            <app-fpp-individual ></app-fpp-individual>
+          </div>
+        </div>
+      </div>
+      <div class="card"  *ngIf="employerPaidCi == 'EmployerPaidCI'">
+        <div class="card-header" id="headingFive">
+          <h5 class="mb-0">
+            <button class="btn btn-primary collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+              Employer Paid CI
+            </button>
+          </h5>
+        </div>
+        <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+          <div class="card-body">
+            <app-employer-paid-ci></app-employer-paid-ci>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="card"  *ngIf="hospitalIndemity == 'HospitalIndemnity'">
+        <div class="card-header" id="headingThree">
+          <h5 class="mb-0">
+            <button class="btn btn-primary collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              Hospital Indemnity
+            </button>
+          </h5>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+          <div class="card-body">
+            <app-hospital-indemnity></app-hospital-indemnity>
+          </div>
+        </div>
+      </div>
+      <div class="card"  *ngIf="hospitalIndemity == 'HospitalIndemnity'">
+        <div class="card-header" id="headingThree">
+          <h5 class="mb-0">
+            <button class="btn btn-primary collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              Hospital Indemnity
+            </button>
+          </h5>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+          <div class="card-body">
+            <app-hospital-indemnity></app-hospital-indemnity>
+          </div>
+        </div>
+      </div>
+      <div class="card"  *ngIf="hospitalIndemity == 'HospitalIndemnity'">
+        <div class="card-header" id="headingThree">
+          <h5 class="mb-0">
+            <button class="btn btn-primary collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              Hospital Indemnity
+            </button>
+          </h5>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+          <div class="card-body">
+            <app-hospital-indemnity></app-hospital-indemnity>
+          </div>
+        </div>
+      </div> -->
+    </div>
+ 
     <button type="button" class="btn btn-success mt-4 mb-4" style="float: right;">Submit Group
       Setup Information</button>
-  </form>
+  
 </div>

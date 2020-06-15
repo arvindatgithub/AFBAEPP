@@ -1,7 +1,7 @@
 .footer {
     border-top: 1px solid #CCC;
     position: relative;
-    /* height: 100px; */
+    
     margin-top: -100px;
     clear: both;
     width: 100%;
@@ -9,4 +9,14 @@
 }
 /* .mt-4, .my-4 {
     margin-top: 7.5rem!important;
+} */
+
+/* .footer {
+    border-top: 1px solid #CCC;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    text-align: center;
 } */
