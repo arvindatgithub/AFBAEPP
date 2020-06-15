@@ -1,47 +1,34 @@
-<div>
-    <div>
-        <button mat-button style="color:#fff;background-color: #428bca!important;
-        border-color: #428bca;margin-bottom: 20px;" (click)="GroupSetup()">Add Group</button>
+<div class="container">
+<form class="group-search-section">
+    <h3>Group Search Screen</h3>
+    <div class="row" style="margin-top: 5%;margin-bottom: 5%;">
+        <div class="col-md-4 form-group">
+            <label for="group1">Select by Group Name/Number</label>
+            <select class="select-dropdown form-control" id="group1">
+                <option value="By Group Name">By Group Name</option>
+                <option value="By Group Number">By Group Number</option>
+            </select>
+        </div>
+        <div class="col-md-4 form-group has-feedback">
+            <label>Search by Group Name/Number</label>
+            <div class="ng-autocomplete">
+                <ng-autocomplete
+                  [data]="groups"
+                  [searchKeyword]="keyword"
+                  placeHolder="Group Name/Number"
+                  (selected)='selectEvent($event)'
+                  (inputChanged)='onChangeSearch($event)'
+                  (inputFocused)='onFocused($event)'
+                  [itemTemplate]="itemTemplate">
+                </ng-autocomplete>
+              
+                <ng-template #itemTemplate let-item>
+                  <a [innerHTML]="item.name"></a>
+                  <a [innerHTML]="item.id"></a>
+                </ng-template>
+            </div> 
+        </div>
     </div>
-    <mat-form-field>
-        <mat-label>Search by Group Name / Number</mat-label>
-        <input matInput (keyup)="applyFilter($event)">
-        <mat-icon>search</mat-icon>
-    </mat-form-field>
-
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
-
-        <!-- Position Column -->
-        <ng-container matColumnDef="position">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-muted"> Group Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-        </ng-container>
-
-        <!-- Name Column -->
-        <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-muted"> Group Number </th>
-            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="edit">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
-            <td mat-cell *matCellDef="let element">
-                <button mat-button style="color:#fff;background-color: #428bca!important;
-                border-color: #428bca;" (click)="GroupSetup()">{{element.edit}} </button>
-            </td>
-        </ng-container>
-
-        <ng-container matColumnDef="clone">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
-            <td mat-cell *matCellDef="let element"> 
-                <button mat-button style="color:#fff;background-color: #428bca!important;
-                border-color: #428bca;" (click)="GroupSetup()">{{element.clone}} </button>
-            </td>
-        </ng-container>
-
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-
+    <button type="button" class="btn btn-success mt-4 mb-4" (click)="GroupSearch()">Search For Existing Group</button>
+</form>
 </div>
