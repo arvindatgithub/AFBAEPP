@@ -37,6 +37,8 @@ import {MatGridListModule} from '@angular/material'
 import { AgentSetupComponent } from './agent-setup/agent-setup.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,6 +81,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatInputModule,
     BrowserAnimationsModule,
     MatIconModule,
+    AutocompleteLibModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'group-search', component: GroupSearchComponent },
