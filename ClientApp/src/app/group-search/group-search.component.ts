@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-group-search',
@@ -10,19 +10,46 @@ import { Router } from '@angular/router';
 
 
 export class GroupSearchComponent implements OnInit {
+  groupSearchSection: boolean = true;
   groupSetUpNavigate: boolean;
+  groupSearchResults: boolean = false;
+  groupFound: boolean = true;
+  disabledFlag: boolean = true;
+  selectedGrps: any;
+
+  selectGrp: string;
+  searchBoxVal: string;
   constructor(private router: Router) { }
 
+ 
   ngOnInit() {
   }
 
-  GroupSearch() {
-      this.router.navigate(['/group-setup']);
-    
+  onSearchChange(searchValue: string): void {
+    if(searchValue !== '' && searchValue !== null && searchValue !== undefined){
+      this.disabledFlag = false;
+    } else {
+      this.disabledFlag = true;
+    }
+    console.log(searchValue);
+    console.log(this.searchBoxVal);
   }
 
+  GroupSearch() {
+   
+    this.groupSearchSection = false; 
+    this.groupSearchResults = true;
+  }
+
+  goToSetup() {
+    this.router.navigate(['/group-setup']);
+  }
+
+  goToSearch(){
+    this.groupSearchSection = true;
+    this.groupSearchResults = false;
+  }
   
-  keyword = 'name';
   public groups = [
     {
       id: 10001,
@@ -46,20 +73,5 @@ export class GroupSearchComponent implements OnInit {
     },
   ];
 
-    selectEvent(item) {
-       console.log('selected item'+ JSON.stringify(item));
-    // do something with selected item
-  }
-
-  onChangeSearch(search: string) {
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
-    console.log('search item'+ search);
-  }
-
-  onFocused(e) {
-    // do something
-    console.log('focused val'+ e);
-  }
-
+ 
 }

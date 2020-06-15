@@ -11,6 +11,6 @@ export class HomeComponent {
   constructor(private router: Router){}
 
   Groupsetup() {
-    this.router.navigate(['/group-setup']);
+    this.router.navigate(['/group-search']);
   }
 }

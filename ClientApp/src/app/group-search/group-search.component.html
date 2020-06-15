@@ -1,34 +1,35 @@
 <div class="container">
-<form class="group-search-section">
+<form class="group-search-section" *ngIf="groupSearchSection">
     <h3>Group Search Screen</h3>
-    <div class="row" style="margin-top: 5%;margin-bottom: 5%;">
+    <div class="row" style="margin-top: 5%;">
         <div class="col-md-4 form-group">
-            <label for="group1">Select by Group Name/Number</label>
-            <select class="select-dropdown form-control" id="group1">
-                <option value="By Group Name">By Group Name</option>
+            <label for="selectGrp">Select by Group Name/Number</label>
+            <select class="select-dropdown form-control" id="selectGrp"
+            name="selectGrp" [(ngModel)]="selectGrp">
+                <option value="By Group Name" selected>By Group Name</option>
                 <option value="By Group Number">By Group Number</option>
             </select>
         </div>
-        <div class="col-md-4 form-group has-feedback">
+        <div class="col-md-4 form-group">
             <label>Search by Group Name/Number</label>
-            <div class="ng-autocomplete">
-                <ng-autocomplete
-                  [data]="groups"
-                  [searchKeyword]="keyword"
-                  placeHolder="Group Name/Number"
-                  (selected)='selectEvent($event)'
-                  (inputChanged)='onChangeSearch($event)'
-                  (inputFocused)='onFocused($event)'
-                  [itemTemplate]="itemTemplate">
-                </ng-autocomplete>
-              
-                <ng-template #itemTemplate let-item>
-                  <a [innerHTML]="item.name"></a>
-                  <a [innerHTML]="item.id"></a>
-                </ng-template>
-            </div> 
+            <input type="text" class="form-control" id="searchBoxVal" name="searchBoxVal" 
+            [(ngModel)]="searchBoxVal" (input)="onSearchChange($event.target.value)"
+            placeholder="Search">
         </div>
     </div>
-    <button type="button" class="btn btn-success mt-4 mb-4" (click)="GroupSearch()">Search For Existing Group</button>
+    <button type="button" class="btn btn-success mt-4 mb-4" [disabled]="disabledFlag" (click)="GroupSearch()">Search For Existing Group</button>
 </form>
+<div class="group-search-results" *ngIf="!groupSearchSection">
+    <h3>Group Search Results</h3>
+    <div *ngIf="groupFound" style="margin-top: 5%;">
+        <p>Existing Group Located</p>
+        <p *ngIf="selectGrp == 'By Group Name'">Group Name: {{searchBoxVal}}</p>
+        <p *ngIf="selectGrp == 'By Group Number'">Group Number: {{searchBoxVal}}</p>
+        <button type="button" class="btn btn-success mt-4 mb-4" (click)="goToSetup()">Go To Group Setup Screen</button>
+    </div>
+    <div *ngIf="!groupFound" style="margin-top: 5%;">
+        <p>Existing Group not Located</p>
+        <button type="button" class="btn btn-success mt-4 mb-4" (click)="goToSearch()">Back To Group Screen</button>
+    </div>
+</div>
 </div>
