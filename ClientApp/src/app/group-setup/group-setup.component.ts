@@ -126,15 +126,15 @@ export class GroupSetupComponent implements OnInit {
   addemployerPaidCi(value:any){
     this.employerPaidCi = value;
   }
-  addvoluntaryCi(value:any){
-    this.voluntaryCi = value;
-  }
-  addvolGroup(value:any){
-    this.volGroup = value;
-  }
-  addbasicGroup(value:any){
-    this.basicGroup = value;
-  }
+  // addvoluntaryCi(value:any){
+  //   this.voluntaryCi = value;
+  // }
+  // addvolGroup(value:any){
+  //   this.volGroup = value;
+  // }
+  // addbasicGroup(value:any){
+  //   this.basicGroup = value;
+  // }
  
 
 }

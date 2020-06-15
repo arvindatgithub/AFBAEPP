@@ -61,7 +61,7 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    HttpClientModule,
+    HttpClientModule, 
     MatExpansionModule,
     MatSnackBarModule,
     MatGridListModule,
