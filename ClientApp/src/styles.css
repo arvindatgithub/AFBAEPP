@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
@@ -42,3 +43,4 @@ h1, h2, h3 {
   color: white;
   font-weight: 500;
 }
+

@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormArray,FormControl } from '@angular/forms';
 import {TooltipPosition} from '@angular/material/tooltip';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { LookupService } from '../services/lookup.service';
 interface state {
   value: string;
   viewValue: string;
@@ -64,14 +65,23 @@ export class GroupSetupComponent implements OnInit {
   voluntaryCi: any;
   volGroup: any;
   basicGroup: any;
+  lookUpData: any = [];
 
-  constructor(private formBuilder: FormBuilder,private snackBar: MatSnackBar){
+  constructor(private formBuilder: FormBuilder,private snackBar: MatSnackBar, private lookupService: LookupService){
   }
 
   ngOnInit(){
     this.myForm = this.formBuilder.group({
       groupSetup: this.formBuilder.array([])
-    })
+    });
+
+  this.lookupService.getLookupsData()
+   .subscribe((data:any)=>{
+     console.log("data",data);
+     this.lookUpData = Object.values(data.paymentMode);
+    console.log("this.lookUpData",this.lookUpData);
+   });
+
   }
 
   
@@ -135,6 +145,6 @@ export class GroupSetupComponent implements OnInit {
   // addbasicGroup(value:any){
   //   this.basicGroup = value;
   // }
- 
+   
 
 }

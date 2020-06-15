@@ -38,7 +38,7 @@ import { AgentSetupComponent } from './agent-setup/agent-setup.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,6 +82,7 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     BrowserAnimationsModule,
     MatIconModule,
     AutocompleteLibModule,
+    FontAwesomeModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'group-search', component: GroupSearchComponent },

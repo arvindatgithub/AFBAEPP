@@ -31,4 +31,8 @@ export class LookupService {
       )); 
   }
 
+  getLookupsData(){
+    const LookupDataUrl = environment.apiurl + 'lookup/LookupsData';
+    return this.http.get(LookupDataUrl);
+  }
 }
