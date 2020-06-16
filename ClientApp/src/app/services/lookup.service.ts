@@ -30,9 +30,28 @@ export class LookupService {
       }
       )); 
   }
+  //LookupDictionaryViewModel LookupsData
 
-  getLookupsData(){
+  getLookupsData() {
     const LookupDataUrl = environment.apiurl + 'lookup/LookupsData';
     return this.http.get(LookupDataUrl);
+  }
+
+  getLookupsData_1(): Observable<any[]> {
+    const apiUrl = environment.apiurl + 'lookup/LookupsData';
+    return this.http.get<EppAcion[]>(apiUrl)
+      .pipe(
+        map(res => {
+          if (res instanceof Array) {
+            return res.map(x => {
+              const eppActions: any = {
+                
+              };
+              return eppActions;
+            });
+          }
+        }
+        )); 
+
   }
 }
