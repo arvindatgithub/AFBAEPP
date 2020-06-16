@@ -81,9 +81,7 @@ padding-bottom: 60px;
   }
 
    
-  /* .card-header.collapsed:hover {
-      background-color: thistle;
-  } */
+ 
 
   .accordion .card-header{
       background-color: #cff6cf;
@@ -91,4 +89,5 @@ padding-bottom: 60px;
   .accordion .card-header.collapsed{
     background-color: #cfe5cf
 }
+
 
