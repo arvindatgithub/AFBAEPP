@@ -10,15 +10,15 @@ import { EppAcion } from './services/model/epp-acion';
 export class AppComponent {
   title = 'app';
 
-  public datasource: EppAcion[];
-  private subscriptionResults = new Subscription();
+  //public datasource: EppAcion[];
+  //private subscriptionResults = new Subscription();
 
-  constructor(private lookupService: LookupService) {
-    this.lookupService.getLookupsData().subscribe((data) => {
-     this.datasource = data;
-     console.log(data);
-        });
+  //constructor(private lookupService: LookupService) {
+  //  this.lookupService.getLookupsData().subscribe((data) => {
+  //   this.datasource = data;
+  //   console.log(data);
+  //      });
 
 
-  }
+  //}
 }
