@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { EppAcion } from '../services/model/epp-acion';
 
 @Component({
   selector: 'app-footer',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
+  @Input() public data:EppAcion;
 
   constructor() { }
 
