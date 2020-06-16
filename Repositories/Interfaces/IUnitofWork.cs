@@ -7,7 +7,12 @@ namespace AFBA.EPP.Repositories.Interfaces
 {
     public interface IUnitofWork: IDisposable
     {
-       public IEppActionRepository EppActions { get; }
-      Task< int> Complete();
+     
+       public IEppActionRepository EppActionsRepository { get; }
+        public IEppProductRepository EppProductRepository { get; }
+        public IGeppGrppymntmdRepository GeppGrppymntmdRepository { get; }
+        public IEppGroupMasterRepository GroupMasterRepository { get; }
+
+        Task< int> Complete();
     }
 }

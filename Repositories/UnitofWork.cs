@@ -15,8 +15,13 @@ namespace AFBA.EPP.Repositories
         {
             _dbContext = dbContext;
         }
+        public IEppActionRepository EppActionsRepository => new EppActionRepository(_dbContext);
 
-        public IEppActionRepository EppActions => new EppActionRepository(_dbContext);
+        public IEppProductRepository EppProductRepository => new EppProductRepository(_dbContext);
+
+        public IGeppGrppymntmdRepository GeppGrppymntmdRepository => new GeppGrppymntmdRepository(_dbContext);
+
+        public IEppGroupMasterRepository GroupMasterRepository => new EppGroupMasterRepository(_dbContext);
 
         public async Task<int> Complete()
         {
