@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-basic-group-life',
@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BasicGroupLifeComponent implements OnInit {
 
+  @Input() lookupSitusState: any;
+  public minDate = new Date().toISOString().slice(0,10);
   constructor() { }
 
   ngOnInit() {

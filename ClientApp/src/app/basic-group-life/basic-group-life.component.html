@@ -1,1 +1,33 @@
-<p>basic-group-life works!</p>
+<div class="container">
+    <div class="row">
+      <div class="col-3">
+        <span class="label label-default">Basic Life Effective Date</span>
+        <input type="date" [min] = "minDate" class="form-control mb-2 " style="width: 100%;" placeholder="Basic Life Effective Date">
+      </div>
+      <div class="col-3">
+        <span class="label">Basic Group Situs State</span>
+        <select class="form-control" [disabled] = "!lookupSitusState" id="inlineFormCustomSelectPref">
+          <option selected>{{ lookupSitusState }}</option>
+        </select>
+        <div *ngIf="lookupSitusState == ''">
+          <span style="color: red;">  <small><strong>Select Situs State!</strong></small></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-3">
+            <span class="label">AD&D Rider </span>
+            <select class="form-control">
+                <option selected value="Y">Y</option>
+                <option value="N">N</option>
+              </select>
+        </div>
+        <div class="col-3">
+            <span class ="label label-default">Employee Face Amount</span>
+            <input type="number" class="form-control mb-2 " style="width: 100%;" 
+            placeholder="Employee Face Amount">
+        </div>                   
+      </div>
+  </div>
+  <app-agent-setup></app-agent-setup>

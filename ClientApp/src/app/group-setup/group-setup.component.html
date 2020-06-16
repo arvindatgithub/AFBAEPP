@@ -186,6 +186,33 @@
               <div class="card-body"><app-employer-paid-ci [lookupSitusState] = "lookupSitusStateValue"></app-employer-paid-ci>
               </div>
           </div>
+          <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
+            <a class="card-title">
+              Voluntary CI
+            </a>
+        </div>
+        <div id="collapseSix" class="collapse" data-parent="#accordion" >
+            <div class="card-body"><app-voluntary-ci [lookupSitusState] = "lookupSitusStateValue"></app-voluntary-ci>
+            </div>
+        </div>
+        <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
+          <a class="card-title">
+            Vol Group Life
+          </a>
+      </div>
+      <div id="collapseSeven" class="collapse" data-parent="#accordion" >
+          <div class="card-body"><app-vol-group-life [lookupSitusState] = "lookupSitusStateValue"></app-vol-group-life>
+          </div>
+      </div>
+      <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEight">
+        <a class="card-title">
+          Basic Group Life
+        </a>
+    </div>
+    <div id="collapseEight" class="collapse" data-parent="#accordion" >
+        <div class="card-body"><app-basic-group-life [lookupSitusState] = "lookupSitusStateValue"></app-basic-group-life>
+        </div>
+    </div>
           
   </div>
     <button type="button" class="btn btn-success mt-4 mb-4" style="float: right;">Submit Group
