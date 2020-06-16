@@ -10,7 +10,7 @@ import { EppAcion } from './services/model/epp-acion';
 export class AppComponent {
   title = 'app';
 
-  //public datasource: EppAcion[];
+  public datasource: any;
   //private subscriptionResults = new Subscription();
 
   //constructor(private lookupService: LookupService) {
