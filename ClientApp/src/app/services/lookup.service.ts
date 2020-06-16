@@ -32,7 +32,12 @@ export class LookupService {
   }
   //LookupDictionaryViewModel LookupsData
 
-  getLookupsData(): Observable<any[]> {
+  getLookupsData() {
+    const LookupDataUrl = environment.apiurl + 'lookup/LookupsData';
+    return this.http.get(LookupDataUrl);
+  }
+
+  getLookupsData_1(): Observable<any[]> {
     const apiUrl = environment.apiurl + 'lookup/LookupsData';
     return this.http.get<EppAcion[]>(apiUrl)
       .pipe(
@@ -47,5 +52,6 @@ export class LookupService {
           }
         }
         )); 
+
   }
 }

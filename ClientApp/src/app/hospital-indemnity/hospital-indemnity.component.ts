@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-hospital-indemnity',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./hospital-indemnity.component.css']
 })
 export class HospitalIndemnityComponent implements OnInit {
+  public minDate = new Date().toISOString().slice(0,10);
+
+  @Input() lookupSitusState: any;
 
   constructor() { }
 

@@ -1,26 +1,28 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-3">
+        <div class="col-4">
           <span class ="label label-default">Hospital Indemnity Effective Date
             </span>
-            <input type="date" class="form-control mb-2 " style="width: 100%;" id="inlineFormInputName2"
+            <input type="date" [min]="minDate" class="form-control mb-2 " style="width: 100%;" id=""
               placeholder="Hospital Indemnity Effective Date">
         
         </div>
           
             <div class="col-3">
               <span class ="label label-default"> Hospital Situs State</span>
-              <select class="form-control " id="inlineFormCustomSelectPref">
-                <option selected>Select Situs State</option>
-                <option value="1"> Hospital Situs State</option>
+              <select class="form-control" [disabled] = "!lookupSitusState" id="inlineFormCustomSelectPref">
+                <option selected>{{ lookupSitusState }}</option>
               </select>
+              <div *ngIf="lookupSitusState == ''">
+                <span style="color: red;">  <small><strong>Select Situs State!</strong></small></span>
+              </div>
             </div>
         </div>
   
-     
+        <app-agent-setup></app-agent-setup>
     </div>
-    <app-agent-setup></app-agent-setup>
+    
 
 
 
