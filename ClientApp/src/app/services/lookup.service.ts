@@ -30,5 +30,22 @@ export class LookupService {
       }
       )); 
   }
+  //LookupDictionaryViewModel LookupsData
 
+  getLookupsData(): Observable<any[]> {
+    const apiUrl = environment.apiurl + 'lookup/LookupsData';
+    return this.http.get<EppAcion[]>(apiUrl)
+      .pipe(
+        map(res => {
+          if (res instanceof Array) {
+            return res.map(x => {
+              const eppActions: any = {
+                
+              };
+              return eppActions;
+            });
+          }
+        }
+        )); 
+  }
 }

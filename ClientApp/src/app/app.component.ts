@@ -14,7 +14,7 @@ export class AppComponent {
   private subscriptionResults = new Subscription();
 
   constructor(private lookupService: LookupService) {
-   this.lookupService.getEppAction().subscribe((data) => {
+    this.lookupService.getLookupsData().subscribe((data) => {
      this.datasource = data;
      console.log(data);
         });
