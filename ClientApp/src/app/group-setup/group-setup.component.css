@@ -73,7 +73,8 @@ padding-bottom: 60px;
 .accordion .card-header:after {
     font-family: 'FontAwesome' ;  
     content: "\f068" ;
-    float: right ; 
+    float: left;
+    padding-right: 10px; 
   }
   .accordion .card-header.collapsed:after {
     /* symbol for "collapsed" panels */

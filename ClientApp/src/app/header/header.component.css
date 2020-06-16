@@ -1,8 +1,8 @@
 /* css styles copied from taa taa-legacy.min.css*/
 .header {
-    line-height: 28px;
+    line-height: 54px;
     margin-bottom: 16px;
-    margin-top: 18px;
+    /* margin-top: 18px; */
     padding-bottom: 4px;
     border-bottom: 1px solid #CCC;
 }
