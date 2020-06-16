@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import { LookupService } from '../services/lookup.service';
 @Component({
   selector: 'app-fppg',
   templateUrl: './fppg.component.html',
@@ -7,10 +7,21 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class FPPGComponent implements OnInit {
   @Input() lookupValue: any;
+  public lookupSitusStateValue = "";
+  public isLoading = false;
+  lookUpDataSitusStates: any = [];
 
-  constructor() { }
+  constructor(private lookupService: LookupService) { }
 
   ngOnInit() {
+    this.lookupService.getLookupsData()
+      .subscribe((data: any) => {
+        this.isLoading = true;
+        console.log("data", data);
+      
+        this.lookUpDataSitusStates = Object.values(data.situsState);
+        
+      });
 
   }
   checked = false;
@@ -19,4 +30,8 @@ export class FPPGComponent implements OnInit {
   disabled = false;
   public minDate = new Date().toISOString().slice(0,10);
  
+  getLookupValueSitusState(value: any){
+    this.lookupSitusStateValue = value;
+  }
+
 }

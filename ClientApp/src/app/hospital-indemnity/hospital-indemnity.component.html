@@ -2,7 +2,7 @@
     <div class="container">
       <div class="row">
         <div class="col-4">
-          <span class ="label label-default">Hospital Indemnity Effective Date
+          <span class ="label label-default"> Effective Date
             </span>
             <input type="date" [min]="minDate" class="form-control mb-2 " style="width: 100%;" id=""
               placeholder="Hospital Indemnity Effective Date">
@@ -10,13 +10,14 @@
         </div>
           
             <div class="col-3">
-              <span class ="label label-default"> Hospital Situs State</span>
-              <select class="form-control" [disabled] = "!lookupSitusState" id="inlineFormCustomSelectPref">
-                <option selected>{{ lookupSitusState }}</option>
-              </select>
-              <div *ngIf="lookupSitusState == ''">
+              <span class ="label label-default">  Situs State</span>
+              <select class="form-control" id="inlineFormCustomSelectPref">
+                <option hidden disabled selected value> -- select Situs State -- </option>
+        <option selected *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">{{ lookUpDataSitusState }}</option>
+              </select> 
+              <!-- <div *ngIf="lookupSitusState == ''">
                 <span style="color: red;">  <small><strong>Select Situs State!</strong></small></span>
-              </div>
+              </div> -->
             </div>
         </div>
   

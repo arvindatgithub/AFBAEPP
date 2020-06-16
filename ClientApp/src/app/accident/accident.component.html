@@ -7,13 +7,14 @@
     </div>
 
     <div class="col-3">
-      <span class="label">Accident Situs State</span>
-      <select class="form-control" [disabled] = "!lookupSitusState" id="inlineFormCustomSelectPref">
-        <option selected>{{ lookupSitusState }}</option>
+      <span class="label"> Situs State</span>
+      <select class="form-control" id="inlineFormCustomSelectPref">
+        <option hidden disabled selected value> -- select Situs State -- </option>
+        <option selected *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">{{ lookUpDataSitusState }}</option>
       </select>
-      <div *ngIf="lookupSitusState == ''">
+      <!-- <div *ngIf="lookupSitusState == ''">
         <span style="color: red;">  <small><strong>Select Situs State!</strong></small></span>
-      </div>
+      </div> -->
     </div>
     <div class="col-3">
       <span class="label">On or Off the Job</span>
@@ -38,7 +39,8 @@
           </span> -->
       <div class="form-check">
         <label class="form-check-label">
-          <input type="radio" class="form-check-input" value="">Accident Rate Level
+          <input type="radio" class="form-check-input" value="">
+          Accident Rate Level
         </label>
       </div>
 

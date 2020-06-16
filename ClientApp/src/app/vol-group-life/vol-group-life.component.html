@@ -6,13 +6,14 @@
                 placeholder="VGL Effective Date">
         </div>
         <div class="col-3">
-            <span class="label">VGL Situs State</span>
-            <select class="form-control" [disabled]="!lookupSitusState" id="inlineFormCustomSelectPref">
-                <option selected>{{ lookupSitusState }}</option>
-            </select>
-            <div *ngIf="lookupSitusState == ''">
-                <span style="color: red;"> <small><strong>Select Situs State!</strong></small></span>
-            </div>
+            <span class="label"> Situs State</span> 
+            <select class="form-control" id="inlineFormCustomSelectPref">
+                <option hidden disabled selected value> -- select Situs State -- </option>
+        <option selected *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">{{ lookUpDataSitusState }}</option>
+            </select> 
+            <!-- <div *ngIf="lookupSitusState == ''">
+                <span style="color: red;"> <small><strong> Situs State!</strong></small></span>
+            </div> -->
         </div>
     </div>
     <div class="row">
@@ -30,7 +31,7 @@
             <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Employee GI Amount">
         </div>
         <div class="col-3">
-            <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked>
+            <!-- <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked> -->
             <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Employee Max Amount">
         </div>
     </div>
@@ -40,7 +41,7 @@
             <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse GI Amount">
         </div>
         <div class="col-3">
-            <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked>
+            <!-- <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked> -->
             <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse Max Amount">
         </div>
     </div>
@@ -50,7 +51,7 @@
             <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Child GI Amount">
         </div>
         <div class="col-3">
-            <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked>
+            <!-- <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked> -->
             <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Child Max Amount">
         </div>
     </div>

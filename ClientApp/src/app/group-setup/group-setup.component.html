@@ -106,36 +106,41 @@
           <div class="card mt-2" style="cursor: pointer;">
               <div class="card-header collapsed mb-2" data-toggle="collapse" href="#collapseOne">
                   <a class="card-title">
-                      Accident
-                  </a>
-              </div>
-              <div id="collapseOne" class="card-body collapse" data-parent="#accordion" >
-                <app-accident [lookupSitusState] = "lookupSitusStateValue"></app-accident>
-              </div>
-              <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                  <a class="card-title">
                     FPPG
                   </a>
               </div>
-              <div id="collapseTwo" class="card-body collapse" data-parent="#accordion" >
+              <div id="collapseOne" class="card-body collapse" data-parent="#accordion" >
+               
                 <app-fppg [lookupValue] = "lookupPaymentMethodvalue"></app-fppg>
+              </div>
+              <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                  <a class="card-title">
+                    FPP Individual
+                  </a>
+              </div>
+              <div id="collapseTwo" class="card-body collapse" data-parent="#accordion" >
+               
+                <app-fpp-individual ></app-fpp-individual>
               </div>
               <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
                   <a class="card-title">
-                    Hospital Indemnity
+                   Accident
                   </a>
               </div>
               <div id="collapseThree" class="collapse" data-parent="#accordion" >
-                  <div class="card-body"><app-hospital-indemnity [lookupSitusState] = "lookupSitusStateValue"></app-hospital-indemnity>
+                  <div class="card-body">
+                  
+                    <app-accident [lookupSitusState] = "lookupSitusStateValue"></app-accident>
                   </div>
               </div>
               <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
                 <a class="card-title">
-                  FPP Individual
+                  Hospital Indemnity
                 </a>
             </div>
             <div id="collapseFour" class="collapse" data-parent="#accordion" >
-                <div class="card-body"><app-fpp-individual ></app-fpp-individual>
+                <div class="card-body">
+                  <app-hospital-indemnity [lookupSitusState] = "lookupSitusStateValue"></app-hospital-indemnity>
                 </div>
             </div>
             <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
