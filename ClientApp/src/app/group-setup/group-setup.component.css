@@ -80,3 +80,15 @@ padding-bottom: 60px;
     content: "\f067"; 
   }
 
+   
+  /* .card-header.collapsed:hover {
+      background-color: thistle;
+  } */
+
+  .accordion .card-header{
+      background-color: #cff6cf;
+  }
+  .accordion .card-header.collapsed{
+    background-color: #cfe5cf
+}
+

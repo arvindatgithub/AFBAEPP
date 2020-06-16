@@ -1,43 +1,45 @@
-
- <div class="container">
-<div class="row">
-<div class="col-3">
-  <span class ="label label-default">Date</span>
-    <input type="date" class="form-control mb-2 " style="width: 100%;" 
-      placeholder="Group Effective Date">
-
-</div>
-  
+<div class="container">
+  <div class="row">
     <div class="col-3">
-      <span class ="label label-default">Accident Situs State</span>
-      <select class="form-control " id="inlineFormCustomSelectPref">
-        <option selected>Select Group Payment</option>
-        <option value="1">Accident Situs State</option>
+      <span class="label label-default">Date</span>
+      <input type="date" [min] = "minDate" class="form-control mb-2 " style="width: 100%;" placeholder="Group Effective Date">
+
+    </div>
+
+    <div class="col-3">
+      <span class="label">Accident Situs State</span>
+      <select class="form-control" [disabled] = "!lookupSitusState" id="inlineFormCustomSelectPref">
+        <option selected>{{ lookupSitusState }}</option>
+      </select>
+      <div *ngIf="lookupSitusState == ''">
+        <span style="color: red;">  <small><strong>Select Situs State!</strong></small></span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+
+
+
+    <div class="col-3 mb-2">
+      <!-- <span class ="label label-default">
+            <input class="mr-2" style="margin-top: 8px" type="checkbox">
+            Accident Rate Level
+          </span> -->
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" value="">Accident Rate Level
+        </label>
+      </div>
+
+      <select class="form-control">
+        <option selected value="option">1</option>
+        <option value="option">2</option>
+        <option value="option">3</option>
       </select>
     </div>
-</div>
+
   </div>
-    <div class="container">
-      <div class="row">
-        
-       
-        <input style="margin-top: 8px" type="checkbox">
-        <div class="col-3 mb-2">
-          <span class ="label label-default">Accident Rate Level</span>
-          
-          <select class="form-control">
-            <option selected value="option">1</option>
-            <option value="option">2</option>
-            <option value="option">3</option>
-          </select>
-        </div>
-        
-    </div>
-    </div>
-     <app-agent-setup></app-agent-setup>
- 
-
-
-   
-
-   
+  <app-agent-setup></app-agent-setup>
+</div>

@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./fpp-individual.component.css']
 })
 export class FPPIndividualComponent implements OnInit {
+  public minDate = new Date().toISOString().slice(0,10);
 
   constructor() { }
 

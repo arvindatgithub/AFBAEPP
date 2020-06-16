@@ -1,4 +1,11 @@
-<div class="container">
+<div class="d-flex justify-content-center"  *ngIf="!isLoading">
+  <div class="spinner-border" style="width: 8rem; height: 8rem; color: #ff6363;" >
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+
+
+<div class="container" *ngIf="isLoading">
   
     <!-- Group Section -->
     <div class="row">
@@ -14,13 +21,16 @@
       </div>
       <div class="col-md-3">
         <span class ="label label-default">Date</span>
-        <input type="date" class="form-control mb-2 " style="width: 100%;" 
+        <input type="date" [min] = "minDate" class="form-control mb-2 " style="width: 100%;" 
           placeholder="Group Effective Date">
       </div>
       <div class="col-md-3">
         <span class ="label label-default">Group Payment Mode</span>
-        <select class="select-dropdown my-1" >
-          <option selected *ngFor = "let lookupvalue of lookUpData">{{lookupvalue}}</option>
+        <select class="select-dropdown my-1" #paymentMode
+         (change) ="getLookupValuePaymentMode(paymentMode.value)"
+         >
+          <option hidden disabled selected value> -- select a Payment Mode -- </option>
+          <option  *ngFor = "let lookUpDataPaymentMode of lookUpDataPaymentModes" >{{lookUpDataPaymentMode}}</option>
         </select>
       </div>
     </div>
@@ -68,10 +78,11 @@
       </div>
       <div class="col-md-3">
         <span class ="label label-default">Situs State</span>
-        <select class="select-dropdown my-1 ">
-          <option selected> Situs State</option>
-          <option value="1">Group Level Situs State</option>
-
+        <select class="select-dropdown my-1" #situsState (change) = "getLookupValueSitusState(situsState.value)">
+          <option hidden disabled selected value> -- select Situs State -- </option>
+          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
+             {{ lookUpDataSitusState }}
+            </option>
         </select>
       </div>
       <div class="col-md-3">
@@ -125,33 +136,33 @@
   
     <div class="container">
       <div id="accordion" class="accordion">
-          <div class="card mt-2">
-              <div class="card-header collapsed" data-toggle="collapse" href="#collapseOne">
+          <div class="card mt-2" style="cursor: pointer;">
+              <div class="card-header collapsed mb-2" data-toggle="collapse" href="#collapseOne">
                   <a class="card-title">
                       Accident
                   </a>
               </div>
               <div id="collapseOne" class="card-body collapse" data-parent="#accordion" >
-                <app-accident></app-accident>
+                <app-accident [lookupSitusState] = "lookupSitusStateValue"></app-accident>
               </div>
-              <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+              <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
                   <a class="card-title">
                     FPPG
                   </a>
               </div>
               <div id="collapseTwo" class="card-body collapse" data-parent="#accordion" >
-                <app-fppg></app-fppg>
+                <app-fppg [lookupValue] = "lookupPaymentMethodvalue"></app-fppg>
               </div>
-              <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+              <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
                   <a class="card-title">
                     Hospital Indemnity
                   </a>
               </div>
               <div id="collapseThree" class="collapse" data-parent="#accordion" >
-                  <div class="card-body"><app-hospital-indemnity></app-hospital-indemnity>
+                  <div class="card-body"><app-hospital-indemnity [lookupSitusState] = "lookupSitusStateValue"></app-hospital-indemnity>
                   </div>
               </div>
-              <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+              <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
                 <a class="card-title">
                   FPP Individual
                 </a>
@@ -166,7 +177,7 @@
               </a>
           </div>
           <div id="collapseFive" class="collapse" data-parent="#accordion" >
-              <div class="card-body"><app-employer-paid-ci></app-employer-paid-ci>
+              <div class="card-body"><app-employer-paid-ci [lookupSitusState] = "lookupSitusStateValue"></app-employer-paid-ci>
               </div>
           </div>
           
@@ -175,3 +186,4 @@
       Setup Information</button>
   
 </div>
+    </div>

@@ -4,17 +4,19 @@
 
         <div class="col-3">
           <span class ="label label-default">Date</span>
-            <input type="date" class="form-control mb-2 " style="width: 100%;" 
+            <input type="date" [min] = "minDate" class="form-control mb-2 " style="width: 100%;" 
               placeholder="Group Effective Date">
         
         </div>
      
       <div class="col-3">
         <span class ="label label-default">Group Payment Mode</span>
-        <select class="form-control" id="inlineFormCustomSelectPref">
-          <option selected>Select Group Payment</option>
-          <option value="1">Group Payment Mode</option>
+        <select class="form-control" [disabled]="!lookupValue" id="inlineFormCustomSelectPref">
+          <option selected>{{lookupValue}}</option>
         </select>
+        <div *ngIf="lookupValue == ''">
+          <span style="color: red;">  <small><strong>Select Payment Mode !</strong></small></span>
+        </div>
       </div>
       </div>
       

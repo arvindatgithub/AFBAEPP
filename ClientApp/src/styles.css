@@ -44,3 +44,12 @@ h1, h2, h3 {
   font-weight: 500;
 }
 
+.label {
+  font-weight: 600;
+}
+
+select, option {
+  cursor: pointer;
+}
+
+

@@ -4,7 +4,7 @@
   
           <div class="col-3">
             <span class ="label label-default">Date</span>
-              <input type="date" class="form-control mb-2 " style="width: 100%;" 
+              <input type="date" [min]="minDate" class="form-control mb-2 " style="width: 100%;" 
                 placeholder="FPP Individual Effective Date">
           
           </div>
@@ -138,7 +138,8 @@
             </tr>
           </table>
         </div>
+        <app-agent-setup></app-agent-setup>
       </div>
   
-      <app-agent-setup></app-agent-setup>
+      
    
