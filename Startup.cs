@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace AFBA.EPP
 {
@@ -49,6 +50,12 @@ namespace AFBA.EPP
             services.AddEntityFrameworkNpgsql().AddDbContext<EppAppDbContext>(opt =>
                 opt.UseNpgsql(Configuration.GetConnectionString("PostgreSqlConection")));
 
+
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AFBA EPP  API", Version = "v1" });
+            });
             services.AddScoped(typeof(IRepository<>), typeof(EPPRepository<>));
             services.AddScoped(typeof(IUnitofWork), typeof(UnitofWork));
          
@@ -78,6 +85,16 @@ namespace AFBA.EPP
             {
                 app.UseSpaStaticFiles();
             }
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "AFBA EPP  API V1");
+            });
 
             app.UseRouting();
             app.UseCors();
