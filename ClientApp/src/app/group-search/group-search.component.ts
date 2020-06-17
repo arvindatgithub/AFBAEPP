@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { GroupsearchService } from '../services/groupsearch.service';
 
 @Component({
   selector: 'app-group-search',
@@ -17,40 +18,21 @@ export class GroupSearchComponent implements OnInit {
   selectedGrps: any;
   searchBoxVal: any;
   existingGrp: any;
+  groups: any;
 
-  constructor(private router: Router) { }
-
- 
-  public groups = [
-    {
-      id: 10001,
-      name: 'Group one',
-    },
-    {
-      id: 10002,
-      name: 'Group Two',
-    },
-    {
-      id: 10003,
-      name: 'Group Three',
-    },
-    {
-      id: 10004,
-      name: 'Group Four',
-    },
-    {
-      id: 10005,
-      name: 'Group Five',
-    },
-  ];
-
+  constructor(private router: Router, private groupSearchService: GroupsearchService) {
+    this.groupSearchService.getGroupsData().subscribe((data) => {
+      this.groups = data;
+      console.log(data);
+    });
+  }
 
 
   ngOnInit() {
   }
 
   onSearchChange(searchValue: string): void {
-    if(searchValue !== '' && searchValue !== null && searchValue !== undefined){
+    if (searchValue !== '' && searchValue !== null && searchValue !== undefined) {
       this.disabledFlag = false;
     } else {
       this.disabledFlag = true;
@@ -61,11 +43,11 @@ export class GroupSearchComponent implements OnInit {
 
   GroupSearch() {
     this.groups.forEach(grp => {
-      if(grp.id == this.searchBoxVal || grp.name == this.searchBoxVal){
+      if (grp.grpNbr == this.searchBoxVal || grp.grpNm == this.searchBoxVal) {
         this.existingGrp = grp;
       }
     });
-    this.groupSearchSection = false; 
+    this.groupSearchSection = false;
     this.groupSearchResults = true;
   }
 
@@ -73,11 +55,15 @@ export class GroupSearchComponent implements OnInit {
     this.router.navigate(['/group-setup']);
   }
 
-  goToSearch(){
+  goToSearch() {
     this.groupSearchSection = true;
     this.groupSearchResults = false;
   }
-  
 
- 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.groups.filter = filterValue.trim().toLowerCase();
+    console.log('filtered' +this.groups);
+  }
+
 }
