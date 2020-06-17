@@ -39,6 +39,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { RadioButtonComponent } from './radio-button/radio-button.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,7 +58,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     VoluntaryCIComponent,
     VolGroupLifeComponent,
     BasicGroupLifeComponent,
-    AgentSetupComponent
+    AgentSetupComponent,
+    RadioButtonComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -94,7 +96,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
       { path: 'fpp-individual', component: FPPIndividualComponent},
       { path: 'hospital-indemnity', component: HospitalIndemnityComponent},
       { path: 'vol-group-life', component: VolGroupLifeComponent},
-      { path: 'voluntary-ci', component: VoluntaryCIComponent}
+      { path: 'voluntary-ci', component: VoluntaryCIComponent},
+      { path: 'radio-button', component: RadioButtonComponent}
     ])
   ],
   providers: [],
