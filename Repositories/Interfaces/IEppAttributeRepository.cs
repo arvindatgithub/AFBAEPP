@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace AFBA.EPP.Repositories.Interfaces
 {
-    public interface IEppGroupMasterRepository : IRepository<EppGrpmstr>
+    public interface IEppAttributeRepository : IRepository<EppAttribute>
     {
-       void GetGroupData();
-      
-      }
-
+    }
 }

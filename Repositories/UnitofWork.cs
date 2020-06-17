@@ -23,6 +23,8 @@ namespace AFBA.EPP.Repositories
 
         public IEppGroupMasterRepository GroupMasterRepository => new EppGroupMasterRepository(_dbContext);
 
+        public IEppAttributeRepository eppAttributeRepository => new EppAttributeRepository(_dbContext);
+
         public async Task<int> Complete()
         {
             return await _dbContext.SaveChangesAsync();
