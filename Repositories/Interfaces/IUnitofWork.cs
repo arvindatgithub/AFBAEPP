@@ -12,7 +12,7 @@ namespace AFBA.EPP.Repositories.Interfaces
         public IEppProductRepository EppProductRepository { get; }
         public IGeppGrppymntmdRepository GeppGrppymntmdRepository { get; }
         public IEppGroupMasterRepository GroupMasterRepository { get; }
-
+        public IEppAttributeRepository eppAttributeRepository { get; }
         Task< int> Complete();
     }
 }
