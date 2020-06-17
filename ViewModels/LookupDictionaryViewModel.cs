@@ -32,7 +32,23 @@ namespace AFBA.EPP.ViewModels
                  };
             }
         }
-        public IDictionary<string, string> SitusState
+
+        public IEnumerable<SitusState> SitusState
+        {
+            get
+            {
+                return new List<SitusState>
+                {
+                    new SitusState{ Id="AL", State="AL"},
+                    new SitusState{ Id="AK", State="AK"},
+
+                    new SitusState{ Id="AZ", State="AZ"},
+                    new SitusState{ Id="AR", State="AR"}
+                };
+
+            }
+        }
+        public IDictionary<string, string> SitusState1
         {
             get
             {
@@ -107,4 +123,12 @@ namespace AFBA.EPP.ViewModels
         }
 
     }
+}
+
+
+public class SitusState
+{
+    public string  Id { get; set; }
+    public string  State  { get; set; }
+
 }
