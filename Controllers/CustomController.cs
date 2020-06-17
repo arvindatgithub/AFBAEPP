@@ -32,7 +32,7 @@ namespace AFBA.EPP.Controllers
               DbAttrNm= d.DbAttrNm,
               DisplyAttrNm= d.DisplyAttrNm
               
-            }).ToList();
+            }).ToList().OrderBy(x=>x.DbAttrNm);
         }
 
 
