@@ -13,22 +13,22 @@ namespace AFBA.EPP.ViewModels
             {
                 return new Dictionary<string, string>
                  {
-                    { "01" , "annual" },
-                    {"02",  "semi-annual"},
-                    {"04", "quarterly" },
-                    {"08", "eight times per year, skips four calendar months" },
-                    {"09",  "nine times per year, skips three calendar months"},
-                    {"10",  "every 37 days for odd months, 36 days for even months, or tenthly, ten times per year, skips two calendar months"},
-                    {"12","monthly" },
-                    {"13","every four weeks" },
-                    {"16",  "semi-monthly, eight times per year, skips four calendar months"},
-                    {"18",  "semi-monthly, nine times per year, skips three calendar months"},
-                    { "20", "every 18 days, or semi-monthly, ten times per year, skips two calendar months"},
-                    {"21", "every 18 days for odd months, 17 days for even months" },
-                    {"22",  "semi-monthly, eleven times per year, skips one calendar month"},
-                    {"24", "twice a month" },
-                    {"26", "every two weeks" },
-                    {"52", "seven days" },
+                    { "01" , "01 - annual" },
+                    {"02",  "02 - semi-annual"},
+                    {"04", "04 - quarterly" },
+                    {"08", "08 - eight times per year, skips four calendar months" },
+                    {"09",  "09 - nine times per year, skips three calendar months"},
+                    {"10",  "10 - every 37 days for odd months, 36 days for even months, or tenthly, ten times per year, skips two calendar months"},
+                    {"12","12 - monthly" },
+                    {"13","13 - every four weeks" },
+                    {"16",  "16 - semi-monthly, eight times per year, skips four calendar months"},
+                    {"18",  "18 - semi-monthly, nine times per year, skips three calendar months"},
+                    { "20", "20 - every 18 days, or semi-monthly, ten times per year, skips two calendar months"},
+                    {"21", "21- every 18 days for odd months, 17 days for even months" },
+                    {"22",  "22 - semi-monthly, eleven times per year, skips one calendar month"},
+                    {"24", "24 - twice a month" },
+                    {"26", "26 - every two weeks" },
+                    {"52", "52 - seven days" },
                  };
             }
         }
