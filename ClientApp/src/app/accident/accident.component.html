@@ -1,21 +1,30 @@
 <div class="container">
   <div class="row">
+    <app-radio-button></app-radio-button>
     <div class="col-3">
-      <span class="label label-default">Date</span>
-      <input type="date" [min] = "minDate" class="form-control mb-2 " style="width: 100%;" placeholder="Group Effective Date">
+      <span class="label label-default">Group Effective Date</span>
+      <input type="date" [value]="dateValue" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
+        placeholder="Group Effective Date">
 
     </div>
-
+    <app-radio-button></app-radio-button>
     <div class="col-3">
-      <span class="label"> Situs State</span>
-      <select class="form-control" id="inlineFormCustomSelectPref">
-        <option hidden disabled selected value> -- select Situs State -- </option>
-        <option selected *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">{{ lookUpDataSitusState }}</option>
+      <span class="label label-default">Sitius State</span>
+      <select class="form-control" [value]="lookupValue">
+        <!-- <option value="0" selected="selected">{{ lookupValue }}</option> -->
+        <option  *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
+          {{lookUpDataSitusState.state}}</option>
+
       </select>
-      <!-- <div *ngIf="lookupSitusState == ''">
-        <span style="color: red;">  <small><strong>Select Situs State!</strong></small></span>
-      </div> -->
+      <!-- <div *ngIf="lookupValue == ''">
+    <span style="color: red;">  <small><strong>Select Payment Mode !</strong></small></span>
+  </div> -->
     </div>
+    <div class="col-3 mt-4">
+      <button class="btn btn-primary" type="submit">Reset Form </button>
+    </div>
+
+    <app-radio-button></app-radio-button>
     <div class="col-3">
       <span class="label">On or Off the Job</span>
       <select class="form-control">
@@ -25,28 +34,15 @@
       </select>
     
     </div>
-    <div class="col-3">
-      <app-radio-button></app-radio-button>  
-    </div>
-    
-  </div>
-</div>
-<div class="container">
-  <div class="row">
-
-
-
+    <app-radio-button></app-radio-button>
     <div class="col-3 mb-2">
-      <!-- <span class ="label label-default">
-            <input class="mr-2" style="margin-top: 8px" type="checkbox">
-            Accident Rate Level
-          </span> -->
-      <div class="form-check">
-        <label class="form-check-label">
-          <input type="radio" class="form-check-input" value="">
+     
+     
+        <span class="label">
+        
           Accident Rate Level
-        </label>
-      </div>
+        </span>
+     
 
       <select class="form-control">
         <option selected value="option">1</option>
@@ -55,6 +51,16 @@
       </select>
     </div>
 
+   
+    
   </div>
-  <app-agent-setup></app-agent-setup>
+</div>
+<div class="container">
+  
+
+    <app-agent-setup></app-agent-setup>
+
+   
+ 
+  
 </div>
