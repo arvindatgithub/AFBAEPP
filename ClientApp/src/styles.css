@@ -51,5 +51,7 @@ h1, h2, h3 {
 select, option {
   cursor: pointer;
 }
-
+.mat-slide-toggle-checked{
+  background-color: green !important;
+}
 

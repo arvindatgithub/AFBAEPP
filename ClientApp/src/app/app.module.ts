@@ -40,6 +40,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RadioButtonComponent } from './radio-button/radio-button.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 @NgModule({
   declarations: [
     AppComponent,
@@ -85,6 +86,7 @@ import { RadioButtonComponent } from './radio-button/radio-button.component';
     MatIconModule,
     AutocompleteLibModule,
     FontAwesomeModule,
+    MatSlideToggleModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'group-search', component: GroupSearchComponent },
