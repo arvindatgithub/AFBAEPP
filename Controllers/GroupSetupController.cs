@@ -26,6 +26,11 @@ namespace AFBA.EPP.Controllers
         [HttpGet]
         public IEnumerable<GroupSearchViewModel> GroupSearch()
         {
+            //_unitofWork.GroupMasterRepository.GetGroupData();
+
+
+
+
             return _unitofWork.GroupMasterRepository.GetAll().Result.Select(d => new GroupSearchViewModel
             {
                 GrpId= d.GrpId,

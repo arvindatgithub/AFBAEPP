@@ -40,6 +40,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CustomBulkUpdateComponent } from './custom-bulk-update/custom-bulk-update.component';
+import { RadioButtonComponent } from './radio-button/radio-button.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +60,8 @@ import { CustomBulkUpdateComponent } from './custom-bulk-update/custom-bulk-upda
     VoluntaryCIComponent,
     VolGroupLifeComponent,
     BasicGroupLifeComponent,
-    AgentSetupComponent
+    AgentSetupComponent,
+    RadioButtonComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -96,7 +99,8 @@ import { CustomBulkUpdateComponent } from './custom-bulk-update/custom-bulk-upda
       { path: 'hospital-indemnity', component: HospitalIndemnityComponent},
       { path: 'vol-group-life', component: VolGroupLifeComponent},
       { path: 'voluntary-ci', component: VoluntaryCIComponent},
-      { path: 'custom-bulk-update', component: CustomBulkUpdateComponent}
+      { path: 'custom-bulk-update', component: CustomBulkUpdateComponent},
+      { path: 'radio-button', component: RadioButtonComponent}
     ])
   ],
   providers: [],

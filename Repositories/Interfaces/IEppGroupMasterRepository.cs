@@ -8,6 +8,8 @@ namespace AFBA.EPP.Repositories.Interfaces
 {
     public interface IEppGroupMasterRepository : IRepository<EppGrpmstr>
     {
-    }
+       void GetGroupData();
+      
+      }
 
 }
