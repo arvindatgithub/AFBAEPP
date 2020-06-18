@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from './../../environments/environment'
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { EppAcion } from './model/epp-acion';
 
@@ -9,6 +9,8 @@ import { EppAcion } from './model/epp-acion';
   providedIn: 'root'
 })
 export class LookupService {
+  // private subject = new Subject<any>();
+
     constructor(private http: HttpClient ) {
    
   }
@@ -52,6 +54,12 @@ export class LookupService {
           }
         }
         )); 
-
   }
+
+  // sendSitusValue(value:string){
+  //   this.subject.next(value);
+  // }
+  // getSitusValue(){
+  //   return this.subject.asObservable();
+  // }
 }

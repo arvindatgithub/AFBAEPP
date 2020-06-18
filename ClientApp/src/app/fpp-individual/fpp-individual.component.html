@@ -1,158 +1,158 @@
 <div class="container" style="width: 100%;">
-  <div class="row">
 
-    <div class="col-3">
-      <span class="label label-default">Date</span>
-      <input type="date" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
-        placeholder="FPP Individual Effective Date">
+  <form>
+    <div style=" margin-left: 15px;">
+      <div class="row">
+        <app-radio-button></app-radio-button>
+        <div class="col-3">
+          <span class="label label-default">Group Effective Date</span>
+          <input type="date" [value]="dateValue" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
+            placeholder="Group Effective Date">
 
-    </div>
-
-    <div class="col-3">
-      <span class="label label-default">Agent Signature</span>
-      <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Agent Signature">
-    </div>
-    <div class="col-3">
-
-      <div class="container">
-        <div class="row mt-8">
-
-          <table>
-            <th style="padding: 4px;">
-              Riders
-            </th>
-            <tr>
-              <div>
-                <mat-checkbox class="example-margin" [(ngModel)]="checked">QOL Rider</mat-checkbox>
-              </div>
-              <div>
-                <mat-checkbox class="example-margin" [(ngModel)]="indeterminate">Waiver</mat-checkbox>
-              </div>
-
-
-            </tr>
-          </table>
+        </div>
+        <app-radio-button></app-radio-button>
+        <div class="col-3">
+          <span class="label label-default">Agent Signature</span>
+          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Agent Signature">
+        </div>
+        <div class="col-3 mt-4">
+          <button class="btn btn-primary" type="submit">Reset Form </button>
         </div>
       </div>
-
-    </div>
-    <div class="col-3">
-      <input type="text" class="form-control mb-2 " style="width: 100%;" 
-      placeholder="Plan code manual Entry">
-      </div>
-
-  </div>
-
-</div>
-
-
-
-
-<div class="container">
-  <div class="row">
-
-    <div class="col-3">
-      <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked>
-
-      <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Employee GI Amount">
-    </div>
-    <div class="col-3">
-      <!-- <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked> -->
-      <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Employee QI Amount Max">
-    </div>
-    <div class="col-3">
-      <!-- <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked> -->
-      <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Employee Max Amount">
     </div>
 
-  </div>
+    <div class="container">
 
-  <div class="row">
+      <div class="row" style="margin-top: 10px;">
 
-    <div class="col-3">
-      <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked>
+        <app-radio-button></app-radio-button>
+        <div class="col-3">
 
-      <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse GI Amount Max
-                  ">
-    </div>
-    <div class="col-3">
-      <!-- <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked> -->
-      <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse QI Amount Max">
-    </div>
-    <div class="col-3">
-      <!-- <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked> -->
-      <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse Max Amount">
-    </div>
+          <span class="label label-default">Employee GI Amount Max</span>
 
-  </div>
-  <div class="row">
-
-    <div class="col-3">
-      <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked>
-
-      <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Child GI Amount Max">
-    </div>
-    <div class="col-3">
-      <!-- <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked> -->
-      <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Child QI Amount Max">
-    </div>
-    <div class="col-3">
-      <!-- <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked> -->
-      <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Child Max Amount">
-    </div>
-
-  </div>
-
-
-
-  <div class="row">
-
-    <div class="col-3">
-      <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked>
-
-      <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Open Enrollment GI
-                      ">
-    </div>
-    <div class="col-3">
-
-      <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="User Token
-                        ">
-    </div>
-    <div class="col-3">
-
-
-      <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Case Token
-                        ">
-    </div>
-
-
-  </div>
-  <app-agent-setup></app-agent-setup>
-</div>
-
-
-<!-- <div class="container">
-     
-        <div class="row mt-8">
-  
-          <table>
-            <th style="padding: 4px; background: #2980b9; 
-              background: -webkit-linear-gradient(to right, #2980b9, #6dd5fa, #ffffff);
-              background: linear-gradient(to right, #2980b9, #6dd5fa, #ffffff);">
-              Riders
-            </th>
-            <tr>
-               <div>
-                <mat-checkbox class="margin" [(ngModel)]="checked">QOL Rider</mat-checkbox>
-              </div>
-              <div>
-                <mat-checkbox class="margin" [(ngModel)]="indeterminate">Waiver</mat-checkbox>
-              </div>
-   
-  
-            </tr>
-          </table>
+          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Employee GI Amount Max">
         </div>
-        <app-agent-setup></app-agent-setup>
+
+
+
+        <div class="col-3">
+          <span class="label label-default">Employee QI Amount Max</span>
+
+          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Employee QI Amount Max">
+        </div>
+        <div class="col-3">
+          <span class="label label-default">Employee Max Amount</span>
+          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Employee Max Amount">
+        </div>
+      
       </div>
-   -->
+
+      <div class="row mt-2">
+        <app-radio-button></app-radio-button>
+        <div class="col-3">
+          <span class="label label-default">Spouse GI Amount Max</span>
+
+          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse GI Amount Max
+            ">
+        </div>
+        <div class="col-3">
+          <span class="label label-default">Spouse QI Amount Max</span>
+          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse QI Amount Max">
+        </div>
+        <div class="col-3">
+          <span class="label label-default">Spouse Max Amount</span>
+          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse Max Amount">
+        </div>
+
+      </div>
+      <div class="row mt-2">
+        <app-radio-button></app-radio-button>
+        <div class="col-3">
+          <span class="label label-default">Child GI Amount Max</span>
+
+          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Child GI Amount Max">
+        </div>
+        <div class="col-3">
+          <span class="label label-default">Child QI Amount Max</span>
+          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Child QI Amount Max">
+        </div>
+        <div class="col-3">
+          <span class="label label-default">Child Max Amount</span>
+          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Child Max Amount">
+        </div>
+
+      </div>
+
+
+
+      <div class="row mt-2">
+        <app-radio-button></app-radio-button>
+        <div class="col-3">
+
+          <span class="label label-default">Open Enrollment GI</span>
+          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Open Enrollment GI">
+        </div>
+
+        <app-radio-button></app-radio-button>
+        <div class="col-3">
+          <span class="label label-default">Plan code manual Entry</span>
+          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Plan code manual Entry">
+        </div>
+
+      </div>
+
+      <div class="row mt-2">
+        <app-radio-button></app-radio-button>
+        <div class="col-3">
+
+          <span class="label label-default">User Token</span>
+          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="User Token">
+        </div>
+
+        <app-radio-button></app-radio-button>
+        <div class="col-3">
+          <span class="label label-default">Case Token</span>
+          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Case Token">
+        </div>
+
+      </div>
+
+      <div class="row pt-2">
+        <h6>
+          Riders
+        </h6>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col" style="margin-left: -16px;">
+              <app-radio-button></app-radio-button>
+            </div>
+            <div class="col" style="justify-content:flex-start;margin-right: 170px;
+            margin-top: 24px;">
+              <mat-checkbox class="example-margin" [(ngModel)]="checked" name="Qol">QOL Rider</mat-checkbox>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col" style="margin-left: -147px;">
+              <app-radio-button></app-radio-button>
+            </div>
+            <div class="col" style="margin-right: 170px;
+          margin-top: 24px;">
+              <mat-checkbox class="example-margin" [(ngModel)]="indeterminate" name="Waiver">Waiver</mat-checkbox>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+    <div class="mt-4">
+      <app-agent-setup></app-agent-setup>
+    </div>
+
+  </form>
+  </div>

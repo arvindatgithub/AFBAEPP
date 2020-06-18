@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './header/header.component'; 
 import { FooterComponent } from './footer/footer.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -40,10 +40,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RadioButtonComponent } from './radio-button/radio-button.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { CustomBulkUpdateComponent } from './custom-bulk-update/custom-bulk-update.component';
 import { CustomBulkTemplateComponent } from './custom-bulk-template/custom-bulk-template.component';
-import { DragDropModule } from '@angular/cdk/drag-drop';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -91,7 +90,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatIconModule,
     AutocompleteLibModule,
     FontAwesomeModule,
-    DragDropModule,
+    MatSlideToggleModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'group-search', component: GroupSearchComponent },
