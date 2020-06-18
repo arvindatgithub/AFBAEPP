@@ -84,7 +84,7 @@ export class GroupSetupComponent implements OnInit {
         this.isLoading = true;
         console.log("data", data);
         this.lookUpDataPaymentModes = Object.values(data.paymentMode);
-        this.lookUpDataSitusStates = Object.values(data.situsState);
+        this.lookUpDataSitusStates = (data.situsState);
         
       });
 

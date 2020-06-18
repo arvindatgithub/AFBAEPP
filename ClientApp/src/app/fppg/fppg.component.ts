@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { LookupService } from '../services/lookup.service';
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-fppg',
   templateUrl: './fppg.component.html',
@@ -7,9 +8,15 @@ import { LookupService } from '../services/lookup.service';
 })
 export class FPPGComponent implements OnInit {
   @Input() lookupValue: any;
-  public lookupSitusStateValue = "";
+  
   public isLoading = false;
   lookUpDataSitusStates: any = [];
+  checked = false;
+  indeterminate = false;
+  labelPosition: 'before' | 'after' = 'after';
+  disabled = false;
+  public minDate = new Date().toISOString().slice(0,10);
+  situsState:any;
 
   constructor(private lookupService: LookupService) { }
 
@@ -18,20 +25,17 @@ export class FPPGComponent implements OnInit {
       .subscribe((data: any) => {
         this.isLoading = true;
         console.log("data", data);
-      
-        this.lookUpDataSitusStates = Object.values(data.situsState);
-        
+        this.lookUpDataSitusStates = (data.situsState);
       });
 
+
   }
-  checked = false;
-  indeterminate = false;
-  labelPosition: 'before' | 'after' = 'after';
-  disabled = false;
-  public minDate = new Date().toISOString().slice(0,10);
+
+//   addPost(){
+//     console.log("form",form);
+//     form.resetForm(); 
+// }
+  
  
-  getLookupValueSitusState(value: any){
-    this.lookupSitusStateValue = value;
-  }
 
 }

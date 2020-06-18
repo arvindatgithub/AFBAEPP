@@ -1,6 +1,4 @@
 
-
-
 <div class="d-flex justify-content-center"  *ngIf="!isLoading">
   <div class="spinner-border" style="width: 8rem; height: 8rem; color: #ff6363; margin-top: 15%;" >
     <span class="sr-only">Loading...</span>
@@ -8,7 +6,7 @@
 </div>
 <div class="container">
  
-  <input type="checkbox" checked data-toggle="toggle" data-on="Active" data-off="Inactive" data-onstyle="success" data-offstyle="danger">
+  <input type="checkbox" checked data-toggle="toggle" data-on="Active" data-off="Inactive" data-onstyle="success" data-offstyle="secondary">
   </div>
 
 <div class="container" *ngIf="isLoading"> 
@@ -26,7 +24,7 @@
           placeholder="Group Name Field">
       </div>
       <div class="col-md-3">
-        <span class ="label label-default">Date</span>
+        <span class ="label label-default">Group effective date</span>
         <input type="date" [min] = "minDate" class="form-control mb-2 " style="width: 100%;" 
           placeholder="Group Effective Date">
       </div>
@@ -40,6 +38,7 @@
         </select>
       </div>
     </div>
+
     <div class="row">
       <div class="col-md-3">
         <span class ="label label-default">Group Vendor</span>
@@ -77,7 +76,7 @@
         </div>
        
       </div>
-      <div class="col-md-3">
+      <!-- <div class="col-md-3">
         <span class ="label label-default">New Hire</span>
         <select class="select-dropdown my-1 " >
           <option selected>Select New hire</option>
@@ -86,8 +85,9 @@
           <option value="3">90</option>
           <option value="4">free</option>
         </select>
-      </div>
+      </div> -->
     </div>
+
 
     <div class="row">
       <div class="col-md-3">
@@ -96,27 +96,31 @@
       </div>
       <div class="col-md-3">
         <span class ="label label-default">Account Manager Email</span>
-        <input type="text" class="form-control mb-2 " placeholder="Account Manager Email">
+        <input type="text" class="form-control mb-2" placeholder="Account Manager Email">
       </div>
       <div class="col-md-3">
         <span class ="label label-default">Situs State</span>
         <select class="select-dropdown my-1" #situsState (change) = "getLookupValueSitusState(situsState.value)">
           <option hidden disabled selected value> -- select Situs State -- </option>
           <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
-             {{ lookUpDataSitusState }}
+             {{ lookUpDataSitusState.state }}
             </option>
         </select>
       </div>
-      <div class="col-md-3">
+      <!-- <div class="col-md-3">
         <span class ="label label-default">Perpetual</span>
         <select class="select-dropdown my-1 ">
           <option selected>Perpetual or Annual enrollment</option>
           <option value="1">Perpetual or Annual enrollment</option>
 
         </select>
-      </div>
+      </div> -->
     </div>
-
+  
+   
+        <app-agent-setup></app-agent-setup>
+     
+   
     <div class="container">
       <div id="accordion" class="accordion">
           <div class="card mt-2" style="cursor: pointer;">
@@ -127,7 +131,7 @@
               </div>
               <div id="collapseOne" class="card-body collapse" data-parent="#accordion" >
                
-                <app-fppg [lookupValue] = "lookupPaymentMethodvalue"></app-fppg>
+                <app-fppg [lookupValue] = "lookupSitusStateValue"></app-fppg>
               </div>
               <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
                   <a class="card-title">
@@ -135,7 +139,7 @@
                   </a>
               </div>
               <div id="collapseTwo" class="card-body collapse" data-parent="#accordion" >
-               
+             
                 <app-fpp-individual ></app-fpp-individual>
               </div>
               <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">

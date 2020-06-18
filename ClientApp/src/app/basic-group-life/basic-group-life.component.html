@@ -15,21 +15,31 @@
           <span style="color: red;">  <small><strong>Select Situs State!</strong></small></span>
         </div> -->
       </div>
+      <div class="col-3" style="margin-top: 18px;">
+        <app-radio-button></app-radio-button>  
+      </div>
+      
     </div>
 
     <div class="row">
+      <div class="col-3">
+        <span class ="label label-default">Employee Face Amount</span>
+        <input type="number" class="form-control mb-2 " style="width: 100%;" 
+        placeholder="Employee Face Amount">
+    </div> 
+
         <div class="col-3">
-            <span class="label">AD&D Rider </span>
-            <select class="form-control">
-                <option selected value="Y">Y</option>
-                <option value="N">N</option>
-              </select>
+            <span class="label">Spouse Face Amount </span>
+            <input type="number" class="form-control mb-2 " style="width: 100%;" 
+            placeholder="Spouse Face Amount">
         </div>
         <div class="col-3">
-            <span class ="label label-default">Employee Face Amount</span>
-            <input type="number" class="form-control mb-2 " style="width: 100%;" 
-            placeholder="Employee Face Amount">
-        </div>                   
+          <span class="label">Child Face Amount </span>
+          <input type="number" class="form-control mb-2 " style="width: 100%;" 
+            placeholder="Child Face Amount">
       </div>
+                        
+      </div>
+      <app-agent-setup></app-agent-setup>
   </div>
-  <app-agent-setup></app-agent-setup>
+ 
