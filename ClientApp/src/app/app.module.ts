@@ -40,6 +40,10 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RadioButtonComponent } from './radio-button/radio-button.component';
+import { CustomBulkUpdateComponent } from './custom-bulk-update/custom-bulk-update.component';
+import { CustomBulkTemplateComponent } from './custom-bulk-template/custom-bulk-template.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +63,9 @@ import { RadioButtonComponent } from './radio-button/radio-button.component';
     VolGroupLifeComponent,
     BasicGroupLifeComponent,
     AgentSetupComponent,
-    RadioButtonComponent
+    RadioButtonComponent,
+    CustomBulkUpdateComponent,
+    CustomBulkTemplateComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -85,6 +91,7 @@ import { RadioButtonComponent } from './radio-button/radio-button.component';
     MatIconModule,
     AutocompleteLibModule,
     FontAwesomeModule,
+    DragDropModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'group-search', component: GroupSearchComponent },
@@ -97,7 +104,9 @@ import { RadioButtonComponent } from './radio-button/radio-button.component';
       { path: 'hospital-indemnity', component: HospitalIndemnityComponent},
       { path: 'vol-group-life', component: VolGroupLifeComponent},
       { path: 'voluntary-ci', component: VoluntaryCIComponent},
-      { path: 'radio-button', component: RadioButtonComponent}
+      { path: 'radio-button', component: RadioButtonComponent},
+      { path: 'custom-bulk-update', component: CustomBulkUpdateComponent},
+      { path: 'custom-bulk-template', component: CustomBulkTemplateComponent}
     ])
   ],
   providers: [],

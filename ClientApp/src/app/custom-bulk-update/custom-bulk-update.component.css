@@ -1,0 +1,21 @@
+.accordion .card-header:after {
+    font-family: 'FontAwesome' ;  
+    content: "\f068" ;
+    float: left;
+    padding-right: 10px; 
+  }
+  .accordion .card-header.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\f067"; 
+  }
+  .accordion .card-header{
+      background-color: #cff6cf;
+  }
+  .accordion .card-header.collapsed{
+    background-color: #cfe5cf
+}
+table {
+    width: 100%;
+  }
+  
+
