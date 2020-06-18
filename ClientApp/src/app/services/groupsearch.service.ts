@@ -10,7 +10,7 @@ export class GroupsearchService {
   constructor(private http: HttpClient) { }
 
   getGroupsData() {
-    const GroupsDataUrl = environment.apiurl + 'GroupSetup/GroupSearch';
+    const GroupsDataUrl = environment.apiurl + 'GroupSetup/GetGroupsData';
     return this.http.get(GroupsDataUrl);
   }
 
