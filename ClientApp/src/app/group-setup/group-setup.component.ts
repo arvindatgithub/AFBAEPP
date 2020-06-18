@@ -4,6 +4,7 @@ import { TooltipPosition } from '@angular/material/tooltip';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { LookupService } from '../services/lookup.service';
+import { ThemePalette } from '@angular/material';
 interface state {
   value: string;
   viewValue: string;
@@ -25,39 +26,13 @@ export class GroupSetupComponent implements OnInit {
   titleName: string = "";
   selectedOption = [];
   accident = "";
+  checkedToggle = "Inactive";
+  toggleActiveColor: ThemePalette = "primary";
 
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
   position = new FormControl(this.positionOptions[0]);
   public minDate = new Date().toISOString().slice(0,10);
-
-  myForm: FormGroup;
-
-  public dataList = [
-    { name: 'Accident' },
-    { name: 'Hospital Indemnity' },
-    { name: 'Basic Group Life' },
-    { name: 'Employer Paid CI' },
-
-  ]
-
-  date: FormControl;
-
-  states: state[] = [
-    { value: 'steak-0', viewValue: 'Accident Situs State' },
-    { value: 'pizza-1', viewValue: 'Hospital Situs State' },
-    { value: 'tacos-2', viewValue: 'Employer Paid Ci Situs State' },
-    { value: 'tacos-3', viewValue: 'Basic Group Situs State' }
-  ];
-
-  places: place[] = [
-    { value: 'On or Off the Job', viewValue: 'On or Off the Job' },
-    { value: 'On the Job Only', viewValue: 'On the Job Only' },
-    { value: 'Off the Job Only', viewValue: 'Off the Job Only' }
-  ];
-
-  selectedValue = this.states[0].value;
-  selectedPlace = this.places[0].value;
-  selectedData = this.dataList[0].name;
+  dateChange:any;
   fppg: any;
   hospitalIndemity: any;
   fppIndivisual: any;
@@ -75,17 +50,15 @@ export class GroupSetupComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.myForm = this.formBuilder.group({
-      groupSetup: this.formBuilder.array([])
-    });
 
     this.lookupService.getLookupsData()
       .subscribe((data: any) => {
         this.isLoading = true;
         console.log("data", data);
-        this.lookUpDataPaymentModes = Object.values(data.paymentMode);
+        this.lookUpDataPaymentModes = (data.paymentMode.map((payment)=>{
+          return payment.paymentDescription;
+        }));
         this.lookUpDataSitusStates = (data.situsState);
-        
       });
 
   }
@@ -118,45 +91,31 @@ export class GroupSetupComponent implements OnInit {
     }
   }
 
-  selected(event: any) {
-    console.log(event)
-    this.selectedProducts.push(event.value);
-    this.selectedOption = [...new Set(this.selectedProducts)]
-    // console.log('products added ' , this.selectedProducts);
-
-  }
-
-  addAccident(value: any) {
-    this.accident = value;
-  }
-
-  addfppg(value: any) {
-    this.fppg = value;
-  }
-  addhospitalIndemity(value: any) {
-    this.hospitalIndemity = value;
-  }
-  addfppIndivisual(value: any) {
-    this.fppIndivisual = value;
-  }
-  addemployerPaidCi(value: any) {
-    this.employerPaidCi = value;
-  }
-  // addvoluntaryCi(value:any){
-  //   this.voluntaryCi = value;
-  // }
-  // addvolGroup(value:any){
-  //   this.volGroup = value;
-  // }
-  // addbasicGroup(value:any){
-  //   this.basicGroup = value;
-  // }
-
   getLookupValuePaymentMode(value: any) {
     this.lookupPaymentMethodvalue = value;
   }
 
   getLookupValueSitusState(value: any){
     this.lookupSitusStateValue = value;
+    console.log("lookupSitusStateValue",this.lookupSitusStateValue)
   }
+
+  onDateChange(dateValue:any){
+  this.dateChange = dateValue.srcElement.value;
+  console.log("dateValue",this.dateChange);
+  }
+
+  toggleChange(event:any){
+    console.log(event);
+    if(event.checked){
+      this.checkedToggle = "Active";
+    }
+    else{
+      this.checkedToggle = "Inactive";
+    }
+     
+  }
+  // sendSitusValue(value:any){
+  //   this.lookupService.sendSitusValue(value);
+  // }
 }

@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './header/header.component'; 
 import { FooterComponent } from './footer/footer.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -40,6 +40,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RadioButtonComponent } from './radio-button/radio-button.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { CustomBulkUpdateComponent } from './custom-bulk-update/custom-bulk-update.component';
+import { CustomBulkTemplateComponent } from './custom-bulk-template/custom-bulk-template.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +62,9 @@ import { RadioButtonComponent } from './radio-button/radio-button.component';
     VolGroupLifeComponent,
     BasicGroupLifeComponent,
     AgentSetupComponent,
-    RadioButtonComponent
+    RadioButtonComponent,
+    CustomBulkUpdateComponent,
+    CustomBulkTemplateComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -85,6 +90,7 @@ import { RadioButtonComponent } from './radio-button/radio-button.component';
     MatIconModule,
     AutocompleteLibModule,
     FontAwesomeModule,
+    MatSlideToggleModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'group-search', component: GroupSearchComponent },
@@ -97,7 +103,9 @@ import { RadioButtonComponent } from './radio-button/radio-button.component';
       { path: 'hospital-indemnity', component: HospitalIndemnityComponent},
       { path: 'vol-group-life', component: VolGroupLifeComponent},
       { path: 'voluntary-ci', component: VoluntaryCIComponent},
-      { path: 'radio-button', component: RadioButtonComponent}
+      { path: 'radio-button', component: RadioButtonComponent},
+      { path: 'custom-bulk-update', component: CustomBulkUpdateComponent},
+      { path: 'custom-bulk-template', component: CustomBulkTemplateComponent}
     ])
   ],
   providers: [],

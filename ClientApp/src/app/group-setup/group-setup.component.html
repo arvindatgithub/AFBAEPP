@@ -4,13 +4,13 @@
     <span class="sr-only">Loading...</span>
   </div>
 </div>
-<div class="container">
- 
-  <input type="checkbox" checked data-toggle="toggle" data-on="Active" data-off="Inactive" data-onstyle="success" data-offstyle="secondary">
-  </div>
+
 
 <div class="container" *ngIf="isLoading"> 
-  
+  <div class="">
+    <mat-slide-toggle (change)="toggleChange($event)" [color]= "toggleActiveColor"
+    >{{checkedToggle}}</mat-slide-toggle>
+    </div>
     <!-- Group Section -->
     <div class="row">
       <div class="col-md-3">
@@ -25,15 +25,16 @@
       </div>
       <div class="col-md-3">
         <span class ="label label-default">Group effective date</span>
-        <input type="date" [min] = "minDate" class="form-control mb-2 " style="width: 100%;" 
+        <input type="date" (change)="onDateChange($event)" [min] = "minDate" class="form-control mb-2 " style="width: 100%;" 
           placeholder="Group Effective Date">
       </div>
       <div class="col-md-3">
         <span class ="label label-default">Group Payment Mode</span>
         <select class="select-dropdown my-1" #paymentMode
          (change) ="getLookupValuePaymentMode(paymentMode.value)"
+         [value] = "lookUpDataPaymentModes[5]"
          >
-          <option hidden disabled selected value> -- select a Payment Mode -- </option>
+          <!-- <option hidden disabled selected value> -- select a Payment Mode -- </option> -->
           <option  *ngFor = "let lookUpDataPaymentMode of lookUpDataPaymentModes" >{{lookUpDataPaymentMode}}</option>
         </select>
       </div>
@@ -101,8 +102,8 @@
       <div class="col-md-3">
         <span class ="label label-default">Situs State</span>
         <select class="select-dropdown my-1" #situsState (change) = "getLookupValueSitusState(situsState.value)">
-          <option hidden disabled selected value> -- select Situs State -- </option>
-          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
+          <!-- <option hidden disabled selected value> -- select Situs State -- </option> -->
+          <option  *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
              {{ lookUpDataSitusState.state }}
             </option>
         </select>
@@ -131,7 +132,7 @@
               </div>
               <div id="collapseOne" class="card-body collapse" data-parent="#accordion" >
                
-                <app-fppg [lookupValue] = "lookupSitusStateValue"></app-fppg>
+                <app-fppg [lookupValue] = "lookupSitusStateValue" [dateValue]="dateChange"></app-fppg>
               </div>
               <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
                   <a class="card-title">
@@ -140,7 +141,7 @@
               </div>
               <div id="collapseTwo" class="card-body collapse" data-parent="#accordion" >
              
-                <app-fpp-individual ></app-fpp-individual>
+                <app-fpp-individual [dateValue]="dateChange"></app-fpp-individual>
               </div>
               <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
                   <a class="card-title">

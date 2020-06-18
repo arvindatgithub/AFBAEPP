@@ -1,0 +1,20 @@
+<div class="container">
+    <h3>Custom File Creation</h3>
+    <div class="field-container">
+        <p>Optional Fields</p>
+
+        <div cdkDropList #optionalFieldsList="cdkDropList" [cdkDropListData]="optionalFields"
+            [cdkDropListConnectedTo]="[requiredFieldsList]" class="fields-list" (cdkDropListDropped)="drop($event)">
+            <div class="field-box" *ngFor="let item of optionalFields" cdkDrag>{{item}}</div>
+        </div>
+    </div>
+
+    <div class="field-container">
+        <p>Required Fields</p>
+
+        <div cdkDropList #requiredFieldsList="cdkDropList" [cdkDropListData]="requiredFields"
+            [cdkDropListConnectedTo]="[optionalFieldsList]" class="fields-list" (cdkDropListDropped)="drop($event)">
+            <div class="field-box" *ngFor="let item of requiredFields" cdkDrag>{{item}}</div>
+        </div>
+    </div>
+</div>
