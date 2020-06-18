@@ -13,6 +13,14 @@ namespace AFBA.EPP.Repositories.Interfaces
         public IGeppGrppymntmdRepository GeppGrppymntmdRepository { get; }
         public IEppGroupMasterRepository GroupMasterRepository { get; }
         public IEppAttributeRepository eppAttributeRepository { get; }
+        public IEppEnrlmntPrtnrsRepository eppEnrlmntPrtnrsRepository { get; }
+        public IEppAcctMgrCntctsRepository   eppAcctMgrCntctsRepository { get; }
+        public IEppGrpprdctRepository eppGrpprdctRepository { get; }
+        public IEppProductCodesRepository eppProductCodesRepository { get; }
+        public IEppPrdctattrbtRepository eppPrdctattrbtRepository { get; }
+        public IEppBulkRefTblRepository eppBulkRefTblRepository { get; }
+        public IEppErrorMessageRepository eppErrorMessageRepository { get; }
+        public IEppErrorDtlRepository eppErrorDtlRepository { get; }
         Task< int> Complete();
     }
 }

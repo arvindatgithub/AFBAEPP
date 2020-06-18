@@ -22,8 +22,22 @@ namespace AFBA.EPP.Repositories
         public IGeppGrppymntmdRepository GeppGrppymntmdRepository => new GeppGrppymntmdRepository(_dbContext);
 
         public IEppGroupMasterRepository GroupMasterRepository => new EppGroupMasterRepository(_dbContext);
-
         public IEppAttributeRepository eppAttributeRepository => new EppAttributeRepository(_dbContext);
+        public IEppEnrlmntPrtnrsRepository eppEnrlmntPrtnrsRepository => new EppEnrlmntPrtnrsRepository(_dbContext);
+
+        public IEppAcctMgrCntctsRepository eppAcctMgrCntctsRepository =>  new EppAcctMgrCntctsRepository(_dbContext);
+
+        public IEppGrpprdctRepository eppGrpprdctRepository =>  new EppGrpprdctRepositry(_dbContext);
+
+        public IEppProductCodesRepository eppProductCodesRepository =>  new EppProductCodesRepository(_dbContext);
+
+        public IEppPrdctattrbtRepository eppPrdctattrbtRepository =>  new EppPrdctattrbtRepository(_dbContext);
+
+        public IEppBulkRefTblRepository eppBulkRefTblRepository =>  new EppBulkRefTblRepository(_dbContext);
+
+        public IEppErrorMessageRepository eppErrorMessageRepository =>  new EppErrorMessageRepository(_dbContext);
+
+        public IEppErrorDtlRepository eppErrorDtlRepository =>  new EppErrorDtlRepository(_dbContext);
 
         public async Task<int> Complete()
         {
