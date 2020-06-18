@@ -24,7 +24,7 @@ namespace AFBA.EPP.Controllers
 
         [Route("[action]")]
         [HttpGet]
-        public IEnumerable<GroupSearchViewModel> GroupSearch()
+        public IEnumerable<GroupSearchViewModel> GetGroupsData()
         {
             //_unitofWork.GroupMasterRepository.GetGroupData();
 
