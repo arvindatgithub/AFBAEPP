@@ -43,6 +43,8 @@ import { RadioButtonComponent } from './radio-button/radio-button.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { CustomBulkUpdateComponent } from './custom-bulk-update/custom-bulk-update.component';
 import { CustomBulkTemplateComponent } from './custom-bulk-template/custom-bulk-template.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -91,6 +93,7 @@ import { CustomBulkTemplateComponent } from './custom-bulk-template/custom-bulk-
     AutocompleteLibModule,
     FontAwesomeModule,
     MatSlideToggleModule,
+    DragDropModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'group-search', component: GroupSearchComponent },

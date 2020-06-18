@@ -8,9 +8,14 @@ import { CustomeppattributeService } from '../services/customeppattribute.servic
   styleUrls: ['./custom-bulk-template.component.css']
 })
 export class CustomBulkTemplateComponent implements OnInit {
-
-  optionalFields = [];
   requiredFields = [];
+  optionalFields = [];
+  selectedFields = [];
+
+  requiredFieldsFPPG = ['emp_hire_dt','effctv_dt','grp_nmbr','emp_sig_dt','agnt_cd_1','agntsub_1',
+  'agnt_comm_split_1','owners_lname','owners_fname','owners_ssn','owners_addr_ln_1',
+  'owners_addr_city','owners_addr_state','owners_addr_zip','emp_plan_cd'];
+  
 
   constructor( private customattributeService: CustomeppattributeService) {
     this.customattributeService.getAttributes().subscribe((data) => {

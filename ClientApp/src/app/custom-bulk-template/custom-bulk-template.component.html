@@ -1,20 +1,46 @@
 <div class="container">
-    <h3>Custom File Creation</h3>
-    <div class="field-container">
-        <p>Optional Fields</p>
-
-        <div cdkDropList #optionalFieldsList="cdkDropList" [cdkDropListData]="optionalFields"
-            [cdkDropListConnectedTo]="[requiredFieldsList]" class="fields-list" (cdkDropListDropped)="drop($event)">
-            <div class="field-box" *ngFor="let item of optionalFields" cdkDrag>{{item}}</div>
-        </div>
+    <!-- Group Number Section-->
+    <div class="col-md-4 form-group"style="padding-left:0px;">
+        <label for="grpNum">Group Number</label>
+        <select class="select-dropdown form-control" id="grpNum"  name="grpNum">
+        <option selected>Select</option>
+            <option value="22345">22345</option>
+            <option value="12345">12345</option>
+        </select>
     </div>
-
-    <div class="field-container">
-        <p>Required Fields</p>
-
-        <div cdkDropList #requiredFieldsList="cdkDropList" [cdkDropListData]="requiredFields"
-            [cdkDropListConnectedTo]="[optionalFieldsList]" class="fields-list" (cdkDropListDropped)="drop($event)">
-            <div class="field-box" *ngFor="let item of requiredFields" cdkDrag>{{item}}</div>
+    <!-- Product Custom File Section  -->
+       <div id="accordion" class="accordion">
+        <div class="card mt-2" style="cursor: pointer;">
+            <div class="card-header collapsed mb-2" data-toggle="collapse" href="#collapseOne">
+                <a class="card-title">
+                    FPPG
+                </a>
+            </div>
+            <div id="collapseOne" class="card-body collapse" data-parent="#accordion">
+                <div class="field-container">
+                    <p>Required Fields</p>
+                    <div class="fields-list">
+                        <div class="field-box" *ngFor="let item of requiredFieldsFPPG">{{item}}</div>
+                    </div>
+                </div>
+                <div class="field-container">
+                    <p>Optional Fields Available</p>
+    
+                    <div cdkDropList #optionalFieldsList="cdkDropList" [cdkDropListData]="optionalFields"
+                        [cdkDropListConnectedTo]="[selectedFieldsList]" class="fields-list" (cdkDropListDropped)="drop($event)">
+                        <div class="field-box" *ngFor="let item of optionalFields" cdkDrag>{{item}}</div>
+                    </div>
+                </div>
+    
+                <div class="field-container">
+                    <p>Optional Fields Selected</p>
+    
+                    <div cdkDropList #selectedFieldsList="cdkDropList" [cdkDropListData]="selectedFields"
+                        [cdkDropListConnectedTo]="[optionalFieldsList]" class="fields-list" (cdkDropListDropped)="drop($event)">
+                        <div class="field-box" *ngFor="let item of selectedFields" cdkDrag>{{item}}</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
