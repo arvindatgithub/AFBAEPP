@@ -12,25 +12,28 @@
     >{{checkedToggle}}</mat-slide-toggle>
     </div>
     <!-- Group Section -->
+
+
+
     <div class="row">
       <div class="col-md-3">
         <span class ="label label-default">Group Number</span>
-        <input type="text" class="form-control mb-2" style="width: 100%;" 
+        <input type="text" class="form-control mb-2" [(ngModel)]="groupNumber" style="width: 100%;" 
           placeholder="Group Number Field">
       </div>
       <div class="col-md-3">
         <span class ="label label-default">Group Name</span>
-        <input type="text" class="form-control mb-2 " style="width: 100%;" 
+        <input type="text" class="form-control mb-2"  [(ngModel)]="groupName" style="width: 100%;" 
           placeholder="Group Name Field">
       </div>
       <div class="col-md-3">
         <span class ="label label-default">Group effective date</span>
-        <input type="date" (change)="onDateChange($event)" [min] = "minDate" class="form-control mb-2 " style="width: 100%;" 
+        <input type="date" (change)="onDateChange($event)" [min] = "minDate" class="form-control mb-2"  [(ngModel)]="grpEfftvDate" style="width: 100%;" 
           placeholder="Group Effective Date">
       </div>
       <div class="col-md-3">
         <span class ="label label-default">Group Payment Mode</span>
-        <select class="select-dropdown" #paymentMode
+        <select class="select-dropdown" [(ngModel)]="grpPymn" #paymentMode
          (change) ="getLookupValuePaymentMode(paymentMode.value)"
          [value] = "lookUpDataPaymentModes[5]"
          >
@@ -54,7 +57,7 @@
       <div class="col-md-3">
         <div>
           <span class ="label label-default">Occupation Class</span>
-          <select class="select-dropdown my-1 " >
+          <select class="select-dropdown my-1 " [(ngModel)]="occClass"  >
             <option selected>Select Occupation Class</option>
             <!-- <option value="1">Occ Class</option> -->
             <option value="2">1</option>
@@ -101,7 +104,7 @@
       </div>
       <div class="col-md-3">
         <span class ="label label-default">Situs State</span>
-        <select class="select-dropdown my-1" #situsState (change) = "getLookupValueSitusState(situsState.value)">
+        <select class="select-dropdown my-1" [(ngModel)]="grpSitusSt" #situsState (change) = "getLookupValueSitusState(situsState.value)">
           <!-- <option hidden disabled selected value> -- select Situs State -- </option> -->
           <option  *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
              {{ lookUpDataSitusState.state }}
@@ -202,7 +205,7 @@
     </div>
           
   </div>
-    <button type="button" class="btn btn-success mt-4 mb-4" style="float: right;">Submit Group
+    <button type="button" class="btn btn-success mt-4 mb-4" style="float: right;" (click)="onSubmit()">Submit Group
       Setup Information</button>
   
 </div>
