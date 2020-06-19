@@ -1,13 +1,12 @@
 <div class="container">
     <!-- Group Number Section-->
-    <div class="col-md-4 form-group"style="padding-left:0px;">
-        <label for="grpNum">Group Number</label>
-        <select class="select-dropdown form-control" id="grpNum"  name="grpNum">
-        <option selected>Select</option>
-            <option value="22345">22345</option>
-            <option value="12345">12345</option>
-        </select>
+    <div class="row">
+        <div class="col-md-4 form-group">
+            <label>Group Number</label>
+            <input type="number" class="form-control" placeholder="Enter Group Number">
+        </div>
     </div>
+
     <!-- Product Custom File Section  -->
        <div id="accordion" class="accordion">
         <div class="card mt-2" style="cursor: pointer;">
@@ -18,29 +17,30 @@
             </div>
             <div id="collapseOne" class="card-body collapse" data-parent="#accordion">
                 <div class="field-container">
-                    <p>Required Fields</p>
-                    <div class="fields-list">
-                        <div class="field-box" *ngFor="let item of requiredFieldsFPPG">{{item}}</div>
-                    </div>
-                </div>
-                <div class="field-container">
-                    <p>Optional Fields Available</p>
+                    <p>Available Fields</p>
     
-                    <div cdkDropList #optionalFieldsList="cdkDropList" [cdkDropListData]="optionalFields"
+                    <div cdkDropList #availableFieldsList="cdkDropList" [cdkDropListData]="availableFields"
                         [cdkDropListConnectedTo]="[selectedFieldsList]" class="fields-list" (cdkDropListDropped)="drop($event)">
-                        <div class="field-box" *ngFor="let item of optionalFields" cdkDrag>{{item}}</div>
+                        <div class="field-box" *ngFor="let item of availableFields" cdkDrag>{{item.dbAttrNm}}
+                        </div>
                     </div>
                 </div>
-    
+                
                 <div class="field-container">
-                    <p>Optional Fields Selected</p>
+                    <p>Selected Fields</p>
     
                     <div cdkDropList #selectedFieldsList="cdkDropList" [cdkDropListData]="selectedFields"
-                        [cdkDropListConnectedTo]="[optionalFieldsList]" class="fields-list" (cdkDropListDropped)="drop($event)">
-                        <div class="field-box" *ngFor="let item of selectedFields" cdkDrag>{{item}}</div>
+                        [cdkDropListConnectedTo]="[availableFieldsList]" class="fields-list" (cdkDropListDropped)="drop($event)">
+                        <div class="field-box" *ngFor="let item of selectedFields; let i=index;" cdkDrag>{{item.dbAttrNm}}
+                             <input type="checkbox" name="selectedFields" 
+                                [(ngModel)]="item.rqdFlg" (change)="updateCheckedOptions(item, $event)">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Button-->
+    <button type="button" class="btn btn-success mt-4 mb-4" style="float: right;" 
+    (click)="exportAsXLSX()">Generate Custom Layout</button>
 </div>
