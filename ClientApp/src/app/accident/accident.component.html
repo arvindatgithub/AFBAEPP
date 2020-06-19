@@ -1,66 +1,59 @@
-<div class="container">
-  <div class="row">
-    <app-radio-button></app-radio-button>
-    <div class="col-3">
-      <span class="label label-default">Group Effective Date</span>
-      <input type="date" [value]="dateValue" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
-        placeholder="Group Effective Date">
-
+<div class="container" style="width: 100%;">
+    <div class="row pb-2 ">
+      <app-radio-button></app-radio-button>
+      <div class="col-3">
+        <span class="label label-default">Group Effective Date</span>
+        <input type="date" [value]="dateValue" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
+          placeholder="Group Effective Date">
+  
+      </div>
+      <app-radio-button></app-radio-button>
+      <div class="col-3">
+        <span class="label label-default">Sitius State</span>
+        <select class="form-control" [value]="lookupValue">
+          <!-- <option value="0" selected="selected">{{ lookupValue }}</option> -->
+          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
+            {{lookUpDataSitusState.state}}</option>
+  
+        </select>
+      </div>
+      <div class="col-3 mt-4">
+        <button class="btn btn-primary" type="submit">Reset Form </button>
+      </div>
     </div>
-    <app-radio-button></app-radio-button>
-    <div class="col-3">
-      <span class="label label-default">Sitius State</span>
-      <select class="form-control" [value]="lookupValue">
-        <!-- <option value="0" selected="selected">{{ lookupValue }}</option> -->
-        <option  *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
-          {{lookUpDataSitusState.state}}</option>
-
-      </select>
-      <!-- <div *ngIf="lookupValue == ''">
-    <span style="color: red;">  <small><strong>Select Payment Mode !</strong></small></span>
-  </div> -->
-    </div>
-    <div class="col-3 mt-4">
-      <button class="btn btn-primary" type="submit">Reset Form </button>
-    </div>
-
-    <app-radio-button></app-radio-button>
-    <div class="col-3">
-      <span class="label">On or Off the Job</span>
-      <select class="form-control">
-        <option selected>Text</option>
-        <option>On the Job Only</option>
-        <option >Off the Job Only</option>
-      </select>
-    
-    </div>
-    <app-radio-button></app-radio-button>
-    <div class="col-3 mb-2">
-     
-     
+    <div class="row pb-2 ">
+      <app-radio-button></app-radio-button>
+      <div class="col-3">
+        <span class="label">On or Off the Job</span>
+        <select class="form-control">
+          <option selected>Text</option>
+          <option>On the Job Only</option>
+          <option>Off the Job Only</option>
+        </select>
+  
+      </div>
+      <app-radio-button></app-radio-button>
+      <div class="col-3 mb-2">
+  
         <span class="label">
-        
           Accident Rate Level
         </span>
-     
-
-      <select class="form-control">
-        <option selected value="option">1</option>
-        <option value="option">2</option>
-        <option value="option">3</option>
-      </select>
+        <select class="form-control">
+          <option selected value="option">1</option>
+          <option value="option">2</option>
+          <option value="option">3</option>
+        </select>
+      </div>
+      
     </div>
-
-   
-    
-  </div>
-</div>
-<div class="container">
-  
-
     <app-agent-setup></app-agent-setup>
-
-   
- 
-  
+      
 </div>
+
+
+
+ 
+
+
+
+

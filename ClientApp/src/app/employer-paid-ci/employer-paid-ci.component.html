@@ -1,54 +1,66 @@
-<div class="container">
+
+<div class="container" style="width: 100%;">
   <div class="row">
+    <app-radio-button></app-radio-button>
     <div class="col-3">
-      <span class="label label-default">Date</span>
-      <input type="date" [min]="minDate" class="form-control mb-2 " style="width: 100%;" placeholder="Employer Paid CI Effective
-          Date">
-    </div>
+      <span class="label label-default">Group Effective Date</span>
+      <input type="date" [value]="dateValue" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
+        placeholder="Group Effective Date">
 
+    </div>
+    <app-radio-button></app-radio-button>
     <div class="col-3">
-      <span class="label label-default"> Employer Paid Ci Situs
-        State</span>
-      <select class="form-control"  id="inlineFormCustomSelectPref">
-        <option hidden disabled selected value> -- select Situs State -- </option>
-        <option selected *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">{{ lookUpDataSitusState }}</option>
+      <span class="label label-default">Sitius State</span>
+      <select class="form-control" [value]="lookupValue">
+        <!-- <option value="0" selected="selected">{{ lookupValue }}</option> -->
+        <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
+          {{lookUpDataSitusState.state}}</option>
+
       </select>
-      <!-- <div *ngIf="lookupSitusState == ''">
-        <span style="color: red;">  <small><strong>Select Situs State!</strong></small></span>
-      </div> -->
+
     </div>
-   
-      <div class="col-3">
-        <input type="text" class="form-control mb-2" style="width: 100% ;margin-top: 23px;" 
-        placeholder="Plan Code">
-       
-        </div>
-        <div class="col-3" style="margin-top: 18px;">
-          <app-radio-button></app-radio-button>  
-        </div>
-      
+    <div class="col-3 mt-4">
+      <button class="btn btn-primary" type="submit">Reset Form </button>
+    </div>
   </div>
+
+
+  <div class="row mt-4">
+    <app-radio-button></app-radio-button>
+    <div class=" col-3">
+
+      <span class="label label-default">Spouse Standard Face
+        Amount</span>
+
+      <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse Standard Face Amount">
+    </div>
+
+
+
+    <app-radio-button></app-radio-button>
+    <div class="col-3">
+      <span class="label label-default">Employee Standard Face
+        Amount</span>
+
+      <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Employee Standard Face
+Amount">
+    </div>
+
+
+  </div>
+
+  <div class="row">
+    <div class=" col-3">
+      <span class="label label-default">Plan Code </span>
+      <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Plan Code ">
+    </div>
+    <div class="col-3">
+      <span class="label label-default">Child Standard Face Amount</span>
+      <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Child Standard Face Amount">
+    </div>
+
+  </div>
+    <app-agent-setup></app-agent-setup>
+
+</div>
   
-</div>
-<div class="row" style="margin-left: 1px;">
-
-  <div class="col-3">
-    <!-- <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked> -->
-
-    <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse Standard Face
-                      Amount
-                      ">
-  </div>
-  <div class="col-3">
-   
-    <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Employee Standard Face
-                      Amount">
-  </div>
-  <div class="col-3">
-
-    <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Child Standard Face Amount">
-  </div>
-
-  <app-agent-setup></app-agent-setup>
-
-</div>
