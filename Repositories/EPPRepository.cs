@@ -13,10 +13,11 @@ namespace AFBA.EPP.Repositories
       
     {
         private readonly DbSet<TEntity> _entities;
-
+        private DbContext _dbContext;
         public EPPRepository(DbContext context)
         {
             _entities = context.Set<TEntity>();
+            _dbContext = context;
         }
         public async Task<List<TEntity>> GetAll()
         {
@@ -35,6 +36,43 @@ namespace AFBA.EPP.Repositories
         public async Task<TEntity> SingleOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
             return await _entities.SingleOrDefaultAsync(predicate);
+        }
+
+        public void Add(TEntity entity)
+        {
+            _entities.Add(entity);
+        }
+
+        public void AddRange(IEnumerable<TEntity> entities)
+        {
+            _entities.AddRange(entities);
+        }
+
+        public void Remove(TEntity entity)
+        {
+            _entities.Remove(entity);
+        }
+
+        public void RemoveRange(IEnumerable<TEntity> entities)
+        {
+            _entities.RemoveRange(entities);
+        }
+        public void RejectChanges()
+        {
+            foreach (var entry in _dbContext.ChangeTracker.Entries()
+                  .Where(e => e.State != EntityState.Unchanged))
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.State = EntityState.Detached;
+                        break;
+                    case EntityState.Modified:
+                    case EntityState.Deleted:
+                        entry.Reload();
+                        break;
+                }
+            }
         }
     }
 }

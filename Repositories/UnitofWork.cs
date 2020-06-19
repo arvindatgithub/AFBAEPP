@@ -49,7 +49,9 @@ namespace AFBA.EPP.Repositories
             _dbContext.Dispose();
         }
 
-       
-        
+        public void RejectChanges()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

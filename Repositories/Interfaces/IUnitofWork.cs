@@ -21,6 +21,7 @@ namespace AFBA.EPP.Repositories.Interfaces
         public IEppBulkRefTblRepository eppBulkRefTblRepository { get; }
         public IEppErrorMessageRepository eppErrorMessageRepository { get; }
         public IEppErrorDtlRepository eppErrorDtlRepository { get; }
+        void RejectChanges();
         Task< int> Complete();
     }
 }
