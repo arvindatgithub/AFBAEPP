@@ -108,7 +108,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
       { path: 'voluntary-ci', component: VoluntaryCIComponent},
       { path: 'radio-button', component: RadioButtonComponent},
       { path: 'custom-bulk-update', component: CustomBulkUpdateComponent},
-      { path: 'custom-bulk-template', component: CustomBulkTemplateComponent}
+      { path: 'custom-bulk-template', component: CustomBulkTemplateComponent},
+      { path: 'radio-button', component: RadioButtonComponent}           
     ])
   ],
   providers: [],
