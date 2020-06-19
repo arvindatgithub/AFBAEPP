@@ -40,25 +40,24 @@ namespace AFBA.EPP.Controllers
             }).ToList().OrderBy(x=>x.DbAttrNm);
         }
 
-        [Route("[action]")]
+        [Route("product/{product?}")]
         [HttpGet]
-        public Dictionary<string, List<EppAttrFieldViewModel>> EppGetSelectedFields()
+        public EppTemplateViewModel EppGetSelectedFields  (string product)
         {
             string filepath= _webHostEnvironment.WebRootPath;
-             return   Helper.GetProductAvailableFields( filepath);
+             return   Helper.GetProductAvailableFields( filepath, _unitofWork, product);
            
         }
 
         [Route("[action]")]
         [HttpGet]
-        public IEnumerable<EppAttrFieldViewModel> EppGetAvailableFields()
+        public IEnumerable<EppAttrFieldViewModel> EppGetTemplateFields()
         {
             return _unitofWork.eppAttributeRepository.GetAll().Result.Select(d => new EppAttrFieldViewModel
             {
 
                 DbAttrNm = d.DbAttrNm,
                  RqdFlg = false,
-
             }).ToList().OrderBy(x => x.DbAttrNm);
         }
 

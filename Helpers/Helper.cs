@@ -1,4 +1,6 @@
-﻿using AFBA.EPP.ViewModels;
+﻿using AFBA.EPP.Repositories;
+using AFBA.EPP.Repositories.Interfaces;
+using AFBA.EPP.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
@@ -15,9 +17,9 @@ namespace AFBA.EPP.Helpers
     {
 
 
-       
-       
-        public static Dictionary<string, List<EppAttrFieldViewModel>> GetProductAvailableFields(string webRootPath)
+        
+
+        public static EppTemplateViewModel GetProductAvailableFields(string webRootPath, IUnitofWork _unitofWork,string groupName)
         {
            string  path = Path.Combine(webRootPath, "attrs_maps.json");
 
@@ -61,52 +63,59 @@ namespace AFBA.EPP.Helpers
                 "emp_addr_ln_1", "emp_addr_city", "emp_addr_state",
                 "emp_addr_zip", "emp_ssn", "emp_dob", "emp_gndr", "owners_phn"
         };
-
+            
             var jsonBytes = File.ReadAllText(path);
-            var jsonDoc = JsonDocument.Parse(jsonBytes);               
-                 
+            var jsonDoc = JsonDocument.Parse(jsonBytes);
+          
             var root = jsonDoc.RootElement;
-            var dEppAttrField = new Dictionary<string, List<EppAttrFieldViewModel>>();
-            foreach ( var productnm in root.EnumerateObject())
+            //var dEppAttrField = new Dictionary<string, List<EppAttrFieldViewModel>>();
+
+            EppTemplateViewModel lstEppTemplateViewModel = new EppTemplateViewModel
             {
-              
-                List<EppAttrFieldViewModel> lsteavm = new List<EppAttrFieldViewModel>();
-                var enumRoot = root.GetProperty(productnm.Name).EnumerateObject();
-                dEppAttrField.Add(productnm.Name, lsteavm);
+                AvailableList = new List<EppAttrFieldViewModel>() ,
+                SelectedList = new List<EppAttrFieldViewModel>()
+            };
+
+            lstEppTemplateViewModel.AvailableList = EppGetAvailableFields(_unitofWork).ToList();
+            
+            var enumRoot = root.GetProperty(groupName).EnumerateObject();
                 foreach (var attrName in enumRoot)
                 {
 
-                    lsteavm.Add( new EppAttrFieldViewModel {  DbAttrNm= attrName.Value.ToString()});
+                lstEppTemplateViewModel.SelectedList.Add( new EppAttrFieldViewModel {  DbAttrNm= attrName.Value.ToString()});
                 }
 
                 // mark required field for each product 
-                switch ( productnm.Name)
+                switch (groupName)
                 {
                     case "FPPG":
-                        MarkRequired(lsteavm, REQUIRED_FPPG);
+                        MarkRequired(lstEppTemplateViewModel.SelectedList, REQUIRED_FPPG);
                         break;
                     case "ACC_HI":
-                        MarkRequired(lsteavm, REQUIRED_ACC_HI);
+                        MarkRequired(lstEppTemplateViewModel.SelectedList, REQUIRED_ACC_HI);
                         break;
                     case "ER_CI":
-                        MarkRequired(lsteavm, REQUIRED_ER_CI);
+                        MarkRequired(lstEppTemplateViewModel.SelectedList, REQUIRED_ER_CI);
                         break;
                     case "VOL_CI":
-                        MarkRequired(lsteavm, REQUIRED_VOL_CI);
+                        MarkRequired(lstEppTemplateViewModel.SelectedList, REQUIRED_VOL_CI);
                         break;
                     case "VGL":
-                        MarkRequired(lsteavm, REQUIRED_VGL);
+                        MarkRequired(lstEppTemplateViewModel.SelectedList, REQUIRED_VGL);
                         break;
                     case "BGL":
-                        MarkRequired(lsteavm, REQUIRED_BGL);
+                        MarkRequired(lstEppTemplateViewModel.SelectedList, REQUIRED_BGL);
                         break;
                 }
-                            
-            }
+
+                foreach (var item in lstEppTemplateViewModel.SelectedList)
+                {
+                    lstEppTemplateViewModel.AvailableList.Remove(lstEppTemplateViewModel.AvailableList.FirstOrDefault(x => x.DbAttrNm.Contains(item.DbAttrNm)));
+                }
                 
-            
-            return dEppAttrField;
-        }
+            return lstEppTemplateViewModel;
+
+         }
 
         private static void MarkRequired(List<EppAttrFieldViewModel> lstEppAttrFieldViewModel, string[] stringArray)
         {
@@ -118,6 +127,14 @@ namespace AFBA.EPP.Helpers
 
         }
 
+        public static  IEnumerable<EppAttrFieldViewModel> EppGetAvailableFields(IUnitofWork _unitofWork)
+        {         
+            return _unitofWork.eppAttributeRepository.GetAll().Result.Select(d => new EppAttrFieldViewModel
+            {
+                DbAttrNm = d.DbAttrNm,
+                RqdFlg = false,
+            }).ToList().OrderBy(x => x.DbAttrNm);
+        }
 
     }
 }
