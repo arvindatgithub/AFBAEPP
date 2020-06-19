@@ -99,7 +99,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
       { path: 'hospital-indemnity', component: HospitalIndemnityComponent},
       { path: 'vol-group-life', component: VolGroupLifeComponent},
       { path: 'voluntary-ci', component: VoluntaryCIComponent},
-      { path: 'radio-button', component: RadioButtonComponent}
+      { path: 'radio-button', component: RadioButtonComponent}       
     ])
   ],
   providers: [],
