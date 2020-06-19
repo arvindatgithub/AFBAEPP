@@ -28,7 +28,10 @@ export class GroupSetupComponent implements OnInit {
   accident = "";
   checkedToggle = "Inactive";
   toggleActiveColor: ThemePalette = "primary";
-
+  groupNumber = "";
+  grpNumber = {
+    grpNbr:""
+  }
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
   position = new FormControl(this.positionOptions[0]);
   public minDate = new Date().toISOString().slice(0,10);
@@ -45,6 +48,14 @@ export class GroupSetupComponent implements OnInit {
   public lookupPaymentMethodvalue = "";
   public lookupSitusStateValue = "";
   public isLoading = false;
+  groupName: "";
+  grpEfftvDate: "";
+  grpPymn: "";
+  grpNm: { grpNm: ""; };
+  grpEfftvDt: { grpEfftvDt: ""; };
+  occ: { occClass: ""; };
+  occClass: any;
+  grpPym: { grpPymn: ""; };
 
   constructor(private formBuilder: FormBuilder, private snackBar: MatSnackBar, private lookupService: LookupService) {
   }
@@ -56,7 +67,7 @@ export class GroupSetupComponent implements OnInit {
         this.isLoading = true;
         console.log("data", data);
         this.lookUpDataPaymentModes = (data.paymentMode.map((payment)=>{
-          return payment.paymentDescription;
+          return payment.formattedData;
         }));
         this.lookUpDataSitusStates = (data.situsState);
       });
@@ -115,7 +126,27 @@ export class GroupSetupComponent implements OnInit {
     }
      
   }
-  // sendSitusValue(value:any){
-  //   this.lookupService.sendSitusValue(value);
-  // }
+  onSubmit(){
+    this.grpNumber = {
+      grpNbr: this.groupNumber
+    }
+console.log(this.grpNumber);
+    this.grpNm = {
+      grpNm: this.groupName
+    }
+    console.log(this.grpNm)
+    this.grpEfftvDt = {
+      grpEfftvDt: this.grpEfftvDate
+    }
+    console.log(this.grpEfftvDt)
+    this.grpPym = {
+      grpPymn: this.grpPymn
+    }
+    console.log(this.grpPym)
+    this.occ = {
+      occClass: this.occClass
+    }
+    console.log(this.occ)
+  }
+
 }

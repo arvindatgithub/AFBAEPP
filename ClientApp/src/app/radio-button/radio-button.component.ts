@@ -8,6 +8,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class RadioButtonComponent implements OnInit {
   @Input()
   lookupValue: any;
+  favoriteSeason: string;
+  seasons: string[] = [' 100% override', ' Partial update', 'Validate'];
   constructor() { }
 
   ngOnInit() {
