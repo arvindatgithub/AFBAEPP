@@ -30,7 +30,7 @@
       </div>
       <div class="col-md-3">
         <span class ="label label-default">Group Payment Mode</span>
-        <select class="select-dropdown my-1" #paymentMode
+        <select class="select-dropdown" #paymentMode
          (change) ="getLookupValuePaymentMode(paymentMode.value)"
          [value] = "lookUpDataPaymentModes[5]"
          >
@@ -161,7 +161,7 @@
             </div>
             <div id="collapseFour" class="collapse" data-parent="#accordion" >
                 <div class="card-body">
-                  <app-hospital-indemnity [lookupSitusState] = "lookupSitusStateValue"></app-hospital-indemnity>
+                  <app-hospital-indemnity [lookupValue] = "lookupSitusStateValue" [dateValue]="dateChange"></app-hospital-indemnity>
                 </div>
             </div>
             <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
@@ -170,7 +170,7 @@
               </a>
           </div>
           <div id="collapseFive" class="collapse" data-parent="#accordion" >
-              <div class="card-body"><app-employer-paid-ci [lookupSitusState] = "lookupSitusStateValue"></app-employer-paid-ci>
+              <div class="card-body"><app-employer-paid-ci [lookupValue] = "lookupSitusStateValue" [dateValue]="dateChange"></app-employer-paid-ci>
               </div>
           </div>
           <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
@@ -179,7 +179,7 @@
             </a>
         </div>
         <div id="collapseSix" class="collapse" data-parent="#accordion" >
-            <div class="card-body"><app-voluntary-ci [lookupSitusState] = "lookupSitusStateValue"></app-voluntary-ci>
+            <div class="card-body"><app-voluntary-ci [lookupValue] = "lookupSitusStateValue" [dateValue]="dateChange"></app-voluntary-ci>
             </div>
         </div>
         <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
@@ -188,7 +188,7 @@
           </a>
       </div>
       <div id="collapseSeven" class="collapse" data-parent="#accordion" >
-          <div class="card-body"><app-vol-group-life [lookupSitusState] = "lookupSitusStateValue"></app-vol-group-life>
+          <div class="card-body"><app-vol-group-life [lookupValue] = "lookupSitusStateValue" [dateValue]="dateChange"></app-vol-group-life>
           </div>
       </div>
       <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseEight">
@@ -197,7 +197,7 @@
         </a>
     </div>
     <div id="collapseEight" class="collapse" data-parent="#accordion" >
-        <div class="card-body"><app-basic-group-life [lookupSitusState] = "lookupSitusStateValue"></app-basic-group-life>
+        <div class="card-body"><app-basic-group-life [lookupValue] = "lookupSitusStateValue" [dateValue]="dateChange"></app-basic-group-life>
         </div>
     </div>
           

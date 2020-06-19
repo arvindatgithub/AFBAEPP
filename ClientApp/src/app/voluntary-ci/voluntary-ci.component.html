@@ -1,74 +1,176 @@
-<div class="container">
-    <div class="row">
-        <div class="col-3">
-            <span class="label label-default">Voluntary CI Effective Date</span>
-            <input type="date" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
-                placeholder="Voluntary CI Effective Date">
-        </div>
-        <div class="col-3">
-            <span class="label">Voluntary CI Situs State</span>
-            <select class="form-control" id="inlineFormCustomSelectPref">
-                <option hidden disabled selected value> -- select Situs State -- </option>
-        <option selected *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">{{ lookUpDataSitusState }}</option>
+<div class="container" style="width: 100%;">
+
+    <form>
+      <div style=" margin-left: 15px;">
+        <div class="row">
+          <app-radio-button></app-radio-button>
+          <div class="col-3">
+            <span class="label label-default">Group Effective Date</span>
+            <input type="date" [value]="dateValue" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
+              placeholder="Group Effective Date">
+  
+          </div>
+          <app-radio-button></app-radio-button>
+          <div class="col-3">
+            <span class="label label-default">Sitius State</span>
+            <select class="form-control" [value]="lookupValue">
+              <!-- <option value="0" selected="selected">{{ lookupValue }}</option> -->
+              <option  *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
+                {{lookUpDataSitusState.state}}</option>
+  
             </select>
-            <!-- <div *ngIf="lookupSitusState == ''">
-                <span style="color: red;"> <small><strong>Select Situs State!</strong></small></span>
-            </div> -->
+            <!-- <div *ngIf="lookupValue == ''">
+          <span style="color: red;">  <small><strong>Select Payment Mode !</strong></small></span>
+        </div> -->
+          </div>
+          <div class="col-3 mt-4">
+            <button class="btn btn-primary" type="submit">Reset Form </button>
+          </div>
         </div>
-        <div class="col-3">
-            <span class="label label-default">Plan Code</span>
-            <input type="text" [min]="minDate" class="form-control mb-2 " style="width: 100%;" placeholder="Plan Code">
-        </div>
-        <div class="col">
-            <app-radio-button></app-radio-button>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-3">
-            <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked>
-            <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Employee GI Amount">
-        </div>
-        <div class="col-3">
-            <!-- <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked> -->
+      </div>
+  
+      <div class="container">
+  
+        <div class="row" style="margin-top: 10px;">
+  
+          <app-radio-button></app-radio-button>
+          <div class="col-3">
+  
+            <span class="label label-default">Employee GI Amount Max</span>
+  
+            <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Employee GI Amount Max">
+          </div>
+  
+  
+  
+          <div class="col-3">
+            <span class="label label-default">Employee QI Amount Max</span>
+  
+            <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Employee QI Amount Max">
+          </div>
+          <div class="col-3">
+            <span class="label label-default">Employee Max Amount</span>
             <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Employee Max Amount">
+          </div>
+        
         </div>
-        <div class="col-3">
-            <span class="label">Tobacco/Non Options</span>
-              <mat-form-field>
-                <mat-select placeholder="Tobacco/Non Option" multiple>
-                  <mat-option>Employee NTB</mat-option>
-                  <mat-option>Employee TB</mat-option>
-                   <mat-option >Spouse NTB</mat-option>
-                    <mat-option>Spouse TB</mat-option>
-                </mat-select>
-              </mat-form-field>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-3">
-            <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked>
-            <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse GI Amount">
-        </div>
-        <div class="col-3">
-            <!-- <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked> -->
+  
+        <div class="row mt-2">
+          <app-radio-button></app-radio-button>
+          <div class="col-3">
+            <span class="label label-default">Spouse GI Amount Max</span>
+  
+            <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse GI Amount Max
+              ">
+          </div>
+          <div class="col-3">
+            <span class="label label-default">Spouse QI Amount Max</span>
+            <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse QI Amount Max">
+          </div>
+          <div class="col-3">
+            <span class="label label-default">Spouse Max Amount</span>
             <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse Max Amount">
+          </div>
+  
         </div>
-    </div>
-    <div class="row">
-        <div class="col-3">
-            <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked>
-            <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Child GI Amount">
-        </div>
-        <div class="col-3">
-            <!-- <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked> -->
+        <div class="row mt-2">
+          <app-radio-button></app-radio-button>
+          <div class="col-3">
+            <span class="label label-default">Child GI Amount Max</span>
+  
+            <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Child GI Amount Max">
+          </div>
+          <div class="col-3">
+            <span class="label label-default">Child QI Amount Max</span>
+            <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Child QI Amount Max">
+          </div>
+          <div class="col-3">
+            <span class="label label-default">Child Max Amount</span>
             <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Child Max Amount">
+          </div>
+  
         </div>
-    </div>
-    <div class="row">
-        <div class="col-3">
-            <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="option1" checked>
+  
+  
+  
+        <div class="row mt-2">
+          <app-radio-button></app-radio-button>
+          <div class="col-3">
+  
+            <span class="label label-default">Open Enrollment GI</span>
             <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Open Enrollment GI">
+          </div>
+  
+          <app-radio-button></app-radio-button>
+          <div class="col-3">
+            <span class="label label-default">Plan code manual Entry</span>
+            <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Plan code manual Entry">
+          </div>
+  
         </div>
+  
+        <div class="row pt-2">
+          <h6>
+            Tobacco/Non
+            Options
+          </h6>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col" style="margin-left: -16px;">
+                <app-radio-button></app-radio-button>
+              </div>
+              <div class="col" style="justify-content:flex-start;margin-right: 170px;
+              margin-top: 24px;">
+                <mat-checkbox class="margin" [(ngModel)]="checked" name="EmployeeNTB">Employee NTB</mat-checkbox>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 pb-4">
+            <div class="row">
+              <div class="col" style="margin-left: -147px;">
+                <app-radio-button></app-radio-button>
+              </div>
+              <div class="col" style="margin-right: 170px;
+            margin-top: 24px;">
+                <mat-checkbox class="margin" [(ngModel)]="indeterminate" name="EmployeeTB">Employee TB</mat-checkbox>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col" style="margin-left: -16px;">
+                <app-radio-button></app-radio-button>
+              </div>
+              <div class="col"  style="justify-content:flex-start;margin-right: 170px;
+              margin-top: 24px;">
+                <mat-checkbox class="margin" [(ngModel)]="indeterminate" name="SpouseNTB">Spouse NTB</mat-checkbox>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col" style="margin-left: -147px;">
+                <app-radio-button></app-radio-button>
+              </div>
+              <div class="col" style="margin-right: 170px;
+              margin-top: 24px;">
+                <mat-checkbox class="margin" [(ngModel)]="indeterminate" name="SpouseNTB">Spouse TB</mat-checkbox>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+  
+  
+      </div>
+      <div class="mt-4">
+        <app-agent-setup></app-agent-setup>
+      </div>
+  
+    </form>
     </div>
-</div>
-<app-agent-setup></app-agent-setup>
