@@ -8,6 +8,9 @@ import { LookupService } from '../services/lookup.service';
 export class HospitalIndemnityComponent implements OnInit {
   @Input() lookupValue: any;
   @Input() dateValue: any;
+  dob: any;
+  gender: any;
+  name: any;
   situsValue:string;
   // subscription: Subscription;
   public isLoading = false;
