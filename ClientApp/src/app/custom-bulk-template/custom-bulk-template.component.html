@@ -3,44 +3,62 @@
     <div class="row">
         <div class="col-md-4 form-group">
             <label>Group Number</label>
-            <input type="number" class="form-control" placeholder="Enter Group Number">
+            <input type="text" class="form-control" placeholder="Enter Group Number" name="grpNum" 
+            [(ngModel)]="grpNum">
+        </div>
+        <div class="col-md-4 form-group">
+            <label>Product Name</label>
+             <select class="form-control select-dropdown" [(ngModel)]="selectedProduct" 
+             #product (change) = "getProductTemplate(product.value)">
+                 <option selected>Select a Product</option>
+                <option *ngFor="let i of productsList">
+                {{i.productNm}}</option>
+  
+        </select>
         </div>
     </div>
 
     <!-- Product Custom File Section  -->
-       <div id="accordion" class="accordion">
+       <div id="accordion" class="accordion" *ngIf="selectedProduct">
         <div class="card mt-2" style="cursor: pointer;">
             <div class="card-header collapsed mb-2" data-toggle="collapse" href="#collapseOne">
                 <a class="card-title">
-                    FPPG
+                    {{selectedProduct}}
                 </a>
             </div>
             <div id="collapseOne" class="card-body collapse" data-parent="#accordion">
-                <div class="field-container">
-                    <p>Available Fields</p>
-    
-                    <div cdkDropList #availableFieldsList="cdkDropList" [cdkDropListData]="availableFields"
-                        [cdkDropListConnectedTo]="[selectedFieldsList]" class="fields-list" (cdkDropListDropped)="drop($event)">
-                        <div class="field-box" *ngFor="let item of availableFields" cdkDrag>{{item.dbAttrNm}}
+                <div class="row">
+                    <div class="field-container col-md-5">
+                        <p>Available Fields</p>
+        
+                        <div cdkDropList #availableFieldsList="cdkDropList" [cdkDropListData]="availableFields"
+                            [cdkDropListConnectedTo]="[selectedFieldsList]" class="fields-list" (cdkDropListDropped)="drop($event)">
+                            <div class="field-box" *ngFor="let item of availableFields" cdkDrag>{{item.dbAttrNm}}
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="field-container">
-                    <p>Selected Fields</p>
-    
-                    <div cdkDropList #selectedFieldsList="cdkDropList" [cdkDropListData]="selectedFields"
-                        [cdkDropListConnectedTo]="[availableFieldsList]" class="fields-list" (cdkDropListDropped)="drop($event)">
-                        <div class="field-box" *ngFor="let item of selectedFields; let i=index;" cdkDrag>{{item.dbAttrNm}}
-                             <input type="checkbox" name="selectedFields" 
-                                [(ngModel)]="item.rqdFlg" (change)="updateCheckedOptions(item, $event)">
+                    <div style="display: inline-block;margin-right: 25px;" class="col-md-1">
+                        <img src="assets/img/drag-drop.PNG" style="padding-top: 220px;">
+                    </div>
+                    <div class="field-container col-md-5">
+                        <p>Selected Fields</p>
+        
+                        <div cdkDropList #selectedFieldsList="cdkDropList" [cdkDropListData]="selectedFields"
+                            [cdkDropListConnectedTo]="[availableFieldsList]" class="fields-list" (cdkDropListDropped)="drop($event)">
+                            <div class="field-box" *ngFor="let item of selectedFields; let i=index;" cdkDrag>{{item.dbAttrNm}}
+                                <input type="checkbox" name="selectedFields" 
+                                    [(ngModel)]="item.rqdFlg" (change)="updateCheckedOptions(item, $event)">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        
     <!-- Button-->
+    <button type="button" class="btn btn-success mt-4 mb-4" 
+    (click)="saveLayout()">Save Custom Layout</button>
     <button type="button" class="btn btn-success mt-4 mb-4" style="float: right;" 
     (click)="exportAsXLSX()">Generate Custom Layout</button>
+    </div>
 </div>

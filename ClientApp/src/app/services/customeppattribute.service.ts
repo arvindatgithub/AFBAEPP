@@ -10,14 +10,13 @@ export class CustomeppattributeService {
 
   constructor(private http: HttpClient) {}
   
-  getAvailableFields() {
-    const GroupsDataUrl = environment.apiurl + 'Custom/EppGetAvailableFields';
+  getEppProducts() {
+    const GroupsDataUrl = environment.apiurl + 'Lookup/EppProducts';
     return this.http.get(GroupsDataUrl);
-  
   }
 
-  getSelectedFields() {
-    const GroupsDataUrl = environment.apiurl + 'Custom/EppGetSelectedFields';
+  getProductFields(product) {
+    const GroupsDataUrl = environment.apiurl + 'Custom/product/' + product;
     return this.http.get(GroupsDataUrl);
   
   }
