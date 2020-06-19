@@ -14,7 +14,7 @@ namespace AFBA.EPP.Helpers
     {
             public static Dictionary<string, List<EppAttrFieldViewModel>> GetProductAvailableFields(string webRootPath)
         {
-           string  path = Path.Combine(webRootPath, "app_data\\attrs_maps.json");
+           string  path = Path.Combine(webRootPath, "attrs_maps.json");
             var jsonBytes = File.ReadAllText(path);
             var jsonDoc = JsonDocument.Parse(jsonBytes);               
                  
