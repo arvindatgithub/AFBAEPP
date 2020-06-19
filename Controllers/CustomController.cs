@@ -42,11 +42,11 @@ namespace AFBA.EPP.Controllers
 
         [Route("[action]")]
         [HttpGet]
-        public IActionResult EppGetSelectedFields()
+        public Dictionary<string, List<EppAttrFieldViewModel>> EppGetSelectedFields()
         {
             string filepath= _webHostEnvironment.WebRootPath;
-            var s=   Helper.GetProductAvailableFields( filepath);
-            return Ok(s);
+             return   Helper.GetProductAvailableFields( filepath);
+           
         }
 
         [Route("[action]")]
