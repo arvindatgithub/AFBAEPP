@@ -14,6 +14,11 @@ namespace AFBA.EPP.Repositories
         {
             _dbContext = dbContext;
         }
+
+        public IList<EppPrdctattrbt> GetEppPrdctattrbts(long GrpprdctId)
+        {
+            return _dbContext.EppPrdctattrbt.Where(x => x.GrpprdctId == GrpprdctId).OrderBy(x=>x.ClmnOrdr).ToList();
+        }
     }
 
 }

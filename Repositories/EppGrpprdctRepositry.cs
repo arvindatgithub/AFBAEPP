@@ -19,6 +19,8 @@ namespace AFBA.EPP.Repositories
         {
             return this._dbContext.EppGrpprdct.Where(x => x.Grp.GrpNbr == groupNo && x.Product.ProductNm== productName).FirstOrDefault();
         }
+
+
     }
 
     

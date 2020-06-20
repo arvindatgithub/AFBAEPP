@@ -8,7 +8,7 @@ namespace AFBA.EPP.Repositories.Interfaces
 {
     public interface IEppPrdctattrbtRepository: IRepository<EppPrdctattrbt>
     {
-      
-       
+
+        public IList<EppPrdctattrbt> GetEppPrdctattrbts(long GrpprdctId);
     }
 }

@@ -46,8 +46,7 @@ namespace AFBA.EPP.Controllers
         public EppTemplateViewModel EppGetSelectedFields  (string product)
         {
             string filepath= _webHostEnvironment.WebRootPath;
-             return   Helper.GetProductAvailableFields( filepath, _unitofWork, product);
-           
+            return   Helper.GetProductAvailableFields( filepath, _unitofWork, product);           
         }
 
         [Route("[action]")]
@@ -64,15 +63,49 @@ namespace AFBA.EPP.Controllers
 
         [Route("grpNbr/{grpNbr}/productNm/{productNm}")]
         [HttpGet]
-        public IActionResult EppGetGrpPrdAttrbt(string grpNbr, string productNm)
+        public  IActionResult EppGetGrpPrdAttrbt(string grpNbr, string productNm)
         {
            var grpprdct = _unitofWork.eppGrpprdctRepository.GetEppGrpprdct(grpNbr, productNm);
             if (grpprdct == null) return NotFound("Not available");
             // 
-            var eppPrdctattrbt = _unitofWork.eppPrdctattrbtRepository.Get((int)grpprdct.GrpprdctId).Result;
+            var eppPrdctattrbt = _unitofWork.eppPrdctattrbtRepository.GetEppPrdctattrbts(grpprdct.GrpprdctId);
             if (eppPrdctattrbt == null) return NotFound("Not available");
-                     
-            return Ok(eppPrdctattrbt);
+            //Get  the data
+
+            EppTemplateViewModel lstEppTemplateViewModel = new EppTemplateViewModel
+            {
+                AvailableList = new List<EppAttrFieldViewModel>(),
+                SelectedList = new List<EppAttrFieldViewModel>()
+            };
+            IList<EppAttrFieldViewModel> eppAttrFields = new List<EppAttrFieldViewModel>();
+
+             foreach( var item in eppPrdctattrbt)
+            {
+                var data = _unitofWork.eppAttributeRepository.Get(item.AttrId).Result;
+                if (data != null)
+                {
+                    lstEppTemplateViewModel.SelectedList.Add(new EppAttrFieldViewModel
+                    {
+                        DbAttrNm = data.DbAttrNm,
+                        ClmnOrdr = item.ClmnOrdr,
+                        RqdFlg = item.RqdFlg == 'Y' ? true : false
+
+                    });
+                }
+            }
+             // removing the item from available list
+            foreach (var item in lstEppTemplateViewModel.SelectedList)
+            {
+                lstEppTemplateViewModel.AvailableList.Remove(lstEppTemplateViewModel.AvailableList.FirstOrDefault(x => x.DbAttrNm.Contains(item.DbAttrNm)));
+            }
+            return Ok(lstEppTemplateViewModel);
+        }
+
+        [Route("[action]")]
+        [HttpPut]
+        public IActionResult EppEditPrdctAttrbt(EppAddPrdAttrbt eppAddPrdAttrbt)
+        {
+            return Ok();
         }
 
         [Route("[action]")]
@@ -92,12 +125,11 @@ namespace AFBA.EPP.Controllers
                     var data = _unitofWork.eppAttributeRepository.GetAttrId( item.DbAttrNm);
                     if(data != null)
                     {
-
                         EppPrdctattrbts.Add(new EppPrdctattrbt {
-                         AttrId= data.AttrId,
-                        GrpprdctId = grpprdct.GrpprdctId,
-                        ClmnOrdr = item.ClmnOrdr,
-                         RqdFlg = item.RqdFlg == true ? 'Y' : 'N',
+                        AttrId= data.AttrId,
+                       GrpprdctId = grpprdct.GrpprdctId,
+                       ClmnOrdr = item.ClmnOrdr,
+                        RqdFlg = item.RqdFlg == true ? 'Y' : 'N',
                         });
                        
                     }
