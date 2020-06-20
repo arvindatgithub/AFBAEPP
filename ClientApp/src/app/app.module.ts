@@ -44,6 +44,11 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { CustomBulkUpdateComponent } from './custom-bulk-update/custom-bulk-update.component';
 import { CustomBulkTemplateComponent } from './custom-bulk-template/custom-bulk-template.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { BasicGroupLifeQuestionsComponent } from './basic-group-life-questions/basic-group-life-questions.component';
+import { FppgQuestionsComponent } from './fppg-questions/fppg-questions.component';
+import { FppiQuestionsComponent } from './fppi-questions/fppi-questions.component';
+import { VolGroupLifeQuestionsComponent } from './vol-group-life-questions/vol-group-life-questions.component';
+import { VoluntaryCiQuestionsComponent } from './voluntary-ci-questions/voluntary-ci-questions.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +71,12 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     AgentSetupComponent,
     RadioButtonComponent,
     CustomBulkUpdateComponent,
-    CustomBulkTemplateComponent
+    CustomBulkTemplateComponent,
+    BasicGroupLifeQuestionsComponent,
+    FppgQuestionsComponent,
+    FppiQuestionsComponent,
+    VolGroupLifeQuestionsComponent,
+    VoluntaryCiQuestionsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
