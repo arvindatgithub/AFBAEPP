@@ -29,9 +29,7 @@ export class GroupSetupComponent implements OnInit {
   checkedToggle = "Inactive";
   toggleActiveColor: ThemePalette = "primary";
   groupNumber = "";
-  grpNumber = {
-    grpNbr:""
-  }
+  
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
   position = new FormControl(this.positionOptions[0]);
   public minDate = new Date().toISOString().slice(0,10);
@@ -51,15 +49,35 @@ export class GroupSetupComponent implements OnInit {
   groupName: "";
   grpEfftvDate: "";
   grpPymn: "";
-  grpNm: { grpNm: ""; };
-  grpEfftvDt: { grpEfftvDt: ""; };
-  occ: { occClass: ""; };
+ 
   occClass: any;
   grpPym: { grpPymn: ""; };
   grpSitusState = "";
   situsStateObj = {
     grpSitusSt: ""
+  };
+
+  tempObj = {
+    grpNbr:"",
+    grpNm:"",
+    grpEfftvDt:"",
+    grpSitusSt:"",
+    actvFlg:"",
+    occClass:"",
+    grpPymn:"",
+    enrlmntPrtnrsNm: "",
+    emlAddrss: "",
+    emailAddress: "",
+    acctMgrNm: "",
+   
   }
+
+  
+  EnrolmentPatnerName: string;
+  EnrolEmailAddress: string;
+  ManagerEmail: string;
+  ManegerName: string;
+  activeflag: string;
 
   constructor(private formBuilder: FormBuilder, private snackBar: MatSnackBar, private lookupService: LookupService) {
   }
@@ -122,7 +140,7 @@ export class GroupSetupComponent implements OnInit {
   }
 
   toggleChange(event:any){
-    console.log(event);
+  this.checkedToggle = this.activeflag
     if(event.checked){
       this.checkedToggle = "Active";
     }
@@ -132,30 +150,22 @@ export class GroupSetupComponent implements OnInit {
      
   }
   onSubmit(){
-    this.grpNumber = {
-      grpNbr: this.groupNumber
-    }
-console.log(this.grpNumber);
-    this.grpNm = {
-      grpNm: this.groupName
-    }
-    console.log(this.grpNm)
-    this.grpEfftvDt = {
-      grpEfftvDt: this.grpEfftvDate
-    }
-    console.log(this.grpEfftvDt)
-    this.grpPym = {
-      grpPymn: this.grpPymn
-    }
-    console.log(this.grpPym)
-    this.occ = {
-      occClass: this.occClass
-    }
-    console.log(this.occ);
-    this.situsStateObj = {
-      grpSitusSt: this.grpSitusState
-    }
-    console.log("this.situsStateObj",this.situsStateObj);
+
+ this.tempObj = {
+  grpNbr:this.groupNumber,
+  grpNm:this.groupName,
+  grpEfftvDt:this.grpEfftvDate,
+  grpPymn:this.grpPymn,
+  actvFlg:this.activeflag,
+  occClass:this.occClass,
+  grpSitusSt:this.grpSitusState,
+  enrlmntPrtnrsNm: this.EnrolmentPatnerName,
+  emlAddrss: this.EnrolEmailAddress,
+  emailAddress: this.ManagerEmail,
+  acctMgrNm: this.ManegerName,
+ 
+ } 
+console.log(this.tempObj)
   }
 
 }
