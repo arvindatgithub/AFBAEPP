@@ -37,7 +37,7 @@ namespace AFBA.EPP.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public IActionResult EppAddPrdctAttrbt(GroupSetupModel  groupSetupModel)
+        public IActionResult EppCreateGrpSetup(GroupSetupModel  groupSetupModel)
         {
 
             var grpprdct = _unitofWork.GroupMasterRepository.Find(x => x.GrpNbr == groupSetupModel.GrpNbr || x.GrpNm== groupSetupModel.GrpNm).Result;
