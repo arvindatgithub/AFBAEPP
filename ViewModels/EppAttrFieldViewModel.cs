@@ -11,5 +11,6 @@ namespace AFBA.EPP.ViewModels
         public string DbAttrNm { get; set; }
         public bool? RqdFlg { get; set; }
         public int? ClmnOrdr { get; set; }
+        public long GrpprdctId { get; set; }
     }
 }
