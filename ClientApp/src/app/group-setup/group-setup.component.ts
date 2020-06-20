@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { LookupService } from '../services/lookup.service';
 import { ThemePalette } from '@angular/material';
+import { EppCreateGrpSetupService } from '../services/epp-create-grp-setup.service';
 interface state {
   value: string;
   viewValue: string;
@@ -29,11 +30,11 @@ export class GroupSetupComponent implements OnInit {
   checkedToggle = "Inactive";
   toggleActiveColor: ThemePalette = "primary";
   groupNumber = "";
-  
+
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
   position = new FormControl(this.positionOptions[0]);
-  public minDate = new Date().toISOString().slice(0,10);
-  dateChange:any;
+  public minDate = new Date().toISOString().slice(0, 10);
+  dateChange: any;
   fppg: any;
   hospitalIndemity: any;
   fppIndivisual: any;
@@ -49,7 +50,7 @@ export class GroupSetupComponent implements OnInit {
   groupName: "";
   grpEfftvDate: "";
   grpPymn: "";
- 
+
   occClass: any;
   grpPym: { grpPymn: ""; };
   grpSitusState = "";
@@ -58,28 +59,28 @@ export class GroupSetupComponent implements OnInit {
   };
 
   tempObj = {
-    grpNbr:"",
-    grpNm:"",
-    grpEfftvDt:"",
-    grpSitusSt:"",
-    actvFlg:"",
-    occClass:"",
-    grpPymn:"",
+    grpNbr: "",
+    grpNm: "",
+    grpEfftvDt: "",
+    grpSitusSt: "",
+    actvFlg: "",
+    occClass: "",
+    grpPymn: "",
     enrlmntPrtnrsNm: "",
     emlAddrss: "",
     emailAddress: "",
     acctMgrNm: "",
-   
+
   }
 
-  
+
   EnrolmentPatnerName: string;
   EnrolEmailAddress: string;
   ManagerEmail: string;
   ManegerName: string;
   activeflag: string;
 
-  constructor(private formBuilder: FormBuilder, private snackBar: MatSnackBar, private lookupService: LookupService) {
+  constructor(private eppcreategroupservice: EppCreateGrpSetupService, private snackBar: MatSnackBar, private lookupService: LookupService) {
   }
 
   ngOnInit() {
@@ -88,7 +89,7 @@ export class GroupSetupComponent implements OnInit {
       .subscribe((data: any) => {
         this.isLoading = true;
         console.log("data", data);
-        this.lookUpDataPaymentModes = (data.paymentMode.map((payment)=>{
+        this.lookUpDataPaymentModes = (data.paymentMode.map((payment) => {
           return payment.formattedData;
         }));
         this.lookUpDataSitusStates = (data.situsState);
@@ -129,43 +130,50 @@ export class GroupSetupComponent implements OnInit {
     this.grpPymn = value;
   }
 
-  getLookupValueSitusState(value: any){
+  getLookupValueSitusState(value: any) {
     this.lookupSitusStateValue = value;
     this.grpSitusState = value;
   }
 
-  onDateChange(dateValue:any){
-  this.dateChange = dateValue.srcElement.value;
-  console.log("dateValue",this.dateChange);
+  onDateChange(dateValue: any) {
+    this.dateChange = dateValue.srcElement.value;
+    console.log("dateValue", this.dateChange);
   }
 
-  toggleChange(event:any){
-  this.checkedToggle = this.activeflag
-    if(event.checked){
+  toggleChange(event: any) {
+   
+    if (event.checked) {
       this.checkedToggle = "Active";
     }
-    else{
+    else {
       this.checkedToggle = "Inactive";
     }
-     
-  }
-  onSubmit(){
 
- this.tempObj = {
-  grpNbr:this.groupNumber,
-  grpNm:this.groupName,
-  grpEfftvDt:this.grpEfftvDate,
-  grpPymn:this.grpPymn,
-  actvFlg:this.activeflag,
-  occClass:this.occClass,
-  grpSitusSt:this.grpSitusState,
-  enrlmntPrtnrsNm: this.EnrolmentPatnerName,
-  emlAddrss: this.EnrolEmailAddress,
-  emailAddress: this.ManagerEmail,
-  acctMgrNm: this.ManegerName,
- 
- } 
-console.log(this.tempObj)
+  }
+  onSubmit() {
+
+    let eppbody = {
+      grpNbr:this.groupNumber,
+      grpNm:this.groupName,
+      grpEfftvDt:this.grpEfftvDate,
+      grpPymn:this.grpPymn,
+      actvFlg:this.checkedToggle,
+      occClass:this.occClass,
+      grpSitusSt:this.grpSitusState,
+      enrlmntPrtnrsNm: this.EnrolmentPatnerName,
+      emlAddrss: this.EnrolEmailAddress,
+      emailAddress: this.ManagerEmail,
+      acctMgrNm: this.ManegerName,
+    
+      
+    }
+    console.log(eppbody)
+
+    // this.eppcreategroupservice.PosteppCreate(eppbody)
+    //   .subscribe((res) => {
+    //     console.log(res);
+    //   })
+
   }
 
 }
