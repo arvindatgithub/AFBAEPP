@@ -55,10 +55,11 @@ namespace AFBA.EPP.Controllers
                 else
                 {
                     _unitofWork.eppEnrlmntPrtnrsRepository.Add(new EppEnrlmntPrtnrs { 
-                         CrtdBy="",
+                          EnrlmntPrtnrsId= Helper.GetRandomNumber(),
+                          CrtdBy="",
                           EmlAddrss= groupSetupModel.EmlAddrss,
-                           EnrlmntPrtnrsNm= groupSetupModel.EnrlmntPrtnrsNm
-
+                          EnrlmntPrtnrsNm= groupSetupModel.EnrlmntPrtnrsNm
+                           
                     });
                 }
 
@@ -74,7 +75,7 @@ namespace AFBA.EPP.Controllers
             _unitofWork.GroupMasterRepository.Add(new EppGrpmstr
                     {
                          GrpNbr= groupSetupModel.GrpNbr, GrpNm= groupSetupModel.GrpNm,  ActvFlg='Y' , EnrlmntPrtnrsId= groupSetupModel.EnrlmntPrtnrsId, GrpEfftvDt= groupSetupModel.GrpEfftvDt,
-                            GrpSitusSt= groupSetupModel.GrpSitusSt, GrpPymn= groupSetupModel.GrpPymn, OccClass= groupSetupModel.OccClass, GrpId= Helper.GetRandomNumber(), CrtdBy=""
+                         GrpSitusSt= groupSetupModel.GrpSitusSt, GrpPymn= groupSetupModel.GrpPymn, OccClass= groupSetupModel.OccClass, GrpId= Helper.GetRandomNumber(), CrtdBy=""
 
             }
                 
