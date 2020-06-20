@@ -154,7 +154,7 @@ namespace AFBA.EPP.Controllers
             if (grpprdct == null) return NotFound("Not available");
             // 
             var eppPrdctattrbt = _unitofWork.eppPrdctattrbtRepository.Find(x=> x.GrpprdctId== grpprdct.GrpprdctId).Result;
-            if (eppPrdctattrbt == null) {
+            if (eppPrdctattrbt.Count == 0) {
 
                 List<EppPrdctattrbt> EppPrdctattrbts = new List<EppPrdctattrbt>();
                 foreach ( var item in eppAddPrdAttrbt.EppPrdAttrFields)
@@ -168,6 +168,7 @@ namespace AFBA.EPP.Controllers
                        GrpprdctId = grpprdct.GrpprdctId,
                        ClmnOrdr = item.ClmnOrdr,
                         RqdFlg = item.RqdFlg == true ? 'Y' : 'N',
+                        CrtdBy="",
                         });
                        
                     }
