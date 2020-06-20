@@ -6,12 +6,12 @@
 
 
 <div class="container" *ngIf="isLoading">
-  <div class="">
+  <div >
     <mat-slide-toggle (change)="toggleChange($event)" [color]="toggleActiveColor">{{checkedToggle}}</mat-slide-toggle>
   </div>
+
   <!-- Group Section -->
 
-  <form>
 
     <div class="row">
       <div class="form-group col-md-3">
@@ -42,18 +42,20 @@
     <div class="row">
       <div class="form-group col-md-3">
         <span class="label label-default">Group Vendor</span>
-        <input type="text" class="form-control mb-2 " placeholder="Group Vendor Name">
+        <input type="text" class="form-control mb-2"  [(ngModel)]="EnrolmentPatnerName" placeholder="Group Vendor Name">
       </div>
-
-      <div class="form-group col-md-3">
-        <span class="label label-default">Group Vendor Email</span>
-        <input type="email" class="form-control mb-2" placeholder=" Group Vendor Email">
-      </div>
+    
+        <div class="form-group col-md-3">
+          <span class="label label-default">Group Vendor Email</span>
+          <input type="email"  [(ngModel)]="EnrolEmailAddress" [pattern] = "emailPattern" name="email" class="form-control mb-2" placeholder=" Group Vendor Email">
+        </div>
+      
+     
       <div class="col-md-3">
         <div>
           <span class="label label-default">Occupation Class</span>
-          <select class="select-dropdown my-1 " [(ngModel)]="occClass">
-            <option selected>Select Occupation Class</option>
+          <select class="select-dropdown my-1"  [(ngModel)]="occClass">
+            <option  selected>Select Occupation Class</option>
             <!-- <option value="1">Occ Class</option> -->
             <option value="2">1</option>
             <option value="3">2</option>
@@ -82,11 +84,11 @@
     <div class="row">
       <div class=" col-md-3">
         <span class="label label-default">Account Manager Name</span>
-        <input type="text" class="form-control mb-2 " placeholder="Account Manager Name">
+        <input type="text" class="form-control mb-2 "  [(ngModel)]="ManegerName" placeholder="Account Manager Name">
       </div>
       <div class="col-md-3">
         <span class="label label-default">Account Manager Email</span>
-        <input type="email" class="form-control mb-2" placeholder="Account Manager Email">
+        <input type="email" class="form-control mb-2"  [(ngModel)]="ManagerEmail" placeholder="Account Manager Email">
       </div>
       <div class="col-md-3">
         <span class="label label-default">Situs State</span>
@@ -195,5 +197,5 @@
     </div>
     <button type="submit" class="btn btn-success mt-4 mb-4" style="float: right;" (click)="onSubmit()">Submit Group
       Setup Information</button>
-</form>
+
   
