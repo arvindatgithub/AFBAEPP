@@ -8,7 +8,7 @@ import { LookupService } from '../services/lookup.service';
 export class HospitalIndemnityComponent implements OnInit {
   @Input() lookupValue: any;
   @Input() dateValue: any;
-  
+
 
   situsValue:string;
   public isLoading = false;
