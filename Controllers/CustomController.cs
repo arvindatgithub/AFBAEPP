@@ -106,8 +106,45 @@ namespace AFBA.EPP.Controllers
         [HttpPut]
         public IActionResult EppEditPrdctAttrbt(EppAddPrdAttrbt eppAddPrdAttrbt)
         {
+
+            List<EppPrdctattrbt> EppPrdctattrbts = new List<EppPrdctattrbt>();
+            foreach (var item in eppAddPrdAttrbt.EppPrdAttrFields)
+            {
+
+                var data = _unitofWork.eppAttributeRepository.GetAttrId(item.DbAttrNm);
+                if (data != null)
+                {
+                    EppPrdctattrbts.Add(new EppPrdctattrbt
+                    {
+                        AttrId = data.AttrId,
+                        GrpprdctId = item.GrpprdctId,
+                        ClmnOrdr = item.ClmnOrdr,
+                        RqdFlg = item.RqdFlg == true ? 'Y' : 'N',
+                        PrdctAttrbtId= item.PrdctAttrbtId
+                    });
+
+                }
+            }
+
+            foreach (var data in EppPrdctattrbts)
+            {
+                var k = _unitofWork.eppPrdctattrbtRepository.Find(x => x.PrdctAttrbtId == data.PrdctAttrbtId).Result.FirstOrDefault();
+                if (k != null)
+                {
+                    k = data;
+                }
+                else
+                {
+                    _unitofWork.eppPrdctattrbtRepository.Add(data);
+                }
+                _unitofWork.Complete();
+            }
+
             return Ok();
         }
+
+            
+       
 
         [Route("[action]")]
         [HttpPost]
