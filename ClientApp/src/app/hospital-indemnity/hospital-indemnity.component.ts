@@ -8,12 +8,13 @@ import { LookupService } from '../services/lookup.service';
 export class HospitalIndemnityComponent implements OnInit {
   @Input() lookupValue: any;
   @Input() dateValue: any;
+
   situsValue:string;
-  // subscription: Subscription;
   public isLoading = false;
   lookUpDataSitusStates: any = [];
-  checked = false;
-  indeterminate = false;
+  name = false;
+  dob = false;
+  gender = false;
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
   public minDate = new Date().toISOString().slice(0,10);

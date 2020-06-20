@@ -56,6 +56,10 @@ export class GroupSetupComponent implements OnInit {
   occ: { occClass: ""; };
   occClass: any;
   grpPym: { grpPymn: ""; };
+  grpSitusState = "";
+  situsStateObj = {
+    grpSitusSt: ""
+  }
 
   constructor(private formBuilder: FormBuilder, private snackBar: MatSnackBar, private lookupService: LookupService) {
   }
@@ -104,11 +108,12 @@ export class GroupSetupComponent implements OnInit {
 
   getLookupValuePaymentMode(value: any) {
     this.lookupPaymentMethodvalue = value;
+    this.grpPymn = value;
   }
 
   getLookupValueSitusState(value: any){
     this.lookupSitusStateValue = value;
-    console.log("lookupSitusStateValue",this.lookupSitusStateValue)
+    this.grpSitusState = value;
   }
 
   onDateChange(dateValue:any){
@@ -146,7 +151,11 @@ console.log(this.grpNumber);
     this.occ = {
       occClass: this.occClass
     }
-    console.log(this.occ)
+    console.log(this.occ);
+    this.situsStateObj = {
+      grpSitusSt: this.grpSitusState
+    }
+    console.log("this.situsStateObj",this.situsStateObj);
   }
 
 }

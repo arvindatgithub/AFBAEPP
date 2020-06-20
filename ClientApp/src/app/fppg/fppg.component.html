@@ -1,9 +1,10 @@
-<div class="container" style="width: 100%;">
+<div class="container">
 
-  <form>
-    <div style=" margin-left: 15px;">
-      <div class="row">
+  
+   
+      <div class="row"style="justify-content:space-evenly;">
         <app-radio-button></app-radio-button>
+        
         <div class="col-3">
           <span class="label label-default">Group Effective Date</span>
           <input type="date" [value]="dateValue" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
@@ -12,26 +13,22 @@
         </div>
         <app-radio-button></app-radio-button>
         <div class="col-3">
-          <span class="label label-default">Sitius State</span>
+          <span class="label label-default">Situs State</span>
           <select class="form-control" [value]="lookupValue">
             <!-- <option value="0" selected="selected">{{ lookupValue }}</option> -->
             <option  *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
               {{lookUpDataSitusState.state}}</option>
 
           </select>
-          <!-- <div *ngIf="lookupValue == ''">
-        <span style="color: red;">  <small><strong>Select Payment Mode !</strong></small></span>
-      </div> -->
+        
         </div>
         <div class="col-3 mt-4">
           <button class="btn btn-primary" type="submit">Reset Form </button>
         </div>
       </div>
-    </div>
+   
 
-    <div class="container">
-
-      <div class="row" style="margin-top: 10px;">
+      <div class="row mt-4">
 
         <app-radio-button></app-radio-button>
         <div class="col-3">
@@ -55,7 +52,7 @@
       
       </div>
 
-      <div class="row mt-2">
+      <div class="row mt-4">
         <app-radio-button></app-radio-button>
         <div class="col-3">
           <span class="label label-default">Spouse GI Amount Max</span>
@@ -73,36 +70,18 @@
         </div>
 
       </div>
-      <!-- <div class="row mt-2">
+
+
+      <div class="row mt-4">
         <app-radio-button></app-radio-button>
-        <div class="col-3">
-          <span class="label label-default">Child GI Amount Max</span>
-
-          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Child GI Amount Max">
-        </div>
-        <div class="col-3">
-          <span class="label label-default">Child QI Amount Max</span>
-          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Child QI Amount Max">
-        </div>
-        <div class="col-3">
-          <span class="label label-default">Child Max Amount</span>
-          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Child Max Amount">
-        </div>
-
-      </div> -->
-
-
-
-      <div class="row mt-2">
-        <app-radio-button></app-radio-button>
-        <div class="col-3">
+        <div class="col-4">
 
           <span class="label label-default">Open Enrollment GI</span>
           <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Open Enrollment GI">
         </div>
 
         <app-radio-button></app-radio-button>
-        <div class="col-3">
+        <div class="col-4">
           <span class="label label-default">Plan code manual Entry</span>
           <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Plan code manual Entry">
         </div>
@@ -141,10 +120,9 @@
       </div>
 
 
-    </div>
+    
     <div class="mt-4">
       <app-agent-setup></app-agent-setup>
     </div>
 
-  </form>
   </div>
