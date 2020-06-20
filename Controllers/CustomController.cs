@@ -137,7 +137,7 @@ namespace AFBA.EPP.Controllers
                 {
                     _unitofWork.eppPrdctattrbtRepository.Add(data);
                 }
-                _unitofWork.Complete();
+           var id=     _unitofWork.Complete().Result;
             }
 
             return Ok();
@@ -178,7 +178,7 @@ namespace AFBA.EPP.Controllers
            
             }
 
-           var  id= _unitofWork.Complete();
+           var  id= _unitofWork.Complete().Result;
 
 
             return Ok(id);

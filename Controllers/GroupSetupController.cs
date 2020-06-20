@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AFBA.EPP.Helpers;
 using AFBA.EPP.Models;
 using AFBA.EPP.Repositories.Interfaces;
 using AFBA.EPP.ViewModels;
@@ -39,9 +40,9 @@ namespace AFBA.EPP.Controllers
         [HttpPost]
         public IActionResult EppCreateGrpSetup(GroupSetupModel  groupSetupModel)
         {
-
+             
             var grpprdct = _unitofWork.GroupMasterRepository.Find(x => x.GrpNbr == groupSetupModel.GrpNbr || x.GrpNm== groupSetupModel.GrpNm).Result;
-            if (grpprdct != null)   return BadRequest(" Group name or number already exist"); 
+            if (grpprdct.Count != 0)   return BadRequest(" Group name or number already exist"); 
 
             if (! string.IsNullOrEmpty(groupSetupModel.EmlAddrss))
             {
@@ -50,6 +51,15 @@ namespace AFBA.EPP.Controllers
                 if (enrlmntPrtnr != null)
                 {
                     groupSetupModel.EnrlmntPrtnrsId = enrlmntPrtnr.EnrlmntPrtnrsId;
+                }
+                else
+                {
+                    _unitofWork.eppEnrlmntPrtnrsRepository.Add(new EppEnrlmntPrtnrs { 
+                         CrtdBy="",
+                          EmlAddrss= groupSetupModel.EmlAddrss,
+                           EnrlmntPrtnrsNm= groupSetupModel.EnrlmntPrtnrsNm
+
+                    });
                 }
 
             }
@@ -64,13 +74,13 @@ namespace AFBA.EPP.Controllers
             _unitofWork.GroupMasterRepository.Add(new EppGrpmstr
                     {
                          GrpNbr= groupSetupModel.GrpNbr, GrpNm= groupSetupModel.GrpNm,  ActvFlg='Y' , EnrlmntPrtnrsId= groupSetupModel.EnrlmntPrtnrsId, GrpEfftvDt= groupSetupModel.GrpEfftvDt,
-                            GrpSitusSt= groupSetupModel.GrpSitusSt, GrpPymn= groupSetupModel.GrpPymn, OccClass= groupSetupModel.OccClass
+                            GrpSitusSt= groupSetupModel.GrpSitusSt, GrpPymn= groupSetupModel.GrpPymn, OccClass= groupSetupModel.OccClass, GrpId= Helper.GetRandomNumber(), CrtdBy=""
 
             }
                 
                 );
 
-            var id = _unitofWork.Complete();
+            var id = _unitofWork.Complete().Result;
             return Ok(id);
         }
 

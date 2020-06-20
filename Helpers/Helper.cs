@@ -8,6 +8,7 @@ using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -134,6 +135,14 @@ namespace AFBA.EPP.Helpers
                 DbAttrNm = d.DbAttrNm,
                 RqdFlg = false,
             }).ToList().OrderBy(x => x.DbAttrNm);
+        }
+
+
+        public static  long GetRandomNumber()
+        {
+            var min = 1;
+            var max = 999999999;
+            return  RandomNumberGenerator.GetInt32(min, max);
         }
 
     }
