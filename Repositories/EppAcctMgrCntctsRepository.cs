@@ -16,5 +16,10 @@ namespace AFBA.EPP.Repositories
         {
             _dbContext = dbContext;
         }
+
+        public EppAcctMgrCntcts GetEppAcctMgrId(string EmailAddress)
+        {
+            return _dbContext.EppAcctMgrCntcts.Where(x => x.EmailAddress.Contains(EmailAddress)).FirstOrDefault();
+        }
     }
 }

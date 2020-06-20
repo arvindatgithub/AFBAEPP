@@ -14,5 +14,10 @@ namespace AFBA.EPP.Repositories
         {
             _dbContext = dbContext;
         }
+
+        public EppEnrlmntPrtnrs GetEnrlmntPrtnrId(string EmlAddrss)
+        {
+            return _dbContext.EppEnrlmntPrtnrs.Where(x => x.EmlAddrss.Contains(EmlAddrss)).FirstOrDefault();
+        }
     }
 }

@@ -8,5 +8,8 @@ namespace AFBA.EPP.Repositories.Interfaces
 {
     public interface IEppEnrlmntPrtnrsRepository : IRepository<EppEnrlmntPrtnrs>
     {
+        public EppEnrlmntPrtnrs GetEnrlmntPrtnrId(string email);
+      
+
     }
 }
