@@ -21,7 +21,9 @@ namespace AFBA.EPP.ViewModels
         public string EmailAddress { get; set; }
         public string AcctMgrNm { get; set; }
         public long AcctMgrCntctId { get; set; }
+        public FPPG FPPG { get; set; }
+        public ACC_HI ACC_HI { get; set; }
+       
 
-        
     }
 }
