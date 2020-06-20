@@ -8,5 +8,7 @@ namespace AFBA.EPP.Repositories.Interfaces
 {
     public interface IEppAttributeRepository : IRepository<EppAttribute>
     {
+        public EppAttribute GetAttrId(string DbAttrNm);
+     
     }
 }

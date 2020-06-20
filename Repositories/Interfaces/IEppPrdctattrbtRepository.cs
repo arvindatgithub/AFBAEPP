@@ -8,5 +8,7 @@ namespace AFBA.EPP.Repositories.Interfaces
 {
     public interface IEppPrdctattrbtRepository: IRepository<EppPrdctattrbt>
     {
+      
+       
     }
 }

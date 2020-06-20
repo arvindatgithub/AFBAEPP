@@ -8,6 +8,7 @@ namespace AFBA.EPP.ViewModels
     public class EppAttrFieldViewModel
     {
         public string DbAttrNm { get; set; }
-        public bool RqdFlg { get; set; }
+        public bool? RqdFlg { get; set; }
+        public int? ClmnOrdr { get; set; }
     }
 }

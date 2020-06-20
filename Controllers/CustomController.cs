@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AFBA.EPP.Helpers;
+using AFBA.EPP.Models;
 using AFBA.EPP.Repositories.Interfaces;
 using AFBA.EPP.ViewModels;
 using Microsoft.AspNetCore.Hosting;
@@ -60,6 +61,59 @@ namespace AFBA.EPP.Controllers
                  RqdFlg = false,
             }).ToList().OrderBy(x => x.DbAttrNm);
         }
+
+        [Route("grpNbr/{grpNbr}/productNm/{productNm}")]
+        [HttpGet]
+        public IActionResult EppGetGrpPrdAttrbt(string grpNbr, string productNm)
+        {
+           var grpprdct = _unitofWork.eppGrpprdctRepository.GetEppGrpprdct(grpNbr, productNm);
+            if (grpprdct == null) return NotFound("Not available");
+            // 
+            var eppPrdctattrbt = _unitofWork.eppPrdctattrbtRepository.Get((int)grpprdct.GrpprdctId).Result;
+            if (eppPrdctattrbt == null) return NotFound("Not available");
+                     
+            return Ok(eppPrdctattrbt);
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public IActionResult EppAddPrdctAttrbt(EppAddPrdAttrbt eppAddPrdAttrbt)
+        {
+            var grpprdct = _unitofWork.eppGrpprdctRepository.GetEppGrpprdct(eppAddPrdAttrbt.GrpNbr, eppAddPrdAttrbt.ProductNm);
+            if (grpprdct == null) return NotFound("Not available");
+            // 
+            var eppPrdctattrbt = _unitofWork.eppPrdctattrbtRepository.Find(x=> x.GrpprdctId== grpprdct.GrpprdctId).Result;
+            if (eppPrdctattrbt == null) {
+
+                List<EppPrdctattrbt> EppPrdctattrbts = new List<EppPrdctattrbt>();
+                foreach ( var item in eppAddPrdAttrbt.EppPrdAttrFields)
+                {
+                  
+                    var data = _unitofWork.eppAttributeRepository.GetAttrId( item.DbAttrNm);
+                    if(data != null)
+                    {
+
+                        EppPrdctattrbts.Add(new EppPrdctattrbt {
+                         AttrId= data.AttrId,
+                        GrpprdctId = grpprdct.GrpprdctId,
+                        ClmnOrdr = item.ClmnOrdr,
+                         RqdFlg = item.RqdFlg == true ? 'Y' : 'N',
+                        });
+                       
+                    }
+
+
+                }
+                _unitofWork.eppPrdctattrbtRepository.AddRange(EppPrdctattrbts);
+           
+            }
+
+           var  id= _unitofWork.Complete();
+
+
+            return Ok(id);
+        }
+
 
     }
 }

@@ -24,7 +24,7 @@ namespace AFBA.EPP.Repositories
             return await _entities.ToListAsync();
         }
 
-        public async Task<TEntity> Get(int id)
+        public async Task<TEntity> Get(long id)
         {
             return await _entities.FindAsync(id);
         }
