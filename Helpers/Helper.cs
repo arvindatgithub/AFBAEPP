@@ -11,6 +11,7 @@ using System.Linq.Expressions;
 using System.Security.Cryptography;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace AFBA.EPP.Helpers
 {
@@ -145,5 +146,29 @@ namespace AFBA.EPP.Helpers
             return  RandomNumberGenerator.GetInt32(min, max);
         }
 
+
+        public static List<ClsPropertyInfo> GetProperties(Object  classobject)
+        {
+            List<ClsPropertyInfo> clsPropertyInfos = new List<ClsPropertyInfo>();
+
+            Type typeInfo = classobject.GetType();
+            PropertyInfo[] props = typeInfo.GetProperties();
+            foreach (var prop in props)
+            {
+                clsPropertyInfos.Add(new ClsPropertyInfo
+                {
+                    PropertyName = prop.Name,
+                    PropertyValue= prop.GetValue(classobject).ToString()
+                }); 
+               
+            }
+            return clsPropertyInfos;
+        }
+
+        public static long GetProductIdbyName(string productName, IUnitofWork _unitofWork)
+        {
+            var product = _unitofWork.EppProductRepository.Find(x => x.ProductNm.Contains(productName)).Result.FirstOrDefault();
+            return product.ProductId;
+        }
     }
 }

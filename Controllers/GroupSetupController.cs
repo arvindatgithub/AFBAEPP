@@ -40,7 +40,9 @@ namespace AFBA.EPP.Controllers
         [HttpPost]
         public IActionResult EppCreateGrpSetup(GroupSetupModel  groupSetupModel)
         {
-             
+
+            var fppgBulk = Helper.GetProperties(groupSetupModel.FPPG);
+
             var grpprdct = _unitofWork.GroupMasterRepository.Find(x => x.GrpNbr == groupSetupModel.GrpNbr || x.GrpNm== groupSetupModel.GrpNm).Result;
             if (grpprdct.Count != 0)   return BadRequest(" Group name or number already exist"); 
 
@@ -72,18 +74,131 @@ namespace AFBA.EPP.Controllers
                     groupSetupModel.AcctMgrCntctId = eppAcctMgr.AcctMgrCntctId;
                 }
             }
-            _unitofWork.GroupMasterRepository.Add(new EppGrpmstr
+             var grpId = Helper.GetRandomNumber();
+            var CrtdBy = "";
+;            _unitofWork.GroupMasterRepository.Add(new EppGrpmstr
                     {
                          GrpNbr= groupSetupModel.GrpNbr, GrpNm= groupSetupModel.GrpNm,  ActvFlg='Y' , EnrlmntPrtnrsId= groupSetupModel.EnrlmntPrtnrsId, GrpEfftvDt= groupSetupModel.GrpEfftvDt,
-                         GrpSitusSt= groupSetupModel.GrpSitusSt, GrpPymn= groupSetupModel.GrpPymn, OccClass= groupSetupModel.OccClass, GrpId= Helper.GetRandomNumber(), CrtdBy=""
+                         GrpSitusSt= groupSetupModel.GrpSitusSt, GrpPymn= groupSetupModel.GrpPymn, OccClass= groupSetupModel.OccClass, GrpId= grpId, CrtdBy= CrtdBy
+
+                    }
+                
+           );
+            if (groupSetupModel.isFPPGActive)
+            {
+                var prdid = Helper.GetProductIdbyName("FPPG", _unitofWork);
+                var grpprdId = Helper.GetRandomNumber();
+               _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
+                {
+                    GrpprdctId= grpprdId,
+                     GrpId= grpId,
+                     ProductId= prdid,
+                     CrtdBy= CrtdBy
+
+               });
+                // add bulkupdate 
+          var fppgBulk222=      Helper.GetProperties(groupSetupModel.FPPG);
+
+
+                //List<EppBulkRefTbl> bulkRefTbls = new List<EppBulkRefTbl>();
+
+
 
             }
-                
-                );
+            if (groupSetupModel.isACC_HIActive)
+            {
+                var prdid = Helper.GetProductIdbyName("ACC_HI", _unitofWork);
+                var grpprdId = Helper.GetRandomNumber();
+                _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
+                {
+                    GrpprdctId = grpprdId,
+                    GrpId = grpId,
+                    ProductId = prdid,
+                    CrtdBy = CrtdBy
+
+                });
+
+            }
+            if (groupSetupModel.isER_CIActive)
+            {
+                var prdid = Helper.GetProductIdbyName("ER_CI", _unitofWork);
+                var grpprdId = Helper.GetRandomNumber();
+                _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
+                {
+                    GrpprdctId = grpprdId,
+                    GrpId = grpId,
+                    ProductId = prdid,
+                    CrtdBy = CrtdBy
+
+                });
+
+            }
+            if (groupSetupModel.isVOL_CIActive)
+            {
+                var prdid = Helper.GetProductIdbyName("VOL_CI", _unitofWork);
+                var grpprdId = Helper.GetRandomNumber();
+                _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
+                {
+                    GrpprdctId = grpprdId,
+                    GrpId = grpId,
+                    ProductId = prdid,
+                    CrtdBy = CrtdBy
+
+                });
+
+            }
+            if (groupSetupModel.isVGLActive)
+            {
+                var prdid = Helper.GetProductIdbyName("VGL", _unitofWork);
+                var grpprdId = Helper.GetRandomNumber();
+                _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
+                {
+                    GrpprdctId = grpprdId,
+                    GrpId = grpId,
+                    ProductId = prdid,
+                    CrtdBy = CrtdBy
+
+                });
+              
+            }
+            if (groupSetupModel.isBGLActive)
+            {
+                var prdid = Helper.GetProductIdbyName("BGL", _unitofWork);
+                var grpprdId = Helper.GetRandomNumber();
+                _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
+                {
+                    GrpprdctId = grpprdId,
+                    GrpId = grpId,
+                    ProductId = prdid,
+                    CrtdBy = CrtdBy
+
+                });
+               
+            }
+            if (groupSetupModel.isFPPIActive)
+            {
+
+                var prdid = Helper.GetProductIdbyName("FPPI", _unitofWork);
+                var grpprdId = Helper.GetRandomNumber();
+                _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
+                {
+                    GrpprdctId = grpprdId,
+                    GrpId = grpId,
+                    ProductId = prdid,
+                    CrtdBy = CrtdBy
+
+                });
+            }
+            // add into grp product
+            //var grpprdId = Helper.GetRandomNumber();
+
+
 
             var id = _unitofWork.Complete().Result;
             return Ok(id);
         }
 
+
+      
     }
 }

@@ -151,7 +151,7 @@ namespace AFBA.EPP.Controllers
         public IActionResult EppAddPrdctAttrbt(EppAddPrdAttrbt eppAddPrdAttrbt)
         {
             var grpprdct = _unitofWork.eppGrpprdctRepository.GetEppGrpprdct(eppAddPrdAttrbt.GrpNbr, eppAddPrdAttrbt.ProductNm);
-            if (grpprdct == null) return NotFound("Not available");
+            if (grpprdct == null) return NotFound("Either  Group no and product is not available  ");
             // 
             var eppPrdctattrbt = _unitofWork.eppPrdctattrbtRepository.Find(x=> x.GrpprdctId== grpprdct.GrpprdctId).Result;
             if (eppPrdctattrbt.Count == 0) {
