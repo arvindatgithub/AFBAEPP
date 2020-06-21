@@ -23,7 +23,15 @@ namespace AFBA.EPP.ViewModels
         public long AcctMgrCntctId { get; set; }
         public FPPG FPPG { get; set; }
         public ACC_HI ACC_HI { get; set; }
-       
+        public ER_CI ER_CI { get; set; }
+        public VOL_CI VOL_CI { get; set; }
+        public VGL VGL { get; set; }
+        public BGL BGL { get; set; }
+        public FPPI FPPI { get; set; }
+
+
+
+
 
     }
 }
