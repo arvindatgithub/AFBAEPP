@@ -13,5 +13,5 @@ export class GroupsearchService {
     const GroupsDataUrl = environment.apiurl + 'GroupSetup/GetGroupsData';
     return this.http.get(GroupsDataUrl);
   }
-
+  
 }

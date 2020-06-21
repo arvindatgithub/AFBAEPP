@@ -12,6 +12,7 @@ export class FPPGComponent implements OnInit {
   @Input() lookupValue: any;
   @Input() dateValue: any;
   situsValue:string;
+  exampleChild: string = "Harsh"
   // subscription: Subscription;
   public isLoading = false;
   lookUpDataSitusStates: any = [];
@@ -48,7 +49,7 @@ export class FPPGComponent implements OnInit {
       FCfppgQolRiders: ["",Validators.required],
       FCfppgWaiver:["",Validators.required]
       
-    })
+    });
 
 
   }
