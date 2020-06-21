@@ -12,6 +12,5 @@ namespace AFBA.EPP.ViewModels
         public string ProductId { get; set; }
         public List<EppAttrFieldViewModel> EppPrdAttrFields { get; set; }
         public bool  isEdit { get; set; }
-
     }
 }

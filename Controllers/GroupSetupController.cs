@@ -64,14 +64,7 @@ namespace AFBA.EPP.Controllers
                 }
 
             }
-            if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
-            {
-                var eppAcctMgr = _unitofWork.eppAcctMgrCntctsRepository.GetEppAcctMgrId(groupSetupModel.EmailAddress);
-                if (eppAcctMgr != null)
-                {
-                    groupSetupModel.AcctMgrCntctId = eppAcctMgr.AcctMgrCntctId;
-                }
-            }
+           
              var grpId = Helper.GetRandomNumber();
             var CrtdBy = "";
 ;            _unitofWork.GroupMasterRepository.Add(new EppGrpmstr
@@ -100,6 +93,18 @@ namespace AFBA.EPP.Controllers
                 // add bulkupdate 
                 var bulkAttrs = Helper.GetProperties(groupSetupModel.FPPG);
                 AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
+                if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
+                {
+                         var rndNo = Helper.GetRandomNumber();
+                        _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                        {
+
+                            AcctMgrCntctId = rndNo,
+                             EmailAddress= groupSetupModel.EmailAddress,
+                              AcctMgrNm= groupSetupModel.AcctMgrNm
+                        });
+                }
+
             }
             if (groupSetupModel.isACC_HIActive)
             {
@@ -115,6 +120,18 @@ namespace AFBA.EPP.Controllers
                 });
                 var bulkAttrs = Helper.GetProperties(groupSetupModel.ACC_HI);
                 AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
+
+                if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
+                {
+                    var rndNo = Helper.GetRandomNumber();
+                    _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                    {
+
+                        AcctMgrCntctId = rndNo,
+                        EmailAddress = groupSetupModel.EmailAddress,
+                        AcctMgrNm = groupSetupModel.AcctMgrNm
+                    });
+                }
 
             }
             if (groupSetupModel.isER_CIActive)
@@ -132,6 +149,18 @@ namespace AFBA.EPP.Controllers
                 var bulkAttrs = Helper.GetProperties(groupSetupModel.ER_CI);
                 AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
 
+                if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
+                {
+                    var rndNo = Helper.GetRandomNumber();
+                    _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                    {
+
+                        AcctMgrCntctId = rndNo,
+                        EmailAddress = groupSetupModel.EmailAddress,
+                        AcctMgrNm = groupSetupModel.AcctMgrNm
+                    });
+                }
+
             }
             if (groupSetupModel.isVOL_CIActive)
             {
@@ -147,6 +176,18 @@ namespace AFBA.EPP.Controllers
                 });
                 var bulkAttrs = Helper.GetProperties(groupSetupModel.VOL_CI);
                 AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
+
+                if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
+                {
+                    var rndNo = Helper.GetRandomNumber();
+                    _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                    {
+
+                        AcctMgrCntctId = rndNo,
+                        EmailAddress = groupSetupModel.EmailAddress,
+                        AcctMgrNm = groupSetupModel.AcctMgrNm
+                    });
+                }
 
             }
             if (groupSetupModel.isVGLActive)
@@ -164,6 +205,18 @@ namespace AFBA.EPP.Controllers
                 var bulkAttrs = Helper.GetProperties(groupSetupModel.VGL);
                 AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
 
+                if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
+                {
+                    var rndNo = Helper.GetRandomNumber();
+                    _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                    {
+
+                        AcctMgrCntctId = rndNo,
+                        EmailAddress = groupSetupModel.EmailAddress,
+                        AcctMgrNm = groupSetupModel.AcctMgrNm
+                    });
+                }
+
             }
             if (groupSetupModel.isBGLActive)
             {
@@ -179,6 +232,18 @@ namespace AFBA.EPP.Controllers
                 });
                 var bulkAttrs = Helper.GetProperties(groupSetupModel.BGL);
                 AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
+
+                if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
+                {
+                    var rndNo = Helper.GetRandomNumber();
+                    _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                    {
+
+                        AcctMgrCntctId = rndNo,
+                        EmailAddress = groupSetupModel.EmailAddress,
+                        AcctMgrNm = groupSetupModel.AcctMgrNm
+                    });
+                }
 
             }
             if (groupSetupModel.isFPPIActive)
@@ -197,6 +262,18 @@ namespace AFBA.EPP.Controllers
 
                 var bulkAttrs = Helper.GetProperties(groupSetupModel.FPPI);
                 AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
+
+                if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
+                {
+                    var rndNo = Helper.GetRandomNumber();
+                    _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                    {
+
+                        AcctMgrCntctId = rndNo,
+                        EmailAddress = groupSetupModel.EmailAddress,
+                        AcctMgrNm = groupSetupModel.AcctMgrNm
+                    });
+                }
 
             }
             
@@ -240,6 +317,9 @@ namespace AFBA.EPP.Controllers
             }
 
         }
+
+
+
       
     }
 }
