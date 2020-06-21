@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { LookupService } from '../services/lookup.service';
-import { NgForm, FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { NgForm, FormControl, FormGroup, FormBuilder, RequiredValidator, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-fppg',
@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./fppg.component.css']
 })
 export class FPPGComponent implements OnInit {
+  fppgformgrp: FormGroup
   @Input() lookupValue: any;
   @Input() dateValue: any;
   situsValue:string;
@@ -20,11 +21,8 @@ export class FPPGComponent implements OnInit {
   disabled = false;
   public minDate = new Date().toISOString().slice(0,10);
 
-  constructor(private lookupService: LookupService) {
-    // this.subscription = this.lookupService.getSitusValue().subscribe((situsValue:string)=>{
-    //   this.situsValue = situsValue;
-    //   console.log("this.situsValue",this.situsValue);
-    // });
+  constructor(private lookupService: LookupService, private fb:FormBuilder ) {
+   
    }
 
   ngOnInit() {
@@ -33,8 +31,24 @@ export class FPPGComponent implements OnInit {
         this.isLoading = true;
         console.log("data", data);
         this.lookUpDataSitusStates = data.situsState;
+
+
       });
-    
+
+    this.fppgformgrp = this.fb.group({
+      FCfppgEffectiveDate: ["",Validators.required],
+      FCfppgSitusState: ["",Validators.required],
+      FCfppgEmpGIAmtMax: ["",Validators.required],
+      FCfppgEmpQIAmtMax: ["",Validators.required],
+      FCfppgSpouseGIAmtMax: ["",Validators.required],
+      FCfppgSpouseQIAmtMax: ["",Validators.required],
+      FCfppgSpouseMaxAmt: ["",Validators.required],
+      FCfppgOpenEnrollGI: ["",Validators.required],
+      FCfppgPlanCodeManualEntry: ["",Validators.required],
+      FCfppgQolRiders: ["",Validators.required],
+      FCfppgWaiver:["",Validators.required]
+      
+    })
 
 
   }
