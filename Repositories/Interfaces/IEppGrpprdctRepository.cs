@@ -9,5 +9,6 @@ namespace AFBA.EPP.Repositories.Interfaces
     public interface IEppGrpprdctRepository: IRepository<EppGrpprdct>
     {
         public EppGrpprdct GetEppGrpprdct(string groupNo, string productNo);
+        
     }
 }

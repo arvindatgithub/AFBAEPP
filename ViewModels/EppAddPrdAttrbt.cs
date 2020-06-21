@@ -9,7 +9,7 @@ namespace AFBA.EPP.ViewModels
     public class EppAddPrdAttrbt
     {
         public string GrpNbr { get; set; }
-        public string ProductNm { get; set; }
+        public string ProductId { get; set; }
         public List<EppAttrFieldViewModel> EppPrdAttrFields { get; set; }
         public bool  isEdit { get; set; }
 

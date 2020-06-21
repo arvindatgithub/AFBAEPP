@@ -61,86 +61,97 @@ namespace AFBA.EPP.Controllers
             }).ToList().OrderBy(x => x.DbAttrNm);
         }
 
-        [Route("grpNbr/{grpNbr}/productNm/{productNm}")]
+        [Route("grpNbr/{grpNbr}/productId/{productId}")]
         [HttpGet]
-        public  IActionResult EppGetGrpPrdAttrbt(string grpNbr, string productNm)
+        public  IActionResult EppGetGrpPrdAttrbt(string grpNbr, string productId)
         {
-           var grpprdct = _unitofWork.eppGrpprdctRepository.GetEppGrpprdct(grpNbr, productNm);
-            if (grpprdct == null) return NotFound("Not available");
-            // 
-            var eppPrdctattrbt = _unitofWork.eppPrdctattrbtRepository.GetEppPrdctattrbts(grpprdct.GrpprdctId);
-            if (eppPrdctattrbt == null) return NotFound("Not available");
-            //Get  the data
-
-            EppTemplateViewModel lstEppTemplateViewModel = new EppTemplateViewModel
+            try
             {
-                AvailableList = new List<EppAttrFieldViewModel>(),
-                SelectedList = new List<EppAttrFieldViewModel>()
-            };
-            IList<EppAttrFieldViewModel> eppAttrFields = new List<EppAttrFieldViewModel>();
+                var grpprdct = _unitofWork.eppGrpprdctRepository.GetEppGrpprdct(grpNbr, productId);
+                if (grpprdct == null) return NotFound("Not available");
+                // 
+                var eppPrdctattrbt = _unitofWork.eppPrdctattrbtRepository.GetEppPrdctattrbts(grpprdct.GrpprdctId);
+                if (eppPrdctattrbt == null) return NotFound("Not available");
+                //Get  the data
 
-             foreach( var item in eppPrdctattrbt)
-            {
-                var data = _unitofWork.eppAttributeRepository.Get(item.AttrId).Result;
-                if (data != null)
+                EppTemplateViewModel lstEppTemplateViewModel = new EppTemplateViewModel
                 {
-                    lstEppTemplateViewModel.SelectedList.Add(new EppAttrFieldViewModel
-                    {
-                        DbAttrNm = data.DbAttrNm,
-                        ClmnOrdr = item.ClmnOrdr,
-                        RqdFlg = item.RqdFlg == 'Y' ? true : false,
-                        GrpprdctId= item.GrpprdctId
+                    AvailableList = new List<EppAttrFieldViewModel>(),
+                    SelectedList = new List<EppAttrFieldViewModel>()
+                };
+                IList<EppAttrFieldViewModel> eppAttrFields = new List<EppAttrFieldViewModel>();
 
-    });
+                foreach (var item in eppPrdctattrbt)
+                {
+                    var data = _unitofWork.eppAttributeRepository.Get(item.AttrId).Result;
+                    if (data != null)
+                    {
+                        lstEppTemplateViewModel.SelectedList.Add(new EppAttrFieldViewModel
+                        {
+                            DbAttrNm = data.DbAttrNm,
+                            ClmnOrdr = item.ClmnOrdr,
+                            RqdFlg = item.RqdFlg == 'Y' ? true : false,
+                            GrpprdctId = item.GrpprdctId
+
+                        });
+                    }
                 }
-            }
-             // removing the item from available list
-            foreach (var item in lstEppTemplateViewModel.SelectedList)
+                // removing the item from available list
+                foreach (var item in lstEppTemplateViewModel.SelectedList)
+                {
+                    lstEppTemplateViewModel.AvailableList.Remove(lstEppTemplateViewModel.AvailableList.FirstOrDefault(x => x.DbAttrNm.Contains(item.DbAttrNm)));
+                }
+                return Ok(lstEppTemplateViewModel);
+            }catch ( Exception ex)
             {
-                lstEppTemplateViewModel.AvailableList.Remove(lstEppTemplateViewModel.AvailableList.FirstOrDefault(x => x.DbAttrNm.Contains(item.DbAttrNm)));
+                throw ex;
             }
-            return Ok(lstEppTemplateViewModel);
         }
 
         [Route("[action]")]
         [HttpPut]
         public IActionResult EppEditPrdctAttrbt(EppAddPrdAttrbt eppAddPrdAttrbt)
         {
-
-            List<EppPrdctattrbt> EppPrdctattrbts = new List<EppPrdctattrbt>();
-            foreach (var item in eppAddPrdAttrbt.EppPrdAttrFields)
+            try
             {
-
-                var data = _unitofWork.eppAttributeRepository.GetAttrId(item.DbAttrNm);
-                if (data != null)
+                List<EppPrdctattrbt> EppPrdctattrbts = new List<EppPrdctattrbt>();
+                foreach (var item in eppAddPrdAttrbt.EppPrdAttrFields)
                 {
-                    EppPrdctattrbts.Add(new EppPrdctattrbt
+
+                    var data = _unitofWork.eppAttributeRepository.GetAttrId(item.DbAttrNm);
+                    if (data != null)
                     {
-                        AttrId = data.AttrId,
-                        GrpprdctId = item.GrpprdctId,
-                        ClmnOrdr = item.ClmnOrdr,
-                        RqdFlg = item.RqdFlg == true ? 'Y' : 'N',
-                        PrdctAttrbtId= item.PrdctAttrbtId
-                    });
+                        EppPrdctattrbts.Add(new EppPrdctattrbt
+                        {
+                            AttrId = data.AttrId,
+                            GrpprdctId = item.GrpprdctId,
+                            ClmnOrdr = item.ClmnOrdr,
+                            RqdFlg = item.RqdFlg == true ? 'Y' : 'N',
+                            PrdctAttrbtId = item.PrdctAttrbtId
+                        });
 
+                    }
                 }
-            }
 
-            foreach (var data in EppPrdctattrbts)
+                foreach (var data in EppPrdctattrbts)
+                {
+                    var k = _unitofWork.eppPrdctattrbtRepository.Find(x => x.PrdctAttrbtId == data.PrdctAttrbtId).Result.FirstOrDefault();
+                    if (k != null)
+                    {
+                        k = data;
+                    }
+                    else
+                    {
+                        _unitofWork.eppPrdctattrbtRepository.Add(data);
+                    }
+                    var id = _unitofWork.Complete().Result;
+                }
+
+                return Ok();
+            } catch( Exception ex)
             {
-                var k = _unitofWork.eppPrdctattrbtRepository.Find(x => x.PrdctAttrbtId == data.PrdctAttrbtId).Result.FirstOrDefault();
-                if (k != null)
-                {
-                    k = data;
-                }
-                else
-                {
-                    _unitofWork.eppPrdctattrbtRepository.Add(data);
-                }
-           var id=     _unitofWork.Complete().Result;
+                throw ex;
             }
-
-            return Ok();
         }
 
             
@@ -150,39 +161,51 @@ namespace AFBA.EPP.Controllers
         [HttpPost]
         public IActionResult EppAddPrdctAttrbt(EppAddPrdAttrbt eppAddPrdAttrbt)
         {
-            var grpprdct = _unitofWork.eppGrpprdctRepository.GetEppGrpprdct(eppAddPrdAttrbt.GrpNbr, eppAddPrdAttrbt.ProductNm);
-            if (grpprdct == null) return NotFound("Either  Group no and product is not available  ");
-            // 
-            var eppPrdctattrbt = _unitofWork.eppPrdctattrbtRepository.Find(x=> x.GrpprdctId== grpprdct.GrpprdctId).Result;
-            if (eppPrdctattrbt.Count == 0) {
-
-                List<EppPrdctattrbt> EppPrdctattrbts = new List<EppPrdctattrbt>();
-                foreach ( var item in eppAddPrdAttrbt.EppPrdAttrFields)
+            try
+            {
+                var grpprdct = _unitofWork.eppGrpprdctRepository.GetEppGrpprdct(eppAddPrdAttrbt.GrpNbr, eppAddPrdAttrbt.ProductId);
+                if (grpprdct == null) return NotFound("Either  Group no and product is not available  ");
+                // 
+                var eppPrdctattrbt = _unitofWork.eppPrdctattrbtRepository.Find(x => x.GrpprdctId == grpprdct.GrpprdctId).Result;
+                if (eppPrdctattrbt.Count == 0)
                 {
-                  
-                    var data = _unitofWork.eppAttributeRepository.GetAttrId( item.DbAttrNm);
-                    if(data != null)
-                    {
-                        EppPrdctattrbts.Add(new EppPrdctattrbt {
-                        AttrId= data.AttrId,
-                       GrpprdctId = grpprdct.GrpprdctId,
-                       ClmnOrdr = item.ClmnOrdr,
-                        RqdFlg = item.RqdFlg == true ? 'Y' : 'N',
-                        CrtdBy="",
-                        });
-                       
-                    }
 
+                    List<EppPrdctattrbt> EppPrdctattrbts = new List<EppPrdctattrbt>();
+                    foreach (var item in eppAddPrdAttrbt.EppPrdAttrFields)
+                    {
+
+                        var data = _unitofWork.eppAttributeRepository.GetAttrId(item.DbAttrNm);
+                        if (data != null)
+                        {
+                            var prdctAttrbtId = Helper.GetRandomNumber();
+                            EppPrdctattrbts.Add(new EppPrdctattrbt
+                            {   
+                                PrdctAttrbtId= prdctAttrbtId,
+                                AttrId = data.AttrId,
+                                GrpprdctId = grpprdct.GrpprdctId,
+                                ClmnOrdr = item.ClmnOrdr,
+                                RqdFlg = item.RqdFlg == true ? 'Y' : 'N',
+                                CrtdBy = "",
+                            });
+
+                        }
+
+
+                    }
+                    _unitofWork.eppPrdctattrbtRepository.AddRange(EppPrdctattrbts);
 
                 }
-                _unitofWork.eppPrdctattrbtRepository.AddRange(EppPrdctattrbts);
-           
+
+                var id = _unitofWork.Complete().Result;
+
+
+                return Ok(id);
             }
+            catch (Exception ex)
+            {
+                throw (ex);
 
-           var  id= _unitofWork.Complete().Result;
-
-
-            return Ok(id);
+            }
         }
 
 
