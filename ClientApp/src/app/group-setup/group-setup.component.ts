@@ -44,7 +44,7 @@ export class GroupSetupComponent implements OnInit {
   public lookupSitusStateValue = "";
   public isLoading = false;
   groupName: string = "";
-  grpEfftvDate: string = "";
+  grpEfftvDate;
   grpPymn: string;
   occClass: any = [{
     occupation: 1,
@@ -104,7 +104,7 @@ export class GroupSetupComponent implements OnInit {
   effctvDateAction: string="";
   grpSitusStateAction: string="";
   empGiMaxAmtAction: string="";
-
+  eppData: any;
  
 
   constructor(private eppcreategroupservice: EppCreateGrpSetupService,
@@ -126,6 +126,10 @@ export class GroupSetupComponent implements OnInit {
         this.grpPymn = this.lookUpDataPaymentModes[5];
         this.grpSitusState = this.lookUpDataSitusStates[0].state;
       });
+       this.eppcreategroupservice.myEppData.subscribe((data:any)=>{
+        this.eppData = data;
+      });
+      
   }
 
   // ngAfterViewInit(){
@@ -227,9 +231,9 @@ let body = {
         grpNbr: this.groupNumber.toString(),
         grpNm: this.groupName,
         grpEfftvDt: this.grpEfftvDate,
-        grpPymn: this.grpPymn,
+        grpPymn: parseInt(this.grpPymn.slice(0,2)),
         actvFlg: this.checkedToggle,
-        occClass: this.occupationArray,
+        occClass: parseInt(this.occupationArray),
         grpSitusSt: this.grpSitusState,
         enrlmntPrtnrsNm: this.EnrolmentPatnerName,
         emlAddrss: this.EnrolEmailAddress,
@@ -446,5 +450,5 @@ let body = {
       })
     }
     
-
+  
 }
