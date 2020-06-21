@@ -91,7 +91,8 @@ namespace AFBA.EPP.Controllers
                             DbAttrNm = data.DbAttrNm,
                             ClmnOrdr = item.ClmnOrdr,
                             RqdFlg = item.RqdFlg == 'Y' ? true : false,
-                            GrpprdctId = item.GrpprdctId
+                            GrpprdctId = item.GrpprdctId,
+                            PrdctAttrbtId=item.PrdctAttrbtId,
 
                         });
                     }
