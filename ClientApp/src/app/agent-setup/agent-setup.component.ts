@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-agent-setup',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./agent-setup.component.css']
 })
 export class AgentSetupComponent implements OnInit {
-
+  text: string = "";
   constructor() { }
 
   ngOnInit() {

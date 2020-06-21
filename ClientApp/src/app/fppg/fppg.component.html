@@ -1,20 +1,20 @@
 <div class="container">
 
   
-   
+   <form [formGroup]="fppgformgrp">
       <div class="row"style="justify-content:space-evenly;">
         <app-radio-button></app-radio-button>
         
         <div class="col-3">
           <span class="label label-default">Group Effective Date</span>
-          <input type="date" [value]="dateValue" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
+          <input type="date"  formControlName="FCfppgEffectiveDate" [value]="dateValue" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
             placeholder="Group Effective Date">
 
         </div>
         <app-radio-button></app-radio-button>
         <div class="col-3">
           <span class="label label-default">Situs State</span>
-          <select class="form-control" [value]="lookupValue">
+          <select class="form-control" formControlName= "FCfppgSitusState" [value]="lookupValue">
             <!-- <option value="0" selected="selected">{{ lookupValue }}</option> -->
             <option  *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
               {{lookUpDataSitusState.state}}</option>
@@ -35,7 +35,7 @@
 
           <span class="label label-default">Employee GI Amount Max</span>
 
-          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Employee GI Amount Max">
+          <input type="text"   formControlName="FCfppgEmpGIAmtMax" class="form-control mb-2 " style="width: 100%;" placeholder="Employee GI Amount Max">
         </div>
 
 
@@ -43,7 +43,7 @@
         <div class="col-3">
           <span class="label label-default">Employee QI Amount Max</span>
 
-          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Employee QI Amount Max">
+          <input type="text"  formControlName="FCfppgEmpQIAmtMax" class="form-control mb-2 " style="width: 100%;" placeholder="Employee QI Amount Max">
         </div>
         <div class="col-3">
           <span class="label label-default">Employee Max Amount</span>
@@ -57,16 +57,16 @@
         <div class="col-3">
           <span class="label label-default">Spouse GI Amount Max</span>
 
-          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse GI Amount Max
+          <input type="text" formControlName="FCfppgSpouseGIAmtMax" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse GI Amount Max
             ">
         </div>
         <div class="col-3">
           <span class="label label-default">Spouse QI Amount Max</span>
-          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse QI Amount Max">
+          <input type="text" formControlName="FCfppgSpouseQIAmtMax" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse QI Amount Max">
         </div>
         <div class="col-3">
           <span class="label label-default">Spouse Max Amount</span>
-          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse Max Amount">
+          <input type="text" formControlName="FCfppgSpouseMaxAmt" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse Max Amount">
         </div>
 
       </div>
@@ -77,13 +77,13 @@
         <div class="col-4">
 
           <span class="label label-default">Open Enrollment GI</span>
-          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Open Enrollment GI">
+          <input type="text" formControlName="FCfppgOpenEnrollGI" class="form-control mb-2 " style="width: 100%;" placeholder="Open Enrollment GI">
         </div>
 
         <app-radio-button></app-radio-button>
         <div class="col-4">
-          <span class="label label-default">Plan code manual Entry</span>
-          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Plan code manual Entry">
+          <span class="label label-default">Plan code Manual Entry</span>
+          <input type="text" formControlName="FCfppgPlanCodeManualEntry" class="form-control mb-2 " style="width: 100%;" placeholder="Plan code manual Entry">
         </div>
 
       </div>
@@ -101,7 +101,7 @@
             </div>
             <div class="col" style="justify-content:flex-start;margin-right: 170px;
             margin-top: 24px;">
-              <mat-checkbox class="example-margin" [(ngModel)]="checked" name="Qol">QOL Rider</mat-checkbox>
+              <mat-checkbox class="example-margin" formControlName="FCfppgQolRiders" [(ngModel)]="checked" name="Qol">QOL Rider</mat-checkbox>
             </div>
           </div>
         </div>
@@ -112,7 +112,7 @@
             </div>
             <div class="col" style="margin-right: 170px;
           margin-top: 24px;">
-              <mat-checkbox class="example-margin" [(ngModel)]="indeterminate" name="Waiver">Waiver</mat-checkbox>
+              <mat-checkbox class="example-margin" formControlName="FCfppgWaiver" [(ngModel)]="indeterminate" name="Waiver">Waiver</mat-checkbox>
             </div>
           </div>
         </div>
@@ -124,5 +124,5 @@
     <div class="mt-4">
       <app-agent-setup></app-agent-setup>
     </div>
-
+</form>
   </div>

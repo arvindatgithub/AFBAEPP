@@ -20,8 +20,8 @@ export class CustomeppattributeService {
     return this.http.get(GroupsDataUrl);
   }
 
-  getProductFieldsByGroup(grpNbr,productNm) {
-    const GroupsDataUrl = environment.apiurl + 'Custom/grpNbr/' + grpNbr + '/productNm/' + productNm;
+  getProductFieldsByGroup(grpNbr,productId) {
+    const GroupsDataUrl = environment.apiurl + 'Custom/grpNbr/' + grpNbr + '/productId/' + productId;
     return this.http.get(GroupsDataUrl);
   }
 

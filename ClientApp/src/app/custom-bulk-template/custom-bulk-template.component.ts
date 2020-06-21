@@ -15,6 +15,7 @@ export class CustomBulkTemplateComponent implements OnInit {
 
   selectedProduct: any;
   grpNum: any;
+  selectedProductId: any;
 
   availableFields: any;
   selectedFields: any;
@@ -40,14 +41,21 @@ export class CustomBulkTemplateComponent implements OnInit {
   }
 
   onSubmit(form, formData) {
+    console.log('form data' + JSON.stringify(formData.product));
     this.grpNum = formData.groupNumber;
     this.selectedProduct = formData.product;
-    this.getFields(this.grpNum, this.selectedProduct);
+    this.productsList.forEach(element => {
+      if(element.productNm == this.selectedProduct){
+        this.selectedProductId = element.productId;
+      }
+    });
+    console.log('selected product'+ this.selectedProduct + '  ' + this.selectedProductId);
+    this.getFields(this.grpNum, this.selectedProduct, this.selectedProductId);
   }
 
-  getFields(grpNbr, productNm) {
+  getFields(grpNbr, productNm, productId) {
 
-    this.customattributeService.getProductFieldsByGroup(grpNbr, productNm).subscribe(
+    this.customattributeService.getProductFieldsByGroup(grpNbr, productId).subscribe(
       data => {
         console.log('data by group ' + JSON.stringify(data));
         this.fieldsByGrpPrdt = data;
@@ -88,7 +96,15 @@ export class CustomBulkTemplateComponent implements OnInit {
   }
 
   exportAsXLSX() {
-    this.excelService.exportExcel(this.selectedFields, 'customFile');
+    let excelFields = [];
+    let tempObj = {};
+    for(let i=0; i<this.selectedFields.length; i++){
+      this.selectedFields[i].clmnOrdr = i+1;
+      tempObj[this.selectedFields[i].dbAttrNm] = ''; 
+    }
+    console.log('object' + JSON.stringify(tempObj));
+    excelFields[0]=tempObj;
+    this.excelService.exportExcel(excelFields, this.grpNum+'_'+this.selectedProduct);
 
   }
 
@@ -98,19 +114,25 @@ export class CustomBulkTemplateComponent implements OnInit {
     }
     let reqObj = {
       grpNbr: this.grpNum,
-      productNm: this.selectedProduct,
+      productId: this.selectedProductId,
       eppPrdAttrFields: this.selectedFields,
       isEdit: this.editFlag
     };
+    console.log('request obj *** ' + JSON.stringify(reqObj));
     if (this.editFlag) {
-      reqObj.isEdit = true;
-      this.customattributeService.editProdAttr(reqObj).subscribe((data) => {
+      this.customattributeService.editProdAttr(reqObj).subscribe(
+        data => {
         console.log('edit request response' + data);
+      }, err => {
+        console.log('edit save api'+ err.status);
       });
     } else {
       console.log('request obj' + JSON.stringify(reqObj));
-      this.customattributeService.addProdAttr(reqObj).subscribe((data) => {
+      this.customattributeService.addProdAttr(reqObj).subscribe(
+        data => {
         console.log('Add request response' + data);
+      }, err => {
+        console.log('add save api'+ err.status);
       });
     }
   }

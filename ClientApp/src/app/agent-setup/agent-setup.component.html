@@ -5,17 +5,18 @@
         <div class="row" style="justify-content:space-evenly;">
             <div class="col-md-3">
                 <span class ="label label-default">Agent Number</span>
-                <input type="text" class="form-control mb-2" style="width: 100%;" 
+                <input type="text" name="text" [(ngModel)]="text" class="form-control mb-2" style="width: 100%;" 
                     placeholder="Primary Agent Number"> 
+                  
             </div>
             <div class="col-md-3">
                 <span class ="label label-default">Agent SubCount</span>
-                <input type="text" class="form-control mb-2" style="width: 100%;" 
+                <input type="text" class="form-control mb-2"  style="width: 100%;" 
                     placeholder="Agent SubCount">
             </div>
             <div class="col-md-3">
-                <span class ="label label-default">Commisson Split</span>
-                <input type="text" class="form-control mb-2 " style="width: 100%;" 
+                <span class ="label label-default">Commisson Split %</span>
+                <input type="text" class="form-control mb-2 "  style="width: 100%;" 
                     placeholder="Commisson Split">
             </div>
 
