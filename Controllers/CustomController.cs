@@ -79,6 +79,8 @@ namespace AFBA.EPP.Controllers
                     AvailableList = new List<EppAttrFieldViewModel>(),
                     SelectedList = new List<EppAttrFieldViewModel>()
                 };
+
+                lstEppTemplateViewModel.AvailableList = Helper.EppGetAvailableFields(_unitofWork).ToList();
                 IList<EppAttrFieldViewModel> eppAttrFields = new List<EppAttrFieldViewModel>();
 
                 foreach (var item in eppPrdctattrbt)
