@@ -21,7 +21,25 @@ namespace AFBA.EPP.ViewModels
         public string EmailAddress { get; set; }
         public string AcctMgrNm { get; set; }
         public long AcctMgrCntctId { get; set; }
+        public bool isFPPGActive { get; set; }
+        public FPPG FPPG { get; set; }
 
-        
+        public bool isACC_HIActive { get; set; }
+        public ACC_HI ACC_HI { get; set; }
+        public bool isER_CIActive { get; set; }
+        public ER_CI ER_CI { get; set; }
+        public bool isVOL_CIActive { get; set; }
+        public VOL_CI VOL_CI { get; set; }
+        public bool isVGLActive { get; set; }
+        public VGL VGL { get; set; }
+        public bool isBGLActive { get; set; }
+        public BGL BGL { get; set; }
+        public bool isFPPIActive { get; set; }
+        public FPPI FPPI { get; set; }
+
+
+
+
+
     }
 }

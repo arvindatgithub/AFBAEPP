@@ -47,7 +47,7 @@ namespace AFBA.EPP.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+
                 optionsBuilder.UseNpgsql("Host=ec2-54-208-30-123.compute-1.amazonaws.com;Port=5432;Database=d941budah3t4sd;Username=idsstg;Password=p4311b74476d95c05b982733ec26be9240b1a140aa1d293b40f2e5b846054ad90; Pooling=true;  SSL Mode=Require; TrustServerCertificate=True;");
             }
         }

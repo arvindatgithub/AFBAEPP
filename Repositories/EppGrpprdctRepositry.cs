@@ -15,9 +15,9 @@ namespace AFBA.EPP.Repositories
             _dbContext = dbContext;
         }
 
-        public EppGrpprdct GetEppGrpprdct(string groupNo, string productName)
+        public EppGrpprdct GetEppGrpprdct(string groupNo, string producId)
         {
-            return this._dbContext.EppGrpprdct.Where(x => x.Grp.GrpNbr == groupNo && x.Product.ProductNm== productName).FirstOrDefault();
+            return this._dbContext.EppGrpprdct.Where(x => x.Grp.GrpNbr == groupNo && x.ProductId == long.Parse(producId)).FirstOrDefault();
         }
 
 

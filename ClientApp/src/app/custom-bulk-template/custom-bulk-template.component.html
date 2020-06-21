@@ -1,38 +1,45 @@
 <div class="container">
     <!-- Group Number Section-->
-    <div class="row">
-        <div class="col-md-4 form-group">
-            <label>Group Number</label>
-            <input type="text" class="form-control" placeholder="Enter Group Number" name="grpNum" 
-            [(ngModel)]="grpNum">
-        </div>
-        <div class="col-md-4 form-group">
-            <label>Product Name</label>
-             <select class="form-control select-dropdown" [(ngModel)]="selectedProduct" 
-             #product (change) = "getProductTemplate(product.value)">
-                 <option selected>Select a Product</option>
-                <option *ngFor="let i of productsList">
-                {{i.productNm}}</option>
-  
-        </select>
-        </div>
-    </div>
+    <form (ngSubmit)="onSubmit(form, userData)" #form="ngForm">
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label for="groupNumber" class="label">Group Number</label>
+                <input type="text" id="groupNumber" class="form-control" [(ngModel)]="userData.groupNumber"
+                    name="groupNumber" required placeholder="Enter Group Number">
+                <div *ngIf="userData.groupNumber==''" class="alert" style="color:red;padding:0px">Group Number is required</div>
+            </div>
 
+
+            <div class="form-group col-md-4">
+                <label for="product" class="label">Product Name</label>
+                <select id="product" class="form-control" [(ngModel)]="userData.product" name="product" required>
+                    <option selected>Select a Product</option>
+                    <option *ngFor="let i of productsList">
+                        {{i.productNm}}</option>
+                </select>
+                <div *ngIf="userData.product==''" class="alert" style="color:red;padding:0px">Product Name is required</div>
+            </div>
+            <div class="col-md-4" style="margin-top: 30px;">
+                <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
+            </div>
+        </div>
+    </form>
     <!-- Product Custom File Section  -->
-       <div id="accordion" class="accordion" *ngIf="selectedProduct">
+    <div *ngIf="selectedProduct">
         <div class="card mt-2" style="cursor: pointer;">
-            <div class="card-header collapsed mb-2" data-toggle="collapse" href="#collapseOne">
-                <a class="card-title">
+            <div class="card-header mb-2">
+                <a class="card-title label">
                     {{selectedProduct}}
                 </a>
             </div>
-            <div id="collapseOne" class="card-body collapse" data-parent="#accordion">
+            <div class="card-body">
                 <div class="row">
                     <div class="field-container col-md-5">
-                        <p>Available Fields</p>
-        
+                        <p class="label">Available Fields</p>
+
                         <div cdkDropList #availableFieldsList="cdkDropList" [cdkDropListData]="availableFields"
-                            [cdkDropListConnectedTo]="[selectedFieldsList]" class="fields-list" (cdkDropListDropped)="drop($event)">
+                            [cdkDropListConnectedTo]="[selectedFieldsList]" class="fields-list"
+                            (cdkDropListDropped)="drop($event)">
                             <div class="field-box" *ngFor="let item of availableFields" cdkDrag>{{item.dbAttrNm}}
                             </div>
                         </div>
@@ -41,24 +48,24 @@
                         <img src="assets/img/drag-drop.PNG" style="padding-top: 220px;">
                     </div>
                     <div class="field-container col-md-5">
-                        <p>Selected Fields</p>
-        
+                        <p class="label"><span>Selected Fields</span><span style="float: right;">Required?</span></p>
                         <div cdkDropList #selectedFieldsList="cdkDropList" [cdkDropListData]="selectedFields"
-                            [cdkDropListConnectedTo]="[availableFieldsList]" class="fields-list" (cdkDropListDropped)="drop($event)">
-                            <div class="field-box" *ngFor="let item of selectedFields; let i=index;" cdkDrag>{{item.dbAttrNm}}
-                                <input type="checkbox" name="selectedFields" 
-                                    [(ngModel)]="item.rqdFlg" (change)="updateCheckedOptions(item, $event)">
+                            [cdkDropListConnectedTo]="[availableFieldsList]" class="fields-list"
+                            (cdkDropListDropped)="drop($event)">
+                            <div class="field-box" *ngFor="let item of selectedFields; let i=index;" cdkDrag>
+                                {{item.dbAttrNm}}
+                                <input type="checkbox" name="selectedFields" [(ngModel)]="item.rqdFlg"
+                                    (change)="updateCheckedOptions(item, $event)">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
-    <!-- Button-->
-    <button type="button" class="btn btn-success mt-4 mb-4" 
-    (click)="saveLayout()">Save Custom Layout</button>
-    <button type="button" class="btn btn-success mt-4 mb-4" style="float: right;" 
-    (click)="exportAsXLSX()">Generate Custom Layout</button>
+        <div style="float: right;">
+            <button type="button" class="btn btn-success mt-4 mb-4 mr-4" (click)="saveLayout()">Save Custom Layout</button>
+            <button type="button" class="btn btn-success mt-4 mb-4" (click)="exportAsXLSX()">Generate
+                Custom Layout</button>
+        </div>
     </div>
 </div>
