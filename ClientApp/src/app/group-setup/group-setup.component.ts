@@ -1,19 +1,12 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { TooltipPosition } from '@angular/material/tooltip';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { HttpClient } from '@angular/common/http';
 import { LookupService } from '../services/lookup.service';
 import { ThemePalette } from '@angular/material';
 import { EppCreateGrpSetupService } from '../services/epp-create-grp-setup.service';
-interface state {
-  value: string;
-  viewValue: string;
-}
-interface place {
-  value: string;
-  viewValue: string;
-}
+import { AgentSetupComponent } from '../agent-setup/agent-setup.component';
 
 @Component({
   selector: 'app-group-setup',
@@ -21,16 +14,18 @@ interface place {
   styleUrls: ['./group-setup.component.css']
 })
 export class GroupSetupComponent implements OnInit {
+  @ViewChild(AgentSetupComponent,{static:true}) agentComponent: AgentSetupComponent
+  private inputText: AgentSetupComponent;
   public product: any;
   public addedProducts = [];
   public selectedProducts: any = [];
   titleName: string = "";
   selectedOption = [];
-  accident = "";
-  checkedToggle = "Inactive";
+  accident:string = "";
+  checkedToggle: string = "Inactive";
+  checkedToggleProduct: string = "Inactive";
   toggleActiveColor: ThemePalette = "primary";
-  groupNumber = "";
-
+  groupNumber:string = "";
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
   position = new FormControl(this.positionOptions[0]);
   public minDate = new Date().toISOString().slice(0, 10);
@@ -47,44 +42,74 @@ export class GroupSetupComponent implements OnInit {
   public lookupPaymentMethodvalue = "";
   public lookupSitusStateValue = "";
   public isLoading = false;
-  groupName: "";
-  grpEfftvDate: "";
-  grpPymn: "";
+  groupName: string = "";
+  grpEfftvDate: string = "";
+  grpPymn: string;
+  occClass: any = [{
+    occupation: 1,
+    id:1
+  },
+  {
+    occupation: 2,
+    id:2
+  },
+  {
+    occupation: 3,
+    id:3
+  },
+  {
+    occupation: 4,
+    id:4
+  },
+  {
+    occupation: 5,
+    id:5
+  },
+  {
+    occupation: 6,
+    id:6
+  },
+  {
+    occupation: 7,
+    id:7
+  },
+  {
+    occupation: 8,
+    id:8
+  },
+  {
+    occupation: 9,
+    id:9
+  },
+  {
+    occupation: 10,
+    id:10
+  },];
+  occupationArray: any= [];
+  grpSitusState: string = "";
+  
+  EnrolmentPatnerName: string ="";
+  EnrolEmailAddress: string ="";
+  ManagerEmail: string="";
+  ManegerName: string="";
+  activeflag: string="";
+  fppgActive: boolean;
+  empGiMaxAmt: string= "";
+  SpGiMaxAmount: string= "";
+  EmpQiMaxAmount: string= "";
+  SpQiMaxAmount: string="";
+  EmpMaxAmt: string="";
+  SpMaxAmount: string="";
+  effctvDateAction: string="";
+  grpSitusStateAction: string="";
+  empGiMaxAmtAction: string="";
 
-  occClass: any;
-  grpPym: { grpPymn: ""; };
-  grpSitusState = "";
-  situsStateObj = {
-    grpSitusSt: ""
-  };
-
-  tempObj = {
-    grpNbr: "",
-    grpNm: "",
-    grpEfftvDt: "",
-    grpSitusSt: "",
-    actvFlg: "",
-    occClass: "",
-    grpPymn: "",
-    enrlmntPrtnrsNm: "",
-    emlAddrss: "",
-    emailAddress: "",
-    acctMgrNm: "",
-
-  }
-
-
-  EnrolmentPatnerName: string;
-  EnrolEmailAddress: string;
-  ManagerEmail: string;
-  ManegerName: string;
-  activeflag: string;
-
-  constructor(private eppcreategroupservice: EppCreateGrpSetupService, private snackBar: MatSnackBar, private lookupService: LookupService) {
+  constructor(private eppcreategroupservice: EppCreateGrpSetupService,
+     private snackBar: MatSnackBar, private lookupService: LookupService,
+     private httpClient:HttpClient,private eleRef: ElementRef) {
   }
 
   ngOnInit() {
-
     this.lookupService.getLookupsData()
       .subscribe((data: any) => {
         this.isLoading = true;
@@ -93,10 +118,10 @@ export class GroupSetupComponent implements OnInit {
           return payment.formattedData;
         }));
         this.lookUpDataSitusStates = (data.situsState);
+        this.grpPymn = this.lookUpDataPaymentModes[5];
+        this.grpSitusState = this.lookUpDataSitusStates[0].state;
       });
-
   }
-
 
   addProducts() {
     this.selectedOption.findIndex((ele, i) => {
@@ -116,7 +141,6 @@ export class GroupSetupComponent implements OnInit {
         });
       }
     });
-    // this.titleName = this.addedProducts.toString();
 
   }
   deleteProduct(product) {
@@ -141,7 +165,7 @@ export class GroupSetupComponent implements OnInit {
   }
 
   toggleChange(event: any) {
-   
+
     if (event.checked) {
       this.checkedToggle = "Active";
     }
@@ -150,29 +174,265 @@ export class GroupSetupComponent implements OnInit {
     }
 
   }
+
+  toggleChangeProduct(event: any) {
+
+    if (event.checked) {
+      this.checkedToggleProduct = "Active";
+    }
+    else {
+      this.checkedToggleProduct = "Inactive";
+    }
+
+  }
+
+  occClassChange(value:any){
+    this.occupationArray = value;
+    // this.occClass = value;
+    console.log("this.occupationArray",this.occupationArray);
+  }
+
   onSubmit() {
 
-    let eppbody = {
-      grpNbr:this.groupNumber,
-      grpNm:this.groupName,
-      grpEfftvDt:this.grpEfftvDate,
-      grpPymn:this.grpPymn,
-      actvFlg:this.checkedToggle,
-      occClass:this.occClass,
-      grpSitusSt:this.grpSitusState,
-      enrlmntPrtnrsNm: this.EnrolmentPatnerName,
-      emlAddrss: this.EnrolEmailAddress,
-      emailAddress: this.ManagerEmail,
-      acctMgrNm: this.ManegerName,
-    
-      
-    }
-    console.log(eppbody)
+    // console.log("inputText", this.agentComponent.text);
 
-    // this.eppcreategroupservice.PosteppCreate(eppbody)
-    //   .subscribe((res) => {
-    //     console.log(res);
-    //   })
+    // let eppbody = {
+    //   grpNbr: this.groupNumber,
+    //   grpNm: this.groupName,
+    //   grpEfftvDt: this.grpEfftvDate,
+    //   grpPymn: this.grpPymn,
+    //   actvFlg: this.checkedToggle,
+    //   occClass: this.occClass,
+    //   grpSitusSt: this.grpSitusState,
+    //   enrlmntPrtnrsNm: this.EnrolmentPatnerName,
+    //   emlAddrss: this.EnrolEmailAddress,
+    //   emailAddress: this.ManagerEmail,
+    //   acctMgrNm: this.ManegerName,
+
+
+    // }
+    // console.log(eppbody)
+
+    this.httpClient.post(`https://afbaepp.herokuapp.com/GroupSetup/EppCreateGrpSetup`,{
+        "grpId": 0,
+        grpNbr: this.groupNumber.toString(),
+        grpNm: this.groupName,
+        grpEfftvDt: this.grpEfftvDate,
+        grpPymn: this.grpPymn,
+        actvFlg: this.checkedToggle,
+        occClass: this.occupationArray,
+        grpSitusSt: this.grpSitusState,
+        enrlmntPrtnrsNm: this.EnrolmentPatnerName,
+        emlAddrss: this.EnrolEmailAddress,
+        emailAddress: this.ManagerEmail,
+        acctMgrNm: this.ManegerName,
+        "acctMgrCntctId": 0,
+        isFPPGActive: this.fppgActive,
+        "fppg": {
+          "grp_nmbr": "string",
+          effctv_dt: this.grpEfftvDate,
+          grp_situs_state: this.grpSitusState,
+          emp_gi_max_amt: this.empGiMaxAmt,
+          sp_gi_max_amt: this.SpGiMaxAmount,
+          emp_qi_max_amt: this.EmpQiMaxAmount,
+          sp_qi_max_amt: this.SpQiMaxAmount,
+          emp_max_amt: this.EmpMaxAmt,
+          sp_max_amt: this.SpMaxAmount,
+          effctv_dt_action: this.effctvDateAction,
+          grp_situs_state_action: this.grpSitusStateAction,
+          emp_gi_max_amt_action: this.empGiMaxAmtAction,
+          "sp_gi_max_amt_action": "string",
+          "emp_qi_max_amt_action": "string",
+          "sp_qi_max_amt_action": "string",
+          "emp_max_amt_action": "string",
+          "sp_max_amt_action": "string",
+          "agnt_cd_1": "string",
+          "agnt_nm": "string",
+          "agnt_comm_split_1": 0,
+          "agntsub_1": "string",
+          "agnt_cd_2": "string",
+          "agnt_comm_split_2": 0,
+          "agntsub_2": "string",
+          "agnt_cd_3": "string",
+          "agnt_comm_split_3": 0,
+          "agntsub_3": "string",
+          "agnt_cd_4": "string",
+          "agnt_comm_split_4": 0,
+          "agntsub_4": "string"
+        },
+        "isACC_HIActive": true,
+        "acC_HI": {
+          "effctv_dt": "2020-06-21T12:03:45.088Z",
+          "grp_situs_state": "string",
+          "rate_lvl": "string",
+          "effctv_dt_action": "string",
+          "grp_situs_state_action": "string",
+          "rate_lvl_action": "string",
+          "agnt_cd_1": "string",
+          "agnt_nm": "string",
+          "agnt_comm_split_1": 0,
+          "agntsub_1": "string",
+          "agnt_cd_2": "string",
+          "agnt_comm_split_2": 0,
+          "agntsub_2": "string",
+          "agnt_cd_3": "string",
+          "agnt_comm_split_3": 0,
+          "agntsub_3": "string",
+          "agnt_cd_4": "string",
+          "agnt_comm_split_4": 0,
+          "agntsub_4": "string"
+        },
+        "isER_CIActive": true,
+        "eR_CI": {
+          "grp_nmbr": "string",
+          "effctv_dt": "2020-06-21T12:03:45.088Z",
+          "grp_situs_state": "string",
+          "emp_face_amt_mon_bnft": "string",
+          "sp_face_amt_mon_bnft": "string",
+          "effctv_dt_action": "string",
+          "grp_situs_state_action": "string",
+          "emp_face_amt_mon_bnft_action": "string",
+          "sp_face_amt_mon_bnft_action": "string",
+          "agnt_cd_1": "string",
+          "agnt_nm": "string",
+          "agnt_comm_split_1": 0,
+          "agntsub_1": "string",
+          "agnt_cd_2": "string",
+          "agnt_comm_split_2": 0,
+          "agntsub_2": "string",
+          "agnt_cd_3": "string",
+          "agnt_comm_split_3": 0,
+          "agntsub_3": "string",
+          "agnt_cd_4": "string",
+          "agnt_comm_split_4": 0,
+          "agntsub_4": "string"
+        },
+        "isVOL_CIActive": true,
+        "voL_CI": {
+          "grp_nmbr": "string",
+          "effctv_dt": "2020-06-21T12:03:45.088Z",
+          "grp_situs_state": "string",
+          "emp_gi_max_amt": "string",
+          "sp_gi_max_amt": "string",
+          "emp_qi_max_amt": "string",
+          "sp_qi_max_amt": "string",
+          "emp_max_amt": "string",
+          "sp_max_amt": "string",
+          "effctv_dt_action": "string",
+          "grp_situs_state_action": "string",
+          "emp_gi_max_amt_action": "string",
+          "sp_gi_max_amt_action": "string",
+          "emp_qi_max_amt_action": "string",
+          "sp_qi_max_amt_action": "string",
+          "emp_max_amt_action": "string",
+          "sp_max_amt_action": "string",
+          "agnt_cd_1": "string",
+          "agnt_nm": "string",
+          "agnt_comm_split_1": 0,
+          "agntsub_1": "string",
+          "agnt_cd_2": "string",
+          "agnt_comm_split_2": 0,
+          "agntsub_2": "string",
+          "agnt_cd_3": "string",
+          "agnt_comm_split_3": 0,
+          "agntsub_3": "string",
+          "agnt_cd_4": "string",
+          "agnt_comm_split_4": 0,
+          "agntsub_4": "string"
+        },
+        "isVGLActive": true,
+        "vgl": {
+          "grp_nmbr": "string",
+          "effctv_dt": "2020-06-21T12:03:45.088Z",
+          "grp_situs_state": "string",
+          "emp_gi_max_amt": "string",
+          "sp_gi_max_amt": "string",
+          "emp_qi_max_amt": "string",
+          "sp_qi_max_amt": "string",
+          "emp_max_amt": "string",
+          "sp_max_amt": "string",
+          "effctv_dt_action": "string",
+          "grp_situs_state_action": "string",
+          "emp_gi_max_amt_action": "string",
+          "sp_gi_max_amt_action": "string",
+          "emp_qi_max_amt_action": "string",
+          "sp_qi_max_amt_action": "string",
+          "emp_max_amt_action": "string",
+          "sp_max_amt_action": "string",
+          "agnt_cd_1": "string",
+          "agnt_nm": "string",
+          "agnt_comm_split_1": 0,
+          "agntsub_1": "string",
+          "agnt_cd_2": "string",
+          "agnt_comm_split_2": 0,
+          "agntsub_2": "string",
+          "agnt_cd_3": "string",
+          "agnt_comm_split_3": 0,
+          "agntsub_3": "string",
+          "agnt_cd_4": "string",
+          "agnt_comm_split_4": 0,
+          "agntsub_4": "string"
+        },
+        "isBGLActive": true,
+        "bgl": {
+          "grp_nmbr": "string",
+          "effctv_dt": "2020-06-21T12:03:45.089Z",
+          "grp_situs_state": "string",
+          "emp_face_amt_mon_bnft": "string",
+          "effctv_dt_action": "string",
+          "grp_situs_state_action": "string",
+          "emp_face_amt_mon_bnft_action": "string",
+          "agnt_cd_1": "string",
+          "agnt_nm": "string",
+          "agnt_comm_split_1": 0,
+          "agntsub_1": "string",
+          "agnt_cd_2": "string",
+          "agnt_comm_split_2": 0,
+          "agntsub_2": "string",
+          "agnt_cd_3": "string",
+          "agnt_comm_split_3": 0,
+          "agntsub_3": "string",
+          "agnt_cd_4": "string",
+          "agnt_comm_split_4": 0,
+          "agntsub_4": "string"
+        },
+        "isFPPIActive": true,
+        "fppi": {
+          "grp_nmbr": "string",
+          "effctv_dt": "2020-06-21T12:03:45.089Z",
+          "grp_situs_state": "string",
+          "emp_gi_max_amt": "string",
+          "sp_gi_max_amt": "string",
+          "emp_qi_max_amt": "string",
+          "sp_qi_max_amt": "string",
+          "emp_max_amt": "string",
+          "sp_max_amt": "string",
+          "effctv_dt_action": "string",
+          "grp_situs_state_action": "string",
+          "emp_gi_max_amt_action": "string",
+          "sp_gi_max_amt_action": "string",
+          "emp_qi_max_amt_action": "string",
+          "sp_qi_max_amt_action": "string",
+          "emp_max_amt_action": "string",
+          "sp_max_amt_action": "string",
+          "agnt_cd_1": "string",
+          "agnt_nm": "string",
+          "agnt_comm_split_1": 0,
+          "agntsub_1": "string",
+          "agnt_cd_2": "string",
+          "agnt_comm_split_2": 0,
+          "agntsub_2": "string",
+          "agnt_cd_3": "string",
+          "agnt_comm_split_3": 0,
+          "agntsub_3": "string",
+          "agnt_cd_4": "string",
+          "agnt_comm_split_4": 0,
+          "agntsub_4": "string"
+        }
+      
+      }).subscribe((data: any[]) => {
+        console.log(data);
+    })
 
   }
 

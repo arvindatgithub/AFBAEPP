@@ -6,196 +6,201 @@
 
 
 <div class="container" *ngIf="isLoading">
-  <div >
+  <div class="row">
+    <div class="form-group col-md-3">
+  <button type="submit" class="btn btn-primary mt-4 mb-4"  (click)="onSubmit()">New Add
+   </button>
+    </div>
+    <div class="form-group col-md-3">
+    <button type="submit" class="btn btn-primary mt-4 mb-4"  (click)="onSubmit()">Edit Existing
+     </button>
+      </div>
+      <div class="form-group col-md-3">
+      <button type="submit" class="btn btn-primary mt-4 mb-4"  (click)="onSubmit()">Clone Group
+       </button>
+        </div>
+        <div class="form-group col-md-3 mt-4 mb-4"> 
     <mat-slide-toggle (change)="toggleChange($event)" [color]="toggleActiveColor">{{checkedToggle}}</mat-slide-toggle>
-  </div>
+ </div>
+ </div>
+ 
 
   <!-- Group Section -->
 
 
-    <div class="row">
-      <div class="form-group col-md-3">
-        <span class="label label-default">Group Number</span>
-        <input type="number"  max="5" class="form-control mb-2" [(ngModel)]="groupNumber" style="width: 100%;"
-          placeholder="Group Number Field">
-      </div>
-      <div class="form-group col-md-3">
-        <span class="label label-default">Group Name</span>
-        <input type="text" class="form-control mb-2" [(ngModel)]="groupName" style="width: 100%;"
-          placeholder="Group Name Field">
-      </div>
-      <div class="form-group col-md-3">
-        <span class="label label-default">Group effective date</span>
-        <input type="date" (change)="onDateChange($event)" [min]="minDate" class="form-control mb-2"
-          [(ngModel)]="grpEfftvDate" style="width: 100%;" placeholder="Group Effective Date">
-      </div>
-      <div class="form-group col-md-3">
-        <span class="label label-default">Group Payment Mode</span>
-        <select class="select-dropdown" #paymentMode (change)="getLookupValuePaymentMode(paymentMode.value)"
-          [value]="lookUpDataPaymentModes[5]">
-          <!-- <option hidden disabled selected value> -- select a Payment Mode -- </option> -->
-          <option *ngFor="let lookUpDataPaymentMode of lookUpDataPaymentModes">{{lookUpDataPaymentMode}}</option>
+  <div class="row">
+    <div class="form-group col-md-3">
+      <span class="label label-default">Group Number</span>
+      <input type="number" max="5" class="form-control mb-2" [(ngModel)]="groupNumber" style="width: 100%;"
+        placeholder="Group Number Field">
+    </div>
+    <div class="form-group col-md-3">
+      <span class="label label-default">Group Name</span>
+      <input type="text" class="form-control mb-2" [(ngModel)]="groupName" style="width: 100%;"
+        placeholder="Group Name Field">
+    </div>
+    <div class="form-group col-md-3">
+      <span class="label label-default">Group effective date</span>
+      <input type="date" (change)="onDateChange($event)" [min]="minDate" class="form-control mb-2"
+        [(ngModel)]="grpEfftvDate" style="width: 100%;" placeholder="Group Effective Date">
+    </div>
+    <div class="form-group col-md-3">
+      <span class="label label-default">Group Payment Mode</span>
+      <select class="select-dropdown" #paymentMode (change)="getLookupValuePaymentMode(paymentMode.value)"
+        [value]="lookUpDataPaymentModes[5]">
+        <!-- <option hidden disabled selected value> -- select a Payment Mode -- </option> -->
+        <option *ngFor="let lookUpDataPaymentMode of lookUpDataPaymentModes">{{lookUpDataPaymentMode}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-md-3">
+      <span class="label label-default">Group Vendor</span>
+      <input type="text" class="form-control mb-2" [(ngModel)]="EnrolmentPatnerName" placeholder="Group Vendor Name">
+    </div>
+
+    <div class="form-group col-md-3">
+      <span class="label label-default">Group Vendor Email</span>
+      <input type="email" [(ngModel)]="EnrolEmailAddress" [pattern]="emailPattern" name="email"
+        class="form-control mb-2" placeholder=" Group Vendor Email">
+    </div>
+
+
+    <div class="col-md-3">
+      <div>
+        <span class="label label-default">Occupation Class</span>
+        <select class="select-dropdown my-1" #occClas (change)="occClassChange(occClas.value)" [value]="occClass[0].occupation">
+          <!-- <option selected>Select Occupation Class</option> -->
+          <!-- <option value="1">Occ Class</option> -->
+          <option *ngFor="let item of occClass">{{item.occupation}}</option>
+
         </select>
       </div>
+
     </div>
 
-    <div class="row">
-      <div class="form-group col-md-3">
-        <span class="label label-default">Group Vendor</span>
-        <input type="text" class="form-control mb-2"  [(ngModel)]="EnrolmentPatnerName" placeholder="Group Vendor Name">
-      </div>
-    
-        <div class="form-group col-md-3">
-          <span class="label label-default">Group Vendor Email</span>
-          <input type="email"  [(ngModel)]="EnrolEmailAddress" [pattern] = "emailPattern" name="email" class="form-control mb-2" placeholder=" Group Vendor Email">
+  </div>
+
+
+  <div class="row">
+    <div class=" col-md-3">
+      <span class="label label-default">Account Manager Name</span>
+      <input type="text" class="form-control mb-2 " [(ngModel)]="ManegerName" placeholder="Account Manager Name">
+    </div>
+    <div class="col-md-3">
+      <span class="label label-default">Account Manager Email</span>
+      <input type="email" class="form-control mb-2" [(ngModel)]="ManagerEmail" placeholder="Account Manager Email">
+    </div>
+    <div class="col-md-3">
+      <span class="label label-default">Situs State</span>
+      <select class="select-dropdown my-1" #situsState (change)="getLookupValueSitusState(situsState.value)">
+        <!-- <option hidden disabled selected value> -- select Situs State -- </option> -->
+        <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
+          {{ lookUpDataSitusState.state }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+
+  <app-agent-setup></app-agent-setup>
+
+
+  <div class="container">
+    <div id="accordion" class="accordion">
+      <div class="card mt-2" style="cursor: pointer;">
+        <div class="card-header collapsed mb-2" data-toggle="collapse" href="#collapseOne">
+          <a class="card-title">
+            FPPG
+          </a>
+         
+            <mat-slide-toggle style="float: right;" (change)="toggleChangeProduct($event)" [color]="toggleActiveColor">{{checkedToggleProduct}}</mat-slide-toggle>
+         
+         
         </div>
-      
-     
-      <div class="col-md-3">
-        <div>
-          <span class="label label-default">Occupation Class</span>
-          <select class="select-dropdown my-1"  [(ngModel)]="occClass">
-            <option  selected>Select Occupation Class</option>
-            <!-- <option value="1">Occ Class</option> -->
-            <option value="2">1</option>
-            <option value="3">2</option>
-            <option value="4">3</option>
-            <option value="5">4</option>
-            <option value="6">5</option>
-            <option value="7">6</option>
-            <option value="8">7</option>
-            <option value="9">8</option>
-            <option value="10">9</option>
-            <option value="11">10</option>
-            <option value="12">11</option>
-            <option value="13">12</option>
-            <option value="14">13</option>
-            <option value="15">14</option>
-            <option value="16">15</option>
+        <div id="collapseOne" class="card-body collapse" data-parent="#accordion">
 
-          </select>
+          <app-fppg [lookupValue]="lookupSitusStateValue" [dateValue]="dateChange"></app-fppg>
+        </div>
+        <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+          <a class="card-title">
+            FPP Individual
+          </a>
+        </div>
+        <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
+
+          <app-fpp-individual [dateValue]="dateChange"></app-fpp-individual>
+        </div>
+        <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+          <a class="card-title">
+            Accident
+          </a>
+        </div>
+        <div id="collapseThree" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+
+            <app-accident [lookupValue]="lookupSitusStateValue" [dateValue]="dateChange"></app-accident>
+          </div>
+        </div>
+        <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+          <a class="card-title">
+            Hospital Indemnity
+          </a>
+        </div>
+        <div id="collapseFour" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <app-hospital-indemnity [lookupValue]="lookupSitusStateValue" [dateValue]="dateChange">
+            </app-hospital-indemnity>
+          </div>
+        </div>
+        <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+          <a class="card-title">
+            Employer Paid CI
+          </a>
+        </div>
+        <div id="collapseFive" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <app-employer-paid-ci [lookupValue]="lookupSitusStateValue" [dateValue]="dateChange">
+            </app-employer-paid-ci>
+          </div>
+        </div>
+        <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
+          <a class="card-title">
+            Voluntary CI
+          </a>
+        </div>
+        <div id="collapseSix" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <app-voluntary-ci [lookupValue]="lookupSitusStateValue" [dateValue]="dateChange"></app-voluntary-ci>
+          </div>
+        </div>
+        <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
+          <a class="card-title">
+            Vol Group Life
+          </a>
+        </div>
+        <div id="collapseSeven" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <app-vol-group-life [lookupValue]="lookupSitusStateValue" [dateValue]="dateChange"></app-vol-group-life>
+          </div>
+        </div>
+        <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseEight">
+          <a class="card-title">
+            Basic Group Life
+          </a>
+        </div>
+        <div id="collapseEight" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <app-basic-group-life [lookupValue]="lookupSitusStateValue" [dateValue]="dateChange">
+            </app-basic-group-life>
+          </div>
         </div>
 
       </div>
-    
+
     </div>
-
-
-    <div class="row">
-      <div class=" col-md-3">
-        <span class="label label-default">Account Manager Name</span>
-        <input type="text" class="form-control mb-2 "  [(ngModel)]="ManegerName" placeholder="Account Manager Name">
-      </div>
-      <div class="col-md-3">
-        <span class="label label-default">Account Manager Email</span>
-        <input type="email" class="form-control mb-2"  [(ngModel)]="ManagerEmail" placeholder="Account Manager Email">
-      </div>
-      <div class="col-md-3">
-        <span class="label label-default">Situs State</span>
-        <select class="select-dropdown my-1" #situsState (change)="getLookupValueSitusState(situsState.value)">
-          <!-- <option hidden disabled selected value> -- select Situs State -- </option> -->
-          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
-            {{ lookUpDataSitusState.state }}
-          </option>
-        </select>
-      </div>
+  </div>
+  <button type="submit" class="btn btn-success mt-4 mb-4" style="float: right;" (click)="onSubmit()">Submit Group
+    Setup Information</button>
     </div>
-   
-   
-    <app-agent-setup></app-agent-setup>
-
-
-    <div class="container">
-      <div id="accordion" class="accordion">
-        <div class="card mt-2" style="cursor: pointer;">
-          <div class="card-header collapsed mb-2" data-toggle="collapse" href="#collapseOne">
-            <a class="card-title">
-              FPPG
-            </a>
-          </div>
-          <div id="collapseOne" class="card-body collapse" data-parent="#accordion">
-
-            <app-fppg [lookupValue]="lookupSitusStateValue" [dateValue]="dateChange"></app-fppg>
-          </div>
-          <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-            <a class="card-title">
-              FPP Individual
-            </a>
-          </div>
-          <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
-
-            <app-fpp-individual [dateValue]="dateChange"></app-fpp-individual>
-          </div>
-          <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-            <a class="card-title">
-              Accident
-            </a>
-          </div>
-          <div id="collapseThree" class="collapse" data-parent="#accordion">
-            <div class="card-body">
-
-              <app-accident [lookupValue]="lookupSitusStateValue" [dateValue]="dateChange"></app-accident>
-            </div>
-          </div>
-          <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-            <a class="card-title">
-              Hospital Indemnity
-            </a>
-          </div>
-          <div id="collapseFour" class="collapse" data-parent="#accordion">
-            <div class="card-body">
-              <app-hospital-indemnity [lookupValue]="lookupSitusStateValue" [dateValue]="dateChange">
-              </app-hospital-indemnity>
-            </div>
-          </div>
-          <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
-            <a class="card-title">
-              Employer Paid CI
-            </a>
-          </div>
-          <div id="collapseFive" class="collapse" data-parent="#accordion">
-            <div class="card-body">
-              <app-employer-paid-ci [lookupValue]="lookupSitusStateValue" [dateValue]="dateChange">
-              </app-employer-paid-ci>
-            </div>
-          </div>
-          <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
-            <a class="card-title">
-              Voluntary CI
-            </a>
-          </div>
-          <div id="collapseSix" class="collapse" data-parent="#accordion">
-            <div class="card-body">
-              <app-voluntary-ci [lookupValue]="lookupSitusStateValue" [dateValue]="dateChange"></app-voluntary-ci>
-            </div>
-          </div>
-          <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
-            <a class="card-title">
-              Vol Group Life
-            </a>
-          </div>
-          <div id="collapseSeven" class="collapse" data-parent="#accordion">
-            <div class="card-body">
-              <app-vol-group-life [lookupValue]="lookupSitusStateValue" [dateValue]="dateChange"></app-vol-group-life>
-            </div>
-          </div>
-          <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseEight">
-            <a class="card-title">
-              Basic Group Life
-            </a>
-          </div>
-          <div id="collapseEight" class="collapse" data-parent="#accordion">
-            <div class="card-body">
-              <app-basic-group-life [lookupValue]="lookupSitusStateValue" [dateValue]="dateChange">
-              </app-basic-group-life>
-            </div>
-          </div>
-
-        </div>
-      
-      </div>
-    </div>
-    <button type="submit" class="btn btn-success mt-4 mb-4" style="float: right;" (click)="onSubmit()">Submit Group
-      Setup Information</button>
-
-  

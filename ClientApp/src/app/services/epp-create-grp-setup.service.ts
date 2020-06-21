@@ -10,8 +10,9 @@ export class EppCreateGrpSetupService {
   constructor(private http: HttpClient) { }
 
   PosteppCreate(postBody){
-    const eppCreateURL = "https://afbaepp.herokuapp.com/GroupSetup/EppCreateGrpSetup";
+    const eppCreateURL = environment.apiurl + 'GroupSetup/EppCreateGrpSetup';
     return this.http.post(postBody, eppCreateURL);
+    
   }
   
 
