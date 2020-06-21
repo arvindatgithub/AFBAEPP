@@ -11,12 +11,8 @@ export class EppCreateGrpSetupService {
 
   PosteppCreate(postBody){
     const eppCreateURL = environment.apiurl + 'GroupSetup/EppCreateGrpSetup';
-    return this.http.post(postBody, eppCreateURL);
+    return this.http.post(eppCreateURL,postBody);
     
   }
-  
-
-
-
 }
 

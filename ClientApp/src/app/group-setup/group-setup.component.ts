@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { TooltipPosition } from '@angular/material/tooltip';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -7,6 +7,7 @@ import { LookupService } from '../services/lookup.service';
 import { ThemePalette } from '@angular/material';
 import { EppCreateGrpSetupService } from '../services/epp-create-grp-setup.service';
 import { AgentSetupComponent } from '../agent-setup/agent-setup.component';
+import { FPPGComponent } from '../fppg/fppg.component';
 
 @Component({
   selector: 'app-group-setup',
@@ -14,8 +15,8 @@ import { AgentSetupComponent } from '../agent-setup/agent-setup.component';
   styleUrls: ['./group-setup.component.css']
 })
 export class GroupSetupComponent implements OnInit {
-  @ViewChild(AgentSetupComponent,{static:true}) agentComponent: AgentSetupComponent
-  private inputText: AgentSetupComponent;
+  @ViewChild(AgentSetupComponent,{static:true}) agentComponent: AgentSetupComponent;
+  @ViewChild(FPPGComponent,{static:true}) fppgDataInput:FPPGComponent;
   public product: any;
   public addedProducts = [];
   public selectedProducts: any = [];
@@ -104,10 +105,14 @@ export class GroupSetupComponent implements OnInit {
   grpSitusStateAction: string="";
   empGiMaxAmtAction: string="";
 
+ 
+
   constructor(private eppcreategroupservice: EppCreateGrpSetupService,
      private snackBar: MatSnackBar, private lookupService: LookupService,
-     private httpClient:HttpClient,private eleRef: ElementRef) {
+     private httpClient:HttpClient) {
   }
+
+  
 
   ngOnInit() {
     this.lookupService.getLookupsData()
@@ -122,6 +127,11 @@ export class GroupSetupComponent implements OnInit {
         this.grpSitusState = this.lookUpDataSitusStates[0].state;
       });
   }
+
+  // ngAfterViewInit(){
+  //   let fppgData = this.fppgDataInput.exampleChild;
+  //   console.log("fppgData",fppgData);
+  // }
 
   addProducts() {
     this.selectedOption.findIndex((ele, i) => {
@@ -212,8 +222,7 @@ export class GroupSetupComponent implements OnInit {
 
     // }
     // console.log(eppbody)
-
-    this.httpClient.post(`https://afbaepp.herokuapp.com/GroupSetup/EppCreateGrpSetup`,{
+let body = {
         "grpId": 0,
         grpNbr: this.groupNumber.toString(),
         grpNm: this.groupName,
@@ -430,10 +439,12 @@ export class GroupSetupComponent implements OnInit {
           "agntsub_4": "string"
         }
       
-      }).subscribe((data: any[]) => {
-        console.log(data);
-    })
 
-  }
+      }
+      this.eppcreategroupservice.PosteppCreate(body).subscribe((data:any)=>{
+        console.log("data",data);
+      })
+    }
+    
 
 }
