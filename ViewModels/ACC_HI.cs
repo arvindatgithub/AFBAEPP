@@ -11,6 +11,9 @@ namespace AFBA.EPP.ViewModels
         public string grp_situs_state { get; set; }
         public string rate_lvl { get; set; }
 
+        public string effctv_dt_action { get; set; }
+        public string grp_situs_state_action { get; set; }
+        public string rate_lvl_action { get; set; }
 
         public string agnt_cd_1 { get; set; }
         public string agnt_nm { get; set; }
