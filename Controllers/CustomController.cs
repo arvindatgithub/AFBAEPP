@@ -136,10 +136,15 @@ namespace AFBA.EPP.Controllers
 
                 foreach (var data in EppPrdctattrbts)
                 {
-                    var k = _unitofWork.eppPrdctattrbtRepository.Find(x => x.PrdctAttrbtId == data.PrdctAttrbtId).Result.FirstOrDefault();
+                    var k = _unitofWork.eppPrdctattrbtRepository.SingleOrDefault(x => x.PrdctAttrbtId == data.PrdctAttrbtId).Result;
                     if (k != null)
                     {
-                        k = data;
+                        k.ClmnOrdr = data.ClmnOrdr;
+                        k.RqdFlg = data.RqdFlg;
+                        k.AttrId = data.AttrId;
+
+                     _unitofWork.eppPrdctattrbtRepository.Update(k);
+
                     }
                     else
                     {
@@ -148,7 +153,7 @@ namespace AFBA.EPP.Controllers
                     var id = _unitofWork.Complete().Result;
                 }
 
-                return Ok();
+                return Ok("data updated");
             } catch( Exception ex)
             {
                 throw ex;

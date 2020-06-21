@@ -74,5 +74,13 @@ namespace AFBA.EPP.Repositories
                 }
             }
         }
+
+        public void Update(TEntity entity)
+        {
+            _entities.Update(entity);
+             
+        }
+           
+        
     }
 }
