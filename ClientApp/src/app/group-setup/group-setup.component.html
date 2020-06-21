@@ -121,7 +121,7 @@
         </div>
         <div id="collapseOne" class="card-body collapse" data-parent="#accordion">
 
-          <app-fppg [lookupValue]="lookupSitusStateValue" [dateValue]="dateChange"></app-fppg>
+          <app-fppg [lookupValue]="lookupSitusStateValue" #child [dateValue]="dateChange"></app-fppg>
         </div>
         <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
           <a class="card-title">
@@ -204,6 +204,9 @@
   <button type="submit" class="btn btn-success mt-4 mb-4" style="float: right;" (click)="onSubmit()">Submit Group
     Setup Information</button>
     </div>
+    <div class="footer-container">
+      <button pButton type="button" label="Submit Payment" class="x-primary-green-400" (click)="onSubmitPayment()">Submit</button>
+  </div>
 
     <!-- <div>
       {{eppData}}

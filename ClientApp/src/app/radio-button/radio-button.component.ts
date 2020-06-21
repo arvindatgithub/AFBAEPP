@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import { NgForm, FormControl, FormGroup, FormBuilder, RequiredValidator, Validators } from '@angular/forms';
+import { EppCreateGrpSetupService } from '../services/epp-create-grp-setup.service';
 @Component({
   selector: 'app-radio-button',
   templateUrl: './radio-button.component.html',
@@ -9,10 +10,32 @@ export class RadioButtonComponent implements OnInit {
   @Input()
   lookupValue: any;
   favoriteSeason: string;
-  seasons: string[] = [' 100% override', ' Partial update', 'Validate'];
-  constructor() { }
+  radiobuttonFormGrp: FormGroup;
+  radioButtons:string[]= ['100% override','Partial Update', 'Validate']
+  seasons = 
+    {
+      effectiveDate:{
+        id: "effective_Date",
+        value: this.radioButtons
+      },
+      // situs_state:{
+      //   id:"situs_state",
+      //   value:this.radioButtons
+      // }
+    }
+    
+  constructor(private fb:FormBuilder,private eppsercive: EppCreateGrpSetupService) { 
+    
+  }
 
   ngOnInit() {
+    this.radiobuttonFormGrp = this.fb.group({
+      FCRadioButton: [this.favoriteSeason ,Validators.required],
+    });
+  }
+  onRadioButtonSelect(event:any){
+     this.favoriteSeason = event.target.value;
+     this.eppsercive.getEppData(this.favoriteSeason);
   }
 
 }

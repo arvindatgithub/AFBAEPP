@@ -3,7 +3,7 @@
   
    <form [formGroup]="fppgformgrp">
       <div class="row"style="justify-content:space-evenly;">
-        <app-radio-button></app-radio-button>
+        <app-radio-button #effDate></app-radio-button>
         
         <div class="col-3">
           <span class="label label-default">Group Effective Date</span>
@@ -11,10 +11,10 @@
             placeholder="Group Effective Date">
 
         </div>
-        <app-radio-button></app-radio-button>
+        <app-radio-button ></app-radio-button>
         <div class="col-3">
           <span class="label label-default">Situs State</span>
-          <select class="form-control" formControlName= "FCfppgSitusState" [value]="lookupValue">
+          <select class="form-control" formControlName = "FCfppgSitusState" [value]="lookupValue">
             <!-- <option value="0" selected="selected">{{ lookupValue }}</option> -->
             <option  *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
               {{lookUpDataSitusState.state}}</option>
@@ -30,7 +30,7 @@
 
       <div class="row mt-4">
 
-        <app-radio-button></app-radio-button>
+        <app-radio-button ></app-radio-button>
         <div class="col-3">
 
           <span class="label label-default">Employee GI Amount Max</span>
@@ -47,13 +47,13 @@
         </div>
         <div class="col-3">
           <span class="label label-default">Employee Max Amount</span>
-          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Employee Max Amount">
+          <input type="text" class="form-control mb-2" formControlName="FCfppgEmpAmtMax" style="width: 100%;" placeholder="Employee Max Amount">
         </div>
       
       </div>
 
       <div class="row mt-4">
-        <app-radio-button></app-radio-button>
+        <app-radio-button ></app-radio-button>
         <div class="col-3">
           <span class="label label-default">Spouse GI Amount Max</span>
 
@@ -73,14 +73,14 @@
 
 
       <div class="row mt-4">
-        <app-radio-button></app-radio-button>
+        <app-radio-button ></app-radio-button>
         <div class="col-4">
 
           <span class="label label-default">Open Enrollment GI</span>
           <input type="text" formControlName="FCfppgOpenEnrollGI" class="form-control mb-2 " style="width: 100%;" placeholder="Open Enrollment GI">
         </div>
 
-        <app-radio-button></app-radio-button>
+        <app-radio-button ></app-radio-button>
         <div class="col-4">
           <span class="label label-default">Plan code Manual Entry</span>
           <input type="text" formControlName="FCfppgPlanCodeManualEntry" class="form-control mb-2 " style="width: 100%;" placeholder="Plan code manual Entry">
@@ -97,7 +97,7 @@
         <div class="col-md-6">
           <div class="row">
             <div class="col" style="margin-left: -16px;">
-              <app-radio-button></app-radio-button>
+              <app-radio-button ></app-radio-button>
             </div>
             <div class="col" style="justify-content:flex-start;margin-right: 170px;
             margin-top: 24px;">
@@ -108,7 +108,7 @@
         <div class="col-md-6">
           <div class="row">
             <div class="col" style="margin-left: -147px;">
-              <app-radio-button></app-radio-button>
+              <app-radio-button ></app-radio-button>
             </div>
             <div class="col" style="margin-right: 170px;
           margin-top: 24px;">
