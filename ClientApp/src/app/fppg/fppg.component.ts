@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { LookupService } from '../services/lookup.service';
 import { NgForm, FormControl, FormGroup, FormBuilder, RequiredValidator, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { EppCreateGrpSetupService } from '../services/epp-create-grp-setup.service';
 @Component({
   selector: 'app-fppg',
   templateUrl: './fppg.component.html',
@@ -22,7 +23,7 @@ export class FPPGComponent implements OnInit {
   disabled = false;
   public minDate = new Date().toISOString().slice(0,10);
 
-  constructor(private lookupService: LookupService, private fb:FormBuilder ) {
+  constructor(private lookupService: LookupService, private fb:FormBuilder, private eppsercive: EppCreateGrpSetupService ) {
    
    }
 
@@ -32,8 +33,6 @@ export class FPPGComponent implements OnInit {
         this.isLoading = true;
         console.log("data", data);
         this.lookUpDataSitusStates = data.situsState;
-
-
       });
 
     this.fppgformgrp = this.fb.group({
@@ -48,9 +47,9 @@ export class FPPGComponent implements OnInit {
       FCfppgPlanCodeManualEntry: ["",Validators.required],
       FCfppgQolRiders: ["",Validators.required],
       FCfppgWaiver:["",Validators.required]
-      
     });
 
+    this.eppsercive.getEppData(this.exampleChild);
 
   }
 
