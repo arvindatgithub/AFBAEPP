@@ -40,9 +40,7 @@ namespace AFBA.EPP.Controllers
         [HttpPost]
         public IActionResult EppCreateGrpSetup(GroupSetupModel  groupSetupModel)
         {
-
-            var fppgBulk = Helper.GetProperties(groupSetupModel.FPPG);
-
+            
             var grpprdct = _unitofWork.GroupMasterRepository.Find(x => x.GrpNbr == groupSetupModel.GrpNbr || x.GrpNm== groupSetupModel.GrpNm).Result;
             if (grpprdct.Count != 0)   return BadRequest(" Group name or number already exist"); 
 
@@ -84,6 +82,9 @@ namespace AFBA.EPP.Controllers
                     }
                 
            );
+
+            List<EppBulkRefTbl> bulkRefTbls = new List<EppBulkRefTbl>();
+
             if (groupSetupModel.isFPPGActive)
             {
                 var prdid = Helper.GetProductIdbyName("FPPG", _unitofWork);
@@ -97,13 +98,8 @@ namespace AFBA.EPP.Controllers
 
                });
                 // add bulkupdate 
-          var fppgBulk222=      Helper.GetProperties(groupSetupModel.FPPG);
-
-
-                //List<EppBulkRefTbl> bulkRefTbls = new List<EppBulkRefTbl>();
-
-
-
+                var bulkAttrs = Helper.GetProperties(groupSetupModel.FPPG);
+                AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
             }
             if (groupSetupModel.isACC_HIActive)
             {
@@ -117,6 +113,8 @@ namespace AFBA.EPP.Controllers
                     CrtdBy = CrtdBy
 
                 });
+                var bulkAttrs = Helper.GetProperties(groupSetupModel.ACC_HI);
+                AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
 
             }
             if (groupSetupModel.isER_CIActive)
@@ -131,6 +129,8 @@ namespace AFBA.EPP.Controllers
                     CrtdBy = CrtdBy
 
                 });
+                var bulkAttrs = Helper.GetProperties(groupSetupModel.ER_CI);
+                AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
 
             }
             if (groupSetupModel.isVOL_CIActive)
@@ -145,6 +145,8 @@ namespace AFBA.EPP.Controllers
                     CrtdBy = CrtdBy
 
                 });
+                var bulkAttrs = Helper.GetProperties(groupSetupModel.VOL_CI);
+                AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
 
             }
             if (groupSetupModel.isVGLActive)
@@ -159,7 +161,9 @@ namespace AFBA.EPP.Controllers
                     CrtdBy = CrtdBy
 
                 });
-              
+                var bulkAttrs = Helper.GetProperties(groupSetupModel.VGL);
+                AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
+
             }
             if (groupSetupModel.isBGLActive)
             {
@@ -173,7 +177,9 @@ namespace AFBA.EPP.Controllers
                     CrtdBy = CrtdBy
 
                 });
-               
+                var bulkAttrs = Helper.GetProperties(groupSetupModel.BGL);
+                AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
+
             }
             if (groupSetupModel.isFPPIActive)
             {
@@ -188,17 +194,52 @@ namespace AFBA.EPP.Controllers
                     CrtdBy = CrtdBy
 
                 });
-            }
-            // add into grp product
-            //var grpprdId = Helper.GetRandomNumber();
 
+                var bulkAttrs = Helper.GetProperties(groupSetupModel.FPPI);
+                AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
+
+            }
+            
+            _unitofWork.eppBulkRefTblRepository.AddRange(bulkRefTbls);
 
 
             var id = _unitofWork.Complete().Result;
             return Ok(id);
         }
+     
+        
+        [NonAction]
+        private void AddEppBulkRefTblData(List<ClsPropertyInfo> bulkAttrs, List<EppBulkRefTbl> bulkRefTbls, long grpPrdId)
+        {
+            foreach (var prop in bulkAttrs)
+            {
+                if (!prop.PropertyName.Contains("action"))
+                {
+                    var cs = (prop.PropertyName).Trim() + "_action";
+                    var rdata = bulkAttrs.Where(x => x.PropertyName.Contains(cs)).FirstOrDefault();
+                    
+                    EppBulkRefTbl eppBulkRefTbl = new EppBulkRefTbl();
+                    if (rdata != null)
+                    {
+                        eppBulkRefTbl.ActionId = long.Parse(rdata.PropertyValue);
+                    }
+                    var eppAttribute = _unitofWork.eppAttributeRepository.GetAttrId(prop.PropertyName);
+                    if (eppAttribute != null)
+                    {
+                        eppBulkRefTbl.GrpprdctId = grpPrdId;
+                        eppBulkRefTbl.AttrId = eppAttribute.AttrId;
+                        eppBulkRefTbl.Value = prop.PropertyValue;
+                        eppBulkRefTbl.CrtdBy = "";
+
+                    }
+                    bulkRefTbls.Add(eppBulkRefTbl);
 
 
+                }
+              
+            }
+
+        }
       
     }
 }

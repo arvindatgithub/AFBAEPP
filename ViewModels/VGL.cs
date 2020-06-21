@@ -13,17 +13,17 @@ namespace AFBA.EPP.ViewModels
 
         public string emp_gi_max_amt { get; set; }
         public string sp_gi_max_amt { get; set; }
-        public string ch_gi_max_amt { get; set; }
+        //public string ch_gi_max_amt { get; set; }
 
 
 
         public string emp_qi_max_amt { get; set; }
         public string sp_qi_max_amt { get; set; }
-        public string ch_qi_max_amt { get; set; }
+        //public string ch_qi_max_amt { get; set; }
 
         public string emp_max_amt { get; set; }
         public string sp_max_amt { get; set; }
-        public string ch_max_amt { get; set; }
+        //public string ch_max_amt { get; set; }
 
 
 
@@ -32,12 +32,13 @@ namespace AFBA.EPP.ViewModels
         public string grp_situs_state_action { get; set; }
 
         public string emp_gi_max_amt_action { get; set; }
+        public string sp_gi_max_amt_action { get; set; }
         public string emp_qi_max_amt_action { get; set; }
+        public string sp_qi_max_amt_action { get; set; }
         public string emp_max_amt_action { get; set; }
+        public string sp_max_amt_action { get; set; }
 
-        public string gi_max_amt_action { get; set; }
-        public string qi_max_amt_action { get; set; }
-        public string max_amt_action { get; set; }
+
         public string agnt_cd_1 { get; set; }
         public string agnt_nm { get; set; }
         public Int32 agnt_comm_split_1 { get; set; }
