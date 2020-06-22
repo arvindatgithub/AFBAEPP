@@ -11,7 +11,7 @@ export class RadioButtonComponent implements OnInit {
   lookupValue: any;
   favoriteSeason: string;
   radiobuttonFormGrp: FormGroup;
-  radioButtons:string[]= ['100% override','Partial Update', 'Validate']
+  radioButtons:string[]= ['Always Override','Update if Blank', 'Validate']
   seasons = 
     {
       effectiveDate:{

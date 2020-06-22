@@ -15,7 +15,7 @@ export class CustomBulkTemplateComponent implements OnInit {
 
   selectedProduct: any;
   grpNum: any;
-  selectedProductId: any;
+  selectedProductId: string;
 
   availableFields: any;
   selectedFields: any;
@@ -114,7 +114,7 @@ export class CustomBulkTemplateComponent implements OnInit {
     }
     let reqObj = {
       grpNbr: this.grpNum,
-      productId: this.selectedProductId,
+      productId: this.selectedProductId.toString(),
       eppPrdAttrFields: this.selectedFields,
       isEdit: this.editFlag
     };
