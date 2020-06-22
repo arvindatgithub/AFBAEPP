@@ -46,4 +46,7 @@ export class AccidentComponent implements OnInit {
   //   this.lookupSitusStateValue = value;
   // }
 
+  onItemChange(value){
+    console.log(" Value is : ", value );
+ }
 }
