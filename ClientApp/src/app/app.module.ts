@@ -49,6 +49,7 @@ import { FppgQuestionsComponent } from './fppg-questions/fppg-questions.componen
 import { FppiQuestionsComponent } from './fppi-questions/fppi-questions.component';
 import { VolGroupLifeQuestionsComponent } from './vol-group-life-questions/vol-group-life-questions.component';
 import { VoluntaryCiQuestionsComponent } from './voluntary-ci-questions/voluntary-ci-questions.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -122,7 +123,7 @@ import { VoluntaryCiQuestionsComponent } from './voluntary-ci-questions/voluntar
       { path: 'radio-button', component: RadioButtonComponent}           
     ])
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

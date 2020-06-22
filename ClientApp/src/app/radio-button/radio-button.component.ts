@@ -33,9 +33,10 @@ export class RadioButtonComponent implements OnInit {
       FCRadioButton: [this.favoriteSeason ,Validators.required],
     });
   }
-  onRadioButtonSelect(event:any){
+  onRadioButtonSelect(event:any, index){
      this.favoriteSeason = event.target.value;
-     this.eppsercive.getEppData(this.favoriteSeason);
+     console.log(event, index)
+  
   }
 
 }
