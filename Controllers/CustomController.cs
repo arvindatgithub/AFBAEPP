@@ -117,13 +117,15 @@ namespace AFBA.EPP.Controllers
         {
             try
             {
+                long grpprdctId = 0;
                 List<EppPrdctattrbt> EppPrdctattrbts = new List<EppPrdctattrbt>();
                 foreach (var item in eppAddPrdAttrbt.EppPrdAttrFields)
                 {
-
-                    var data = _unitofWork.eppAttributeRepository.GetAttrId(item.DbAttrNm);
+                   if (grpprdctId == 0) grpprdctId = item.GrpprdctId;
+                   var data = _unitofWork.eppAttributeRepository.GetAttrId(item.DbAttrNm);
                     if (data != null)
                     {
+
                         EppPrdctattrbts.Add(new EppPrdctattrbt
                         {
                             AttrId = data.AttrId,
@@ -135,27 +137,49 @@ namespace AFBA.EPP.Controllers
 
                     }
                 }
-
+               
                 foreach (var data in EppPrdctattrbts)
                 {
-                    var k = _unitofWork.eppPrdctattrbtRepository.SingleOrDefault(x => x.PrdctAttrbtId == data.PrdctAttrbtId).Result;
-                    if (k != null)
+                    if (data.PrdctAttrbtId != 0)
                     {
-                        k.ClmnOrdr = data.ClmnOrdr;
-                        k.RqdFlg = data.RqdFlg;
-                        k.AttrId = data.AttrId;
-
-                     _unitofWork.eppPrdctattrbtRepository.Update(k);
-
+                        var modifiabledata = _unitofWork.eppPrdctattrbtRepository.SingleOrDefault(x => x.PrdctAttrbtId == data.PrdctAttrbtId).Result;
+                        if (modifiabledata != null)
+                        {
+                            modifiabledata.ClmnOrdr = data.ClmnOrdr;
+                            modifiabledata.RqdFlg = data.RqdFlg;
+                            modifiabledata.AttrId = data.AttrId;
+                           _unitofWork.eppPrdctattrbtRepository.Update(modifiabledata);
+                        }
                     }
+                   
                     else
                     {
+                        data.PrdctAttrbtId = Helper.GetRandomNumber();
                         _unitofWork.eppPrdctattrbtRepository.Add(data);
                     }
-                    var id = _unitofWork.Complete().Result;
+                   
+                }
+                 var result=   _unitofWork.Complete().Result;
+                // deleted rows 
+                List<EppPrdctattrbt> eppPrdctattrbts_1 = new List<EppPrdctattrbt>();
+                var deletableDataList= _unitofWork.eppPrdctattrbtRepository.Find(x => x.GrpprdctId == grpprdctId).Result;
+                    foreach( var data in deletableDataList)
+                    {
+                        var bfound = EppPrdctattrbts.Find(x => x.PrdctAttrbtId == data.PrdctAttrbtId);
+                        if (bfound==null)
+                        {
+                                eppPrdctattrbts_1.Add(data);
+                          // _unitofWork.eppPrdctattrbtRepository.Remove(data);
+                        }
+                    }
+                 
+                if (eppPrdctattrbts_1.Count>0) {
+                    _unitofWork.eppPrdctattrbtRepository.RemoveRange(eppPrdctattrbts_1);
                 }
 
-                return Ok("data updated");
+                var id = _unitofWork.Complete().Result;
+
+                return Ok("Custom layout template updated successfully!");
             } catch( Exception ex)
             {
                 throw ex;

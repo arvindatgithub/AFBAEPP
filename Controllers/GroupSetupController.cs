@@ -39,6 +39,19 @@ namespace AFBA.EPP.Controllers
         }
 
         [Route("[action]")]
+        [HttpPut]
+        public IActionResult EditEppGrpSetup(GroupSetupModel groupSetupModel)
+        {
+           var grpMstdata= _unitofWork.GroupMasterRepository.Find(x => x.GrpId == groupSetupModel.GrpId).Result;
+            if (grpMstdata.Count != 0) return BadRequest("Group id is not available");
+
+
+
+            return Ok();
+
+        }
+
+        [Route("[action]")]
         [HttpPost]
         public IActionResult EppCreateGrpSetup(GroupSetupModel  groupSetupModel)
         {
@@ -303,6 +316,7 @@ namespace AFBA.EPP.Controllers
                     groupSetupModel.GrpNbr = GrpMaster.GrpNbr;
                     groupSetupModel.GrpNm = GrpMaster.GrpNm;
                     groupSetupModel.ActvFlg = GrpMaster.ActvFlg;
+                    groupSetupModel.EnrlmntPrtnrsId = GrpMaster.EnrlmntPrtnrsId;
                     var enrlPartner = _unitofWork.eppEnrlmntPrtnrsRepository.SingleOrDefault(x => x.EnrlmntPrtnrsId == GrpMaster.EnrlmntPrtnrsId).Result;
                     if (enrlPartner != null)
                     {
