@@ -1,57 +1,87 @@
 <div class="container">
-  <div style=" margin-left: 15px;">
-    <div class="row">
-      <app-radio-button></app-radio-button>
+  <form [formGroup]="basicGrpLfformgrp">
+    <div class="row mb-4" style="justify-content:space-evenly;margin-right: 7%;">
+      <div class="radio-button">
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+            formControlName="FCbasicEffectiveDate_Action" />
+          <label class="radio-label"> Always Override</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+            value="Update if Blank" formControlName="FCbasicEffectiveDate_Action" />
+          <label class="radio-label">Update if Blank</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+            formControlName="FCbasicEffectiveDate_Action" />
+          <label class="radio-label">Validate</label></div>
+      </div>
+    
       <div class="col-3">
         <span class="label label-default">Group Effective Date</span>
-        <input type="date" [value]="dateValue" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
-          placeholder="Group Effective Date">
+        <input type="date" [value]="dateValue" formControlName="FCbasicEffectiveDate" [min]="minDate"
+          class="form-control mb-2 " style="width: 100%;" placeholder="Group Effective Date">
 
       </div>
-      <app-radio-button></app-radio-button>
+      <div class="radio-button">
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+            formControlName="FCbasicSitusState_Action" />
+          <label class="radio-label"> Always Override</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+            value="Update if Blank" formControlName="FCbasicSitusState_Action" />
+          <label class="radio-label">Update if Blank</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+            formControlName="FCbasicSitusState_Action" />
+          <label class="radio-label">Validate</label></div>
+      </div>
       <div class="col-3">
         <span class="label label-default">Situs State</span>
-        <select class="form-control" [value]="lookupValue">
+        <select class="form-control" [value]="lookupValue" formControlName="FCbasicSitusState">
           <!-- <option value="0" selected="selected">{{ lookupValue }}</option> -->
-          <option  *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
+          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
             {{lookUpDataSitusState.state}}</option>
 
         </select>
-        
+
       </div>
-      <div class="col-3 mt-4">
+      <div class="mt-4">
         <button class="btn btn-primary" type="submit">Reset Form </button>
       </div>
     </div>
-  </div>
 
 
-    <div class="row">
-      <div class="col-3">
-        <span class ="label label-default">Employee Face Amount</span>
-        <input type="number" class="form-control mb-2 " style="width: 100%;" 
-        placeholder="Employee Face Amount">
-    </div> 
-
-    <div class="col-3 mb-2">
-      <span class="label">AD&D Rider </span>
-      <select class="form-control">
+    <div class="row mb-4" style="justify-content:space-evenly;">
+      <div class="radio-button">
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+            formControlName="FCbasicEmpFcAmt_Action" />
+          <label class="radio-label"> Always Override</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+            value="Update if Blank" formControlName="FCbasicEmpFcAmt_Action" />
+          <label class="radio-label">Update if Blank</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+            formControlName="FCbasicEmpFcAmt_Action" />
+          <label class="radio-label">Validate</label></div>
+      </div>
+      <div class="col-4">
+        <span class="label label-default">Employee Face Amount</span>
+        <input type="number" class="form-control mb-2 " formControlName="FCbasicEmpFcAmt" style="width: 100%;"
+          placeholder="Employee Face Amount">
+      </div>
+      <div class="radio-button">
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+            formControlName="FCbasicADDRider_Action" />
+          <label class="radio-label"> Always Override</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+            value="Update if Blank" formControlName="FCbasicADDRider_Action" />
+          <label class="radio-label">Update if Blank</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+            formControlName="FCbasicADDRider_Action" />
+          <label class="radio-label">Validate</label></div>
+      </div>
+      <div class="col-4 mb-2">
+        <span class="label">AD&D Rider </span>
+        <select class="form-control" formControlName="FCbasicADDRider">
           <option selected value="Y">Y</option>
           <option value="N">N</option>
-      </select>
-  </div>
-        <!-- <div class="col-3">
-            <span class="label">Spouse Face Amount </span>
-            <input type="number" class="form-control mb-2 " style="width: 100%;" 
-            placeholder="Spouse Face Amount">
-        </div> -->
-        <!-- <div class="col-3">
-          <span class="label">Child Face Amount </span>
-          <input type="number" class="form-control mb-2 " style="width: 100%;" 
-            placeholder="Child Face Amount">
-      </div> -->
-                        
+        </select>
       </div>
-      <app-agent-setup></app-agent-setup>
-  </div>
- 
+    </div>
+    <app-agent-setup></app-agent-setup>
+  </form>
+</div>
