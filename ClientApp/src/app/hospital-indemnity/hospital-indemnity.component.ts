@@ -44,4 +44,9 @@ export class HospitalIndemnityComponent implements OnInit {
   })
 }
 
+
+onItemChange(value){
+  console.log(" Value is : ", value );
+}
+
 }
