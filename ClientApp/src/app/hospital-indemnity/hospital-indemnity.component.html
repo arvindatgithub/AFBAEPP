@@ -1,17 +1,37 @@
 <div class="container">
-
-  <div class="row">
-    <app-radio-button></app-radio-button>
+  <form [formGroup]="hospformgrp">
+  <div class="row" style="justify-content:space-evenly;">
+    <div class="radio-button">
+      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+          formControlName="FChospEffectiveDate_Action" />
+        <label class="radio-label"> Always Override</label></div>
+      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+          value="Update if Blank" formControlName="FChospEffectiveDate_Action" />
+        <label class="radio-label">Update if Blank</label></div>
+      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+          formControlName="FChospEffectiveDate_Action" />
+        <label class="radio-label">Validate</label></div>
+    </div>
     <div class="col-3">
       <span class="label label-default">Group Effective Date</span>
       <input type="date" [value]="dateValue" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
-        placeholder="Group Effective Date">
+        placeholder="Group Effective Date" formControlName="FChospEffectiveDate">
 
     </div>
-    <app-radio-button></app-radio-button>
+    <div class="radio-button">
+      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+          formControlName="FChospSitusState_Action" />
+        <label class="radio-label"> Always Override</label></div>
+      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+          value="Update if Blank" formControlName="FChospSitusState_Action" />
+        <label class="radio-label">Update if Blank</label></div>
+      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+          formControlName="FChospSitusState_Action" />
+        <label class="radio-label">Validate</label></div>
+    </div>
     <div class="col-3">
       <span class="label label-default">Situs State</span>
-      <select class="form-control" [value]="lookupValue">
+      <select class="form-control" [value]="lookupValue" formControlName = "FChospSitusState">
         <!-- <option value="0" selected="selected">{{ lookupValue }}</option> -->
         <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
           {{lookUpDataSitusState.state}}</option>
@@ -36,4 +56,5 @@
     </div>
 
   </div>
+  </form>
 </div>
