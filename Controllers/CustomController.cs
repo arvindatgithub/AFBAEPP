@@ -172,12 +172,14 @@ namespace AFBA.EPP.Controllers
                           // _unitofWork.eppPrdctattrbtRepository.Remove(data);
                         }
                     }
-                 
-                if (eppPrdctattrbts_1.Count>0) {
+
+                if (eppPrdctattrbts_1.Count > 0)
+                {
                     _unitofWork.eppPrdctattrbtRepository.RemoveRange(eppPrdctattrbts_1);
+                    var id = _unitofWork.Complete().Result;
                 }
 
-                var id = _unitofWork.Complete().Result;
+
 
                 return Ok("Custom layout template updated successfully!");
             } catch( Exception ex)

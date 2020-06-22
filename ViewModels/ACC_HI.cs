@@ -15,12 +15,16 @@ namespace AFBA.EPP.ViewModels
         public string grp_situs_state_action { get; set; }
         public string rate_lvl_action { get; set; }
 
+        public string owner_smkr_no_smkr_action { get; set; }
+        public string sp_smkr_no_smkr_action{ get; set; }
+
         public string agnt_cd_1 { get; set; }
         public string agnt_nm { get; set; }
         public Int32 agnt_comm_split_1 { get; set; }
         public string agntsub_1 { get; set; }
 
-
+        public string owner_smkr_no_smkr { get; set; }
+        public string sp_smkr_no_smkr { get; set; }
         public string agnt_cd_2 { get; set; }
         public Int32 agnt_comm_split_2 { get; set; }
         public string agntsub_2 { get; set; }
