@@ -165,6 +165,8 @@ namespace AFBA.EPP.Helpers
             return clsPropertyInfos;
         }
 
+
+
         public static long GetProductIdbyName(string productName, IUnitofWork _unitofWork)
         {
             var product = _unitofWork.EppProductRepository.Find(x => x.ProductNm.Contains(productName)).Result.FirstOrDefault();

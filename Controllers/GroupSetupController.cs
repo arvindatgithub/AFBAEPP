@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using AFBA.EPP.Helpers;
 using AFBA.EPP.Models;
@@ -283,8 +285,249 @@ namespace AFBA.EPP.Controllers
             var id = _unitofWork.Complete().Result;
             return Ok(id);
         }
-     
-        
+
+        [Route("grpNbr/{grpNbr?}")]
+        [HttpGet]
+        public IActionResult EppGetGrpSetup( string grpNbr)
+        {
+            GroupSetupModel groupSetupModel = new GroupSetupModel();
+            var GrpMaster = _unitofWork.GroupMasterRepository.SingleOrDefault(x => x.GrpNbr == grpNbr).Result ;
+           if(GrpMaster != null)
+            {
+              
+                groupSetupModel.GrpId = GrpMaster.GrpId;
+                groupSetupModel.GrpNbr = GrpMaster.GrpNbr;
+                groupSetupModel.GrpNm = GrpMaster.GrpNm;
+                groupSetupModel.ActvFlg = GrpMaster.ActvFlg;
+              var enrlPartner=  _unitofWork.eppEnrlmntPrtnrsRepository.SingleOrDefault(x => x.EnrlmntPrtnrsId == GrpMaster.EnrlmntPrtnrsId).Result;
+                if (enrlPartner != null)
+                {
+                    groupSetupModel.EmlAddrss = enrlPartner.EmlAddrss;
+                    groupSetupModel.EnrlmntPrtnrsNm = enrlPartner.EnrlmntPrtnrsNm;
+                }
+                               
+                groupSetupModel.GrpEfftvDt = GrpMaster.GrpEfftvDt;
+                groupSetupModel.GrpPymn = groupSetupModel.GrpPymn;
+                groupSetupModel.GrpSitusSt = groupSetupModel.GrpSitusSt;
+                groupSetupModel.OccClass = groupSetupModel.OccClass;
+
+                // Load Product Master
+
+                var Grpprdcts = _unitofWork.eppGrpprdctRepository.Find(x => x.GrpId == groupSetupModel.GrpId).Result;
+                foreach( var prod in Grpprdcts)
+                {
+                    var venderData = _unitofWork.eppAcctMgrCntctsRepository.SingleOrDefault(x => x.GrpprdctId == prod.GrpprdctId).Result;
+                    if (venderData != null)
+                    {
+                        groupSetupModel.EmailAddress = venderData.EmailAddress;
+                        groupSetupModel.AcctMgrNm = venderData.AcctMgrNm;
+                    }
+                    // load product  
+
+                    var prodData = _unitofWork.EppProductRepository.SingleOrDefault(x => x.ProductId == prod.ProductId).Result;
+                    switch (prodData.ProductNm)
+                    {
+                        case "FPPG":
+                            {
+                                groupSetupModel.isFPPGActive =  true;
+                                LoadProductBulkRefData(prod.GrpprdctId);
+                                var blkDatas = _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == prod.GrpprdctId).Result;
+                                groupSetupModel.FPPG = new FPPG();
+                                Type typeInfo = groupSetupModel.FPPG.GetType();
+                                PropertyInfo[] props = typeInfo.GetProperties();
+                                foreach ( var blk in blkDatas)
+                                {
+                                    var eppAttrs = _unitofWork.eppAttributeRepository.SingleOrDefault(x => x.AttrId == blk.AttrId).Result;
+                                    var  propName = props.Where(x => x.Name == eppAttrs.DbAttrNm).Select( x=> new  { x.Name, x.PropertyType}).FirstOrDefault();
+                                    if (propName != null)
+                                    {                                      
+                                        typeInfo.GetProperty(propName.Name).SetValue(groupSetupModel.FPPG, Convert.ChangeType(blk.Value, propName.PropertyType), null);
+
+                                        var actionPropName = propName.Name + "_action";
+                                        var isActionAvail = props.Where(x => x.Name == actionPropName).Select(x=>x.Name).FirstOrDefault();
+                                        if (isActionAvail != null)
+                                        {
+                                            typeInfo.GetProperty(actionPropName).SetValue(groupSetupModel.FPPG, Convert.ChangeType(blk.ActionId, propName.PropertyType), null);
+                                        }
+                                   
+                                    }
+                                }                              
+                                break;
+                            }
+                        case "ACC_HI":
+                            {
+                                groupSetupModel.isACC_HIActive = true;
+                                LoadProductBulkRefData(prod.GrpprdctId);
+                                var blkDatas = _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == prod.GrpprdctId).Result;
+                                groupSetupModel.ACC_HI = new ACC_HI();
+                                Type typeInfo = groupSetupModel.ACC_HI.GetType();
+                                PropertyInfo[] props = typeInfo.GetProperties();
+                                foreach (var blk in blkDatas)
+                                {
+                                    var eppAttrs = _unitofWork.eppAttributeRepository.SingleOrDefault(x => x.AttrId == blk.AttrId).Result;
+                                    var propName = props.Where(x => x.Name == eppAttrs.DbAttrNm).Select(x => new { x.Name, x.PropertyType }).FirstOrDefault();
+                                    if (propName != null)
+                                    {
+                                        typeInfo.GetProperty(propName.Name).SetValue(groupSetupModel.ACC_HI, Convert.ChangeType(blk.Value, propName.PropertyType), null);
+
+                                        var actionPropName = propName.Name + "_action";
+                                        var isActionAvail = props.Where(x => x.Name == actionPropName).Select(x => x.Name).FirstOrDefault();
+                                        if (isActionAvail != null)
+                                        {
+                                            typeInfo.GetProperty(actionPropName).SetValue(groupSetupModel.ACC_HI, Convert.ChangeType(blk.ActionId, propName.PropertyType), null);
+                                        }
+
+                                    }
+                                }
+                                break;
+                            }
+                        case "ER_CI":
+                            {
+                                groupSetupModel.isER_CIActive = true;
+                                LoadProductBulkRefData(prod.GrpprdctId);
+                                var blkDatas = _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == prod.GrpprdctId).Result;
+                                groupSetupModel.ER_CI = new ER_CI();
+                                Type typeInfo = groupSetupModel.ER_CI.GetType();
+                                PropertyInfo[] props = typeInfo.GetProperties();
+                                foreach (var blk in blkDatas)
+                                {
+                                    var eppAttrs = _unitofWork.eppAttributeRepository.SingleOrDefault(x => x.AttrId == blk.AttrId).Result;
+                                    var propName = props.Where(x => x.Name == eppAttrs.DbAttrNm).Select(x => new { x.Name, x.PropertyType }).FirstOrDefault();
+                                    if (propName != null)
+                                    {
+                                        typeInfo.GetProperty(propName.Name).SetValue(groupSetupModel.ER_CI, Convert.ChangeType(blk.Value, propName.PropertyType), null);
+
+                                        var actionPropName = propName.Name + "_action";
+                                        var isActionAvail = props.Where(x => x.Name == actionPropName).Select(x => x.Name).FirstOrDefault();
+                                        if (isActionAvail != null)
+                                        {
+                                            typeInfo.GetProperty(actionPropName).SetValue(groupSetupModel.ER_CI, Convert.ChangeType(blk.ActionId, propName.PropertyType), null);
+                                        }
+
+                                    }
+                                }
+                                break;
+                            }
+                        case "VOL_CI":
+                            {
+                                groupSetupModel.isVOL_CIActive = true;
+                                LoadProductBulkRefData(prod.GrpprdctId);
+                                var blkDatas = _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == prod.GrpprdctId).Result;
+                                groupSetupModel.VOL_CI = new VOL_CI();
+                                Type typeInfo = groupSetupModel.VOL_CI.GetType();
+                                PropertyInfo[] props = typeInfo.GetProperties();
+                                foreach (var blk in blkDatas)
+                                {
+                                    var eppAttrs = _unitofWork.eppAttributeRepository.SingleOrDefault(x => x.AttrId == blk.AttrId).Result;
+                                    var propName = props.Where(x => x.Name == eppAttrs.DbAttrNm).Select(x => new { x.Name, x.PropertyType }).FirstOrDefault();
+                                    if (propName != null)
+                                    {
+                                        typeInfo.GetProperty(propName.Name).SetValue(groupSetupModel.VOL_CI, Convert.ChangeType(blk.Value, propName.PropertyType), null);
+
+                                        var actionPropName = propName.Name + "_action";
+                                        var isActionAvail = props.Where(x => x.Name == actionPropName).Select(x => x.Name).FirstOrDefault();
+                                        if (isActionAvail != null)
+                                        {
+                                            typeInfo.GetProperty(actionPropName).SetValue(groupSetupModel.FPPG, Convert.ChangeType(blk.ActionId, propName.PropertyType), null);
+                                        }
+
+                                    }
+                                }
+                                break;
+                            }
+                        case "VGL":
+                            {
+                                groupSetupModel.isVGLActive = true;
+                                LoadProductBulkRefData(prod.GrpprdctId);
+                                var blkDatas = _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == prod.GrpprdctId).Result;
+                                groupSetupModel.VGL = new VGL();
+                                Type typeInfo = groupSetupModel.VGL.GetType();
+                                PropertyInfo[] props = typeInfo.GetProperties();
+                                foreach (var blk in blkDatas)
+                                {
+                                    var eppAttrs = _unitofWork.eppAttributeRepository.SingleOrDefault(x => x.AttrId == blk.AttrId).Result;
+                                    var propName = props.Where(x => x.Name == eppAttrs.DbAttrNm).Select(x => new { x.Name, x.PropertyType }).FirstOrDefault();
+                                    if (propName != null)
+                                    {
+                                        typeInfo.GetProperty(propName.Name).SetValue(groupSetupModel.VGL, Convert.ChangeType(blk.Value, propName.PropertyType), null);
+
+                                        var actionPropName = propName.Name + "_action";
+                                        var isActionAvail = props.Where(x => x.Name == actionPropName).Select(x => x.Name).FirstOrDefault();
+                                        if (isActionAvail != null)
+                                        {
+                                            typeInfo.GetProperty(actionPropName).SetValue(groupSetupModel.VGL, Convert.ChangeType(blk.ActionId, propName.PropertyType), null);
+                                        }
+
+                                    }
+                                }
+                                    break;
+                            }
+                        case "BGL":
+                            {
+                                groupSetupModel.isBGLActive = true;
+                                LoadProductBulkRefData(prod.GrpprdctId);
+                                var blkDatas = _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == prod.GrpprdctId).Result;
+                                groupSetupModel.BGL = new BGL();
+                                Type typeInfo = groupSetupModel.BGL.GetType();
+                                PropertyInfo[] props = typeInfo.GetProperties();
+                                foreach (var blk in blkDatas)
+                                {
+                                    var eppAttrs = _unitofWork.eppAttributeRepository.SingleOrDefault(x => x.AttrId == blk.AttrId).Result;
+                                    var propName = props.Where(x => x.Name == eppAttrs.DbAttrNm).Select(x => new { x.Name, x.PropertyType }).FirstOrDefault();
+                                    if (propName != null)
+                                    {
+                                        typeInfo.GetProperty(propName.Name).SetValue(groupSetupModel.BGL, Convert.ChangeType(blk.Value, propName.PropertyType), null);
+
+                                        var actionPropName = propName.Name + "_action";
+                                        var isActionAvail = props.Where(x => x.Name == actionPropName).Select(x => x.Name).FirstOrDefault();
+                                        if (isActionAvail != null)
+                                        {
+                                            typeInfo.GetProperty(actionPropName).SetValue(groupSetupModel.BGL, Convert.ChangeType(blk.ActionId, propName.PropertyType), null);
+                                        }
+
+                                    }
+                                }
+                                break;
+                            }
+                        case "FPPI":
+                            {
+
+                                groupSetupModel.isFPPIActive = true;
+                                LoadProductBulkRefData(prod.GrpprdctId);
+                                var blkDatas = _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == prod.GrpprdctId).Result;
+                                groupSetupModel.FPPI = new FPPI();
+                                Type typeInfo = groupSetupModel.FPPI.GetType();
+                                PropertyInfo[] props = typeInfo.GetProperties();
+                                foreach (var blk in blkDatas)
+                                {
+                                    var eppAttrs = _unitofWork.eppAttributeRepository.SingleOrDefault(x => x.AttrId == blk.AttrId).Result;
+                                    var propName = props.Where(x => x.Name == eppAttrs.DbAttrNm).Select(x => new { x.Name, x.PropertyType }).FirstOrDefault();
+                                    if (propName != null)
+                                    {
+                                        typeInfo.GetProperty(propName.Name).SetValue(groupSetupModel.FPPI, Convert.ChangeType(blk.Value, propName.PropertyType), null);
+
+                                        var actionPropName = propName.Name + "_action";
+                                        var isActionAvail = props.Where(x => x.Name == actionPropName).Select(x => x.Name).FirstOrDefault();
+                                        if (isActionAvail != null)
+                                        {
+                                            typeInfo.GetProperty(actionPropName).SetValue(groupSetupModel.FPPI, Convert.ChangeType(blk.ActionId, propName.PropertyType), null);
+                                        }
+
+                                    }
+                                }
+                                break;
+                            }
+                    }
+                        
+                }
+
+
+
+            }
+
+            return Ok(groupSetupModel);
+        }
+
         [NonAction]
         private void AddEppBulkRefTblData(List<ClsPropertyInfo> bulkAttrs, List<EppBulkRefTbl> bulkRefTbls, long grpPrdId)
         {
@@ -319,7 +562,12 @@ namespace AFBA.EPP.Controllers
         }
 
 
+        [NonAction]
 
-      
+        private void LoadProductBulkRefData(long GrpprdctId)
+        {
+           var blkData= _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == GrpprdctId).Result;
+        }
+
     }
 }
