@@ -7,9 +7,8 @@
         
         <div class="col-3">
           <span class="label label-default">Group Effective Date</span>
-          <input type="date"  formControlName="FCfppgEffectiveDate" [value]="dateValue" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
+          <input type="date" formControlName="FCfppgEffectiveDate" [(ngModel)]="latest_date" [value]="latest_date" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
             placeholder="Group Effective Date">
-
         </div>
         <app-radio-button ></app-radio-button>
         <div class="col-3">
@@ -118,9 +117,6 @@
         </div>
 
       </div>
-
-
-    
     <div class="mt-4">
       <app-agent-setup></app-agent-setup>
     </div>

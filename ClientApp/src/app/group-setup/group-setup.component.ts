@@ -31,7 +31,7 @@ export class GroupSetupComponent implements OnInit {
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
   position = new FormControl(this.positionOptions[0]);
   public minDate = new Date().toISOString().slice(0, 10);
-  dateChange: any;
+  dateChange;
   fppg: any;
   hospitalIndemity: any;
   fppIndivisual: any;
@@ -176,8 +176,8 @@ export class GroupSetupComponent implements OnInit {
   }
 
   onDateChange(dateValue: any) {
-    this.dateChange = dateValue.srcElement.value;
-    console.log("dateValue", this.dateChange);
+    this.dateChange = (new Date(dateValue.srcElement.value)).toISOString();
+    console.log("dateValue",this.dateChange);
   }
 
   toggleChange(event: any) {
@@ -231,7 +231,7 @@ let body = {
         "grpId": 0,
         grpNbr: this.groupNumber.toString(),
         grpNm: this.groupName,
-        grpEfftvDt: this.grpEfftvDate,
+        grpEfftvDt: this.dateChange,
         // grpPymn: parseInt(this.grpPymn.slice(0,2)),
         grpPymn: "10001",
         //actvFlg: this.checkedToggle,
@@ -246,7 +246,7 @@ let body = {
         isFPPGActive: this.fppgActive,
         "fppg": {
           "grp_nmbr": "string",
-          effctv_dt: this.fppgComponent.fppgformgrp.value.FCfppgEffectiveDate,
+          effctv_dt: (new Date(this.fppgComponent.fppgformgrp.value.FCfppgEffectiveDate)).toISOString(),
           grp_situs_state: this.fppgComponent.fppgformgrp.value.FCfppgSitusState,
           emp_gi_max_amt: this.fppgComponent.fppgformgrp.value.FCfppgEmpGIAmtMax,
           sp_gi_max_amt: this.fppgComponent.fppgformgrp.value.FCfppgSpouseGIAmtMax,

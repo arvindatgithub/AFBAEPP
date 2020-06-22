@@ -1,8 +1,8 @@
 
 <form >
-    <div class="form-check" *ngFor="let season of seasons.effectiveDate.value;let i = index">
+    <div class="form-check" *ngFor="let season of seasons.effectiveDate.value; let index=index">
         <input #effDate class="form-check-input" value="{{season}}" name="season" type="radio" 
-        (change)="onRadioButtonSelect($event)" [checked]="i==1">
+        (change)="onRadioButtonSelect($event,index)"  >
         <label class="form-check-label"  >
             {{season}}
         </label> 
