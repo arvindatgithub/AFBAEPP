@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using AFBA.EPP.Helpers;
@@ -42,8 +43,44 @@ namespace AFBA.EPP.Controllers
         [HttpPut]
         public IActionResult EditEppGrpSetup(GroupSetupModel groupSetupModel)
         {
-           var grpMstdata= _unitofWork.GroupMasterRepository.Find(x => x.GrpId == groupSetupModel.GrpId).Result;
-            if (grpMstdata.Count != 0) return BadRequest("Group id is not available");
+           var grpMstdata= _unitofWork.GroupMasterRepository.Find(x => x.GrpId == groupSetupModel.GrpId).Result.FirstOrDefault();
+            if (grpMstdata!=null) return BadRequest("Incorrect group id");
+
+            if (!string.IsNullOrEmpty(groupSetupModel.EmlAddrss))
+            {
+                // get partner id 
+                var enrlmntPrtnr = _unitofWork.eppEnrlmntPrtnrsRepository.GetEnrlmntPrtnrId(groupSetupModel.EmlAddrss);
+                if (enrlmntPrtnr != null)
+                {
+                    groupSetupModel.EnrlmntPrtnrsId = enrlmntPrtnr.EnrlmntPrtnrsId;
+                }
+                else
+                {
+                    _unitofWork.eppEnrlmntPrtnrsRepository.Add(new EppEnrlmntPrtnrs
+                    {
+                        EnrlmntPrtnrsId = Helper.GetRandomNumber(),
+                        CrtdBy = "",
+                        EmlAddrss = groupSetupModel.EmlAddrss,
+                        EnrlmntPrtnrsNm = groupSetupModel.EnrlmntPrtnrsNm
+
+                    });
+                }
+
+            }
+            var CrtdBy = "";
+            grpMstdata.GrpNbr = groupSetupModel.GrpNbr;
+            grpMstdata.GrpNm = groupSetupModel.GrpNm;
+            grpMstdata.ActvFlg = groupSetupModel.ActvFlg;
+            grpMstdata.EnrlmntPrtnrsId = groupSetupModel.EnrlmntPrtnrsId;
+            grpMstdata.GrpEfftvDt = groupSetupModel.GrpEfftvDt;
+            grpMstdata.GrpSitusSt = groupSetupModel.GrpSitusSt;
+            grpMstdata.GrpPymn = groupSetupModel.GrpPymn;
+            grpMstdata.OccClass = groupSetupModel.OccClass;
+            grpMstdata.CrtdBy = CrtdBy;
+            
+                      
+            //grpMstdata.
+            //update the master data
 
 
 
@@ -82,7 +119,7 @@ namespace AFBA.EPP.Controllers
            
              var grpId = Helper.GetRandomNumber();
             var CrtdBy = "";
-;            _unitofWork.GroupMasterRepository.Add(new EppGrpmstr
+           _unitofWork.GroupMasterRepository.Add(new EppGrpmstr
                     {
                          GrpNbr= groupSetupModel.GrpNbr, GrpNm= groupSetupModel.GrpNm,  ActvFlg='Y' , EnrlmntPrtnrsId= groupSetupModel.EnrlmntPrtnrsId, GrpEfftvDt= groupSetupModel.GrpEfftvDt,
                          GrpSitusSt= groupSetupModel.GrpSitusSt, GrpPymn= groupSetupModel.GrpPymn, OccClass= groupSetupModel.OccClass, GrpId= grpId, CrtdBy= CrtdBy
