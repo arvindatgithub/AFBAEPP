@@ -5,7 +5,7 @@
         <div class="row" style="justify-content:space-evenly;">
             <div class="col-md-3">
                 <span class ="label label-default">Agent Number</span>
-                <input type="text" name="text" [(ngModel)]="text" class="form-control mb-2" style="width: 100%;" 
+                <input type="text" name="text" [(ngModel)]="textv" (ngModalChange)="textv = $event" class="form-control mb-2" style="width: 100%;" 
                     placeholder="Primary Agent Number"> 
                   
             </div>
