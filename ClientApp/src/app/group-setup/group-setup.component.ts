@@ -8,15 +8,16 @@ import { ThemePalette } from '@angular/material';
 import { EppCreateGrpSetupService } from '../services/epp-create-grp-setup.service';
 import { AgentSetupComponent } from '../agent-setup/agent-setup.component';
 import { FPPGComponent } from '../fppg/fppg.component';
-
+import {RadioButtonComponent} from '../radio-button/radio-button.component'
 @Component({
   selector: 'app-group-setup',
   templateUrl: './group-setup.component.html',
   styleUrls: ['./group-setup.component.css']
 })
 export class GroupSetupComponent implements OnInit {
-  @ViewChild(AgentSetupComponent,{static:true}) agentComponent: AgentSetupComponent;
-  @ViewChild(FPPGComponent,{static:true}) fppgDataInput:FPPGComponent;
+  @ViewChild(AgentSetupComponent,{static:false}) agentComponent: AgentSetupComponent;
+  // @ViewChild('radio',{static:false}) radiobutton:RadioButtonComponent;
+  @ViewChild('child',{static:false}) fppgComponent: FPPGComponent;
   public product: any;
   public addedProducts = [];
   public selectedProducts: any = [];
@@ -128,6 +129,7 @@ export class GroupSetupComponent implements OnInit {
       });
        this.eppcreategroupservice.myEppData.subscribe((data:any)=>{
         this.eppData = data;
+        console.log("this.eppData",this.eppData);
       });
       
   }
@@ -207,7 +209,6 @@ export class GroupSetupComponent implements OnInit {
   }
 
   onSubmit() {
-
     // console.log("inputText", this.agentComponent.text);
 
     // let eppbody = {
@@ -231,8 +232,10 @@ let body = {
         grpNbr: this.groupNumber.toString(),
         grpNm: this.groupName,
         grpEfftvDt: this.grpEfftvDate,
-        grpPymn: parseInt(this.grpPymn.slice(0,2)),
-        actvFlg: this.checkedToggle,
+        // grpPymn: parseInt(this.grpPymn.slice(0,2)),
+        grpPymn: "10001",
+        //actvFlg: this.checkedToggle,
+        "actvFlg": "false",
         occClass: parseInt(this.occupationArray),
         grpSitusSt: this.grpSitusState,
         enrlmntPrtnrsNm: this.EnrolmentPatnerName,
@@ -243,17 +246,17 @@ let body = {
         isFPPGActive: this.fppgActive,
         "fppg": {
           "grp_nmbr": "string",
-          effctv_dt: this.grpEfftvDate,
-          grp_situs_state: this.grpSitusState,
-          emp_gi_max_amt: this.empGiMaxAmt,
-          sp_gi_max_amt: this.SpGiMaxAmount,
-          emp_qi_max_amt: this.EmpQiMaxAmount,
-          sp_qi_max_amt: this.SpQiMaxAmount,
-          emp_max_amt: this.EmpMaxAmt,
-          sp_max_amt: this.SpMaxAmount,
-          effctv_dt_action: this.effctvDateAction,
-          grp_situs_state_action: this.grpSitusStateAction,
-          emp_gi_max_amt_action: this.empGiMaxAmtAction,
+          effctv_dt: this.fppgComponent.fppgformgrp.value.FCfppgEffectiveDate,
+          grp_situs_state: this.fppgComponent.fppgformgrp.value.FCfppgSitusState,
+          emp_gi_max_amt: this.fppgComponent.fppgformgrp.value.FCfppgEmpGIAmtMax,
+          sp_gi_max_amt: this.fppgComponent.fppgformgrp.value.FCfppgSpouseGIAmtMax,
+          emp_qi_max_amt: this.fppgComponent.fppgformgrp.value.FCfppgEmpQIAmtMax,
+          sp_qi_max_amt: this.fppgComponent.fppgformgrp.value.FCfppgSpouseQIAmtMax,
+          emp_max_amt: this.fppgComponent.fppgformgrp.value.FCfppgEmpGIAmtMax,
+          sp_max_amt: this.fppgComponent.fppgformgrp.value.FCfppgSpouseMaxAmt,
+          effctv_dt_action: this.eppData,
+          grp_situs_state_action: this.fppgComponent.fppgformgrp.value.FCfppgSpouseMaxAmt,
+          emp_gi_max_amt_action: this.fppgComponent.fppgformgrp.value.FCfppgSpouseMaxAmt,
           "sp_gi_max_amt_action": "string",
           "emp_qi_max_amt_action": "string",
           "sp_qi_max_amt_action": "string",
@@ -273,7 +276,7 @@ let body = {
           "agnt_comm_split_4": 0,
           "agntsub_4": "string"
         },
-        "isACC_HIActive": true,
+        "isACC_HIActive": false,
         "acC_HI": {
           "effctv_dt": "2020-06-21T12:03:45.088Z",
           "grp_situs_state": "string",
@@ -295,7 +298,7 @@ let body = {
           "agnt_comm_split_4": 0,
           "agntsub_4": "string"
         },
-        "isER_CIActive": true,
+        "isER_CIActive": false,
         "eR_CI": {
           "grp_nmbr": "string",
           "effctv_dt": "2020-06-21T12:03:45.088Z",
@@ -320,7 +323,7 @@ let body = {
           "agnt_comm_split_4": 0,
           "agntsub_4": "string"
         },
-        "isVOL_CIActive": true,
+        "isVOL_CIActive": false,
         "voL_CI": {
           "grp_nmbr": "string",
           "effctv_dt": "2020-06-21T12:03:45.088Z",
@@ -353,7 +356,7 @@ let body = {
           "agnt_comm_split_4": 0,
           "agntsub_4": "string"
         },
-        "isVGLActive": true,
+        "isVGLActive": false,
         "vgl": {
           "grp_nmbr": "string",
           "effctv_dt": "2020-06-21T12:03:45.088Z",
@@ -386,7 +389,7 @@ let body = {
           "agnt_comm_split_4": 0,
           "agntsub_4": "string"
         },
-        "isBGLActive": true,
+        "isBGLActive": false,
         "bgl": {
           "grp_nmbr": "string",
           "effctv_dt": "2020-06-21T12:03:45.089Z",
@@ -409,7 +412,7 @@ let body = {
           "agnt_comm_split_4": 0,
           "agntsub_4": "string"
         },
-        "isFPPIActive": true,
+        "isFPPIActive": false,
         "fppi": {
           "grp_nmbr": "string",
           "effctv_dt": "2020-06-21T12:03:45.089Z",
@@ -447,8 +450,7 @@ let body = {
       }
       this.eppcreategroupservice.PosteppCreate(body).subscribe((data:any)=>{
         console.log("data",data);
-      })
+      });
     }
-    
   
 }

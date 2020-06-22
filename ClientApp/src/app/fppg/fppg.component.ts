@@ -1,19 +1,22 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { LookupService } from '../services/lookup.service';
 import { NgForm, FormControl, FormGroup, FormBuilder, RequiredValidator, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import {RadioButtonComponent} from '../radio-button/radio-button.component'
 import { EppCreateGrpSetupService } from '../services/epp-create-grp-setup.service';
+import { AgentSetupComponent } from '../agent-setup/agent-setup.component';
 @Component({
   selector: 'app-fppg',
   templateUrl: './fppg.component.html',
   styleUrls: ['./fppg.component.css']
 })
 export class FPPGComponent implements OnInit {
-  fppgformgrp: FormGroup
+  @ViewChild('agent',{static:false}) agentComponent: AgentSetupComponent;
+  fppgformgrp: FormGroup;
   @Input() lookupValue: any;
   @Input() dateValue: any;
+  @ViewChild('effDate',{static:false}) radiobutton:ElementRef;
   situsValue:string;
-  exampleChild: string = "Harsh"
   // subscription: Subscription;
   public isLoading = false;
   lookUpDataSitusStates: any = [];
@@ -22,9 +25,9 @@ export class FPPGComponent implements OnInit {
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
   public minDate = new Date().toISOString().slice(0,10);
+  agentValue: string;
 
-  constructor(private lookupService: LookupService, private fb:FormBuilder, private eppsercive: EppCreateGrpSetupService ) {
-   
+  constructor(private lookupService: LookupService, private fb:FormBuilder, private eppservice:EppCreateGrpSetupService ) {
    }
 
   ngOnInit() {
@@ -37,7 +40,8 @@ export class FPPGComponent implements OnInit {
 
     this.fppgformgrp = this.fb.group({
       FCfppgEffectiveDate: ["",Validators.required],
-      FCfppgSitusState: ["",Validators.required],
+      FCfppgSitusState: [this.lookupValue,Validators.required],
+      FCfppgEmpAmtMax: ["",Validators.required],
       FCfppgEmpGIAmtMax: ["",Validators.required],
       FCfppgEmpQIAmtMax: ["",Validators.required],
       FCfppgSpouseGIAmtMax: ["",Validators.required],
@@ -46,11 +50,15 @@ export class FPPGComponent implements OnInit {
       FCfppgOpenEnrollGI: ["",Validators.required],
       FCfppgPlanCodeManualEntry: ["",Validators.required],
       FCfppgQolRiders: ["",Validators.required],
-      FCfppgWaiver:["",Validators.required]
+      FCfppgWaiver:["",Validators.required],
     });
-
-    this.eppsercive.getEppData(this.exampleChild);
-
+ 
   }
+  ngAfterViewInit(){
+  let agentcomponenet = this.agentComponent.text
+  console.log("agentcomponenet",agentcomponenet)
+  }
+
+  
 
 }
