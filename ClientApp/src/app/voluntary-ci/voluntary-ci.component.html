@@ -1,176 +1,255 @@
 <div class="container" style="width: 100%;">
 
-    <form>
-      <div style=" margin-left: 15px;">
-        <div class="row">
-          <app-radio-button></app-radio-button>
-          <div class="col-3">
-            <span class="label label-default">Group Effective Date</span>
-            <input type="date" [value]="dateValue" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
-              placeholder="Group Effective Date">
-  
-          </div>
-          <app-radio-button></app-radio-button>
-          <div class="col-3">
-            <span class="label label-default">Sitius State</span>
-            <select class="form-control" [value]="lookupValue">
-              <!-- <option value="0" selected="selected">{{ lookupValue }}</option> -->
-              <option  *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
-                {{lookUpDataSitusState.state}}</option>
-  
-            </select>
-            <!-- <div *ngIf="lookupValue == ''">
+  <form [formGroup]="volCIformgrp">
+    <div class="row" style="justify-content:space-evenly;margin-right: 7%;">
+      <div class="radio-button">
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+            formControlName="FCVolCIEffectiveDate_Action" />
+          <label class="radio-label"> Always Override</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+            value="Update if Blank" formControlName="FCVolCIEffectiveDate_Action" />
+          <label class="radio-label">Update if Blank</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+            formControlName="FCVolCIEffectiveDate_Action" />
+          <label class="radio-label">Validate</label></div>
+      </div>
+      <div class="col-3">
+        <span class="label label-default">Group Effective Date</span>
+        <input type="date" [value]="dateValue" formControlName="FCVolCIEffectiveDate" [min]="minDate"
+          class="form-control mb-2 " style="width: 100%;" placeholder="Group Effective Date">
+
+      </div>
+      <div class="radio-button">
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+            formControlName="FCVolCISitusState_Action" />
+          <label class="radio-label"> Always Override</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+            value="Update if Blank" formControlName="FCVolCISitusState_Action" />
+          <label class="radio-label">Update if Blank</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+            formControlName="FCVolCISitusState_Action" />
+          <label class="radio-label">Validate</label></div>
+      </div>
+      <div class="col-3">
+        <span class="label label-default">Sitius State</span>
+        <select class="form-control" [value]="lookupValue" formControlName="FCVolCISitusState">
+          <!-- <option value="0" selected="selected">{{ lookupValue }}</option> -->
+          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
+            {{lookUpDataSitusState.state}}</option>
+
+        </select>
+        <!-- <div *ngIf="lookupValue == ''">
           <span style="color: red;">  <small><strong>Select Payment Mode !</strong></small></span>
         </div> -->
-          </div>
-          <div class="col-3 mt-4">
-            <button class="btn btn-primary" type="submit">Reset Form </button>
-          </div>
-        </div>
-      </div>
-  
-      <div class="container">
-  
-        <div class="row" style="margin-top: 10px;">
-  
-          <app-radio-button></app-radio-button>
-          <div class="col-3">
-  
-            <span class="label label-default">Employee GI Amount Max</span>
-  
-            <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Employee GI Amount Max">
-          </div>
-  
-  
-  
-          <div class="col-3">
-            <span class="label label-default">Employee QI Amount Max</span>
-  
-            <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Employee QI Amount Max">
-          </div>
-          <div class="col-3">
-            <span class="label label-default">Employee Max Amount</span>
-            <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Employee Max Amount">
-          </div>
-        
-        </div>
-  
-        <div class="row mt-2">
-          <app-radio-button></app-radio-button>
-          <div class="col-3">
-            <span class="label label-default">Spouse GI Amount Max</span>
-  
-            <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse GI Amount Max
-              ">
-          </div>
-          <div class="col-3">
-            <span class="label label-default">Spouse QI Amount Max</span>
-            <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse QI Amount Max">
-          </div>
-          <div class="col-3">
-            <span class="label label-default">Spouse Max Amount</span>
-            <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse Max Amount">
-          </div>
-  
-        </div>
-        <!-- <div class="row mt-2">
-          <app-radio-button></app-radio-button>
-          <div class="col-3">
-            <span class="label label-default">Child GI Amount Max</span>
-  
-            <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Child GI Amount Max">
-          </div>
-          <div class="col-3">
-            <span class="label label-default">Child QI Amount Max</span>
-            <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Child QI Amount Max">
-          </div>
-          <div class="col-3">
-            <span class="label label-default">Child Max Amount</span>
-            <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Child Max Amount">
-          </div>
-  
-        </div> -->
-  
-  
-  
-        <div class="row mt-2">
-          <app-radio-button></app-radio-button>
-          <div class="col-3">
-  
-            <span class="label label-default">Open Enrollment GI</span>
-            <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Open Enrollment GI">
-          </div>
-  
-          <app-radio-button></app-radio-button>
-          <div class="col-3">
-            <span class="label label-default">Plan code manual Entry</span>
-            <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Plan code manual Entry">
-          </div>
-  
-        </div>
-  
-        <div class="row pt-2">
-          <h6>
-            Tobacco/Non
-            Options
-          </h6>
-        </div>
-        <div class="row mt-2">
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col" style="margin-left: -16px;">
-                <app-radio-button></app-radio-button>
-              </div>
-              <div class="col" style="justify-content:flex-start;margin-right: 170px;
-              margin-top: 24px;">
-                <mat-checkbox class="margin" [(ngModel)]="checked" name="EmployeeNTB">Employee NTB</mat-checkbox>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 pb-4">
-            <div class="row">
-              <div class="col" style="margin-left: -147px;">
-                <app-radio-button></app-radio-button>
-              </div>
-              <div class="col" style="margin-right: 170px;
-            margin-top: 24px;">
-                <mat-checkbox class="margin" [(ngModel)]="indeterminate" name="EmployeeTB">Employee TB</mat-checkbox>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col" style="margin-left: -16px;">
-                <app-radio-button></app-radio-button>
-              </div>
-              <div class="col"  style="justify-content:flex-start;margin-right: 170px;
-              margin-top: 24px;">
-                <mat-checkbox class="margin" [(ngModel)]="indeterminate" name="SpouseNTB">Spouse NTB</mat-checkbox>
-              </div>
-            </div>
-          </div>
-
-
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col" style="margin-left: -147px;">
-                <app-radio-button></app-radio-button>
-              </div>
-              <div class="col" style="margin-right: 170px;
-              margin-top: 24px;">
-                <mat-checkbox class="margin" [(ngModel)]="indeterminate" name="SpouseNTB">Spouse TB</mat-checkbox>
-              </div>
-            </div>
-          </div>
-  
-        </div>
-  
-  
       </div>
       <div class="mt-4">
-        <app-agent-setup></app-agent-setup>
+        <button class="btn btn-primary" type="submit">Reset Form </button>
       </div>
-  
-    </form>
     </div>
+
+    <div class="row" style="margin-top: 10px;justify-content:space-evenly;margin-right: 7%;">
+
+      <div class="radio-button">
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+            formControlName="FCVolCIEmpGIAmtMax_Action" />
+          <label class="radio-label"> Always Override</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+            value="Update if Blank" formControlName="FCVolCIEmpGIAmtMax_Action" />
+          <label class="radio-label">Update if Blank</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+            formControlName="FCVolCIEmpGIAmtMax_Action" />
+          <label class="radio-label">Validate</label></div>
+      </div>
+      <div class="col-3">
+
+        <span class="label label-default">Employee GI Amount Max</span>
+
+        <input type="text" class="form-control mb-2 " formControlName="FCVolCIEmpGIAmtMax" style="width: 100%;"
+          placeholder="Employee GI Amount Max">
+      </div>
+
+      <div class="col-3">
+        <span class="label label-default">Employee QI Amount Max</span>
+
+        <input type="text" class="form-control mb-2 " formControlName="FCVolCIEmpQIAmtMax" style="width: 100%;"
+          placeholder="Employee QI Amount Max">
+      </div>
+      <div class="col-3">
+        <span class="label label-default">Employee Max Amount</span>
+        <input type="text" class="form-control mb-2 " formControlName="FCVolCIEmpAmtMax" style="width: 100%;"
+          placeholder="Employee Max Amount">
+      </div>
+    </div>
+    <div class="row mt-2" style="margin-top: 10px;justify-content:space-evenly;margin-right: 7%;">
+      <div class="radio-button">
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+            formControlName="FCVolCISpouseAmtMax_Action" />
+          <label class="radio-label"> Always Override</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+            value="Update if Blank" formControlName="FCVolCISpouseAmtMax_Action" />
+          <label class="radio-label">Update if Blank</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+            formControlName="FCVolCISpouseAmtMax_Action" />
+          <label class="radio-label">Validate</label></div>
+      </div>
+      <div class="col-3">
+        <span class="label label-default">Spouse GI Amount Max</span>
+
+        <input type="text" class="form-control mb-2 " formControlName="FCVolCISpouseGIAmtMax" style="width: 100%;"
+          placeholder="Spouse GI Amount Max
+              ">
+      </div>
+      <div class="col-3">
+        <span class="label label-default">Spouse QI Amount Max</span>
+        <input type="text" class="form-control mb-2 " formControlName="FCVolCISpouseQIAmtMax" style="width: 100%;"
+          placeholder="Spouse QI Amount Max">
+      </div>
+      <div class="col-3">
+        <span class="label label-default">Spouse Max Amount</span>
+        <input type="text" class="form-control mb-2 " formControlName="FCVolCISpouseAmtMax" style="width: 100%;"
+          placeholder="Spouse Max Amount">
+      </div>
+
+    </div>
+
+    <div class="row mt-2" style="justify-content:space-evenly;">
+      <div class="radio-button">
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+            formControlName="FCVolCIOpenEnrollGI_Action" />
+          <label class="radio-label"> Always Override</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+            value="Update if Blank" formControlName="FCVolCIOpenEnrollGI_Action" />
+          <label class="radio-label">Update if Blank</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+            formControlName="FCVolCIOpenEnrollGI_Action" />
+          <label class="radio-label">Validate</label></div>
+      </div>
+      <div class="col-4">
+
+        <span class="label label-default">Open Enrollment GI</span>
+        <input type="text" formControlName="FCVolCIOpenEnrollGI" class="form-control mb-2 " style="width: 100%;"
+          placeholder="Open Enrollment GI">
+      </div>
+
+      <div class="radio-button">
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+            formControlName="FCVolCIPlanCodeManualEntry_Action" />
+          <label class="radio-label"> Always Override</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+            value="Update if Blank" formControlName="FCVolCIPlanCodeManualEntry_Action" />
+          <label class="radio-label">Update if Blank</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+            formControlName="FCVolCIPlanCodeManualEntry_Action" />
+          <label class="radio-label">Validate</label></div>
+      </div>
+      <div class="col-4">
+        <span class="label label-default">Plan code manual Entry</span>
+        <input type="text" class="form-control mb-2 " formControlName="FCVolCIPlanCodeManualEntry" style="width: 100%;"
+          placeholder="Plan code manual Entry">
+      </div>
+
+    </div>
+
+    <div class="row pt-2 pl-4">
+      <h6>
+        Tobacco/Non
+        Options
+      </h6>
+    </div>
+    <div class="row mt-2" style="justify-content:space-evenly;">
+      <div class="radio-button">
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+            formControlName="FCVolCIEmpNTB_Action" />
+          <label class="radio-label"> Always Override</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+            value="Update if Blank" formControlName="FCVolCIEmpNTB_Action" />
+          <label class="radio-label">Update if Blank</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+            formControlName="FCVolCIEmpNTB_Action" />
+          <label class="radio-label">Validate</label></div>
+      </div>
+      <div class="col-4">
+        <div class="row" style="justify-content:space-evenly;">
+          <div class="col" style="margin-left: -16px;">
+          </div>
+          <div class="col" style="justify-content:flex-start;margin-right: 170px;margin-top: 24px;">
+            <mat-checkbox class="margin" formControlName="FCVolCIEmpNTB" [(ngModel)]="checked" name="EmployeeNTB">
+              Employee NTB</mat-checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="radio-button">
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+            formControlName="FCVolCIEmpTB_Action" />
+          <label class="radio-label"> Always Override</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+            value="Update if Blank" formControlName="FCVolCIEmpTB_Action" />
+          <label class="radio-label">Update if Blank</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+            formControlName="FCVolCIEmpTB_Action" />
+          <label class="radio-label">Validate</label></div>
+      </div>
+      <div class="col-4 pb-4">
+        <div class="row" style="justify-content:space-evenly;">
+          <div class="col" style="margin-left: -147px;">
+          </div>
+          <div class="col" style="margin-top: 24px;">
+            <mat-checkbox class="margin" formControlName="FCVolCIEmpTB" [(ngModel)]="indeterminate" name="EmployeeTB">
+              Employee TB</mat-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2" style="justify-content:space-evenly;">
+      <div class="radio-button">
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+            formControlName="FCVolCISpouseNTB_Action" />
+          <label class="radio-label"> Always Override</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+            value="Update if Blank" formControlName="FCVolCISpouseNTB_Action" />
+          <label class="radio-label">Update if Blank</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+            formControlName="FCVolCISpouseNTB_Action" />
+          <label class="radio-label">Validate</label></div>
+      </div>
+      <div class="col-4">
+        <div class="row" style="justify-content:space-evenly;">
+          <div class="col" style="margin-left: -16px;">
+          </div>
+          <div class="col" style="justify-content:flex-start;margin-right: 170px;margin-top: 24px;">
+            <mat-checkbox class="margin" formControlName="FCVolCISpouseNTB" [(ngModel)]="indeterminate"
+              name="SpouseNTB">Spouse NTB</mat-checkbox>
+          </div>
+        </div>
+      </div>
+
+      <div class="radio-button">
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+            formControlName="FCVolCISpouseTB_Action" />
+          <label class="radio-label"> Always Override</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+            value="Update if Blank" formControlName="FCVolCISpouseTB_Action" />
+          <label class="radio-label">Update if Blank</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+            formControlName="FCVolCISpouseTB_Action" />
+          <label class="radio-label">Validate</label></div>
+      </div>
+      <div class="col-4">
+        <div class="row" style="justify-content:space-evenly;">
+          <div class="col" style="margin-left: -147px;">
+          </div>
+          <div class="col" style="margin-top: 24px;">
+            <mat-checkbox class="margin" formControlName="FCVolCISpouseTB" [(ngModel)]="indeterminate" name="SpouseNTB">
+              Spouse TB</mat-checkbox>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="mt-4">
+      <app-agent-setup></app-agent-setup>
+    </div>
+
+  </form>
+</div>
