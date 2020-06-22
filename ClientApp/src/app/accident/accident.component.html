@@ -1,44 +1,85 @@
 <div class="container" style="width: 100%;">
-    <div class="row pb-2 ">
-      <app-radio-button></app-radio-button>
+  <form [formGroup]="accformgrp">
+    <div class="row pb-2 " style="justify-content:space-evenly;">
+      <div class="radio-button">
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+            formControlName="FCaccEffectiveDate_Action" />
+          <label class="radio-label"> Always Override</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+            value="Update if Blank" formControlName="FCaccEffectiveDate_Action" />
+          <label class="radio-label">Update if Blank</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+            formControlName="FCaccEffectiveDate_Action" />
+          <label class="radio-label">Validate</label></div>
+      </div>
       <div class="col-3">
         <span class="label label-default">Group Effective Date</span>
-        <input type="date" [value]="dateValue" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
+        <input type="date" [value]="dateValue" [min]="minDate" formControlName="FCaccEffectiveDate" class="form-control mb-2 " style="width: 100%;"
           placeholder="Group Effective Date">
   
       </div>
-      <app-radio-button></app-radio-button>
+      <div class="radio-button">
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+            formControlName="FCaccSitusState_Action" />
+          <label class="radio-label"> Always Override</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+            value="Update if Blank" formControlName="FCaccSitusState_Action" />
+          <label class="radio-label">Update if Blank</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+            formControlName="FCaccSitusState_Action" />
+          <label class="radio-label">Validate</label></div>
+      </div>
       <div class="col-3">
-        <span class="label label-default">Sitius State</span>
-        <select class="form-control" [value]="lookupValue">
+        <span class="label label-default">Situs State</span>
+        <select class="form-control" [value]="lookupValue" formControlName="FCaccSitusState">
           <!-- <option value="0" selected="selected">{{ lookupValue }}</option> -->
           <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
             {{lookUpDataSitusState.state}}</option>
   
         </select>
       </div>
-      <div class="col-3 mt-4">
+      <div class="mt-4">
         <button class="btn btn-primary" type="submit">Reset Form </button>
       </div>
     </div>
-    <div class="row pb-2 ">
-      <app-radio-button></app-radio-button>
+    <div class="row pb-2 " style="justify-content:space-evenly;">
+      <div class="radio-button">
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+            formControlName="FCaccOnOff_Action" />
+          <label class="radio-label"> Always Override</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+            value="Update if Blank" formControlName="FCaccOnOff_Action" />
+          <label class="radio-label">Update if Blank</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+            formControlName="FCaccOnOff_Action" />
+          <label class="radio-label">Validate</label></div>
+      </div>
       <div class="col-4">
         <span class="label">On or Off the Job</span>
-        <select class="form-control">
+        <select class="form-control" formControlName="FCaccOnOff">
           <option selected>On and off the job</option>
           <option> Off the job only</option>
           <option>Both</option>
         </select>
       
       </div>
-      <app-radio-button></app-radio-button>
+      <div class="radio-button">
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+            formControlName="FCaccRateLevel_Action" />
+          <label class="radio-label"> Always Override</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+            value="Update if Blank" formControlName="FCaccRateLevel_Action" />
+          <label class="radio-label">Update if Blank</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+            formControlName="FCaccRateLevel_Action" />
+          <label class="radio-label">Validate</label></div>
+      </div>
       <div class="col-4 mb-2">
   
         <span class="label">
           Accident Rate Level
         </span>
-        <select class="form-control">
+        <select class="form-control" formControlName="FCaccRateLevel">
           <option selected value="option">1</option>
           <option value="option">2</option>
           <option value="option">3</option>
@@ -47,7 +88,7 @@
       
     </div>
     <app-agent-setup></app-agent-setup>
-      
+  </form>  
 </div>
 
 
