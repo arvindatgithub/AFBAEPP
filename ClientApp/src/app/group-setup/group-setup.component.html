@@ -28,7 +28,7 @@
   <div class="row">
     <div class="form-group col-md-3">
       <span class="label label-default">Group Number</span>
-      <input type="number"  maxlength="5" class="form-control mb-2" [(ngModel)]="groupNumber" style="width: 100%;"
+      <input type="text"  maxlength="5" class="form-control mb-2" [(ngModel)]="groupNumber" style="width: 100%;"
         placeholder="Group Number Field">
     </div>
     <div class="form-group col-md-3">
@@ -43,10 +43,9 @@
     </div>
     <div class="form-group col-md-3">
       <span class="label label-default">Group Payment Mode</span>
-      <select class="select-dropdown" #paymentMode (change)="getLookupValuePaymentMode(paymentMode.value)"
-        [value]="lookUpDataPaymentModes[5]">
+      <select class="select-dropdown" #paymentMode (change)="getLookupValuePaymentMode(paymentMode.value)">
         <!-- <option hidden disabled selected value> -- select a Payment Mode -- </option> -->
-        <option *ngFor="let lookUpDataPaymentMode of lookUpDataPaymentModes">{{lookUpDataPaymentMode}}</option>
+        <option *ngFor="let each of paymentModes">{{each.grpPymntMdNm}}</option>
       </select>
     </div>
   </div>

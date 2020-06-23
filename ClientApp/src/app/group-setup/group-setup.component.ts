@@ -49,7 +49,7 @@ export class GroupSetupComponent implements OnInit {
   groupName: string = "";
   grpEfftvDate;
   grpPymn: string;
-
+  paymentModes: any;
   occClass: any = [{
     occupation: 1,
     id: 1
@@ -165,6 +165,10 @@ export class GroupSetupComponent implements OnInit {
     //   this.eppData = (data);
 
     // });
+    this.lookupService.getPaymentMode().subscribe((data:any) => {
+      this.paymentModes = data;
+    });
+
     this.eppcreategroupservice.getepp().subscribe((data: any) => {
       console.log("radioBUttonData",data)
       this.eppgetwhole = data;
@@ -222,6 +226,7 @@ export class GroupSetupComponent implements OnInit {
   }
 
   getLookupValuePaymentMode(value: any) {
+    console.log('payment mode '+ value);
     this.lookupPaymentMethodvalue = value;
     this.grpPymn = value;
   }
@@ -271,7 +276,7 @@ export class GroupSetupComponent implements OnInit {
       grpNbr: this.groupNumber.toString(),
       grpNm: this.groupName,
       grpEfftvDt: this.dateChange,
-       grpPymn: parseInt(this.grpPymn.slice(0,2)),
+       grpPymn: parseInt(this.grpPymn),
      // grpPymn: "10001",
       //actvFlg: this.checkedToggle,
       "actvFlg": "false",
