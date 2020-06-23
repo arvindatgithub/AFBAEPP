@@ -43,9 +43,9 @@
     </div>
     <div class="form-group col-md-3">
       <span class="label label-default">Group Payment Mode</span>
-      <select class="select-dropdown" #paymentMode (change)="getLookupValuePaymentMode(paymentMode.value)">
+      <select class="select-dropdown" #paymentMode (change)="getLookupValuePaymentMode($event.target.value)">
         <!-- <option hidden disabled selected value> -- select a Payment Mode -- </option> -->
-        <option *ngFor="let each of paymentModes">{{each.grpPymntMdNm}}</option>
+        <option *ngFor="let each of paymentModes" value="{{each.grpPymn}}">{{each.grpPymntMdNm}}</option>
       </select>
     </div>
   </div>

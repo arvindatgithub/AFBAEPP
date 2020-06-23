@@ -226,7 +226,7 @@ export class GroupSetupComponent implements OnInit {
   }
 
   getLookupValuePaymentMode(value: any) {
-    console.log('payment mode '+ value);
+    console.log('payment mode '+ JSON.stringify(value));
     this.lookupPaymentMethodvalue = value;
     this.grpPymn = value;
   }
