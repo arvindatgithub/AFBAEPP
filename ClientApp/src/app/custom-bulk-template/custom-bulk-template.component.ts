@@ -104,7 +104,9 @@ export class CustomBulkTemplateComponent implements OnInit {
     }
     console.log('object' + JSON.stringify(tempObj));
     excelFields[0]=tempObj;
-    this.excelService.exportExcel(excelFields, this.grpNum+'_'+this.selectedProduct);
+    let todayDate = new Date().toISOString().slice(0,10);
+    todayDate = todayDate.slice(0,4)+ todayDate.slice(5,7)+todayDate.slice(8,10);
+    this.excelService.exportExcel(excelFields, this.grpNum+'Enrollment_'+this.selectedProduct+'_'+todayDate);
 
   }
 
