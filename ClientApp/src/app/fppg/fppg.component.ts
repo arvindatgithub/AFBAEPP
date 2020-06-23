@@ -67,7 +67,11 @@ ngOnChanges(simpleChange:SimpleChanges){
       FCfppgOpenEnrollGI_Action: ['', Validators.required],
       FCfppgPlanCodeManualEntry_Action: ['', Validators.required],
       FCfppgQolRiders_Action: ['', Validators.required],
+<<<<<<< HEAD
       FCfppgWaiver_Action: ['', Validators.required]
+=======
+      FCfppgWaiver_Action: ['', Validators.required],
+>>>>>>> harsh-ClientApp
     });
  
   }

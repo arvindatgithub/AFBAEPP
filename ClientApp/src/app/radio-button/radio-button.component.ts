@@ -9,8 +9,9 @@ import { EppCreateGrpSetupService } from '../services/epp-create-grp-setup.servi
 export class RadioButtonComponent implements OnInit {
   @Input()
   lookupValue: any;
-  favoriteSeason: string;
+  
   radiobuttonFormGrp: FormGroup;
+<<<<<<< HEAD
   radioButtons:string[]= ['Always Override','Update if Blank', 'Validate']
   seasons = 
     {
@@ -23,20 +24,19 @@ export class RadioButtonComponent implements OnInit {
       //   value:this.radioButtons
       // }
     }
+=======
+  
+>>>>>>> harsh-ClientApp
     
   constructor(private fb:FormBuilder,private eppsercive: EppCreateGrpSetupService) { 
     
   }
 
   ngOnInit() {
-    this.radiobuttonFormGrp = this.fb.group({
-      FCRadioButton: [this.favoriteSeason ,Validators.required],
-    });
+    // this.radiobuttonFormGrp = this.fb.group({
+    //   FCRadioButton: [this.favoriteSeason ,Validators.required],
+    // });
   }
-  onRadioButtonSelect(event:any, index){
-     this.favoriteSeason = event.target.value;
-     console.log(event, index)
   
-  }
 
 }

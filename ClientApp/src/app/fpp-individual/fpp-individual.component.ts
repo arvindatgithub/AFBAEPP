@@ -36,6 +36,7 @@ export class FPPIndividualComponent implements OnInit {
       console.log("data", data);
       this.lookUpDataSitusStates = (data.situsState);
     });
+<<<<<<< HEAD
 
     this.fppiformgrp = this.fb.group({
       FCfppiEffectiveDate: ["",Validators.required],
@@ -63,6 +64,9 @@ export class FPPIndividualComponent implements OnInit {
       FCfppiWaiver_Action: ["",Validators.required],
       FCfppiWaiver: ["",Validators.required],
     });
+=======
+    
+>>>>>>> harsh-ClientApp
   }
  
   onItemChange(value){

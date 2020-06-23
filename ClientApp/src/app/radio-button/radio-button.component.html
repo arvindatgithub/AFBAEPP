@@ -1,22 +1,3 @@
 
-<form >
-    <div class="form-check" *ngFor="let season of seasons.effectiveDate.value; let index=index">
-        <input #effDate class="form-check-input" value="{{season}}" name="season" type="radio" 
-        (change)="onRadioButtonSelect($event,index)"  >
-        <label class="form-check-label"  >
-            {{season}}
-        </label> 
-    </div>
-</form>
+
   
-
-
-  <!-- <mat-radio-group
-  aria-labelledby="radio-group-label"
-  class="radio-group"
-  [(ngModel)]="favoriteSeason">
-  <mat-radio-button class="radio-button" *ngFor="let season of seasons" [value]="season">
-    {{season}}
-  </mat-radio-button>
-</mat-radio-group> -->
-<!-- <div>Your favorite season is: {{favoriteSeason}}</div> -->
