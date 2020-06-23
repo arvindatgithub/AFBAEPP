@@ -110,8 +110,9 @@ namespace AFBA.EPP.Controllers
                 }
                 else
                 {
+                    groupSetupModel.EnrlmntPrtnrsId = Helper.GetRandomNumber();
                     _unitofWork.eppEnrlmntPrtnrsRepository.Add(new EppEnrlmntPrtnrs { 
-                          EnrlmntPrtnrsId= Helper.GetRandomNumber(),
+                          EnrlmntPrtnrsId= groupSetupModel.EnrlmntPrtnrsId,
                           CrtdBy="",
                           EmlAddrss= groupSetupModel.EmlAddrss,
                           EnrlmntPrtnrsNm= groupSetupModel.EnrlmntPrtnrsNm

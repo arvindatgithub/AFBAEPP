@@ -116,10 +116,10 @@ namespace AFBA.EPP.ViewModels
             {
                 return new List<PaymentMode>
                 {
-                        new  PaymentMode{ PaymentCode= "01", PaymentDescription="annual" },
-                        new  PaymentMode{ PaymentCode= "02", PaymentDescription="semi-annual" },
-                        new  PaymentMode{ PaymentCode= "04", PaymentDescription="quarterly" },
-                        new  PaymentMode{ PaymentCode= "08", PaymentDescription="eight times per year, skips four calendar months" },
+                        new  PaymentMode{ PaymentCode= "1", PaymentDescription="annual" },
+                        new  PaymentMode{ PaymentCode= "2", PaymentDescription="semi-annual" },
+                        new  PaymentMode{ PaymentCode= "4", PaymentDescription="quarterly" },
+                        new  PaymentMode{ PaymentCode= "8", PaymentDescription="eight times per year, skips four calendar months" },
                         new  PaymentMode{ PaymentCode= "10", PaymentDescription="every 37 days for odd months, 36 days for even months, or tenthly, ten times per year, skips two calendar months" },
                         new  PaymentMode{ PaymentCode= "12", PaymentDescription="monthly" },
                         new  PaymentMode{ PaymentCode= "13", PaymentDescription="every four weeks" },
