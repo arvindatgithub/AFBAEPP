@@ -1,46 +1,21 @@
 <div class="container">
 
-<<<<<<< HEAD
-  <form [formGroup]="fppiformgrp" class="ml-3">
-
-=======
   <form class="ml-3">
->>>>>>> harsh-ClientApp
    
-      <div class="row" style="justify-content:space-evenly;margin-right: 7%;">
-        <div class="radio-button">
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-              formControlName="FCfppiEffectiveDate_Action" />
-            <label class="radio-label"> Always Override</label></div>
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-              value="Update if Blank" formControlName="FCfppiEffectiveDate_Action" />
-            <label class="radio-label">Update if Blank</label></div>
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-              formControlName="FCfppiEffectiveDate_Action" />
-            <label class="radio-label">Validate</label></div>
-        </div>
+      <div class="row">
+        <app-radio-button></app-radio-button>
         <div class="col-3">
           <span class="label label-default">Group Effective Date</span>
-          <input type="date" [value]="dateValue" formControlName = "FCfppiEffectiveDate" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
+          <input type="date" [value]="dateValue" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
             placeholder="Group Effective Date">
 
         </div>
-        <div class="radio-button">
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-              formControlName="FCfppiAgentSign_Action" />
-            <label class="radio-label"> Always Override</label></div>
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-              value="Update if Blank" formControlName="FCfppiAgentSign_Action" />
-            <label class="radio-label">Update if Blank</label></div>
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-              formControlName="FCfppiAgentSign_Action" />
-            <label class="radio-label">Validate</label></div>
-        </div>
+        <app-radio-button></app-radio-button>
         <div class="col-3">
           <span class="label label-default">Agent Signature</span>
-          <input type="text" class="form-control mb-2 "  formControlName = "FCfppiAgentSign" style="width: 100%;" placeholder="Agent Signature">
+          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Agent Signature">
         </div>
-        <div class="mt-4">
+        <div class="col-3 mt-4">
           <button class="btn btn-primary" type="submit">Reset Form </button>
         </div>
       </div>
@@ -48,24 +23,14 @@
 
   
 
-      <div class="row" style="justify-content:space-evenly;margin-right: 7%;">
+      <div class="row">
 
-        <div class="radio-button">
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-              formControlName="FCfppiEmpAmtMax_Action" />
-            <label class="radio-label"> Always Override</label></div>
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-              value="Update if Blank" formControlName="FCfppiEmpAmtMax_Action" />
-            <label class="radio-label">Update if Blank</label></div>
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-              formControlName="FCfppiEmpAmtMax_Action" />
-            <label class="radio-label">Validate</label></div>
-        </div>
+        <app-radio-button></app-radio-button>
         <div class="col-3">
 
           <span class="label label-default">Employee GI Amount Max</span>
 
-          <input type="text" class="form-control mb-2 " formControlName="FCfppiEmpGIAmtMax" style="width: 100%;" placeholder="Employee GI Amount Max">
+          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Employee GI Amount Max">
         </div>
 
 
@@ -73,40 +38,30 @@
         <div class="col-3">
           <span class="label label-default">Employee QI Amount Max</span>
 
-          <input type="text" class="form-control mb-2 " formControlName="FCfppiEmpQIAmtMax" style="width: 100%;" placeholder="Employee QI Amount Max">
+          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Employee QI Amount Max">
         </div>
         <div class="col-3">
           <span class="label label-default">Employee Max Amount</span>
-          <input type="text" class="form-control mb-2 " formControlName="FCfppiEmpAmtMax" style="width: 100%;" placeholder="Employee Max Amount">
+          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Employee Max Amount">
         </div>
       
       </div>
 
-      <div class="row mt-2" style="justify-content:space-evenly;margin-right: 7%;">
-        <div class="radio-button">
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-              formControlName="FCfppiSpouseAmtMax_Action" />
-            <label class="radio-label"> Always Override</label></div>
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-              value="Update if Blank" formControlName="FCfppiSpouseAmtMax_Action" />
-            <label class="radio-label">Update if Blank</label></div>
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-              formControlName="FCfppiSpouseAmtMax_Action" />
-            <label class="radio-label">Validate</label></div>
-        </div>
+      <div class="row mt-2">
+        <app-radio-button></app-radio-button>
         <div class="col-3">
           <span class="label label-default">Spouse GI Amount Max</span>
 
-          <input type="text" class="form-control mb-2 " formControlName="FCfppiSpouseGIAmtMax" style="width: 100%;" placeholder="Spouse GI Amount Max
+          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse GI Amount Max
             ">
         </div>
         <div class="col-3">
           <span class="label label-default">Spouse QI Amount Max</span>
-          <input type="text" class="form-control mb-2 " formControlName="FCfppiSpouseQIAmtMax" style="width: 100%;" placeholder="Spouse QI Amount Max">
+          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse QI Amount Max">
         </div>
         <div class="col-3">
           <span class="label label-default">Spouse Max Amount</span>
-          <input type="text" class="form-control mb-2 " formControlName="FCfppiSpouseMaxAmt" style="width: 100%;" placeholder="Spouse Max Amount">
+          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse Max Amount">
         </div>
 
       </div>
@@ -114,124 +69,63 @@
 
 
 
-      <div class="row mt-2" style="justify-content:space-evenly;">
-        <div class="radio-button">
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-              formControlName="FCfppiOpenEnrollGI_Action" />
-            <label class="radio-label"> Always Override</label></div>
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-              value="Update if Blank" formControlName="FCfppiOpenEnrollGI_Action" />
-            <label class="radio-label">Update if Blank</label></div>
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-              formControlName="FCfppiOpenEnrollGI_Action" />
-            <label class="radio-label">Validate</label></div>
-        </div>
+      <div class="row mt-2">
+        <app-radio-button></app-radio-button>
         <div class="col-4">
 
           <span class="label label-default">Open Enrollment GI</span>
-          <input type="text" class="form-control mb-2 " formControlName="FCfppiOpenEnrollGI" style="width: 100%;" placeholder="Open Enrollment GI">
+          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Open Enrollment GI">
         </div>
 
-        <div class="radio-button">
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-              formControlName="FCfppiPlanCodeManualEntry_Action" />
-            <label class="radio-label"> Always Override</label></div>
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-              value="Update if Blank" formControlName="FCfppiPlanCodeManualEntry_Action" />
-            <label class="radio-label">Update if Blank</label></div>
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-              formControlName="FCfppiPlanCodeManualEntry_Action" />
-            <label class="radio-label">Validate</label></div>
-        </div>
+        <app-radio-button></app-radio-button>
         <div class="col-4">
           <span class="label label-default">Plan code manual Entry</span>
-          <input type="text" class="form-control mb-2 " formControlName="FCfppiPlanCodeManualEntry" style="width: 100%;" placeholder="Plan code manual Entry">
+          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Plan code manual Entry">
         </div>
 
       </div>
 
-      <div class="row mt-2" style="justify-content:space-evenly;">
-        <div class="radio-button">
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-              formControlName="FCfppiUserToken_Action" />
-            <label class="radio-label"> Always Override</label></div>
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-              value="Update if Blank" formControlName="FCfppiUserToken_Action" />
-            <label class="radio-label">Update if Blank</label></div>
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-              formControlName="FCfppiUserToken_Action" />
-            <label class="radio-label">Validate</label></div>
-        </div>
+      <div class="row mt-2">
+        <app-radio-button></app-radio-button>
         <div class="col-4">
 
           <span class="label label-default">User Token</span>
-          <input type="text" class="form-control mb-2 " formControlName="FCfppiUserToken" style="width: 100%;" placeholder="User Token">
+          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="User Token">
         </div>
 
-        <div class="radio-button">
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-              formControlName="FCfppiCaseToken_Action" />
-            <label class="radio-label"> Always Override</label></div>
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-              value="Update if Blank" formControlName="FCfppiCaseToken_Action" />
-            <label class="radio-label">Update if Blank</label></div>
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-              formControlName="FCfppiCaseToken_Action" />
-            <label class="radio-label">Validate</label></div>
-        </div>
+        <app-radio-button></app-radio-button>
         <div class="col-4">
           <span class="label label-default">Case Token</span>
-          <input type="text" class="form-control mb-2 " formControlName="FCfppiCaseToken" style="width: 100%;" placeholder="Case Token">
+          <input type="text" class="form-control mb-2 " style="width: 100%;" placeholder="Case Token">
         </div>
 
       </div>
 
-      <div class="row pt-2 pl-4">
+      <div class="row pt-2">
         <h6>
           Riders
         </h6>
       </div>
-      <div class="row mt-2" style="justify-content:space-evenly;">
-        <div class="radio-button">
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-              formControlName="FCfppiQolRiders_Action" />
-            <label class="radio-label"> Always Override</label></div>
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-              value="Update if Blank" formControlName="FCfppiQolRiders_Action" />
-            <label class="radio-label">Update if Blank</label></div>
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-              formControlName="FCfppiQolRiders_Action" />
-            <label class="radio-label">Validate</label></div>
-        </div>
-        <div class="col-4">
-          <div class="row" style="justify-content:space-evenly;">
+      <div class="row mt-2">
+        <div class="col-md-6">
+          <div class="row">
             <div class="col" style="margin-left: -16px;">
-              
+              <app-radio-button></app-radio-button>
             </div>
             <div class="col" style="justify-content:flex-start;margin-right: 170px;
             margin-top: 24px;">
-              <mat-checkbox class="margin" [(ngModel)]="checked" formControlName="FCfppiQolRiders" name="Qol">QOL Rider</mat-checkbox>
+              <mat-checkbox class="margin" [(ngModel)]="checked" name="Qol">QOL Rider</mat-checkbox>
             </div>
           </div>
         </div>
-        <div class="radio-button">
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-              formControlName="FCfppiWaiver_Action" />
-            <label class="radio-label"> Always Override</label></div>
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-              value="Update if Blank" formControlName="FCfppiWaiver_Action" />
-            <label class="radio-label">Update if Blank</label></div>
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-              formControlName="FCfppiWaiver_Action" />
-            <label class="radio-label">Validate</label></div>
-        </div>
-        <div class="col-4">
-          <div class="row" style="justify-content:space-evenly;">
+        <div class="col-md-6">
+          <div class="row">
             <div class="col" style="margin-left: -147px;">
-             
+              <app-radio-button></app-radio-button>
             </div>
-            <div class="col" style="margin-top: 24px;">
-              <mat-checkbox class="margin" formControlName="FCfppiWaiver" [(ngModel)]="indeterminate" name="Waiver">Waiver</mat-checkbox>
+            <div class="col" style="margin-right: 170px;
+          margin-top: 24px;">
+              <mat-checkbox class="margin" [(ngModel)]="indeterminate" name="Waiver">Waiver</mat-checkbox>
             </div>
           </div>
         </div>
@@ -245,4 +139,4 @@
     </div>
 
   </form>
-  </div>
+  </div>z
