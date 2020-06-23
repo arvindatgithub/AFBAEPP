@@ -36,6 +36,33 @@ export class FPPIndividualComponent implements OnInit {
       console.log("data", data);
       this.lookUpDataSitusStates = (data.situsState);
     });
+
+    this.fppiformgrp = this.fb.group({
+      FCfppiEffectiveDate: ["",Validators.required],
+      FCfppiEffectiveDate_Action: ["",Validators.required],
+      FCfppiAgentSign: ["",Validators.required],
+      FCfppiAgentSign_Action: ["",Validators.required],
+      FCfppiEmpGIAmtMax: ["",Validators.required],
+      FCfppiEmpAmtMax_Action: ["",Validators.required],
+      FCfppiEmpQIAmtMax: ["",Validators.required],
+      FCfppiEmpAmtMax: ["",Validators.required],
+      FCfppiSpouseGIAmtMax: ["",Validators.required],
+      FCfppiSpouseQIAmtMax: ["",Validators.required],
+      FCfppiSpouseMaxAmt: ["",Validators.required],
+      FCfppiSpouseAmtMax_Action: ["",Validators.required],
+      FCfppiOpenEnrollGI: ["",Validators.required],
+      FCfppiOpenEnrollGI_Action: ["",Validators.required],
+      FCfppiPlanCodeManualEntry_Action: ["",Validators.required],
+      FCfppiPlanCodeManualEntry: ["",Validators.required],
+      FCfppiUserToken: ["",Validators.required],
+      FCfppiUserToken_Action: ["",Validators.required],
+      FCfppiCaseToken: ["",Validators.required],
+      FCfppiCaseToken_Action: ["",Validators.required],
+      FCfppiQolRiders: ["",Validators.required],
+      FCfppiQolRiders_Action: ["",Validators.required],
+      FCfppiWaiver_Action: ["",Validators.required],
+      FCfppiWaiver: ["",Validators.required],
+    });
   }
  
   onItemChange(value){
