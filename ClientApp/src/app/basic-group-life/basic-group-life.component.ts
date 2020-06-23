@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { LookupService } from '../services/lookup.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-basic-group-life',
   templateUrl: './basic-group-life.component.html',
@@ -20,9 +21,15 @@ export class BasicGroupLifeComponent implements OnInit {
   disabled = false;
   public minDate = new Date().toISOString().slice(0,10);
 
-  constructor(private lookupService: LookupService, private fb:FormBuilder) {
+  latest_date;
+  constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe) {
   }
 
+  ngOnChanges(simpleChange:SimpleChanges){
+    console.log("simpleChange",simpleChange);
+    this.latest_date = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+  }
+  
   ngOnInit() {
     this.lookupService.getLookupsData()
       .subscribe((data: any) => {
@@ -33,9 +40,9 @@ export class BasicGroupLifeComponent implements OnInit {
 
       this.basicGrpLfformgrp = this.fb.group({
         FCbasicEffectiveDate_Action: ["",Validators.required],
-        FCbasicEffectiveDate: [this.lookupValue,Validators.required],
+        FCbasicEffectiveDate: [this.dateValue,Validators.required],
         FCbasicSitusState_Action: ["",Validators.required],
-        FCbasicSitusState: ["",Validators.required],
+        FCbasicSitusState: [this.lookupValue,Validators.required],
         FCbasicEmpFcAmt_Action: ["",Validators.required],
         FCbasicEmpFcAmt: ["",Validators.required],
         FCbasicADDRider_Action: ["",Validators.required],
