@@ -11,22 +11,7 @@ export class RadioButtonComponent implements OnInit {
   lookupValue: any;
   
   radiobuttonFormGrp: FormGroup;
-<<<<<<< HEAD
-  radioButtons:string[]= ['Always Override','Update if Blank', 'Validate']
-  seasons = 
-    {
-      effectiveDate:{
-        id: "effective_Date",
-        value: this.radioButtons
-      },
-      // situs_state:{
-      //   id:"situs_state",
-      //   value:this.radioButtons
-      // }
-    }
-=======
   
->>>>>>> harsh-ClientApp
     
   constructor(private fb:FormBuilder,private eppsercive: EppCreateGrpSetupService) { 
     
