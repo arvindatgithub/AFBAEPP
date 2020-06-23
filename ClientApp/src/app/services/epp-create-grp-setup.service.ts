@@ -21,8 +21,9 @@ export class EppCreateGrpSetupService {
   getEppData(value:any){
      this.eppData.next(value);
   }
-  // sendEppDataToGroupSearch(){
-  //   return this.eppData;
-  // }
+  getepp(){
+    const eppCreateURL = environment.apiurl + 'GroupSetup/grpNbr/12345';
+    return this.http.get(eppCreateURL);
+  }
 }
 

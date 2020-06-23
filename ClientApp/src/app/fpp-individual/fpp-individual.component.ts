@@ -34,6 +34,7 @@ export class FPPIndividualComponent implements OnInit {
       console.log("data", data);
       this.lookUpDataSitusStates = (data.situsState);
     });
+    
   }
  
 }

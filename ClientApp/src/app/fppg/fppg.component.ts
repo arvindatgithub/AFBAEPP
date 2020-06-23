@@ -60,6 +60,14 @@ ngOnChanges(simpleChange:SimpleChanges){
       FCfppgPlanCodeManualEntry: ["",Validators.required],
       FCfppgQolRiders: ["",Validators.required],
       FCfppgWaiver:["",Validators.required],
+      FCfppgEffectiveDate_Action: ['', Validators.required],
+      FCfppgSitusState_Action:  ['', Validators.required],
+      FCfppgEmpAmtMax_Action: ['', Validators.required],
+      FCfppgSpouseAmtMax_Action: ['', Validators.required],
+      FCfppgOpenEnrollGI_Action: ['', Validators.required],
+      FCfppgPlanCodeManualEntry_Action: ['', Validators.required],
+      FCfppgQolRiders_Action: ['', Validators.required],
+      FCfppgWaiver_Action: ['', Validators.required],
     });
  
   }
@@ -68,6 +76,8 @@ ngOnChanges(simpleChange:SimpleChanges){
   console.log("agentcomponenet",agentcomponenet)
   }
 
-  
+  onItemChange(value){
+    console.log(" Value is : ", value );
+ }
 
 }

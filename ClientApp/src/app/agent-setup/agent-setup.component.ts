@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, OnChanges } from '@angular/core';
 import { EppCreateGrpSetupService } from '../services/epp-create-grp-setup.service';
+import { FormGroup,Validators, FormBuilder } from '@angular/forms';
 
 
 @Component({
@@ -9,14 +10,15 @@ import { EppCreateGrpSetupService } from '../services/epp-create-grp-setup.servi
 })
 export class AgentSetupComponent implements OnInit, OnChanges {
   text: string = "";
-  textValue:any 
-  constructor(private eppservice:EppCreateGrpSetupService) { }
+  agentformgrp:FormGroup;
+
+  constructor(private eppservice:EppCreateGrpSetupService, private fb: FormBuilder) { }
   ngOnChanges(){
     
   }
 
   ngOnInit() {
-    this.textValue = this.text
+    
   }
 
 }
