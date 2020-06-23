@@ -26,7 +26,7 @@ export class GroupSetupComponent implements OnInit {
   titleName: string = "";
   selectedOption = [];
   accident: string = "";
-  checkedToggle: string = "Inactive";
+  checkedToggle: string = "Active";
   checkedToggleProduct: string = "Inactive";
   toggleActiveColor: ThemePalette = "primary";
   groupNumber: string = "";
