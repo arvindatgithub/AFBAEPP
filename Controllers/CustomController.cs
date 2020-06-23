@@ -68,17 +68,22 @@ namespace AFBA.EPP.Controllers
             try
             {
                 var grpprdct = _unitofWork.eppGrpprdctRepository.GetEppGrpprdct(grpNbr, productId);
-             //   if (grpprdct == null) return NotFound("Not available");
+                //   if (grpprdct == null) return NotFound("Not available");
                 // 
-                var eppPrdctattrbt = _unitofWork.eppPrdctattrbtRepository.GetEppPrdctattrbts(grpprdct.GrpprdctId);
-               // if (eppPrdctattrbt.Count == 0) ;
-                //Get  the data
 
                 EppTemplateViewModel lstEppTemplateViewModel = new EppTemplateViewModel
                 {
                     AvailableList = new List<EppAttrFieldViewModel>(),
                     SelectedList = new List<EppAttrFieldViewModel>()
                 };
+
+                var eppPrdctattrbt = _unitofWork.eppPrdctattrbtRepository.GetEppPrdctattrbts(grpprdct.GrpprdctId);
+                if (eppPrdctattrbt.Count == 0) 
+                { lstEppTemplateViewModel.isEdit = false; } 
+                else { lstEppTemplateViewModel.isEdit = true; }
+                //Get  the data
+
+
 
                 lstEppTemplateViewModel.AvailableList = Helper.EppGetAvailableFields(_unitofWork).ToList();
                 IList<EppAttrFieldViewModel> eppAttrFields = new List<EppAttrFieldViewModel>();
