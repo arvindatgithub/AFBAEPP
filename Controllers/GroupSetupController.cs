@@ -27,6 +27,10 @@ namespace AFBA.EPP.Controllers
             _unitofWork = unitofWork;
         }
 
+//        If QOL is selected, then enter the 3 digit code 070 given unless the enrollee is over age 66 then make blank
+//If WOP is selected, then enter the 3 digit code 020 given unless the enrollee is over age 56 then make blank
+
+
         [Route("[action]")]
         [HttpGet]
         public IEnumerable<GroupSearchViewModel> GetGroupsData()
@@ -134,6 +138,13 @@ namespace AFBA.EPP.Controllers
             {
                 var prdid = Helper.GetProductIdbyName("FPPG", _unitofWork);
                 var grpprdId = Helper.GetRandomNumber();
+
+                AddProductCodes(new ProductCodesViewModel
+                {
+                    ProductCode = groupSetupModel.FPPG.emp_ProductCode,
+                     ProductId= prdid
+                }); 
+
                _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
                 {
                     GrpprdctId= grpprdId,
@@ -142,6 +153,10 @@ namespace AFBA.EPP.Controllers
                      CrtdBy= CrtdBy
 
                });
+
+              //search the product code  and add it
+
+
                 // add bulkupdate 
                 var bulkAttrs = Helper.GetProperties(groupSetupModel.FPPG);
                 AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
@@ -190,6 +205,13 @@ namespace AFBA.EPP.Controllers
             {
                 var prdid = Helper.GetProductIdbyName("ER_CI", _unitofWork);
                 var grpprdId = Helper.GetRandomNumber();
+                AddProductCodes(new ProductCodesViewModel
+                {
+                    ProductCode = groupSetupModel.ER_CI.emp_ProductCode,
+                    ProductId = prdid
+                });
+
+
                 _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
                 {
                     GrpprdctId = grpprdId,
@@ -218,6 +240,11 @@ namespace AFBA.EPP.Controllers
             {
                 var prdid = Helper.GetProductIdbyName("VOL_CI", _unitofWork);
                 var grpprdId = Helper.GetRandomNumber();
+                AddProductCodes(new ProductCodesViewModel
+                {
+                    ProductCode = groupSetupModel.VOL_CI.emp_ProductCode,
+                    ProductId = prdid
+                });
                 _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
                 {
                     GrpprdctId = grpprdId,
@@ -226,6 +253,7 @@ namespace AFBA.EPP.Controllers
                     CrtdBy = CrtdBy
 
                 });
+               
                 var bulkAttrs = Helper.GetProperties(groupSetupModel.VOL_CI);
                 AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
 
@@ -273,6 +301,12 @@ namespace AFBA.EPP.Controllers
             if (groupSetupModel.isBGLActive)
             {
                 var prdid = Helper.GetProductIdbyName("BGL", _unitofWork);
+
+                AddProductCodes(new ProductCodesViewModel
+                {
+                    ProductCode = groupSetupModel.VOL_CI.emp_ProductCode,
+                    ProductId = prdid
+                });
                 var grpprdId = Helper.GetRandomNumber();
                 _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
                 {
@@ -328,7 +362,7 @@ namespace AFBA.EPP.Controllers
                 }
 
             }
-            
+            if (bulkRefTbls.Count>0)
             _unitofWork.eppBulkRefTblRepository.AddRange(bulkRefTbls);
 
 
@@ -622,11 +656,28 @@ namespace AFBA.EPP.Controllers
 
 
         [NonAction]
-
         private void LoadProductBulkRefData(long GrpprdctId)
         {
            var blkData= _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == GrpprdctId).Result;
         }
 
+
+        [NonAction]
+        private void AddProductCodes(ProductCodesViewModel productCodesView)
+        {
+            var isAvail=_unitofWork.eppProductCodesRepository.SingleOrDefault(x => x.ProductCode == productCodesView.ProductCode && x.ProductId == productCodesView.ProductId).Result;
+            if(isAvail == null)
+            {
+                _unitofWork.eppProductCodesRepository.Add(new EppProductCodes
+                {
+                     ProdctCdId=Helper.GetRandomNumber(),
+                     ProductCode= productCodesView.ProductCode,
+                     ProductId= productCodesView.ProductId,
+                     CrtdBy=""
+                });
+            }
+
+
+        }
     }
 }

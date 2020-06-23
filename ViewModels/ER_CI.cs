@@ -19,6 +19,16 @@ namespace AFBA.EPP.ViewModels
         public string sp_face_amt_mon_bnft_action { get; set; }
 
 
+        public string emp_ProductCode { get; set; }
+        public string sp_ProductCode { get; set; }
+        public string ch_ProductCode { get; set; }
+
+        public string emp_ProductCode_action { get; set; }
+        public string sp_ProductCode_action { get; set; }
+        public string ch_ProductCode_action { get; set; }
+        public string emp_ad_bnft { get; set; }
+        public string emp_ad_bnft_action{ get; set; }
+        public string sp_ad_bnft { get; set; }
         public string agnt_cd_1 { get; set; }
         public string agnt_nm { get; set; }
         public Int32 agnt_comm_split_1 { get; set; }
