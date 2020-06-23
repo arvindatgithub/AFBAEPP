@@ -53,7 +53,7 @@ namespace AFBA.EPP.Controllers
             {
                 GrpPymn = d.GrpPymn,
                 GrpPymntMdCd = d.GrpPymntMdCd,
-                GrpPymntMdNm = d.GrpPymntMdCd + "-" +d.GrpPymntMdNm
+                GrpPymntMdNm = d.GrpPymntMdCd + " - " +d.GrpPymntMdNm
             }).ToList();
         }
 

@@ -65,11 +65,11 @@ export class CustomBulkTemplateComponent implements OnInit {
       }, err => {
         console.log("error occurred " + err.status);
         this.editFlag = false;
-        this.customattributeService.getProductFields(productNm).subscribe((data) => {
-          console.log('data by products' + JSON.stringify(data));
-          this.fieldsByPrdt = data;
-          this.availableFields = this.fieldsByPrdt.availableList;
-          this.selectedFields = this.fieldsByPrdt.selectedList;
+        //this.customattributeService.getProductFields(productNm).subscribe((data) => {
+        //  console.log('data by products' + JSON.stringify(data));
+        //  this.fieldsByPrdt = data;
+        //  this.availableFields = this.fieldsByPrdt.availableList;
+        //  this.selectedFields = this.fieldsByPrdt.selectedList;
         });
       }
 

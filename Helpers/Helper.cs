@@ -12,6 +12,8 @@ using System.Security.Cryptography;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using Microsoft.AspNetCore.Mvc.DataAnnotations;
 
 namespace AFBA.EPP.Helpers
 {
@@ -78,7 +80,11 @@ namespace AFBA.EPP.Helpers
                 SelectedList = new List<EppAttrFieldViewModel>()
             };
 
-            lstEppTemplateViewModel.AvailableList = EppGetAvailableFields(_unitofWork).ToList();
+           var listData = EppGetAvailableFields(_unitofWork);
+            foreach( var data in listData)
+            {
+                lstEppTemplateViewModel.AvailableList.Add(data);
+            }
             
             var enumRoot = root.GetProperty(groupName).EnumerateObject();
                 foreach (var attrName in enumRoot)
@@ -130,19 +136,34 @@ namespace AFBA.EPP.Helpers
         }
 
         public static  IEnumerable<EppAttrFieldViewModel> EppGetAvailableFields(IUnitofWork _unitofWork)
-        {         
-            return _unitofWork.eppAttributeRepository.GetAll().Result.Select(d => new EppAttrFieldViewModel
+        {
+            List<EppAttrFieldViewModel> eppAttrFieldViewModels = new List<EppAttrFieldViewModel>();
+
+            var listData = _unitofWork.eppAttributeRepository.GetAll().Result;
+             foreach( var data in listData)
             {
-                DbAttrNm = d.DbAttrNm,
-                RqdFlg = false,
-            }).ToList().OrderBy(x => x.DbAttrNm);
+                eppAttrFieldViewModels.Add(new EppAttrFieldViewModel
+                {
+                    DbAttrNm= data.DbAttrNm,
+                    RqdFlg = false,
+
+                });
+            }
+            return eppAttrFieldViewModels;
+
+            //return .Select(d => new EppAttrFieldViewModel
+            //{
+            //    DbAttrNm = d.DbAttrNm,
+            //    RqdFlg = false,
+            //}).ToList().OrderBy(x => x.DbAttrNm);
         }
 
 
         public static  long GetRandomNumber()
         {
             var min = 1;
-            var max = 999999999;
+            var max = 99999;
+            var rndnumber = RandomNumberGenerator.GetInt32(min, max) + DateTime.Now.ToString("MMddmmssff");
             return  RandomNumberGenerator.GetInt32(min, max);
         }
 
