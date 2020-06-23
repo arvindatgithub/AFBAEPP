@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { LookupService } from '../services/lookup.service';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-voluntary-ci',
   templateUrl: './voluntary-ci.component.html',
@@ -19,10 +20,15 @@ export class VoluntaryCIComponent implements OnInit {
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
   public minDate = new Date().toISOString().slice(0,10);
+  latest_date;
 
 
+  constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe) { }
 
-  constructor(private lookupService: LookupService, private fb:FormBuilder) { }
+  ngOnChanges(simpleChange:SimpleChanges){
+    console.log("simpleChange",simpleChange);
+    this.latest_date = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+  }
 
   ngOnInit() {
     this.lookupService.getLookupsData()
@@ -33,9 +39,9 @@ export class VoluntaryCIComponent implements OnInit {
     });
 
     this.volCIformgrp = this.fb.group({
-      FCVolCIEffectiveDate: ["",Validators.required],
+      FCVolCIEffectiveDate: [this.dateValue,Validators.required],
       FCVolCIEffectiveDate_Action: [this.lookupValue,Validators.required],
-      FCVolCISitusState: ["",Validators.required],
+      FCVolCISitusState: [this.lookupValue,Validators.required],
       FCVolCISitusState_Action: ["",Validators.required],
       FCVolCIEmpGIAmtMax: ["",Validators.required],
       FCVolCIEmpGIAmtMax_Action: ["",Validators.required],

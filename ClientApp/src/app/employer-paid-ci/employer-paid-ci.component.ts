@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { LookupService } from '../services/lookup.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-employer-paid-ci',
   templateUrl: './employer-paid-ci.component.html',
@@ -19,9 +20,15 @@ export class EmployerPaidCIComponent implements OnInit {
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
   public minDate = new Date().toISOString().slice(0,10);
+  latest_date;
 
-  constructor(private lookupService: LookupService, private fb:FormBuilder) { }
+  constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe) { }
 
+  ngOnChanges(simpleChange:SimpleChanges){
+    console.log("simpleChange",simpleChange);
+    this.latest_date = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+  }
+  
   ngOnInit() {
     this.lookupService.getLookupsData()
     .subscribe((data: any) => {
@@ -31,10 +38,10 @@ export class EmployerPaidCIComponent implements OnInit {
     });
 
     this.empCIformgrp = this.fb.group({
-      FCempCIEffectiveDate: ["",Validators.required],
+      FCempCIEffectiveDate: [this.dateValue,Validators.required],
       FCempCIEffectiveDate_Action: ["",Validators.required],
       FCempCISitusState_Action: ["",Validators.required],
-      FCempCISitusState: ["",Validators.required],
+      FCempCISitusState: [this.lookupValue,Validators.required],
       FCempCISpouseFcAmt: ["",Validators.required],
       FCempCIEmpFcAmt: ["",Validators.required],
       FCempCIEmpFcAmt_Action: ["",Validators.required],

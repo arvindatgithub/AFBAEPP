@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { LookupService } from '../services/lookup.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-accident',
   templateUrl: './accident.component.html',
@@ -19,9 +20,14 @@ export class AccidentComponent implements OnInit {
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
   public minDate = new Date().toISOString().slice(0,10);
+  latest_date;
 
-  constructor(private lookupService: LookupService, private fb:FormBuilder) { }
+  constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe) { }
 
+  ngOnChanges(simpleChange:SimpleChanges){
+    console.log("simpleChange",simpleChange);
+    this.latest_date = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+  }
   ngOnInit() {
     this.lookupService.getLookupsData()
     .subscribe((data: any) => {
@@ -31,8 +37,8 @@ export class AccidentComponent implements OnInit {
     });
     this.accformgrp = this.fb.group({
       FCaccSitusState_Action: ["",Validators.required],
-      FCaccSitusState: ["",Validators.required],
-      FCaccEffectiveDate: ["",Validators.required],
+      FCaccSitusState: [this.lookupValue,Validators.required],
+      FCaccEffectiveDate: [this.dateValue,Validators.required],
       FCaccEffectiveDate_Action: ["",Validators.required],
       FCaccOnOff: ["",Validators.required],
       FCaccOnOff_Action: ["",Validators.required],

@@ -14,7 +14,7 @@
     </div>
     <div class="col-3">
       <span class="label label-default">Group Effective Date</span>
-      <input type="date" [value]="dateValue" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
+      <input type="date"  [(ngModel)]="latest_date" [value]="latest_date" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
         placeholder="Group Effective Date" formControlName="FChospEffectiveDate">
 
     </div>
@@ -48,7 +48,7 @@
 
   <div class="mt-4">
 
-    <app-agent-setup></app-agent-setup>
+    <ng-content></ng-content>
     <div class="mt-4">
       <mat-checkbox class="margin" [(ngModel)]="name">Child Name</mat-checkbox>
       <mat-checkbox class="margin" [(ngModel)]="dob">Child Date of Birth </mat-checkbox>

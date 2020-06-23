@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { LookupService } from '../services/lookup.service';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-fpp-individual',
   templateUrl: './fpp-individual.component.html',
@@ -21,13 +22,18 @@ export class FPPIndividualComponent implements OnInit {
   disabled = false;
   public minDate = new Date().toISOString().slice(0,10);
   situsState:any;
+  latest_date;
   
-  constructor(private lookupService: LookupService, private fb:FormBuilder) {
+  constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe) {
     // this.subscription = this.lookupService.getSitusValue().subscribe((situsValue:string)=>{
     //   this.situsValue = situsValue;
     //   console.log("this.situsValue",this.situsValue);
     // })
    } 
+   ngOnChanges(simpleChange:SimpleChanges){
+    console.log("simpleChange",simpleChange);
+    this.latest_date = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+  }
 
   ngOnInit() {
     this.lookupService.getLookupsData()
@@ -38,7 +44,7 @@ export class FPPIndividualComponent implements OnInit {
     });
 
     this.fppiformgrp = this.fb.group({
-      FCfppiEffectiveDate: ["",Validators.required],
+      FCfppiEffectiveDate: [this.dateValue,Validators.required],
       FCfppiEffectiveDate_Action: ["",Validators.required],
       FCfppiAgentSign: ["",Validators.required],
       FCfppiAgentSign_Action: ["",Validators.required],

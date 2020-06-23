@@ -15,7 +15,7 @@
       </div>
       <div class="col-3">
         <span class="label label-default">Group Effective Date</span>
-        <input type="date" [value]="dateValue"  formControlName="FCVolGrpLfEffectiveDate" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
+        <input type="date"  [(ngModel)]="latest_date" [value]="latest_date"  formControlName="FCVolGrpLfEffectiveDate" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
           placeholder="Group Effective Date">
 
       </div>
@@ -178,7 +178,7 @@
     </div>
 
     <div class="mt-4">
-      <app-agent-setup></app-agent-setup>
+      <ng-content></ng-content>
     </div>
 
   </form>

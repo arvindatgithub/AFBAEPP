@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { LookupService } from '../services/lookup.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-vol-group-life',
   templateUrl: './vol-group-life.component.html',
@@ -19,8 +20,14 @@ export class VolGroupLifeComponent implements OnInit {
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
   public minDate = new Date().toISOString().slice(0,10);
+  latest_date;
+  
+  constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe) { }
 
-  constructor(private lookupService: LookupService, private fb:FormBuilder) { }
+  ngOnChanges(simpleChange:SimpleChanges){
+    console.log("simpleChange",simpleChange);
+    this.latest_date = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+  }
 
   ngOnInit() {
     this.lookupService.getLookupsData()
@@ -30,10 +37,10 @@ export class VolGroupLifeComponent implements OnInit {
       this.lookUpDataSitusStates = data.situsState;
     });
     this.volGrpLfformgrp = this.fb.group({
-      FCVolGrpLfEffectiveDate: ["",Validators.required],
+      FCVolGrpLfEffectiveDate: [this.dateValue,Validators.required],
       FCVolGrpLfEffectiveDate_Action: ["",Validators.required],
       FCVolGrpLfSitusState_Action: ["",Validators.required],
-      FCVolGrpLfSitusState: ["",Validators.required],
+      FCVolGrpLfSitusState: [this.lookupValue,Validators.required],
       FCVolGrpLfEmpAmtMax_Action: ["",Validators.required],
       FCVolGrpLfEmpGIAmtMax: ["",Validators.required],
       FCVolGrpLfEmpAmtMax: ["",Validators.required],
