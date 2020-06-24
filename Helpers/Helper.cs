@@ -139,17 +139,18 @@ namespace AFBA.EPP.Helpers
         {
             List<EppAttrFieldViewModel> eppAttrFieldViewModels = new List<EppAttrFieldViewModel>();
 
-            var listData = _unitofWork.eppAttributeRepository.GetAll().Result;
+            var listData = _unitofWork.eppAttributeRepository.Find( x=> x.DbAttrNm!=null).Result;
              foreach( var data in listData)
             {
                 eppAttrFieldViewModels.Add(new EppAttrFieldViewModel
                 {
+                    AttrId=data.AttrId,
                     DbAttrNm= data.DbAttrNm,
                     RqdFlg = false,
 
                 });
             }
-            return eppAttrFieldViewModels;
+            return eppAttrFieldViewModels.OrderBy(x => x.DbAttrNm);
 
             //return .Select(d => new EppAttrFieldViewModel
             //{
@@ -163,7 +164,7 @@ namespace AFBA.EPP.Helpers
         {
             var min = 1;
             var max = 99999;
-            var rndnumber = RandomNumberGenerator.GetInt32(min, max) + DateTime.Now.ToString("MMddmmssff");
+            var rndnumber = RandomNumberGenerator.GetInt32(min, max) + DateTime.Now.ToString("MMddyyHHmmssffffff");
             return  RandomNumberGenerator.GetInt32(min, max);
         }
 

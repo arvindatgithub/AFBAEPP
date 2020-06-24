@@ -76,39 +76,48 @@ namespace AFBA.EPP.Controllers
                     AvailableList = new List<EppAttrFieldViewModel>(),
                     SelectedList = new List<EppAttrFieldViewModel>()
                 };
-
-                var eppPrdctattrbt = _unitofWork.eppPrdctattrbtRepository.GetEppPrdctattrbts(grpprdct.GrpprdctId);
-                if (eppPrdctattrbt.Count == 0) 
-                { lstEppTemplateViewModel.isEdit = false; } 
-                else { lstEppTemplateViewModel.isEdit = true; }
-                //Get  the data
-
-
-
+                lstEppTemplateViewModel.isEdit = true;
+              
                 lstEppTemplateViewModel.AvailableList = Helper.EppGetAvailableFields(_unitofWork).ToList();
                 IList<EppAttrFieldViewModel> eppAttrFields = new List<EppAttrFieldViewModel>();
-
-                foreach (var item in eppPrdctattrbt)
+                if (grpprdct != null)
                 {
-                    var data = _unitofWork.eppAttributeRepository.Get(item.AttrId).Result;
-                    if (data != null)
+                    var eppPrdctattrbt = _unitofWork.eppPrdctattrbtRepository.GetEppPrdctattrbts(grpprdct.GrpprdctId);
+                    if (eppPrdctattrbt.Count != 0)
+                     lstEppTemplateViewModel.isEdit = true; 
+                   
+                    foreach (var item in eppPrdctattrbt)
                     {
-                        lstEppTemplateViewModel.SelectedList.Add(new EppAttrFieldViewModel
+                        var data = _unitofWork.eppAttributeRepository.Get(item.AttrId).Result;
+                        if (data != null)
                         {
-                            DbAttrNm = data.DbAttrNm,
-                            ClmnOrdr = item.ClmnOrdr,
-                            RqdFlg = item.RqdFlg == 'Y' ? true : false,
-                            GrpprdctId = item.GrpprdctId,
-                            PrdctAttrbtId=item.PrdctAttrbtId,
+                            lstEppTemplateViewModel.SelectedList.Add(new EppAttrFieldViewModel
+                            {
 
-                        });
+                                DbAttrNm = data.DbAttrNm,
+                                ClmnOrdr = item.ClmnOrdr,
+                                RqdFlg = item.RqdFlg == 'Y' ? true : false,
+                                GrpprdctId = item.GrpprdctId,
+                                PrdctAttrbtId = item.PrdctAttrbtId,
+
+
+                            });
+                        }
+                    }
+                    // removing the item from available list
+                    foreach (var item in lstEppTemplateViewModel.SelectedList)
+                    {
+                        var isdata = lstEppTemplateViewModel.AvailableList.Where(x => x.DbAttrNm.Contains(item.DbAttrNm)).FirstOrDefault();
+                        if (isdata != null)
+                        {
+                            lstEppTemplateViewModel.AvailableList.Remove(isdata);
+                        }
+
                     }
                 }
-                // removing the item from available list
-                foreach (var item in lstEppTemplateViewModel.SelectedList)
-                {
-                    lstEppTemplateViewModel.AvailableList.Remove(lstEppTemplateViewModel.AvailableList.FirstOrDefault(x => x.DbAttrNm.Contains(item.DbAttrNm)));
-                }
+
+
+                
                 return Ok(lstEppTemplateViewModel);
             }catch ( Exception ex)
             {
@@ -137,7 +146,8 @@ namespace AFBA.EPP.Controllers
                             GrpprdctId = item.GrpprdctId,
                             ClmnOrdr = item.ClmnOrdr,
                             RqdFlg = item.RqdFlg == true ? 'Y' : 'N',
-                            PrdctAttrbtId = item.PrdctAttrbtId
+                            PrdctAttrbtId = item.PrdctAttrbtId,
+                            CrtdBy = "",
                         });
 
                     }
