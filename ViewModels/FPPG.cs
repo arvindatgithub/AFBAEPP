@@ -14,7 +14,7 @@ namespace AFBA.EPP.ViewModels
         
         public string emp_gi_max_amt { get; set; }
         public string sp_gi_max_amt { get; set; }
-        public string  MyProperty { get; set; }
+       
 
         //public string ch_gi_max_amt { get; set; }
 
