@@ -167,7 +167,7 @@ export class GroupSetupComponent implements OnInit {
   agentCommissionSPlit_2:string;
   agentCommissionSPlit_3:string;
   agent_name:any=""
-
+  paymentModes: any;
   constructor(private eppcreategroupservice: EppCreateGrpSetupService, private _fb: FormBuilder,
     private snackBar: MatSnackBar, private lookupService: LookupService) {
   }
@@ -192,7 +192,10 @@ export class GroupSetupComponent implements OnInit {
     this.lookupService.getPaymentMode().subscribe((data:any) => {
       this.paymentModes = data;
     });
+<<<<<<< HEAD
 
+=======
+>>>>>>> harsh-ClientApp
     this.eppcreategroupservice.getepp().subscribe((data: any) => {
       console.log("radioBUttonData",data)
       this.eppgetwhole = data;

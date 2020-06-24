@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+=======
+import { Component, OnInit, Input ,SimpleChanges, OnChanges} from '@angular/core';
+>>>>>>> harsh-ClientApp
 import { LookupService } from '../services/lookup.service';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -8,7 +12,7 @@ import { DatePipe } from '@angular/common';
   templateUrl: './fpp-individual.component.html',
   styleUrls: ['./fpp-individual.component.css']
 })
-export class FPPIndividualComponent implements OnInit {
+export class FPPIndividualComponent implements OnInit, OnChanges {
   fppiformgrp: FormGroup;
   @Input() lookupValue: any;
   @Input() dateValue: any;
@@ -23,16 +27,25 @@ export class FPPIndividualComponent implements OnInit {
   public minDate = new Date().toISOString().slice(0,10);
   situsState:any;
   latest_date;
+<<<<<<< HEAD
   
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe) {
     // this.subscription = this.lookupService.getSitusValue().subscribe((situsValue:string)=>{
     //   this.situsValue = situsValue;
     //   console.log("this.situsValue",this.situsValue);
     // })
+=======
+  constructor(private lookupService: LookupService, private fb:FormBuilder, public datepipe: DatePipe) {
+    
+>>>>>>> harsh-ClientApp
    } 
    ngOnChanges(simpleChange:SimpleChanges){
     console.log("simpleChange",simpleChange);
     this.latest_date = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+<<<<<<< HEAD
+=======
+    
+>>>>>>> harsh-ClientApp
   }
 
   ngOnInit() {
@@ -69,6 +82,7 @@ export class FPPIndividualComponent implements OnInit {
       FCfppiWaiver_Action: ["",Validators.required],
       FCfppiWaiver: ["",Validators.required],
     });
+    this.fppiformgrp.controls['FCfppSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
   }
  
   onItemChange(value){
