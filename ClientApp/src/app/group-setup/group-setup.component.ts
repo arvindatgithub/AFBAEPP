@@ -26,8 +26,17 @@ export class GroupSetupComponent implements OnInit {
   titleName: string = "";
   selectedOption = [];
   accident: string = "";
-  checkedToggle: string = "Inactive";
-  checkedToggleProduct: string = "Inactive";
+  isChecked = true;
+  isCheckedFppg = true;
+  isCheckedFppInd = true;
+  isCheckedAccident= true;
+  isCheckedHospital= true;
+  isCheckedEmpPaidCi = true;
+  isCheckedVolutaryCi = true;
+  isCheckedVolGrpLife = true;
+  isCheckedBasicGrpLife = true;
+  checkedToggle: string = "Active";
+  checkedToggleProduct: string = "Active";
   toggleActiveColor: ThemePalette = "primary";
   groupNumber: string = "";
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
@@ -49,7 +58,7 @@ export class GroupSetupComponent implements OnInit {
   groupName: string = "";
   grpEfftvDate;
   grpPymn: string;
-
+  sum = 0;
   occClass: any = [{
     occupation: 1,
     id: 1
@@ -138,10 +147,10 @@ export class GroupSetupComponent implements OnInit {
   agentSubCount_1:any = "";
   agentSubCount_2:any = "";
   agentSubCount_3:any = "";
-  agentCommissionSPlit_0:any = "";
-  agentCommissionSPlit_1:any = "";
-  agentCommissionSPlit_2:any = "";
-  agentCommissionSPlit_3:any = "";
+  agentCommissionSPlit_0:string;
+  agentCommissionSPlit_1:string;
+  agentCommissionSPlit_2:string;
+  agentCommissionSPlit_3:string;
   agent_name:any=""
 
   constructor(private eppcreategroupservice: EppCreateGrpSetupService, private _fb: FormBuilder,
@@ -238,25 +247,129 @@ export class GroupSetupComponent implements OnInit {
 
   toggleChange(event: any) {
 
-    if (event.checked) {
+    if (event.checked && this.isChecked) {
       this.checkedToggle = "Active";
+      this.isChecked = event.checked;
+     
     }
     else {
       this.checkedToggle = "Inactive";
+      this.isChecked = event.checked;
+      
     }
 
   }
 
-  toggleChangeProduct(event: any) {
+  toggleChangeProductFppg(event: any) {
 
     if (event.checked) {
       this.checkedToggleProduct = "Active";
+      this.isCheckedFppg = event.checked;
     }
     else {
       this.checkedToggleProduct = "Inactive";
+      this.isCheckedFppg = event.checked;
     }
 
   }
+
+  toggleChangeProductFppIndivisual(event: any) {
+
+    if (event.checked) {
+      this.checkedToggleProduct = "Active";
+      this.isCheckedFppInd = event.checked;
+    }
+    else {
+      this.checkedToggleProduct = "Inactive";
+      this.isCheckedFppInd = event.checked;
+    }
+
+  }
+
+  toggleChangeProductAccident(event: any) {
+
+    if (event.checked) {
+      this.checkedToggleProduct = "Active";
+      this.isCheckedAccident = event.checked;
+    }
+    else {
+      this.checkedToggleProduct = "Inactive";
+      this.isCheckedAccident = event.checked;
+    }
+
+  }
+
+
+  toggleChangeProductHospitalIndemnity(event: any) {
+
+    if (event.checked) {
+      this.checkedToggleProduct = "Active";
+      this.isCheckedHospital = event.checked;
+    }
+    else {
+      this.checkedToggleProduct = "Inactive";
+      this.isCheckedHospital = event.checked;
+    }
+
+  }
+
+
+  toggleChangeProductEmpPaidCi(event: any) {
+
+    if (event.checked) {
+      this.checkedToggleProduct = "Active";
+      this.isCheckedEmpPaidCi = event.checked;
+    }
+    else {
+      this.checkedToggleProduct = "Inactive";
+      this.isCheckedEmpPaidCi = event.checked;
+    }
+
+  }
+
+
+  toggleChangeProductVolCI(event: any) {
+
+    if (event.checked) {
+      this.checkedToggleProduct = "Active";
+      this.isCheckedVolutaryCi = event.checked;
+    }
+    else {
+      this.checkedToggleProduct = "Inactive";
+      this.isCheckedVolutaryCi = event.checked;
+    }
+
+  }
+
+
+
+  toggleChangeProductVilGrpLife(event: any) {
+
+    if (event.checked) {
+      this.checkedToggleProduct = "Active";
+      this.isCheckedVolGrpLife = event.checked;
+    }
+    else {
+      this.checkedToggleProduct = "Inactive";
+      this.isCheckedVolGrpLife = event.checked;
+    }
+
+  }
+
+
+  toggleChangeProductBasicGrpLife(event: any) {
+
+    if (event.checked) {
+      this.checkedToggleProduct = "Active";
+      this.isCheckedBasicGrpLife = event.checked;
+    }
+    else {
+      this.checkedToggleProduct = "Inactive";
+      this.isCheckedBasicGrpLife = event.checked;
+    }
+
+  }
+
 
   occClassChange(value: any) {
     this.occupationArray = value;
@@ -273,8 +386,8 @@ export class GroupSetupComponent implements OnInit {
       grpEfftvDt: this.dateChange,
        grpPymn: parseInt(this.grpPymn.slice(0,2)),
      // grpPymn: "10001",
-      //actvFlg: this.checkedToggle,
-      "actvFlg": "false",
+      actvFlg: "false",
+      // "actvFlg": this.isChecked,
       occClass: parseInt(this.occupationArray),
       grpSitusSt: this.grpSitusState,
       enrlmntPrtnrsNm: this.EnrolmentPatnerName,
@@ -282,7 +395,7 @@ export class GroupSetupComponent implements OnInit {
       emailAddress: this.ManagerEmail,
       acctMgrNm: this.ManegerName,
       "acctMgrCntctId": 0,
-      isFPPGActive: this.fppgActive,
+      isFPPGActive: this.isCheckedFppg,
       "fppg": {
         "grp_nmbr": "string",
         effctv_dt: (new Date(this.fppgComponent.fppgformgrp.value.FCfppgEffectiveDate)).toISOString(),
@@ -301,21 +414,21 @@ export class GroupSetupComponent implements OnInit {
         sp_qi_max_amt_action: "string",
         emp_max_amt_action: "string",
         sp_max_amt_action: "string",
-        agnt_cd_1:this.agentNumber_0,
-        agnt_nm: this.agent_name,
-        agnt_comm_split_1: parseInt(this.agentCommissionSPlit_0),
-        agntsub_1: this.agentSubCount_0,
-        agnt_cd_2: this.agentNumber_1,
-        agnt_comm_split_2: parseInt(this.agentCommissionSPlit_1),
-        agntsub_2: this.agentSubCount_1,
-        agnt_cd_3: this.agentNumber_2,
-        agnt_comm_split_3: parseInt(this.agentCommissionSPlit_2),
-        agntsub_3: this.agentSubCount_2,
-        agnt_cd_4: this.agentNumber_3,
-        agnt_comm_split_4: parseInt(this.agentCommissionSPlit_3),
-        agntsub_4: this.agentSubCount_3,
+        agnt_cd_1:this.agentformgrp.get('AgentNumber').value,
+        agnt_nm: this.agentformgrp.get('AgentName').value,
+        agnt_comm_split_1: parseInt(this.agentformgrp.get('CommissonSplit').value),
+        agntsub_1: this.agentformgrp.get('AgentSubCount').value,
+        agnt_cd_2: this.agentformgrp.get('AgentNumber1').value,
+        agnt_comm_split_2: parseInt(this.agentformgrp.get('CommissonSplit1').value),
+        agntsub_2: this.agentformgrp.get('AgentSubCount1').value,
+        agnt_cd_3: this.agentformgrp.get('AgentNumber2').value,
+        agnt_comm_split_3: parseInt(this.agentformgrp.get('CommissonSplit2').value),
+        agntsub_3: this.agentformgrp.get('AgentSubCount2').value,
+        agnt_cd_4: this.agentformgrp.get('AgentNumber3').value,
+        agnt_comm_split_4: parseInt(this.agentformgrp.get('CommissonSplit3').value),
+        agntsub_4: this.agentformgrp.get('AgentSubCount3').value,
       },
-      "isACC_HIActive": false,
+      "isACC_HIActive": this.isCheckedAccident,
       "acC_HI": {
         "effctv_dt": "2020-06-21T12:03:45.088Z",
         "grp_situs_state": "string",
@@ -337,7 +450,7 @@ export class GroupSetupComponent implements OnInit {
         "agnt_comm_split_4": 0,
         "agntsub_4": "string"
       },
-      "isER_CIActive": false,
+      "isER_CIActive": this.isCheckedEmpPaidCi ,
       "eR_CI": {
         "grp_nmbr": "string",
         "effctv_dt": "2020-06-21T12:03:45.088Z",
@@ -362,7 +475,7 @@ export class GroupSetupComponent implements OnInit {
         "agnt_comm_split_4": 0,
         "agntsub_4": "string"
       },
-      "isVOL_CIActive": false,
+      "isVOL_CIActive": this.isCheckedVolutaryCi ,
       "voL_CI": {
         "grp_nmbr": "string",
         "effctv_dt": "2020-06-21T12:03:45.088Z",
@@ -395,7 +508,7 @@ export class GroupSetupComponent implements OnInit {
         "agnt_comm_split_4": 0,
         "agntsub_4": "string"
       },
-      "isVGLActive": false,
+      "isVGLActive": this.isCheckedVolGrpLife ,
       "vgl": {
         "grp_nmbr": "string",
         "effctv_dt": "2020-06-21T12:03:45.088Z",
@@ -428,7 +541,7 @@ export class GroupSetupComponent implements OnInit {
         "agnt_comm_split_4": 0,
         "agntsub_4": "string"
       },
-      "isBGLActive": false,
+      "isBGLActive": this.isCheckedBasicGrpLife ,
       "bgl": {
         "grp_nmbr": "string",
         "effctv_dt": "2020-06-21T12:03:45.089Z",
@@ -451,7 +564,7 @@ export class GroupSetupComponent implements OnInit {
         "agnt_comm_split_4": 0,
         "agntsub_4": "string"
       },
-      "isFPPIActive": false,
+      "isFPPIActive": this.isCheckedFppInd,
       "fppi": {
         "grp_nmbr": "string",
         "effctv_dt": "2020-06-21T12:03:45.089Z",
@@ -484,12 +597,29 @@ export class GroupSetupComponent implements OnInit {
         "agnt_comm_split_4": 0,
         "agntsub_4": "string"
       }
-
-
     }
+    
+    this.sum = parseFloat(this.agentCommissionSPlit_0)+ 
+    parseFloat(this.agentCommissionSPlit_1)+
+    parseFloat(this.agentCommissionSPlit_2)+
+    parseFloat(this.agentCommissionSPlit_3)
+
     this.eppcreategroupservice.PosteppCreate(body).subscribe((data: any) => {
       console.log("data", data);
     });
+
+    // if((this.sum) < 100 && this.sum == 0){
+    //       this.answer = this.sum;
+    //       console.log("this.answer",this.answer);
+         
+    // }
+    // else{
+    //     this.snackBar.open("CommonSplit Value is Greater Than 100%", "close", {
+    //       duration: 5000,
+    //     });
+    // }
+    
   }
+  answer;
 
 }

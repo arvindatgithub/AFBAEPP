@@ -23,10 +23,7 @@ export class FPPIndividualComponent implements OnInit {
   situsState:any;
   
   constructor(private lookupService: LookupService, private fb:FormBuilder) {
-    // this.subscription = this.lookupService.getSitusValue().subscribe((situsValue:string)=>{
-    //   this.situsValue = situsValue;
-    //   console.log("this.situsValue",this.situsValue);
-    // })
+    
    } 
 
   ngOnInit() {
