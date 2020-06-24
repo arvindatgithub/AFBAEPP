@@ -19,97 +19,112 @@
       </button>
     </div>
     <div class="form-group col-md-3 mt-4 mb-4">
-      <mat-slide-toggle [(ngModel)]="isChecked" (change)="toggleChange($event)" [color]="toggleActiveColor">{{checkedToggle}}</mat-slide-toggle>
+      <mat-slide-toggle [(ngModel)]="isChecked" (change)="toggleChange($event)" [color]="toggleActiveColor">
+        {{checkedToggle}}</mat-slide-toggle>
     </div>
   </div>
 
   <!-- Group Section -->
 
-  
-    <div class="row">
-      <div class="form-group col-md-3">
-        <span class="label label-default">Group Number</span>
-        <input type="text" maxlength="5" name="name" #name="ngModel" class="form-control mb-2" [(ngModel)]="groupNumber"
-          style="width: 100%;" placeholder="Group Number Field" required>
-        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
 
-          <div *ngIf="name.errors.required">
-            Group Number is required.
-          </div>
+  <div class="row">
+    <div class="form-group col-md-3">
+      <span class="label label-default">Group Number<span aria-hidden="true" class="required">*</span></span>
+      <input type="text" maxlength="5" name="name" #name="ngModel" class="form-control" [(ngModel)]="groupNumber"
+        style="width: 100%;" placeholder="Group Number Field" required>
+      <div *ngIf="name.invalid && (name.dirty || name.touched)">
+          <small *ngIf="name.errors.required" style="color: red;">Group Number is required!</small>
+      </div>
+    </div>
+    <div class="form-group col-md-3">
+      <span class="label label-default">Group Name<span aria-hidden="true" class="required">*</span></span>
+      <input type="text" class="form-control" name="grpname" ngModel #grpname="ngModel" [(ngModel)]="groupName"
+        style="width: 100%;" placeholder="Group Name Field" required>
+      <div *ngIf="grpname.touched">
+        <small *ngIf="grpname.errors?.required" style="color: red;">Group Name is required!</small>
+      </div>
+    </div>
+    <div class="form-group col-md-3">
+      <span class="label label-default">Group effective date<span aria-hidden="true" class="required">*</span></span>
+      <input type="date" (change)="onDateChange($event)" [min]="minDate" class="form-control"
+        [(ngModel)]="grpEfftvDate" style="width: 100%;" placeholder="Group Effective Date">
+    </div>
+    <div class="form-group col-md-3">
+      <span class="label label-default">Group Payment Mode<span aria-hidden="true" class="required">*</span></span>
+      <select class="select-dropdown" #paymentMode (change)="getLookupValuePaymentMode($event.target.value)">
+        <!-- <option hidden disabled selected value> -- select a Payment Mode -- </option> -->
+        <option *ngFor="let each of paymentModes" [selected]="each.grpPymn == '10007'" value="{{each.grpPymn}}">
+          {{each.grpPymntMdNm}}</option>
+      </select>
+    </div>
+  </div>
 
-        </div>
+  <div class="row">
+    <div class="form-group col-md-3">
+      <span class="label label-default">Group Vendor<span aria-hidden="true" class="required">*</span></span>
+      <input type="text" class="form-control" name=vendorname ngModel #vendorname="ngModel"
+        [(ngModel)]="EnrolmentPatnerName" placeholder="Group Vendor Name" required>
+      <div *ngIf="vendorname.touched">
+        <small *ngIf="vendorname.errors?.required" style="color: red;">Vendor Name is required!</small>
       </div>
-      <div class="form-group col-md-3">
-        <span class="label label-default">Group Name</span>
-        <input type="text" class="form-control mb-2" [(ngModel)]="groupName" style="width: 100%;"
-          placeholder="Group Name Field">
+    </div>
+
+    <div class="form-group col-md-3">
+      <span class="label label-default">Group Vendor Email<span aria-hidden="true" class="required">*</span></span>
+      <input type="email" [(ngModel)]="EnrolEmailAddress" name="email" ngModel #email="ngModel"
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required class="form-control"
+        placeholder=" Group Vendor Email">
+      <div *ngIf="email.touched">
+        <small *ngIf="email.errors?.required" style="color: red;">Email is a required field!</small>
+        <small *ngIf="email.errors?.pattern" style="color: red;">This is not a valid Email!!!</small>
       </div>
-      <div class="form-group col-md-3">
-        <span class="label label-default">Group effective date</span>
-        <input type="date" (change)="onDateChange($event)" [min]="minDate" class="form-control mb-2"
-          [(ngModel)]="grpEfftvDate" style="width: 100%;" placeholder="Group Effective Date">
-      </div>
-      <div class="form-group col-md-3">
-        <span class="label label-default">Group Payment Mode</span>
-        <select class="select-dropdown" #paymentMode (change)="getLookupValuePaymentMode($event.target.value)">
-          <!-- <option hidden disabled selected value> -- select a Payment Mode -- </option> -->
-          <option *ngFor="let each of paymentModes" [selected]="each.grpPymn == '10007'" value="{{each.grpPymn}}">{{each.grpPymntMdNm}}</option>
+
+
+    </div>
+
+    <div class="col-md-3">
+      <div>
+        <span class="label label-default">Occupation Class<span aria-hidden="true" class="required">*</span></span>
+        <select class="select-dropdown" #occClas (change)="occClassChange(occClas.value)"
+          [value]="occClass[0].occupation">
+          <!-- <option selected>Select Occupation Class</option> -->
+          <!-- <option value="1">Occ Class</option> -->
+          <option *ngFor="let item of occClass">{{item.occupation}}</option>
         </select>
       </div>
     </div>
+  </div>
 
-    <div class="row">
-      <div class="form-group col-md-3">
-        <span class="label label-default">Group Vendor</span>
-        <input type="text" class="form-control mb-2" [(ngModel)]="EnrolmentPatnerName" placeholder="Group Vendor Name">
-      </div>
-
-      <div class="form-group col-md-3">
-        <span class="label label-default">Group Vendor Email</span>
-        <input type="email" [(ngModel)]="EnrolEmailAddress"  name="email" #email="ngModel"
-          class="form-control mb-2" placeholder=" Group Vendor Email">
-          <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
-
-            <div *ngIf="email.errors.required">
-            Email is required.
-            </div>
-  
-          </div>
-      </div>
-
-      <div class="col-md-3">
-        <div>
-          <span class="label label-default">Occupation Class</span>
-          <select class="select-dropdown my-1" #occClas (change)="occClassChange(occClas.value)"
-            [value]="occClass[0].occupation">
-            <!-- <option selected>Select Occupation Class</option> -->
-            <!-- <option value="1">Occ Class</option> -->
-            <option *ngFor="let item of occClass">{{item.occupation}}</option>
-          </select>
-        </div>
+  <div class="row">
+    <div class=" col-md-3">
+      <span class="label label-default">Account Manager Name<span aria-hidden="true" class="required">*</span></span>
+      <input type="text" class="form-control" name="accountmanager" ngModel #accountmanager="ngModel"
+        [(ngModel)]="ManegerName" placeholder="Account Manager Name" required>
+      <div *ngIf="accountmanager.touched">
+        <small *ngIf="accountmanager.errors?.required" style="color: red;">Account Manager Name is required!</small>
       </div>
     </div>
-
-    <div class="row">
-      <div class=" col-md-3">
-        <span class="label label-default">Account Manager Name</span>
-        <input type="text" class="form-control mb-2 " [(ngModel)]="ManegerName" placeholder="Account Manager Name">
-      </div>
-      <div class="col-md-3">
-        <span class="label label-default">Account Manager Email</span>
-        <input type="email" class="form-control mb-2" [(ngModel)]="ManagerEmail" placeholder="Account Manager Email">
-      </div>
-      <div class="col-md-3">
-        <span class="label label-default">Situs State</span>
-        <select class="select-dropdown my-1" #situsState (change)="getLookupValueSitusState(situsState.value)">
-          <!-- <option hidden disabled selected value> -- select Situs State -- </option> -->
-          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
-            {{ lookUpDataSitusState.state }}
-          </option>
-        </select>
+    <div class="col-md-3">
+      <span class="label label-default">Account Manager Email<span aria-hidden="true" class="required">*</span></span>
+      <input type="email" name="Accountemail" ngModel #Accountemail="ngModel"
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required class="form-control" [(ngModel)]="ManagerEmail"
+        placeholder="Account Manager Email">
+      <div *ngIf="Accountemail.touched">
+        <small *ngIf="Accountemail.errors?.required" style="color: red;">Email is a required field!</small>
+        <small *ngIf="Accountemail.errors?.pattern" style="color: red;">This is not a valid Email!!!</small>
       </div>
     </div>
-  
+    <div class="col-md-3">
+      <span class="label label-default">Situs State<span aria-hidden="true" class="required">*</span></span>
+      <select class="select-dropdown my-1" #situsState (change)="getLookupValueSitusState(situsState.value)">
+        <!-- <option hidden disabled selected value> -- select Situs State -- </option> -->
+        <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
+          {{ lookUpDataSitusState.state }}
+        </option>
+      </select>
+    </div>
+  </div>
+
 
   <div>
 
@@ -130,8 +145,8 @@
           <span class="label label-default">Commisson Split %</span>
           <input type="text" formControlName="CommissonSplit" [(ngModel)]="agentCommissionSPlit_0"
             class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
-            <div *ngIf="agentformgrp.get('CommissonSplit').value > 100" >
-              <small style="color: #ff6363;">Commonsplit Value Cannot Be More Than 100</small>
+          <div *ngIf="agentformgrp.get('CommissonSplit').value > 100">
+            <small style="color: #ff6363;">Commonsplit Value Cannot Be More Than 100</small>
           </div>
         </div>
 
@@ -155,8 +170,8 @@
         <div class="col-md-3">
           <input type="text" formControlName="CommissonSplit1" [(ngModel)]="agentCommissionSPlit_1"
             class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
-            <div *ngIf="agentformgrp.get('CommissonSplit1').value > 100">
-              <small style="color: #ff6363;">Commonsplit Value Cannot Be More Than 100</small>
+          <div *ngIf="agentformgrp.get('CommissonSplit1').value > 100">
+            <small style="color: #ff6363;">Commonsplit Value Cannot Be More Than 100</small>
           </div>
         </div>
 
@@ -174,8 +189,8 @@
         <div class="col-md-3">
           <input type="text" formControlName="CommissonSplit2" [(ngModel)]="agentCommissionSPlit_2"
             class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
-            <div *ngIf="agentformgrp.get('CommissonSplit2').value > 100" >
-              <small style="color: #ff6363;">Commonsplit Value Cannot Be More Than 100</small>
+          <div *ngIf="agentformgrp.get('CommissonSplit2').value > 100">
+            <small style="color: #ff6363;">Commonsplit Value Cannot Be More Than 100</small>
           </div>
         </div>
 
@@ -193,9 +208,9 @@
         <div class="col-md-3">
           <input type="text" formControlName="CommissonSplit3" [(ngModel)]="agentCommissionSPlit_3"
             class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
-            <div *ngIf="agentformgrp.get('CommissonSplit3').value > 100" >
-              <small style="color: #ff6363;">Commonsplit Value Cannot Be More Than 100</small>
-            </div>
+          <div *ngIf="agentformgrp.get('CommissonSplit3').value > 100">
+            <small style="color: #ff6363;">Commonsplit Value Cannot Be More Than 100</small>
+          </div>
         </div>
 
       </div>
@@ -209,7 +224,8 @@
           <a class="card-title">
             FPPG
           </a>
-          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedFppg" (change)="toggleChangeProductFppg($event)" [color]="toggleActiveColor">
+          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedFppg" (change)="toggleChangeProductFppg($event)"
+            [color]="toggleActiveColor">
             {{checkedToggleProduct}}</mat-slide-toggle>
         </div>
         <div id="collapseOne" class="card-body collapse" data-parent="#accordion">
@@ -244,8 +260,8 @@
               <!-- second-row -->
               <div class="row">
                 <div class="col-md-3">
-                  <input type="text" formControlName="AgentNumber1" [ngModel]="agentNumber_1"
-                    class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
+                  <input type="text" formControlName="AgentNumber1" [ngModel]="agentNumber_1" class="form-control mb-2"
+                    style="width: 100%;" placeholder="Agent Number">
                 </div>
                 <div class="col-md-3">
                   <input type="text" formControlName="AgentSubCount1" [ngModel]="agentSubCount_1"
@@ -260,8 +276,8 @@
               <!-- 3rd-row -->
               <div class="row">
                 <div class="col-md-3">
-                  <input type="text" formControlName="AgentNumber2" [ngModel]="agentNumber_2"
-                    class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
+                  <input type="text" formControlName="AgentNumber2" [ngModel]="agentNumber_2" class="form-control mb-2"
+                    style="width: 100%;" placeholder="Agent Number">
                 </div>
                 <div class="col-md-3">
                   <input type="text" formControlName="AgentSubCount2" [ngModel]="agentSubCount_2"
@@ -276,8 +292,8 @@
               <!-- 4th-row -->
               <div class="row">
                 <div class="col-md-3">
-                  <input type="text" formControlName="AgentNumber3" [ngModel]="agentNumber_3"
-                    class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
+                  <input type="text" formControlName="AgentNumber3" [ngModel]="agentNumber_3" class="form-control mb-2"
+                    style="width: 100%;" placeholder="Agent Number">
                 </div>
                 <div class="col-md-3">
                   <input type="text" formControlName="AgentSubCount3" [ngModel]="agentSubCount_3"
@@ -297,7 +313,8 @@
           <a class="card-title">
             FPP Individual
           </a>
-          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedFppInd" (change)="toggleChangeProductFppIndivisual($event)" [color]="toggleActiveColor">
+          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedFppInd"
+            (change)="toggleChangeProductFppIndivisual($event)" [color]="toggleActiveColor">
             {{checkedToggleProduct}}</mat-slide-toggle>
         </div>
         <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
@@ -324,8 +341,8 @@
 
                 <div class="col-md-3">
                   <span class="label label-default">Agent Name</span>
-                  <input type="text" formControlName="AgentNameFppIndivisual" [ngModel]="agent_name" class="form-control mb-2 "
-                    style="width: 100%;" placeholder="Agent Name">
+                  <input type="text" formControlName="AgentNameFppIndivisual" [ngModel]="agent_name"
+                    class="form-control mb-2 " style="width: 100%;" placeholder="Agent Name">
                 </div>
               </div>
 
@@ -384,13 +401,14 @@
           <a class="card-title">
             Accident
           </a>
-          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedAccident" (change)="toggleChangeProductAccident($event)" [color]="toggleActiveColor">
+          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedAccident"
+            (change)="toggleChangeProductAccident($event)" [color]="toggleActiveColor">
             {{checkedToggleProduct}}</mat-slide-toggle>
         </div>
         <div id="collapseThree" class="collapse" data-parent="#accordion">
           <div class="card-body">
 
-            <app-accident [lookupValue]="lookupSitusStateValue" #child  [dateValue]="dateChange">
+            <app-accident [lookupValue]="lookupSitusStateValue" #child [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
                 <!-- first-row -->
                 <div class="row" style="justify-content:space-evenly;">
@@ -409,14 +427,14 @@
                     <input type="text" formControlName="CommissonSplitaccident" [ngModel]="agentCommissionSPlit_0"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
                   </div>
-  
+
                   <div class="col-md-3">
                     <span class="label label-default">Agent Name</span>
-                    <input type="text" formControlName="AgentNameaccident" [ngModel]="agent_name" class="form-control mb-2 "
-                      style="width: 100%;" placeholder="Agent Name">
+                    <input type="text" formControlName="AgentNameaccident" [ngModel]="agent_name"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Agent Name">
                   </div>
                 </div>
-  
+
                 <!-- second-row -->
                 <div class="row">
                   <div class="col-md-3">
@@ -431,7 +449,7 @@
                     <input type="text" formControlName="CommissonSplit1accident" [ngModel]="agentCommissionSPlit_1"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
                   </div>
-  
+
                 </div>
                 <!-- 3rd-row -->
                 <div class="row">
@@ -447,7 +465,7 @@
                     <input type="text" formControlName="CommissonSplit2accident" [ngModel]="agentCommissionSPlit_2"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
                   </div>
-  
+
                 </div>
                 <!-- 4th-row -->
                 <div class="row">
@@ -463,7 +481,7 @@
                     <input type="text" formControlName="CommissonSplit3accident" [ngModel]="agentCommissionSPlit_3"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
                   </div>
-  
+
                 </div>
               </form>
             </app-accident>
@@ -473,7 +491,8 @@
           <a class="card-title">
             Hospital Indemnity
           </a>
-          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedHospital" (change)="toggleChangeProductHospitalIndemnity($event)" [color]="toggleActiveColor">
+          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedHospital"
+            (change)="toggleChangeProductHospitalIndemnity($event)" [color]="toggleActiveColor">
             {{checkedToggleProduct}}</mat-slide-toggle>
         </div>
         <div id="collapseFour" class="collapse" data-parent="#accordion">
@@ -484,8 +503,8 @@
                 <div class="row" style="justify-content:space-evenly;">
                   <div class="col-md-3">
                     <span class="label label-default">Agent Number</span>
-                    <input type="text" formControlName="AgentNumberHospitalIndemnity" [ngModel]="agentNumber_0" name="text"
-                      class="form-control mb-2" style="width: 100%;" placeholder="Primary Agent Number">
+                    <input type="text" formControlName="AgentNumberHospitalIndemnity" [ngModel]="agentNumber_0"
+                      name="text" class="form-control mb-2" style="width: 100%;" placeholder="Primary Agent Number">
                   </div>
                   <div class="col-md-3">
                     <span class="label label-default">Agent SubCount</span>
@@ -494,17 +513,18 @@
                   </div>
                   <div class="col-md-3">
                     <span class="label label-default">Commisson Split %</span>
-                    <input type="text" formControlName="CommissonSplitHospitalIndemnity" [ngModel]="agentCommissionSPlit_0"
-                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                    <input type="text" formControlName="CommissonSplitHospitalIndemnity"
+                      [ngModel]="agentCommissionSPlit_0" class="form-control mb-2 " style="width: 100%;"
+                      placeholder="Commisson Split">
                   </div>
-  
+
                   <div class="col-md-3">
                     <span class="label label-default">Agent Name</span>
-                    <input type="text" formControlName="AgentNameHospitalIndemnity" [ngModel]="agent_name" class="form-control mb-2 "
-                      style="width: 100%;" placeholder="Agent Name">
+                    <input type="text" formControlName="AgentNameHospitalIndemnity" [ngModel]="agent_name"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Agent Name">
                   </div>
                 </div>
-  
+
                 <!-- second-row -->
                 <div class="row">
                   <div class="col-md-3">
@@ -516,10 +536,11 @@
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit1HospitalIndemnity" [ngModel]="agentCommissionSPlit_1"
-                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                    <input type="text" formControlName="CommissonSplit1HospitalIndemnity"
+                      [ngModel]="agentCommissionSPlit_1" class="form-control mb-2 " style="width: 100%;"
+                      placeholder="Commisson Split">
                   </div>
-  
+
                 </div>
                 <!-- 3rd-row -->
                 <div class="row">
@@ -532,10 +553,11 @@
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit2HospitalIndemnity" [ngModel]="agentCommissionSPlit_2"
-                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                    <input type="text" formControlName="CommissonSplit2HospitalIndemnity"
+                      [ngModel]="agentCommissionSPlit_2" class="form-control mb-2 " style="width: 100%;"
+                      placeholder="Commisson Split">
                   </div>
-  
+
                 </div>
                 <!-- 4th-row -->
                 <div class="row">
@@ -548,10 +570,11 @@
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit3HospitalIndemnity" [ngModel]="agentCommissionSPlit_3"
-                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                    <input type="text" formControlName="CommissonSplit3HospitalIndemnity"
+                      [ngModel]="agentCommissionSPlit_3" class="form-control mb-2 " style="width: 100%;"
+                      placeholder="Commisson Split">
                   </div>
-  
+
                 </div>
               </form>
             </app-hospital-indemnity>
@@ -561,7 +584,8 @@
           <a class="card-title">
             Employer Paid CI
           </a>
-          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedEmpPaidCi" (change)="toggleChangeProductEmpPaidCi($event)" [color]="toggleActiveColor">
+          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedEmpPaidCi"
+            (change)="toggleChangeProductEmpPaidCi($event)" [color]="toggleActiveColor">
             {{checkedToggleProduct}}</mat-slide-toggle>
         </div>
         <div id="collapseFive" class="collapse" data-parent="#accordion">
@@ -585,14 +609,14 @@
                     <input type="text" formControlName="CommissonSplitempPaidci" [ngModel]="agentCommissionSPlit_0"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
                   </div>
-  
+
                   <div class="col-md-3">
                     <span class="label label-default">Agent Name</span>
-                    <input type="text" formControlName="AgentNameempPaidci" [ngModel]="agent_name" class="form-control mb-2 "
-                      style="width: 100%;" placeholder="Agent Name">
+                    <input type="text" formControlName="AgentNameempPaidci" [ngModel]="agent_name"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Agent Name">
                   </div>
                 </div>
-  
+
                 <!-- second-row -->
                 <div class="row">
                   <div class="col-md-3">
@@ -607,7 +631,7 @@
                     <input type="text" formControlName="CommissonSplit1empPaidci" [ngModel]="agentCommissionSPlit_1"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
                   </div>
-  
+
                 </div>
                 <!-- 3rd-row -->
                 <div class="row">
@@ -623,7 +647,7 @@
                     <input type="text" formControlName="CommissonSplit2empPaidci" [ngModel]="agentCommissionSPlit_2"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
                   </div>
-  
+
                 </div>
                 <!-- 4th-row -->
                 <div class="row">
@@ -639,7 +663,7 @@
                     <input type="text" formControlName="CommissonSplit3empPaidci" [ngModel]="agentCommissionSPlit_3"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
                   </div>
-  
+
                 </div>
               </form>
             </app-employer-paid-ci>
@@ -649,7 +673,8 @@
           <a class="card-title">
             Voluntary CI
           </a>
-          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedVolutaryCi" (change)="toggleChangeProductVolCI($event)" [color]="toggleActiveColor">
+          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedVolutaryCi"
+            (change)="toggleChangeProductVolCI($event)" [color]="toggleActiveColor">
             {{checkedToggleProduct}}</mat-slide-toggle>
         </div>
         <div id="collapseSix" class="collapse" data-parent="#accordion">
@@ -673,14 +698,14 @@
                     <input type="text" formControlName="CommissonSplitvolCi" [ngModel]="agentCommissionSPlit_0"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
                   </div>
-  
+
                   <div class="col-md-3">
                     <span class="label label-default">Agent Name</span>
-                    <input type="text" formControlName="AgentNamevolCi" [ngModel]="agent_name" class="form-control mb-2 "
-                      style="width: 100%;" placeholder="Agent Name">
+                    <input type="text" formControlName="AgentNamevolCi" [ngModel]="agent_name"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Agent Name">
                   </div>
                 </div>
-  
+
                 <!-- second-row -->
                 <div class="row">
                   <div class="col-md-3">
@@ -695,7 +720,7 @@
                     <input type="text" formControlName="CommissonSplit1volCi" [ngModel]="agentCommissionSPlit_1"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
                   </div>
-  
+
                 </div>
                 <!-- 3rd-row -->
                 <div class="row">
@@ -711,7 +736,7 @@
                     <input type="text" formControlName="CommissonSplit2volCi" [ngModel]="agentCommissionSPlit_2"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
                   </div>
-  
+
                 </div>
                 <!-- 4th-row -->
                 <div class="row">
@@ -727,7 +752,7 @@
                     <input type="text" formControlName="CommissonSplit3volCi" [ngModel]="agentCommissionSPlit_3"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
                   </div>
-  
+
                 </div>
               </form>
             </app-voluntary-ci>
@@ -737,7 +762,8 @@
           <a class="card-title">
             Vol Group Life
           </a>
-          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedVolGrpLife" (change)="toggleChangeProductVilGrpLife($event)" [color]="toggleActiveColor">
+          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedVolGrpLife"
+            (change)="toggleChangeProductVilGrpLife($event)" [color]="toggleActiveColor">
             {{checkedToggleProduct}}</mat-slide-toggle>
         </div>
         <div id="collapseSeven" class="collapse" data-parent="#accordion">
@@ -761,14 +787,14 @@
                     <input type="text" formControlName="CommissonSplitVolGrpLife" [ngModel]="agentCommissionSPlit_0"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
                   </div>
-  
+
                   <div class="col-md-3">
                     <span class="label label-default">Agent Name</span>
-                    <input type="text" formControlName="AgentNameVolGrpLife" [ngModel]="agent_name" class="form-control mb-2 "
-                      style="width: 100%;" placeholder="Agent Name">
+                    <input type="text" formControlName="AgentNameVolGrpLife" [ngModel]="agent_name"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Agent Name">
                   </div>
                 </div>
-  
+
                 <!-- second-row -->
                 <div class="row">
                   <div class="col-md-3">
@@ -783,7 +809,7 @@
                     <input type="text" formControlName="CommissonSplit1VolGrpLife" [ngModel]="agentCommissionSPlit_1"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
                   </div>
-  
+
                 </div>
                 <!-- 3rd-row -->
                 <div class="row">
@@ -799,7 +825,7 @@
                     <input type="text" formControlName="CommissonSplit2VolGrpLife" [ngModel]="agentCommissionSPlit_2"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
                   </div>
-  
+
                 </div>
                 <!-- 4th-row -->
                 <div class="row">
@@ -815,7 +841,7 @@
                     <input type="text" formControlName="CommissonSplit3VolGrpLife" [ngModel]="agentCommissionSPlit_3"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
                   </div>
-  
+
                 </div>
               </form>
             </app-vol-group-life>
@@ -825,7 +851,8 @@
           <a class="card-title">
             Basic Group Life
           </a>
-          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedBasicGrpLife" (change)="toggleChangeProductBasicGrpLife($event)" [color]="toggleActiveColor">
+          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedBasicGrpLife"
+            (change)="toggleChangeProductBasicGrpLife($event)" [color]="toggleActiveColor">
             {{checkedToggleProduct}}</mat-slide-toggle>
         </div>
         <div id="collapseEight" class="collapse" data-parent="#accordion">
@@ -849,14 +876,14 @@
                     <input type="text" formControlName="CommissonSplitBasicgrpLife" [ngModel]="agentCommissionSPlit_0"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
                   </div>
-  
+
                   <div class="col-md-3">
                     <span class="label label-default">Agent Name</span>
-                    <input type="text" formControlName="AgentNameBasicgrpLife" [ngModel]="agent_name" class="form-control mb-2 "
-                      style="width: 100%;" placeholder="Agent Name">
+                    <input type="text" formControlName="AgentNameBasicgrpLife" [ngModel]="agent_name"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Agent Name">
                   </div>
                 </div>
-  
+
                 <!-- second-row -->
                 <div class="row">
                   <div class="col-md-3">
@@ -871,7 +898,7 @@
                     <input type="text" formControlName="CommissonSplit1BasicgrpLife" [ngModel]="agentCommissionSPlit_1"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
                   </div>
-  
+
                 </div>
                 <!-- 3rd-row -->
                 <div class="row">
@@ -887,7 +914,7 @@
                     <input type="text" formControlName="CommissonSplit2BasicgrpLife" [ngModel]="agentCommissionSPlit_2"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
                   </div>
-  
+
                 </div>
                 <!-- 4th-row -->
                 <div class="row">
@@ -903,7 +930,7 @@
                     <input type="text" formControlName="CommissonSplit3BasicgrpLife" [ngModel]="agentCommissionSPlit_3"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
                   </div>
-  
+
                 </div>
               </form>
             </app-basic-group-life>
@@ -914,7 +941,8 @@
 
     </div>
   </div>
-  <button type="submit" [disabled] = "" class="btn btn-success mt-4 mb-4" style="float: right;" (click)="onSubmit()">Submit Group
+  <button type="submit" [disabled]="" class="btn btn-success mt-4 mb-4" style="float: right;"
+    (click)="onSubmit()">Submit Group
     Setup Information</button>
-   
+
 </div>

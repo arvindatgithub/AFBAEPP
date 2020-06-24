@@ -1,6 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,ViewChild } from '@angular/core';
 import { LookupService } from '../services/lookup.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AgentSetupComponent } from '../agent-setup/agent-setup.component';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-basic-group-life',
   templateUrl: './basic-group-life.component.html',
@@ -18,9 +20,10 @@ export class BasicGroupLifeComponent implements OnInit {
   indeterminate = false;
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
+  latest_datebasicgrplife
   public minDate = new Date().toISOString().slice(0,10);
 
-  constructor(private lookupService: LookupService, private fb:FormBuilder) {
+  constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe) {
   }
 
   ngOnInit() {
@@ -29,6 +32,7 @@ export class BasicGroupLifeComponent implements OnInit {
         this.isLoading = true;
         console.log("data", data);
         this.lookUpDataSitusStates = data.situsState;
+        this.latest_datebasicgrplife = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
       });
 
       this.basicGrpLfformgrp = this.fb.group({
@@ -40,12 +44,11 @@ export class BasicGroupLifeComponent implements OnInit {
         FCbasicEmpFcAmt: ["",Validators.required],
         FCbasicADDRider_Action: ["",Validators.required],
         FCbasicADDRider: ["",Validators.required],
-      })
+      });
+      this.basicGrpLfformgrp.controls['FCbasicSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
 
   }
-  // getLookupValueSitusState(value: any){
-  //   this.lookupSitusStateValue = value;
-  // }
+ 
   onItemChange(value){
     console.log(" Value is : ", value );
  }

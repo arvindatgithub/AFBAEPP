@@ -22,13 +22,13 @@ export class FPPIndividualComponent implements OnInit, OnChanges {
   disabled = false;
   public minDate = new Date().toISOString().slice(0,10);
   situsState:any;
-  latest_date;
+  latest_datefpp;
   constructor(private lookupService: LookupService, private fb:FormBuilder, public datepipe: DatePipe) {
     
    } 
    ngOnChanges(simpleChange:SimpleChanges){
     console.log("simpleChange",simpleChange);
-    this.latest_date = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+    this.latest_datefpp = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
     
   }
 
@@ -71,5 +71,33 @@ export class FPPIndividualComponent implements OnInit, OnChanges {
  
   onItemChange(value){
     console.log(" Value is : ", value );
+ }
+ resetfpp(){
+  this.fppiformgrp.reset({
+    FCfppiEffectiveDate: "",
+    FCfppiEffectiveDate_Action:"",
+    FCfppiAgentSign: "",
+    FCfppiAgentSign_Action: "",
+    FCfppiEmpGIAmtMax: "",
+    FCfppiEmpAmtMax_Action: "",
+    FCfppiEmpQIAmtMax: "",
+    FCfppiEmpAmtMax:"",
+    FCfppiSpouseGIAmtMax: "",
+    FCfppiSpouseQIAmtMax: "",
+    FCfppiSpouseMaxAmt: "",
+    FCfppiSpouseAmtMax_Action: "",
+    FCfppiOpenEnrollGI: "",
+    FCfppiOpenEnrollGI_Action: "",
+    FCfppiPlanCodeManualEntry_Action: "",
+    FCfppiPlanCodeManualEntry:"",
+    FCfppiUserToken: "",
+    FCfppiUserToken_Action: "",
+    FCfppiCaseToken: "",
+    FCfppiCaseToken_Action: "",
+    FCfppiQolRiders: "",
+    FCfppiQolRiders_Action: "",
+    FCfppiWaiver_Action: "",
+    FCfppiWaiver: "",
+  })
  }
 }

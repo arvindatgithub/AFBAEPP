@@ -2,13 +2,14 @@ import { Component, OnInit, Input,ViewChild } from '@angular/core';
 import { LookupService } from '../services/lookup.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AgentSetupComponent } from '../agent-setup/agent-setup.component';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-accident',
   templateUrl: './accident.component.html',
   styleUrls: ['./accident.component.css']
 })
 export class AccidentComponent implements OnInit {
-  @ViewChild('agent',{static:false}) agentComponent: AgentSetupComponent;
+  //@ViewChild('agent',{static:false}) agentComponent: AgentSetupComponent;
   accformgrp: FormGroup;
   @Input() lookupValue: any;
   @Input() dateValue: any;
@@ -20,9 +21,10 @@ export class AccidentComponent implements OnInit {
   indeterminate = false;
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
+  latest_dateaccident
   public minDate = new Date().toISOString().slice(0,10);
 
-  constructor(private lookupService: LookupService, private fb:FormBuilder) { }
+  constructor(private lookupService: LookupService, private fb:FormBuilder, public datepipe: DatePipe) { }
 
   ngOnInit() {
     this.lookupService.getLookupsData()
@@ -30,6 +32,7 @@ export class AccidentComponent implements OnInit {
       this.isLoading = true;
       console.log("data", data);
       this.lookUpDataSitusStates = data.situsState;
+      this.latest_dateaccident = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
     });
     this.accformgrp = this.fb.group({
       FCaccSitusState_Action: ["",Validators.required],
@@ -41,16 +44,11 @@ export class AccidentComponent implements OnInit {
       FCaccRateLevel: ["",Validators.required],
       FCaccRateLevel_Action: ["",Validators.required],
 
-    })
-
+    });
+    this.accformgrp.controls['FCaccSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
   }
-  // getLookupValueSitusState(value: any){
-  //   this.lookupSitusStateValue = value;
-  // }
-  ngAfterViewInit(){
-    let agentcomponenet = this.agentComponent.text
-    console.log("agentcomponenet",agentcomponenet)
-    }
+ 
+ 
   onItemChange(value){
     console.log(" Value is : ", value );
  }

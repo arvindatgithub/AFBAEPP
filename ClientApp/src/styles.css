@@ -55,3 +55,6 @@ select, option {
   background-color: green !important;
 }
 
+.tooltip-red {
+  background: #b71c1c;
+}

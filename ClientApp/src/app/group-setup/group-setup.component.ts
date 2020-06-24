@@ -41,16 +41,16 @@ export class GroupSetupComponent implements OnInit {
   selectedOption = [];
   accident: string = "";
   isChecked = true;
-  isCheckedFppg = true;
-  isCheckedFppInd = true;
-  isCheckedAccident= true;
-  isCheckedHospital= true;
-  isCheckedEmpPaidCi = true;
-  isCheckedVolutaryCi = true;
-  isCheckedVolGrpLife = true;
-  isCheckedBasicGrpLife = true;
+  isCheckedFppg = false;
+  isCheckedFppInd = false;
+  isCheckedAccident= false;
+  isCheckedHospital= false;
+  isCheckedEmpPaidCi = false;
+  isCheckedVolutaryCi = false;
+  isCheckedVolGrpLife = false;
+  isCheckedBasicGrpLife = false;
   checkedToggle: string = "Active";
-  checkedToggleProduct: string = "Active";
+  checkedToggleProduct: string = "Inactive";
   toggleActiveColor: ThemePalette = "primary";
   groupNumber: string = "";
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
@@ -586,7 +586,7 @@ export class GroupSetupComponent implements OnInit {
       },
       "isACC_HIActive": this.isCheckedAccident,
       "acC_HI": {
-        "effctv_dt": "2020-06-21T12:03:45.088Z",
+        "effctv_dt": (new Date(this.fppComponent.fppiformgrp.value.FCfppiEffectiveDate)).toISOString(),
         "grp_situs_state": "string",
         "rate_lvl": "string",
         "effctv_dt_action": "string",
@@ -723,7 +723,7 @@ export class GroupSetupComponent implements OnInit {
       "isFPPIActive": this.isCheckedFppInd,
       "fppi": {
         "grp_nmbr": "string",
-        "effctv_dt": (new Date(this.fppComponent.fppiformgrp.value.FCfppEffectiveDate)).toISOString(),
+        "effctv_dt": (new Date(this.fppComponent.fppiformgrp.value.FCfppiEffectiveDate)).toISOString(),
         "grp_situs_state": "string",
         "emp_gi_max_amt": "string",
         "sp_gi_max_amt": "string",

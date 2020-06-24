@@ -81,5 +81,28 @@ ngOnChanges(simpleChange:SimpleChanges){
   onItemChange(value){
     console.log(" Value is : ", value );
  }
-
+ restForm(){
+   this.fppgformgrp.reset({
+    FCfppgEffectiveDate: "",
+    FCfppgSitusState: "",
+    FCfppgEmpAmtMax: "",
+    FCfppgEmpGIAmtMax: "",
+    FCfppgEmpQIAmtMax: "",
+    FCfppgSpouseGIAmtMax: "",
+    FCfppgSpouseQIAmtMax: "",
+    FCfppgSpouseMaxAmt: "",
+    FCfppgOpenEnrollGI: "",
+    FCfppgPlanCodeManualEntry: "",
+    FCfppgQolRiders: "",
+    FCfppgWaiver:"",
+    FCfppgEffectiveDate_Action: "",
+    FCfppgSitusState_Action:  "",
+    FCfppgEmpAmtMax_Action: "",
+    FCfppgSpouseAmtMax_Action: "",
+    FCfppgOpenEnrollGI_Action: "",
+    FCfppgPlanCodeManualEntry_Action: "",
+    FCfppgQolRiders_Action: "",
+    FCfppgWaiver_Action: "",
+   })
+ }
 }
