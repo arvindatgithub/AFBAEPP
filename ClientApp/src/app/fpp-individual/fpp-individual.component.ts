@@ -24,11 +24,16 @@ export class FPPIndividualComponent implements OnInit {
   situsState:any;
   latest_date;
   
+<<<<<<< HEAD
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe) {
     // this.subscription = this.lookupService.getSitusValue().subscribe((situsValue:string)=>{
     //   this.situsValue = situsValue;
     //   console.log("this.situsValue",this.situsValue);
     // })
+=======
+  constructor(private lookupService: LookupService, private fb:FormBuilder) {
+    
+>>>>>>> custom-template
    } 
    ngOnChanges(simpleChange:SimpleChanges){
     console.log("simpleChange",simpleChange);

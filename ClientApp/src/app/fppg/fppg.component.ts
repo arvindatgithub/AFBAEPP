@@ -12,7 +12,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./fppg.component.css']
 })
 export class FPPGComponent implements OnInit, OnChanges {
-  @ViewChild('agent',{static:false}) agentComponent: AgentSetupComponent;
+
   fppgformgrp: FormGroup;
   @Input() lookupValue: any;
   @Input() dateValue: any;
@@ -28,6 +28,7 @@ export class FPPGComponent implements OnInit, OnChanges {
   public minDate = new Date().toISOString().slice(0,10);
   agentValue: string;
   latest_date;
+  initial_SitusState;
 
   constructor(private lookupService: LookupService, 
     private fb:FormBuilder, private eppservice:EppCreateGrpSetupService,
@@ -37,6 +38,7 @@ export class FPPGComponent implements OnInit, OnChanges {
 ngOnChanges(simpleChange:SimpleChanges){
   console.log("simpleChange",simpleChange);
   this.latest_date = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+  
 }
 
   ngOnInit() {
@@ -46,10 +48,12 @@ ngOnChanges(simpleChange:SimpleChanges){
         console.log("data", data);
         this.lookUpDataSitusStates = data.situsState;
       });
+  
+      console.log("this.lookup", this.lookupValue);
 
     this.fppgformgrp = this.fb.group({
       FCfppgEffectiveDate: ["",Validators.required],
-      FCfppgSitusState: [this.lookupValue,Validators.required],
+      FCfppgSitusState: ["",Validators.required],
       FCfppgEmpAmtMax: ["",Validators.required],
       FCfppgEmpGIAmtMax: ["",Validators.required],
       FCfppgEmpQIAmtMax: ["",Validators.required],
@@ -69,12 +73,10 @@ ngOnChanges(simpleChange:SimpleChanges){
       FCfppgQolRiders_Action: ['', Validators.required],
       FCfppgWaiver_Action: ['', Validators.required],
     });
+     this.fppgformgrp.controls['FCfppgSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
  
   }
-  ngAfterViewInit(){
-  let agentcomponenet = this.agentComponent.text
-  console.log("agentcomponenet",agentcomponenet)
-  }
+ 
 
   onItemChange(value){
     console.log(" Value is : ", value );

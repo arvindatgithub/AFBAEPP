@@ -7,10 +7,11 @@
 <div class="container" *ngIf="isLoading">
   <div class="row">
     <div class="form-group col-md-3">
-  <button type="submit" class="btn btn-primary mt-4 mb-4"  (click)="onSubmit()">New Add
-   </button>
+      <button type="submit" class="btn btn-primary mt-4 mb-4" (click)="onSubmit()">New Add
+      </button>
     </div>
     <div class="form-group col-md-3">
+<<<<<<< HEAD
     <button type="submit" class="btn btn-primary mt-4 mb-4 disabled"  (click)="onSubmit()">Edit Existing
      </button>
       </div>
@@ -35,140 +36,199 @@
       <span class="label label-default">Group Name</span>
       <input type="text" class="form-control mb-2" [(ngModel)]="groupName" style="width: 100%;"
         placeholder="Group Name Field">
+=======
+      <button type="submit" class="btn btn-primary mt-4 mb-4" (click)="onSubmit()">Edit Existing
+      </button>
+>>>>>>> custom-template
     </div>
     <div class="form-group col-md-3">
-      <span class="label label-default">Group effective date</span>
-      <input type="date" (change)="onDateChange($event)" [min]="minDate" class="form-control mb-2"
-        [(ngModel)]="grpEfftvDate" style="width: 100%;" placeholder="Group Effective Date">
+      <button type="submit" class="btn btn-primary mt-4 mb-4" (click)="onSubmit()">Clone Group
+      </button>
     </div>
+<<<<<<< HEAD
     <div class="form-group col-md-3">
       <span class="label label-default">Group Payment Mode</span>
       <select class="select-dropdown" #paymentMode (change)="getLookupValuePaymentMode($event.target.value)">
         <!-- <option hidden disabled selected value> -- select a Payment Mode -- </option> -->
         <option *ngFor="let each of paymentModes" [selected]="each.grpPymn == '10007'" value="{{each.grpPymn}}">{{each.grpPymntMdNm}}</option>
       </select>
+=======
+    <div class="form-group col-md-3 mt-4 mb-4">
+      <mat-slide-toggle [(ngModel)]="isChecked" (change)="toggleChange($event)" [color]="toggleActiveColor">{{checkedToggle}}</mat-slide-toggle>
+>>>>>>> custom-template
     </div>
   </div>
 
-  <div class="row">
-    <div class="form-group col-md-3">
-      <span class="label label-default">Group Vendor</span>
-      <input type="text" class="form-control mb-2" [(ngModel)]="EnrolmentPatnerName" placeholder="Group Vendor Name">
-    </div>
+  <!-- Group Section -->
 
-    <div class="form-group col-md-3">
-      <span class="label label-default">Group Vendor Email</span>
-      <input type="email" [(ngModel)]="EnrolEmailAddress" [pattern]="emailPattern" name="email"
-        class="form-control mb-2" placeholder=" Group Vendor Email">
-    </div>
+  
+    <div class="row">
+      <div class="form-group col-md-3">
+        <span class="label label-default">Group Number</span>
+        <input type="text" maxlength="5" name="name" #name="ngModel" class="form-control mb-2" [(ngModel)]="groupNumber"
+          style="width: 100%;" placeholder="Group Number Field" required>
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
 
-    <div class="col-md-3">
-      <div>
-        <span class="label label-default">Occupation Class</span>
-        <select class="select-dropdown my-1" #occClas (change)="occClassChange(occClas.value)" [value]="occClass[0].occupation">
-          <!-- <option selected>Select Occupation Class</option> -->
-          <!-- <option value="1">Occ Class</option> -->
-          <option *ngFor="let item of occClass">{{item.occupation}}</option>
+          <div *ngIf="name.errors.required">
+            Group Number is required.
+          </div>
+
+        </div>
+      </div>
+      <div class="form-group col-md-3">
+        <span class="label label-default">Group Name</span>
+        <input type="text" class="form-control mb-2" [(ngModel)]="groupName" style="width: 100%;"
+          placeholder="Group Name Field">
+      </div>
+      <div class="form-group col-md-3">
+        <span class="label label-default">Group effective date</span>
+        <input type="date" (change)="onDateChange($event)" [min]="minDate" class="form-control mb-2"
+          [(ngModel)]="grpEfftvDate" style="width: 100%;" placeholder="Group Effective Date">
+      </div>
+      <div class="form-group col-md-3">
+        <span class="label label-default">Group Payment Mode</span>
+        <select class="select-dropdown" #paymentMode (change)="getLookupValuePaymentMode(paymentMode.value)"
+          [value]="lookUpDataPaymentModes[5]">
+          <!-- <option hidden disabled selected value> -- select a Payment Mode -- </option> -->
+          <option *ngFor="let lookUpDataPaymentMode of lookUpDataPaymentModes">{{lookUpDataPaymentMode}}</option>
         </select>
       </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class=" col-md-3">
-      <span class="label label-default">Account Manager Name</span>
-      <input type="text" class="form-control mb-2 " [(ngModel)]="ManegerName" placeholder="Account Manager Name">
-    </div>
-    <div class="col-md-3">
-      <span class="label label-default">Account Manager Email</span>
-      <input type="email" class="form-control mb-2" [(ngModel)]="ManagerEmail" placeholder="Account Manager Email">
-    </div>
-    <div class="col-md-3">
-      <span class="label label-default">Situs State</span>
-      <select class="select-dropdown my-1" #situsState (change)="getLookupValueSitusState(situsState.value)">
-        <!-- <option hidden disabled selected value> -- select Situs State -- </option> -->
-        <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
-          {{ lookUpDataSitusState.state }}
-        </option>
-      </select>
-    </div>
-  </div>
-    <div>
-   
-      <form class="agent-form" [formGroup]="agentformgrp">
-        <!-- first-row -->
-        <div class="row" style="justify-content:space-evenly;">
-            <div class="col-md-3">
-                <span class ="label label-default">Agent Number</span>
-                <input type="text" formControlName="AgentNumber" [(ngModel)]="agentNumber_0" name="text" class="form-control mb-2" style="width: 100%;" 
-                    placeholder="Primary Agent Number"> 
-            </div>
-            <div class="col-md-3">
-                <span class ="label label-default">Agent SubCount</span>
-                <input type="text" formControlName="AgentSubCount" [(ngModel)]="agentSubCount_0"  class="form-control mb-2" style="width: 100%;" 
-                    placeholder="Agent SubCount">
-            </div>
-            <div class="col-md-3">
-                <span class ="label label-default">Commisson Split %</span>
-                <input type="text" formControlName="CommissonSplit" [(ngModel)]="agentCommissionSPlit_0" class="form-control mb-2 "  style="width: 100%;" 
-                    placeholder="Commisson Split">
-            </div>
+    <div class="row">
+      <div class="form-group col-md-3">
+        <span class="label label-default">Group Vendor</span>
+        <input type="text" class="form-control mb-2" [(ngModel)]="EnrolmentPatnerName" placeholder="Group Vendor Name">
+      </div>
 
-            <div class="col-md-3">
-                <span class ="label label-default">Agent Name</span>
-                <input type="text" formControlName="AgentName" [(ngModel)]="agent_name" class="form-control mb-2 " style="width: 100%;" 
-                    placeholder="Agent Name">
+      <div class="form-group col-md-3">
+        <span class="label label-default">Group Vendor Email</span>
+        <input type="email" [(ngModel)]="EnrolEmailAddress" [pattern]="emailPattern" name="email"
+          class="form-control mb-2" placeholder=" Group Vendor Email">
+      </div>
+
+      <div class="col-md-3">
+        <div>
+          <span class="label label-default">Occupation Class</span>
+          <select class="select-dropdown my-1" #occClas (change)="occClassChange(occClas.value)"
+            [value]="occClass[0].occupation">
+            <!-- <option selected>Select Occupation Class</option> -->
+            <!-- <option value="1">Occ Class</option> -->
+            <option *ngFor="let item of occClass">{{item.occupation}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class=" col-md-3">
+        <span class="label label-default">Account Manager Name</span>
+        <input type="text" class="form-control mb-2 " [(ngModel)]="ManegerName" placeholder="Account Manager Name">
+      </div>
+      <div class="col-md-3">
+        <span class="label label-default">Account Manager Email</span>
+        <input type="email" class="form-control mb-2" [(ngModel)]="ManagerEmail" placeholder="Account Manager Email">
+      </div>
+      <div class="col-md-3">
+        <span class="label label-default">Situs State</span>
+        <select class="select-dropdown my-1" #situsState (change)="getLookupValueSitusState(situsState.value)">
+          <!-- <option hidden disabled selected value> -- select Situs State -- </option> -->
+          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
+            {{ lookUpDataSitusState.state }}
+          </option>
+        </select>
+      </div>
+    </div>
+  
+
+  <div>
+
+    <form class="agent-form" [formGroup]="agentformgrp">
+      <!-- first-row -->
+      <div class="row" style="justify-content:space-evenly;">
+        <div class="col-md-3">
+          <span class="label label-default">Agent Number</span>
+          <input type="text" formControlName="AgentNumber" [(ngModel)]="agentNumber_0" name="text"
+            class="form-control mb-2" style="width: 100%;" placeholder="Primary Agent Number">
+        </div>
+        <div class="col-md-3">
+          <span class="label label-default">Agent SubCount</span>
+          <input type="text" formControlName="AgentSubCount" [(ngModel)]="agentSubCount_0" class="form-control mb-2"
+            style="width: 100%;" placeholder="Agent SubCount">
+        </div>
+        <div class="col-md-3">
+          <span class="label label-default">Commisson Split %</span>
+          <input type="text" formControlName="CommissonSplit" [(ngModel)]="agentCommissionSPlit_0"
+            class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+            <div *ngIf="agentformgrp.get('CommissonSplit').value > 100" >
+              <small style="color: #ff6363;">Commonsplit Value Cannot Be More Than 100</small>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <span class="label label-default">Agent Name</span>
+          <input type="text" formControlName="AgentName" [(ngModel)]="agent_name" class="form-control mb-2 "
+            style="width: 100%;" placeholder="Agent Name">
+        </div>
+      </div>
+
+      <!-- second-row -->
+      <div class="row">
+        <div class="col-md-3">
+          <input type="text" formControlName="AgentNumber1" [(ngModel)]="agentNumber_1" class="form-control mb-2"
+            style="width: 100%;" placeholder="Agent Number">
+        </div>
+        <div class="col-md-3">
+          <input type="text" formControlName="AgentSubCount1" [(ngModel)]="agentSubCount_1" class="form-control mb-2"
+            style="width: 100%;" placeholder="Agent SubCount">
+        </div>
+        <div class="col-md-3">
+          <input type="text" formControlName="CommissonSplit1" [(ngModel)]="agentCommissionSPlit_1"
+            class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+            <div *ngIf="agentformgrp.get('CommissonSplit1').value > 100">
+              <small style="color: #ff6363;">Commonsplit Value Cannot Be More Than 100</small>
+          </div>
+        </div>
+
+      </div>
+      <!-- 3rd-row -->
+      <div class="row">
+        <div class="col-md-3">
+          <input type="text" formControlName="AgentNumber2" [(ngModel)]="agentNumber_2" class="form-control mb-2"
+            style="width: 100%;" placeholder="Agent Number">
+        </div>
+        <div class="col-md-3">
+          <input type="text" formControlName="AgentSubCount2" [(ngModel)]="agentSubCount_2" class="form-control mb-2"
+            style="width: 100%;" placeholder="Agent SubCount">
+        </div>
+        <div class="col-md-3">
+          <input type="text" formControlName="CommissonSplit2" [(ngModel)]="agentCommissionSPlit_2"
+            class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+            <div *ngIf="agentformgrp.get('CommissonSplit2').value > 100" >
+              <small style="color: #ff6363;">Commonsplit Value Cannot Be More Than 100</small>
+          </div>
+        </div>
+
+      </div>
+      <!-- 4th-row -->
+      <div class="row">
+        <div class="col-md-3">
+          <input type="text" formControlName="AgentNumber3" [(ngModel)]="agentNumber_3" class="form-control mb-2"
+            style="width: 100%;" placeholder="Agent Number">
+        </div>
+        <div class="col-md-3">
+          <input type="text" formControlName="AgentSubCount3" [(ngModel)]="agentSubCount_3" class="form-control mb-2"
+            style="width: 100%;" placeholder="Agent SubCount">
+        </div>
+        <div class="col-md-3">
+          <input type="text" formControlName="CommissonSplit3" [(ngModel)]="agentCommissionSPlit_3"
+            class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+            <div *ngIf="agentformgrp.get('CommissonSplit3').value > 100" >
+              <small style="color: #ff6363;">Commonsplit Value Cannot Be More Than 100</small>
             </div>
         </div>
-       
-        <!-- second-row -->
-        <div class="row">
-            <div class="col-md-3">
-                <input type="text" formControlName="AgentNumber1" [(ngModel)]="agentNumber_1"  class="form-control mb-2" style="width: 100%;" 
-                    placeholder="Agent Number">
-            </div>
-            <div class="col-md-3">
-                <input type="text" formControlName="AgentSubCount1" [(ngModel)]="agentSubCount_1" class="form-control mb-2" style="width: 100%;" 
-                    placeholder="Agent SubCount">
-            </div>
-            <div class="col-md-3">
-                <input type="text" formControlName="CommissonSplit1" [(ngModel)]="agentCommissionSPlit_1" class="form-control mb-2 " style="width: 100%;" 
-                    placeholder="Commisson Split">
-            </div>
-           
-        </div>
-        <!-- 3rd-row -->
-        <div class="row" >
-            <div class="col-md-3">
-                <input type="text" formControlName="AgentNumber2" [(ngModel)]="agentNumber_2" class="form-control mb-2" style="width: 100%;" 
-                    placeholder="Agent Number">
-            </div>
-            <div class="col-md-3">
-                <input type="text" formControlName="AgentSubCount2" [(ngModel)]="agentSubCount_2" class="form-control mb-2" style="width: 100%;" 
-                    placeholder="Agent SubCount">
-            </div>
-            <div class="col-md-3">
-                <input type="text" formControlName="CommissonSplit2" [(ngModel)]="agentCommissionSPlit_2" class="form-control mb-2 " style="width: 100%;" 
-                    placeholder="Commisson Split">
-            </div>
-          
-        </div>
-        <!-- 4th-row -->
-        <div class="row" >
-            <div class="col-md-3">
-                <input type="text" formControlName="AgentNumber3" [(ngModel)]="agentNumber_3"  class="form-control mb-2" style="width: 100%;" 
-                    placeholder="Agent Number">
-            </div>
-            <div class="col-md-3">
-                <input type="text" formControlName="AgentSubCount3" [(ngModel)]="agentSubCount_3"  class="form-control mb-2" style="width: 100%;" 
-                    placeholder="Agent SubCount">
-            </div>
-            <div class="col-md-3">
-                <input type="text" formControlName="CommissonSplit3" [(ngModel)]="agentCommissionSPlit_3" class="form-control mb-2 " style="width: 100%;" 
-                    placeholder="Commisson Split">
-            </div>
-            
-        </div>
+
+      </div>
     </form>
   </div>
 
@@ -179,96 +239,100 @@
           <a class="card-title">
             FPPG
           </a>
-            <mat-slide-toggle style="float: right;" (change)="toggleChangeProduct($event)" [color]="toggleActiveColor">{{checkedToggleProduct}}</mat-slide-toggle>
+          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedFppg" (change)="toggleChangeProductFppg($event)" [color]="toggleActiveColor">
+            {{checkedToggleProduct}}</mat-slide-toggle>
         </div>
         <div id="collapseOne" class="card-body collapse" data-parent="#accordion">
 
           <app-fppg [lookupValue]="lookupSitusStateValue" #child [dateValue]="dateChange">
             <form class="agent-form" [formGroup]="agentformgrp">
-            <!-- first-row -->
-            <div class="row" style="justify-content:space-evenly;">
+              <!-- first-row -->
+              <div class="row" style="justify-content:space-evenly;">
                 <div class="col-md-3">
-                    <span class ="label label-default">Agent Number</span>
-                    <input type="text" formControlName="AgentNumber" [(ngModel)]="agentNumber_0" name="text" class="form-control mb-2" style="width: 100%;" 
-                        placeholder="Primary Agent Number"> 
+                  <span class="label label-default">Agent Number</span>
+                  <input type="text" formControlName="AgentNumber" [ngModel]="agentNumber_0" name="text"
+                    class="form-control mb-2" style="width: 100%;" placeholder="Primary Agent Number">
                 </div>
                 <div class="col-md-3">
-                    <span class ="label label-default">Agent SubCount</span>
-                    <input type="text" formControlName="AgentSubCount" [(ngModel)]="agentSubCount_0"  class="form-control mb-2" style="width: 100%;" 
-                        placeholder="Agent SubCount">
+                  <span class="label label-default">Agent SubCount</span>
+                  <input type="text" formControlName="AgentSubCount" [ngModel]="agentSubCount_0"
+                    class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
                 </div>
                 <div class="col-md-3">
-                    <span class ="label label-default">Commisson Split %</span>
-                    <input type="text" formControlName="CommissonSplit" [(ngModel)]="agentCommissionSPlit_0" class="form-control mb-2 "  style="width: 100%;" 
-                        placeholder="Commisson Split">
+                  <span class="label label-default">Commisson Split %</span>
+                  <input type="text" formControlName="CommissonSplit" [ngModel]="agentCommissionSPlit_0"
+                    class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
                 </div>
-    
+
                 <div class="col-md-3">
-                    <span class ="label label-default">Agent Name</span>
-                    <input type="text" formControlName="AgentName" [(ngModel)]="agent_name" class="form-control mb-2 " style="width: 100%;" 
-                        placeholder="Agent Name">
+                  <span class="label label-default">Agent Name</span>
+                  <input type="text" formControlName="AgentName" [ngModel]="agent_name" class="form-control mb-2 "
+                    style="width: 100%;" placeholder="Agent Name">
                 </div>
-            </div>
-           
-            <!-- second-row -->
-            <div class="row">
+              </div>
+
+              <!-- second-row -->
+              <div class="row">
                 <div class="col-md-3">
-                    <input type="text" formControlName="AgentNumber1" [(ngModel)]="agentNumber_1"  class="form-control mb-2" style="width: 100%;" 
-                        placeholder="Agent Number">
-                </div>
-                <div class="col-md-3">
-                    <input type="text" formControlName="AgentSubCount1" [(ngModel)]="agentSubCount_1" class="form-control mb-2" style="width: 100%;" 
-                        placeholder="Agent SubCount">
+                  <input type="text" formControlName="AgentNumber1" [ngModel]="agentNumber_1"
+                    class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
                 </div>
                 <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit1" [(ngModel)]="agentCommissionSPlit_1" class="form-control mb-2 " style="width: 100%;" 
-                        placeholder="Commisson Split">
-                </div>
-               
-            </div>
-            <!-- 3rd-row -->
-            <div class="row" >
-                <div class="col-md-3">
-                    <input type="text" formControlName="AgentNumber2" [(ngModel)]="agentNumber_2" class="form-control mb-2" style="width: 100%;" 
-                        placeholder="Agent Number">
+                  <input type="text" formControlName="AgentSubCount1" [ngModel]="agentSubCount_1"
+                    class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
                 </div>
                 <div class="col-md-3">
-                    <input type="text" formControlName="AgentSubCount2" [(ngModel)]="agentSubCount_2" class="form-control mb-2" style="width: 100%;" 
-                        placeholder="Agent SubCount">
+                  <input type="text" formControlName="CommissonSplit1" [ngModel]="agentCommissionSPlit_1"
+                    class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                </div>
+
+              </div>
+              <!-- 3rd-row -->
+              <div class="row">
+                <div class="col-md-3">
+                  <input type="text" formControlName="AgentNumber2" [ngModel]="agentNumber_2"
+                    class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
                 </div>
                 <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit2" [(ngModel)]="agentCommissionSPlit_2" class="form-control mb-2 " style="width: 100%;" 
-                        placeholder="Commisson Split">
-                </div>
-              
-            </div>
-            <!-- 4th-row -->
-            <div class="row" >
-                <div class="col-md-3">
-                    <input type="text" formControlName="AgentNumber3" [(ngModel)]="agentNumber_3"  class="form-control mb-2" style="width: 100%;" 
-                        placeholder="Agent Number">
+                  <input type="text" formControlName="AgentSubCount2" [ngModel]="agentSubCount_2"
+                    class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
                 </div>
                 <div class="col-md-3">
-                    <input type="text" formControlName="AgentSubCount3" [(ngModel)]="agentSubCount_3"  class="form-control mb-2" style="width: 100%;" 
-                        placeholder="Agent SubCount">
+                  <input type="text" formControlName="CommissonSplit2" [ngModel]="agentCommissionSPlit_2"
+                    class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                </div>
+
+              </div>
+              <!-- 4th-row -->
+              <div class="row">
+                <div class="col-md-3">
+                  <input type="text" formControlName="AgentNumber3" [ngModel]="agentNumber_3"
+                    class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
                 </div>
                 <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit3" [(ngModel)]="agentCommissionSPlit_3" class="form-control mb-2 " style="width: 100%;" 
-                        placeholder="Commisson Split">
+                  <input type="text" formControlName="AgentSubCount3" [ngModel]="agentSubCount_3"
+                    class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
                 </div>
-                
-            </div>
-        </form>
-        
-      </app-fppg>
+                <div class="col-md-3">
+                  <input type="text" formControlName="CommissonSplit3" [ngModel]="agentCommissionSPlit_3"
+                    class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                </div>
+
+              </div>
+            </form>
+
+          </app-fppg>
         </div>
         <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
           <a class="card-title">
             FPP Individual
           </a>
+          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedFppInd" (change)="toggleChangeProductFppIndivisual($event)" [color]="toggleActiveColor">
+            {{checkedToggleProduct}}</mat-slide-toggle>
         </div>
         <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
 
+<<<<<<< HEAD
           <app-fpp-individual  [lookupValue]="lookupSitusStateValue" [dateValue]="dateChange">
 
             <form class="agent-form" [formGroup]="agentformgrp">
@@ -346,16 +410,97 @@
                   
               </div>
           </form>
+=======
+          <app-fpp-individual [lookupValue]="lookupSitusStateValue" #child [dateValue]="dateChange">
+            <form class="agent-form" [formGroup]="agentformgrp">
+              <!-- first-row -->
+              <div class="row" style="justify-content:space-evenly;">
+                <div class="col-md-3">
+                  <span class="label label-default">Agent Number</span>
+                  <input type="text" formControlName="AgentNumber" [ngModel]="agentNumber_0" name="text"
+                    class="form-control mb-2" style="width: 100%;" placeholder="Primary Agent Number">
+                </div>
+                <div class="col-md-3">
+                  <span class="label label-default">Agent SubCount</span>
+                  <input type="text" formControlName="AgentSubCount" [ngModel]="agentSubCount_0"
+                    class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                </div>
+                <div class="col-md-3">
+                  <span class="label label-default">Commisson Split %</span>
+                  <input type="text" formControlName="CommissonSplit" [ngModel]="agentCommissionSPlit_0"
+                    class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                </div>
+
+                <div class="col-md-3">
+                  <span class="label label-default">Agent Name</span>
+                  <input type="text" formControlName="AgentName" [ngModel]="agent_name" class="form-control mb-2 "
+                    style="width: 100%;" placeholder="Agent Name">
+                </div>
+              </div>
+
+              <!-- second-row -->
+              <div class="row">
+                <div class="col-md-3">
+                  <input type="text" formControlName="AgentNumber1" [ngModel]="agentNumber_1"
+                    class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
+                </div>
+                <div class="col-md-3">
+                  <input type="text" formControlName="AgentSubCount1" [ngModel]="agentSubCount_1"
+                    class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                </div>
+                <div class="col-md-3">
+                  <input type="text" formControlName="CommissonSplit1" [ngModel]="agentCommissionSPlit_1"
+                    class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                </div>
+
+              </div>
+              <!-- 3rd-row -->
+              <div class="row">
+                <div class="col-md-3">
+                  <input type="text" formControlName="AgentNumber2" [ngModel]="agentNumber_2"
+                    class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
+                </div>
+                <div class="col-md-3">
+                  <input type="text" formControlName="AgentSubCount2" [ngModel]="agentSubCount_2"
+                    class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                </div>
+                <div class="col-md-3">
+                  <input type="text" formControlName="CommissonSplit2" [ngModel]="agentCommissionSPlit_2"
+                    class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                </div>
+
+              </div>
+              <!-- 4th-row -->
+              <div class="row">
+                <div class="col-md-3">
+                  <input type="text" formControlName="AgentNumber3" [ngModel]="agentNumber_3"
+                    class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
+                </div>
+                <div class="col-md-3">
+                  <input type="text" formControlName="AgentSubCount3" [ngModel]="agentSubCount_3"
+                    class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                </div>
+                <div class="col-md-3">
+                  <input type="text" formControlName="CommissonSplit3" [ngModel]="agentCommissionSPlit_3"
+                    class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                </div>
+
+              </div>
+            </form>
+>>>>>>> custom-template
           </app-fpp-individual>
         </div>
         <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
           <a class="card-title">
             Accident
           </a>
+          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedAccident" (change)="toggleChangeProductAccident($event)" [color]="toggleActiveColor">
+            {{checkedToggleProduct}}</mat-slide-toggle>
         </div>
         <div id="collapseThree" class="collapse" data-parent="#accordion">
           <div class="card-body">
 
+<<<<<<< HEAD
             <app-accident [lookupValue]="lookupSitusStateValue" [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
                 <!-- first-row -->
@@ -432,6 +577,84 @@
                     
                 </div>
             </form>
+=======
+            <app-accident [lookupValue]="lookupSitusStateValue" #child  [dateValue]="dateChange">
+              <form class="agent-form" [formGroup]="agentformgrp">
+                <!-- first-row -->
+                <div class="row" style="justify-content:space-evenly;">
+                  <div class="col-md-3">
+                    <span class="label label-default">Agent Number</span>
+                    <input type="text" formControlName="AgentNumber" [ngModel]="agentNumber_0" name="text"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Primary Agent Number">
+                  </div>
+                  <div class="col-md-3">
+                    <span class="label label-default">Agent SubCount</span>
+                    <input type="text" formControlName="AgentSubCount" [ngModel]="agentSubCount_0"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                  </div>
+                  <div class="col-md-3">
+                    <span class="label label-default">Commisson Split %</span>
+                    <input type="text" formControlName="CommissonSplit" [ngModel]="agentCommissionSPlit_0"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                  </div>
+  
+                  <div class="col-md-3">
+                    <span class="label label-default">Agent Name</span>
+                    <input type="text" formControlName="AgentName" [ngModel]="agent_name" class="form-control mb-2 "
+                      style="width: 100%;" placeholder="Agent Name">
+                  </div>
+                </div>
+  
+                <!-- second-row -->
+                <div class="row">
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentNumber1" [ngModel]="agentNumber_1"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentSubCount1" [ngModel]="agentSubCount_1"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="CommissonSplit1" [ngModel]="agentCommissionSPlit_1"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                  </div>
+  
+                </div>
+                <!-- 3rd-row -->
+                <div class="row">
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentNumber2" [ngModel]="agentNumber_2"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentSubCount2" [ngModel]="agentSubCount_2"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="CommissonSplit2" [ngModel]="agentCommissionSPlit_2"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                  </div>
+  
+                </div>
+                <!-- 4th-row -->
+                <div class="row">
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentNumber3" [ngModel]="agentNumber_3"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentSubCount3" [ngModel]="agentSubCount_3"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="CommissonSplit3" [ngModel]="agentCommissionSPlit_3"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                  </div>
+  
+                </div>
+              </form>
+>>>>>>> custom-template
             </app-accident>
           </div>
         </div>
@@ -439,9 +662,12 @@
           <a class="card-title">
             Hospital Indemnity
           </a>
+          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedHospital" (change)="toggleChangeProductHospitalIndemnity($event)" [color]="toggleActiveColor">
+            {{checkedToggleProduct}}</mat-slide-toggle>
         </div>
         <div id="collapseFour" class="collapse" data-parent="#accordion">
           <div class="card-body">
+<<<<<<< HEAD
             <app-hospital-indemnity [lookupValue]="lookupSitusStateValue" [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
                 <!-- first-row -->
@@ -518,6 +744,84 @@
                     
                 </div>
             </form>
+=======
+            <app-hospital-indemnity [lookupValue]="lookupSitusStateValue" #child [dateValue]="dateChange">
+              <form class="agent-form" [formGroup]="agentformgrp">
+                <!-- first-row -->
+                <div class="row" style="justify-content:space-evenly;">
+                  <div class="col-md-3">
+                    <span class="label label-default">Agent Number</span>
+                    <input type="text" formControlName="AgentNumber" [ngModel]="agentNumber_0" name="text"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Primary Agent Number">
+                  </div>
+                  <div class="col-md-3">
+                    <span class="label label-default">Agent SubCount</span>
+                    <input type="text" formControlName="AgentSubCount" [ngModel]="agentSubCount_0"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                  </div>
+                  <div class="col-md-3">
+                    <span class="label label-default">Commisson Split %</span>
+                    <input type="text" formControlName="CommissonSplit" [ngModel]="agentCommissionSPlit_0"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                  </div>
+  
+                  <div class="col-md-3">
+                    <span class="label label-default">Agent Name</span>
+                    <input type="text" formControlName="AgentName" [ngModel]="agent_name" class="form-control mb-2 "
+                      style="width: 100%;" placeholder="Agent Name">
+                  </div>
+                </div>
+  
+                <!-- second-row -->
+                <div class="row">
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentNumber1" [ngModel]="agentNumber_1"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentSubCount1" [ngModel]="agentSubCount_1"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="CommissonSplit1" [ngModel]="agentCommissionSPlit_1"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                  </div>
+  
+                </div>
+                <!-- 3rd-row -->
+                <div class="row">
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentNumber2" [ngModel]="agentNumber_2"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentSubCount2" [ngModel]="agentSubCount_2"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="CommissonSplit2" [ngModel]="agentCommissionSPlit_2"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                  </div>
+  
+                </div>
+                <!-- 4th-row -->
+                <div class="row">
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentNumber3" [ngModel]="agentNumber_3"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentSubCount3" [ngModel]="agentSubCount_3"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="CommissonSplit3" [ngModel]="agentCommissionSPlit_3"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                  </div>
+  
+                </div>
+              </form>
+>>>>>>> custom-template
             </app-hospital-indemnity>
           </div>
         </div>
@@ -525,9 +829,12 @@
           <a class="card-title">
             Employer Paid CI
           </a>
+          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedEmpPaidCi" (change)="toggleChangeProductEmpPaidCi($event)" [color]="toggleActiveColor">
+            {{checkedToggleProduct}}</mat-slide-toggle>
         </div>
         <div id="collapseFive" class="collapse" data-parent="#accordion">
           <div class="card-body">
+<<<<<<< HEAD
             <app-employer-paid-ci [lookupValue]="lookupSitusStateValue" [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
                 <!-- first-row -->
@@ -604,6 +911,84 @@
                     
                 </div>
             </form>
+=======
+            <app-employer-paid-ci [lookupValue]="lookupSitusStateValue" #child [dateValue]="dateChange">
+              <form class="agent-form" [formGroup]="agentformgrp">
+                <!-- first-row -->
+                <div class="row" style="justify-content:space-evenly;">
+                  <div class="col-md-3">
+                    <span class="label label-default">Agent Number</span>
+                    <input type="text" formControlName="AgentNumber" [ngModel]="agentNumber_0" name="text"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Primary Agent Number">
+                  </div>
+                  <div class="col-md-3">
+                    <span class="label label-default">Agent SubCount</span>
+                    <input type="text" formControlName="AgentSubCount" [ngModel]="agentSubCount_0"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                  </div>
+                  <div class="col-md-3">
+                    <span class="label label-default">Commisson Split %</span>
+                    <input type="text" formControlName="CommissonSplit" [ngModel]="agentCommissionSPlit_0"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                  </div>
+  
+                  <div class="col-md-3">
+                    <span class="label label-default">Agent Name</span>
+                    <input type="text" formControlName="AgentName" [ngModel]="agent_name" class="form-control mb-2 "
+                      style="width: 100%;" placeholder="Agent Name">
+                  </div>
+                </div>
+  
+                <!-- second-row -->
+                <div class="row">
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentNumber1" [ngModel]="agentNumber_1"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentSubCount1" [ngModel]="agentSubCount_1"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="CommissonSplit1" [ngModel]="agentCommissionSPlit_1"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                  </div>
+  
+                </div>
+                <!-- 3rd-row -->
+                <div class="row">
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentNumber2" [ngModel]="agentNumber_2"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentSubCount2" [ngModel]="agentSubCount_2"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="CommissonSplit2" [ngModel]="agentCommissionSPlit_2"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                  </div>
+  
+                </div>
+                <!-- 4th-row -->
+                <div class="row">
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentNumber3" [ngModel]="agentNumber_3"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentSubCount3" [ngModel]="agentSubCount_3"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="CommissonSplit3" [ngModel]="agentCommissionSPlit_3"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                  </div>
+  
+                </div>
+              </form>
+>>>>>>> custom-template
             </app-employer-paid-ci>
           </div>
         </div>
@@ -611,9 +996,12 @@
           <a class="card-title">
             Voluntary CI
           </a>
+          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedVolutaryCi" (change)="toggleChangeProductVolCI($event)" [color]="toggleActiveColor">
+            {{checkedToggleProduct}}</mat-slide-toggle>
         </div>
         <div id="collapseSix" class="collapse" data-parent="#accordion">
           <div class="card-body">
+<<<<<<< HEAD
             <app-voluntary-ci [lookupValue]="lookupSitusStateValue" [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
                 <!-- first-row -->
@@ -690,6 +1078,84 @@
                     
                 </div>
             </form>
+=======
+            <app-voluntary-ci [lookupValue]="lookupSitusStateValue" #child [dateValue]="dateChange">
+              <form class="agent-form" [formGroup]="agentformgrp">
+                <!-- first-row -->
+                <div class="row" style="justify-content:space-evenly;">
+                  <div class="col-md-3">
+                    <span class="label label-default">Agent Number</span>
+                    <input type="text" formControlName="AgentNumber" [ngModel]="agentNumber_0" name="text"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Primary Agent Number">
+                  </div>
+                  <div class="col-md-3">
+                    <span class="label label-default">Agent SubCount</span>
+                    <input type="text" formControlName="AgentSubCount" [ngModel]="agentSubCount_0"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                  </div>
+                  <div class="col-md-3">
+                    <span class="label label-default">Commisson Split %</span>
+                    <input type="text" formControlName="CommissonSplit" [ngModel]="agentCommissionSPlit_0"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                  </div>
+  
+                  <div class="col-md-3">
+                    <span class="label label-default">Agent Name</span>
+                    <input type="text" formControlName="AgentName" [ngModel]="agent_name" class="form-control mb-2 "
+                      style="width: 100%;" placeholder="Agent Name">
+                  </div>
+                </div>
+  
+                <!-- second-row -->
+                <div class="row">
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentNumber1" [ngModel]="agentNumber_1"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentSubCount1" [ngModel]="agentSubCount_1"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="CommissonSplit1" [ngModel]="agentCommissionSPlit_1"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                  </div>
+  
+                </div>
+                <!-- 3rd-row -->
+                <div class="row">
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentNumber2" [ngModel]="agentNumber_2"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentSubCount2" [ngModel]="agentSubCount_2"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="CommissonSplit2" [ngModel]="agentCommissionSPlit_2"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                  </div>
+  
+                </div>
+                <!-- 4th-row -->
+                <div class="row">
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentNumber3" [ngModel]="agentNumber_3"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentSubCount3" [ngModel]="agentSubCount_3"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="CommissonSplit3" [ngModel]="agentCommissionSPlit_3"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                  </div>
+  
+                </div>
+              </form>
+>>>>>>> custom-template
             </app-voluntary-ci>
           </div>
         </div>
@@ -697,9 +1163,12 @@
           <a class="card-title">
             Vol Group Life
           </a>
+          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedVolGrpLife" (change)="toggleChangeProductVilGrpLife($event)" [color]="toggleActiveColor">
+            {{checkedToggleProduct}}</mat-slide-toggle>
         </div>
         <div id="collapseSeven" class="collapse" data-parent="#accordion">
           <div class="card-body">
+<<<<<<< HEAD
             <app-vol-group-life [lookupValue]="lookupSitusStateValue" [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
                 <!-- first-row -->
@@ -776,6 +1245,84 @@
                     
                 </div>
             </form>
+=======
+            <app-vol-group-life [lookupValue]="lookupSitusStateValue" #child [dateValue]="dateChange">
+              <form class="agent-form" [formGroup]="agentformgrp">
+                <!-- first-row -->
+                <div class="row" style="justify-content:space-evenly;">
+                  <div class="col-md-3">
+                    <span class="label label-default">Agent Number</span>
+                    <input type="text" formControlName="AgentNumber" [ngModel]="agentNumber_0" name="text"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Primary Agent Number">
+                  </div>
+                  <div class="col-md-3">
+                    <span class="label label-default">Agent SubCount</span>
+                    <input type="text" formControlName="AgentSubCount" [ngModel]="agentSubCount_0"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                  </div>
+                  <div class="col-md-3">
+                    <span class="label label-default">Commisson Split %</span>
+                    <input type="text" formControlName="CommissonSplit" [ngModel]="agentCommissionSPlit_0"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                  </div>
+  
+                  <div class="col-md-3">
+                    <span class="label label-default">Agent Name</span>
+                    <input type="text" formControlName="AgentName" [ngModel]="agent_name" class="form-control mb-2 "
+                      style="width: 100%;" placeholder="Agent Name">
+                  </div>
+                </div>
+  
+                <!-- second-row -->
+                <div class="row">
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentNumber1" [ngModel]="agentNumber_1"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentSubCount1" [ngModel]="agentSubCount_1"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="CommissonSplit1" [ngModel]="agentCommissionSPlit_1"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                  </div>
+  
+                </div>
+                <!-- 3rd-row -->
+                <div class="row">
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentNumber2" [ngModel]="agentNumber_2"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentSubCount2" [ngModel]="agentSubCount_2"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="CommissonSplit2" [ngModel]="agentCommissionSPlit_2"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                  </div>
+  
+                </div>
+                <!-- 4th-row -->
+                <div class="row">
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentNumber3" [ngModel]="agentNumber_3"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentSubCount3" [ngModel]="agentSubCount_3"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="CommissonSplit3" [ngModel]="agentCommissionSPlit_3"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                  </div>
+  
+                </div>
+              </form>
+>>>>>>> custom-template
             </app-vol-group-life>
           </div>
         </div>
@@ -783,9 +1330,12 @@
           <a class="card-title">
             Basic Group Life
           </a>
+          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedBasicGrpLife" (change)="toggleChangeProductBasicGrpLife($event)" [color]="toggleActiveColor">
+            {{checkedToggleProduct}}</mat-slide-toggle>
         </div>
         <div id="collapseEight" class="collapse" data-parent="#accordion">
           <div class="card-body">
+<<<<<<< HEAD
             <app-basic-group-life [lookupValue]="lookupSitusStateValue" [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
                 <!-- first-row -->
@@ -862,6 +1412,84 @@
                     
                 </div>
             </form>
+=======
+            <app-basic-group-life [lookupValue]="lookupSitusStateValue" #child [dateValue]="dateChange">
+              <form class="agent-form" [formGroup]="agentformgrp">
+                <!-- first-row -->
+                <div class="row" style="justify-content:space-evenly;">
+                  <div class="col-md-3">
+                    <span class="label label-default">Agent Number</span>
+                    <input type="text" formControlName="AgentNumber" [ngModel]="agentNumber_0" name="text"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Primary Agent Number">
+                  </div>
+                  <div class="col-md-3">
+                    <span class="label label-default">Agent SubCount</span>
+                    <input type="text" formControlName="AgentSubCount" [ngModel]="agentSubCount_0"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                  </div>
+                  <div class="col-md-3">
+                    <span class="label label-default">Commisson Split %</span>
+                    <input type="text" formControlName="CommissonSplit" [ngModel]="agentCommissionSPlit_0"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                  </div>
+  
+                  <div class="col-md-3">
+                    <span class="label label-default">Agent Name</span>
+                    <input type="text" formControlName="AgentName" [ngModel]="agent_name" class="form-control mb-2 "
+                      style="width: 100%;" placeholder="Agent Name">
+                  </div>
+                </div>
+  
+                <!-- second-row -->
+                <div class="row">
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentNumber1" [ngModel]="agentNumber_1"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentSubCount1" [ngModel]="agentSubCount_1"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="CommissonSplit1" [ngModel]="agentCommissionSPlit_1"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                  </div>
+  
+                </div>
+                <!-- 3rd-row -->
+                <div class="row">
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentNumber2" [ngModel]="agentNumber_2"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentSubCount2" [ngModel]="agentSubCount_2"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="CommissonSplit2" [ngModel]="agentCommissionSPlit_2"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                  </div>
+  
+                </div>
+                <!-- 4th-row -->
+                <div class="row">
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentNumber3" [ngModel]="agentNumber_3"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent Number">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="AgentSubCount3" [ngModel]="agentSubCount_3"
+                      class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="CommissonSplit3" [ngModel]="agentCommissionSPlit_3"
+                      class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
+                  </div>
+  
+                </div>
+              </form>
+>>>>>>> custom-template
             </app-basic-group-life>
           </div>
         </div>
@@ -870,7 +1498,7 @@
 
     </div>
   </div>
-  <button type="submit" class="btn btn-success mt-4 mb-4" style="float: right;" (click)="onSubmit()">Submit Group
+  <button type="submit" [disabled] = "" class="btn btn-success mt-4 mb-4" style="float: right;" (click)="onSubmit()">Submit Group
     Setup Information</button>
-    </div>
-   
+    <button (click)="calculate()">calculate</button>
+</div>

@@ -1,13 +1,21 @@
+<<<<<<< HEAD
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { LookupService } from '../services/lookup.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+=======
+import { Component, OnInit, Input,ViewChild } from '@angular/core';
+import { LookupService } from '../services/lookup.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AgentSetupComponent } from '../agent-setup/agent-setup.component';
+>>>>>>> custom-template
 @Component({
   selector: 'app-accident',
   templateUrl: './accident.component.html',
   styleUrls: ['./accident.component.css']
 })
 export class AccidentComponent implements OnInit {
+  @ViewChild('agent',{static:false}) agentComponent: AgentSetupComponent;
   accformgrp: FormGroup;
   @Input() lookupValue: any;
   @Input() dateValue: any;
@@ -51,7 +59,10 @@ export class AccidentComponent implements OnInit {
   // getLookupValueSitusState(value: any){
   //   this.lookupSitusStateValue = value;
   // }
-
+  ngAfterViewInit(){
+    let agentcomponenet = this.agentComponent.text
+    console.log("agentcomponenet",agentcomponenet)
+    }
   onItemChange(value){
     console.log(" Value is : ", value );
  }
