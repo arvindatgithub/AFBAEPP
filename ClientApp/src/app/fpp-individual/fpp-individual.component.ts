@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
-=======
 import { Component, OnInit, Input ,SimpleChanges, OnChanges} from '@angular/core';
->>>>>>> harsh-ClientApp
 import { LookupService } from '../services/lookup.service';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -27,25 +23,13 @@ export class FPPIndividualComponent implements OnInit, OnChanges {
   public minDate = new Date().toISOString().slice(0,10);
   situsState:any;
   latest_date;
-<<<<<<< HEAD
-  
-  constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe) {
-    // this.subscription = this.lookupService.getSitusValue().subscribe((situsValue:string)=>{
-    //   this.situsValue = situsValue;
-    //   console.log("this.situsValue",this.situsValue);
-    // })
-=======
   constructor(private lookupService: LookupService, private fb:FormBuilder, public datepipe: DatePipe) {
     
->>>>>>> harsh-ClientApp
    } 
    ngOnChanges(simpleChange:SimpleChanges){
     console.log("simpleChange",simpleChange);
     this.latest_date = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
-<<<<<<< HEAD
-=======
     
->>>>>>> harsh-ClientApp
   }
 
   ngOnInit() {
