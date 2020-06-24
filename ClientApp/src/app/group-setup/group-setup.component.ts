@@ -300,7 +300,7 @@ export class GroupSetupComponent implements OnInit {
 
   }
 
-  toggleChangeProductAccident(event: any) {
+  toggleChangeProductAccident(event: any) { 
 
     if (event.checked) {
       this.checkedToggleProduct = "Active";
