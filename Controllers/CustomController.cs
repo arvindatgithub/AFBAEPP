@@ -134,11 +134,11 @@ namespace AFBA.EPP.Controllers
         {
             try
             {
-                long grpprdctId = 0;
+                long  grpprdctId = long.Parse(eppAddPrdAttrbt.GrpprdctId); 
                 List<EppPrdctattrbt> EppPrdctattrbts = new List<EppPrdctattrbt>();
                 foreach (var item in eppAddPrdAttrbt.EppPrdAttrFields)
                 {
-                   if (grpprdctId == 0) grpprdctId = item.GrpprdctId;
+                  
                    //var data = _unitofWork.eppAttributeRepository.GetAttrId(item.DbAttrNm);
                    // if (data != null)
                    // {
@@ -146,7 +146,7 @@ namespace AFBA.EPP.Controllers
                         EppPrdctattrbts.Add(new EppPrdctattrbt
                         {
                             AttrId = item.AttrId,
-                            GrpprdctId = item.GrpprdctId,
+                            GrpprdctId = grpprdctId,
                             ClmnOrdr = item.ClmnOrdr,
                             RqdFlg = item.RqdFlg == true ? 'Y' : 'N',
                             PrdctAttrbtId = item.PrdctAttrbtId,
