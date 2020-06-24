@@ -84,7 +84,10 @@ namespace AFBA.EPP.Controllers
                 {
                     var eppPrdctattrbt = _unitofWork.eppPrdctattrbtRepository.GetEppPrdctattrbts(grpprdct.GrpprdctId);
                     if (eppPrdctattrbt.Count != 0)
-                     lstEppTemplateViewModel.isEdit = true; 
+                    { 
+                        lstEppTemplateViewModel.isEdit = true;
+                        lstEppTemplateViewModel.GrpprdctId = grpprdct.GrpprdctId;
+                    }
                    
                     foreach (var item in eppPrdctattrbt)
                     {
@@ -93,13 +96,12 @@ namespace AFBA.EPP.Controllers
                         {
                             lstEppTemplateViewModel.SelectedList.Add(new EppAttrFieldViewModel
                             {
-
+                                 AttrId= item.AttrId,
                                 DbAttrNm = data.DbAttrNm,
                                 ClmnOrdr = item.ClmnOrdr,
-                                RqdFlg = item.RqdFlg == 'Y' ? true : false,
+                                RqdFlg = item.RqdFlg,
                                 GrpprdctId = item.GrpprdctId,
                                 PrdctAttrbtId = item.PrdctAttrbtId,
-
 
                             });
                         }
