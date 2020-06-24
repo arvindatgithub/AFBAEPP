@@ -2,6 +2,10 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { LookupService } from '../services/lookup.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+
+
+
+import { AgentSetupComponent } from '../agent-setup/agent-setup.component';
 @Component({
   selector: 'app-accident',
   templateUrl: './accident.component.html',
@@ -51,7 +55,6 @@ export class AccidentComponent implements OnInit {
   // getLookupValueSitusState(value: any){
   //   this.lookupSitusStateValue = value;
   // }
-
   onItemChange(value){
     console.log(" Value is : ", value );
  }

@@ -9,6 +9,13 @@ import { EppCreateGrpSetupService } from '../services/epp-create-grp-setup.servi
 import { AgentSetupComponent } from '../agent-setup/agent-setup.component';
 import { FPPGComponent } from '../fppg/fppg.component';
 import { RadioButtonComponent } from '../radio-button/radio-button.component'
+import { FPPIndividualComponent } from '../fpp-individual/fpp-individual.component';
+import{ AccidentComponent} from '../accident/accident.component';
+import{HospitalIndemnityComponent} from '../hospital-indemnity/hospital-indemnity.component';
+import{EmployerPaidCIComponent} from '../employer-paid-ci/employer-paid-ci.component';
+import { VoluntaryCIComponent } from '../voluntary-ci/voluntary-ci.component';
+import {VolGroupLifeComponent} from '../vol-group-life/vol-group-life.component';
+import {BasicGroupLifeComponent} from '../basic-group-life/basic-group-life.component'
 
 @Component({
   selector: 'app-group-setup',
@@ -17,17 +24,33 @@ import { RadioButtonComponent } from '../radio-button/radio-button.component'
 })
 export class GroupSetupComponent implements OnInit {
 
-  @ViewChild('agent', { static: false }) agentComponent: AgentSetupComponent;
-  // @ViewChild('radio',{static:false}) radiobutton:RadioButtonComponent;
+ // @ViewChild('agent', { static: false }) agentComponent: AgentSetupComponent;
   @ViewChild('child', { static: false }) fppgComponent: FPPGComponent;
+  @ViewChild('child', { static: false }) fppComponent: FPPIndividualComponent;
+  @ViewChild('child', { static: false }) accidentComponent: AccidentComponent;
+  @ViewChild('child', { static: false }) hospitalIndemnityComponent: HospitalIndemnityComponent;
+  @ViewChild('child', { static: false }) empPaidCiComponent: EmployerPaidCIComponent;
+  @ViewChild('child', { static: false }) VolCiComponent: VoluntaryCIComponent;
+  @ViewChild('child', { static: false }) VolgrpLifeComponent: VolGroupLifeComponent;
+  @ViewChild('child', { static: false }) basicgrplifeComponent: BasicGroupLifeComponent;
+
   public product: any;
   public addedProducts = [];
   public selectedProducts: any = [];
   titleName: string = "";
   selectedOption = [];
   accident: string = "";
+  isChecked = true;
+  isCheckedFppg = true;
+  isCheckedFppInd = true;
+  isCheckedAccident= true;
+  isCheckedHospital= true;
+  isCheckedEmpPaidCi = true;
+  isCheckedVolutaryCi = true;
+  isCheckedVolGrpLife = true;
+  isCheckedBasicGrpLife = true;
   checkedToggle: string = "Active";
-  checkedToggleProduct: string = "Inactive";
+  checkedToggleProduct: string = "Active";
   toggleActiveColor: ThemePalette = "primary";
   groupNumber: string = "";
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
@@ -50,6 +73,7 @@ export class GroupSetupComponent implements OnInit {
   grpEfftvDate;
   grpPymn: string;
   paymentModes: any;
+  sum = 0;
   occClass: any = [{
     occupation: 1,
     id: 1
@@ -138,10 +162,10 @@ export class GroupSetupComponent implements OnInit {
   agentSubCount_1:any = "";
   agentSubCount_2:any = "";
   agentSubCount_3:any = "";
-  agentCommissionSPlit_0:any = "";
-  agentCommissionSPlit_1:any = "";
-  agentCommissionSPlit_2:any = "";
-  agentCommissionSPlit_3:any = "";
+  agentCommissionSPlit_0:string;
+  agentCommissionSPlit_1:string;
+  agentCommissionSPlit_2:string;
+  agentCommissionSPlit_3:string;
   agent_name:any=""
 
   constructor(private eppcreategroupservice: EppCreateGrpSetupService, private _fb: FormBuilder,
@@ -194,6 +218,145 @@ export class GroupSetupComponent implements OnInit {
       AgentSubCount3: ["",Validators.required ],
       CommissonSplit3: ["",Validators.required ],
 
+
+      AgentNumberFppIndivisual: ["",Validators.required ],
+      AgentSubCountFppIndivisual: ["",Validators.required ],
+      CommissonSplitFppIndivisual: ["",Validators.required ],
+      AgentNameFppIndivisual:["", Validators.required],
+
+      AgentNumber1FppIndivisual: ["",Validators.required ],
+      AgentSubCount1FppIndivisual: ["",Validators.required ],
+      CommissonSplit1FppIndivisual: ["",Validators.required ],
+     
+
+      AgentNumber2FppIndivisual: ["",Validators.required ],
+      AgentSubCount2FppIndivisual: ["",Validators.required ],
+      CommissonSplit2FppIndivisual: ["",Validators.required ],
+
+      AgentNumber3FppIndivisual: ["",Validators.required ],
+      AgentSubCount3FppIndivisual: ["",Validators.required ],
+      CommissonSplit3FppIndivisual: ["",Validators.required ],
+
+
+      AgentNumberaccident: ["",Validators.required ],
+      AgentSubCountaccident: ["",Validators.required ],
+      CommissonSplitaccident: ["",Validators.required ],
+      AgentNameaccident:["", Validators.required],
+
+      AgentNumber1accident: ["",Validators.required ],
+      AgentSubCount1accident: ["",Validators.required ],
+      CommissonSplit1accident: ["",Validators.required ],
+     
+
+      AgentNumber2accident: ["",Validators.required ],
+      AgentSubCount2accident: ["",Validators.required ],
+      CommissonSplit2accident: ["",Validators.required ],
+
+      AgentNumber3accident: ["",Validators.required ],
+      AgentSubCount3accident: ["",Validators.required ],
+      CommissonSplit3accident: ["",Validators.required ],
+
+
+
+      AgentNumberHospitalIndemnity: ["",Validators.required ],
+      AgentSubCountHospitalIndemnity: ["",Validators.required ],
+      CommissonSplitHospitalIndemnity: ["",Validators.required ],
+      AgentNameHospitalIndemnity:["", Validators.required],
+
+      AgentNumber1HospitalIndemnity: ["",Validators.required ],
+      AgentSubCount1HospitalIndemnity: ["",Validators.required ],
+      CommissonSplit1HospitalIndemnity: ["",Validators.required ],
+     
+
+      AgentNumber2HospitalIndemnity: ["",Validators.required ],
+      AgentSubCount2HospitalIndemnity: ["",Validators.required ],
+      CommissonSplit2HospitalIndemnity: ["",Validators.required ],
+
+      AgentNumber3HospitalIndemnity: ["",Validators.required ],
+      AgentSubCount3HospitalIndemnity: ["",Validators.required ],
+      CommissonSplit3HospitalIndemnity: ["",Validators.required ],
+
+
+
+      AgentNumberempPaidci: ["",Validators.required ],
+      AgentSubCountempPaidci: ["",Validators.required ],
+      CommissonSplitempPaidci: ["",Validators.required ],
+      AgentNameempPaidci:["", Validators.required],
+
+      AgentNumber1empPaidci: ["",Validators.required ],
+      AgentSubCount1empPaidci: ["",Validators.required ],
+      CommissonSplit1empPaidci: ["",Validators.required ],
+     
+
+      AgentNumber2empPaidci: ["",Validators.required ],
+      AgentSubCount2empPaidci: ["",Validators.required ],
+      CommissonSplit2empPaidci: ["",Validators.required ],
+
+      AgentNumber3empPaidci: ["",Validators.required ],
+      AgentSubCount3empPaidci: ["",Validators.required ],
+      CommissonSplit3empPaidci: ["",Validators.required ],
+
+
+
+
+      AgentNumbervolCi: ["",Validators.required ],
+      AgentSubCountvolCi: ["",Validators.required ],
+      CommissonSplitvolCi: ["",Validators.required ],
+      AgentNamevolCi:["", Validators.required],
+
+      AgentNumber1volCi: ["",Validators.required ],
+      AgentSubCount1volCi: ["",Validators.required ],
+      CommissonSplit1volCi: ["",Validators.required ],
+     
+
+      AgentNumber2volCi: ["",Validators.required ],
+      AgentSubCount2volCi: ["",Validators.required ],
+      CommissonSplit2volCi: ["",Validators.required ],
+
+      AgentNumber3volCi: ["",Validators.required ],
+      AgentSubCount3volCi: ["",Validators.required ],
+      CommissonSplit3volCi: ["",Validators.required ],
+
+
+
+      AgentNumberVolGrpLife: ["",Validators.required ],
+      AgentSubCountVolGrpLife: ["",Validators.required ],
+      CommissonSplitVolGrpLife: ["",Validators.required ],
+      AgentNameVolGrpLife:["", Validators.required],
+
+      AgentNumber1VolGrpLife: ["",Validators.required ],
+      AgentSubCount1VolGrpLife: ["",Validators.required ],
+      CommissonSplit1VolGrpLife: ["",Validators.required ],
+     
+
+      AgentNumber2VolGrpLife: ["",Validators.required ],
+      AgentSubCount2VolGrpLife: ["",Validators.required ],
+      CommissonSplit2VolGrpLife: ["",Validators.required ],
+
+      AgentNumber3VolGrpLife: ["",Validators.required ],
+      AgentSubCount3VolGrpLife: ["",Validators.required ],
+      CommissonSplit3VolGrpLife: ["",Validators.required ],
+
+
+
+      AgentNumberBasicgrpLife: ["",Validators.required ],
+      AgentSubCountBasicgrpLife: ["",Validators.required ],
+      CommissonSplitBasicgrpLife: ["",Validators.required ],
+      AgentNameBasicgrpLife:["", Validators.required],
+
+      AgentNumber1BasicgrpLife: ["",Validators.required ],
+      AgentSubCount1BasicgrpLife: ["",Validators.required ],
+      CommissonSplit1BasicgrpLife: ["",Validators.required ],
+     
+
+      AgentNumber2BasicgrpLife: ["",Validators.required ],
+      AgentSubCount2BasicgrpLife: ["",Validators.required ],
+      CommissonSplit2BasicgrpLife: ["",Validators.required ],
+
+      AgentNumber3BasicgrpLife: ["",Validators.required ],
+      AgentSubCount3BasicgrpLife: ["",Validators.required ],
+      CommissonSplit3BasicgrpLife: ["",Validators.required ],
+
     })
     
    
@@ -243,25 +406,129 @@ export class GroupSetupComponent implements OnInit {
 
   toggleChange(event: any) {
 
-    if (event.checked) {
+    if (event.checked && this.isChecked) {
       this.checkedToggle = "Active";
+      this.isChecked = event.checked;
+     
     }
     else {
       this.checkedToggle = "Inactive";
+      this.isChecked = event.checked;
+      
     }
 
   }
 
-  toggleChangeProduct(event: any) {
+  toggleChangeProductFppg(event: any) {
 
     if (event.checked) {
       this.checkedToggleProduct = "Active";
+      this.isCheckedFppg = event.checked;
     }
     else {
       this.checkedToggleProduct = "Inactive";
+      this.isCheckedFppg = event.checked;
     }
 
   }
+
+  toggleChangeProductFppIndivisual(event: any) {
+
+    if (event.checked) {
+      this.checkedToggleProduct = "Active";
+      this.isCheckedFppInd = event.checked;
+    }
+    else {
+      this.checkedToggleProduct = "Inactive";
+      this.isCheckedFppInd = event.checked;
+    }
+
+  }
+
+  toggleChangeProductAccident(event: any) { 
+
+    if (event.checked) {
+      this.checkedToggleProduct = "Active";
+      this.isCheckedAccident = event.checked;
+    }
+    else {
+      this.checkedToggleProduct = "Inactive";
+      this.isCheckedAccident = event.checked;
+    }
+
+  }
+
+
+  toggleChangeProductHospitalIndemnity(event: any) {
+
+    if (event.checked) {
+      this.checkedToggleProduct = "Active";
+      this.isCheckedHospital = event.checked;
+    }
+    else {
+      this.checkedToggleProduct = "Inactive";
+      this.isCheckedHospital = event.checked;
+    }
+
+  }
+
+
+  toggleChangeProductEmpPaidCi(event: any) {
+
+    if (event.checked) {
+      this.checkedToggleProduct = "Active";
+      this.isCheckedEmpPaidCi = event.checked;
+    }
+    else {
+      this.checkedToggleProduct = "Inactive";
+      this.isCheckedEmpPaidCi = event.checked;
+    }
+
+  }
+
+
+  toggleChangeProductVolCI(event: any) {
+
+    if (event.checked) {
+      this.checkedToggleProduct = "Active";
+      this.isCheckedVolutaryCi = event.checked;
+    }
+    else {
+      this.checkedToggleProduct = "Inactive";
+      this.isCheckedVolutaryCi = event.checked;
+    }
+
+  }
+
+
+
+  toggleChangeProductVilGrpLife(event: any) {
+
+    if (event.checked) {
+      this.checkedToggleProduct = "Active";
+      this.isCheckedVolGrpLife = event.checked;
+    }
+    else {
+      this.checkedToggleProduct = "Inactive";
+      this.isCheckedVolGrpLife = event.checked;
+    }
+
+  }
+
+
+  toggleChangeProductBasicGrpLife(event: any) {
+
+    if (event.checked) {
+      this.checkedToggleProduct = "Active";
+      this.isCheckedBasicGrpLife = event.checked;
+    }
+    else {
+      this.checkedToggleProduct = "Inactive";
+      this.isCheckedBasicGrpLife = event.checked;
+    }
+
+  }
+
 
   occClassChange(value: any) {
     this.occupationArray = value;
@@ -278,8 +545,8 @@ export class GroupSetupComponent implements OnInit {
       grpEfftvDt: this.dateChange,
        grpPymn: parseInt(this.grpPymn),
      // grpPymn: "10001",
-      //actvFlg: this.checkedToggle,
-      "actvFlg": "false",
+      actvFlg: "false",
+      // "actvFlg": this.isChecked,
       occClass: parseInt(this.occupationArray),
       grpSitusSt: this.grpSitusState,
       enrlmntPrtnrsNm: this.EnrolmentPatnerName,
@@ -287,7 +554,7 @@ export class GroupSetupComponent implements OnInit {
       emailAddress: this.ManagerEmail,
       acctMgrNm: this.ManegerName,
       "acctMgrCntctId": 0,
-      isFPPGActive: this.fppgActive,
+      isFPPGActive: this.isCheckedFppg,
       "fppg": {
         "grp_nmbr": "string",
         effctv_dt: (new Date(this.fppgComponent.fppgformgrp.value.FCfppgEffectiveDate)).toISOString(),
@@ -306,21 +573,21 @@ export class GroupSetupComponent implements OnInit {
         sp_qi_max_amt_action: "string",
         emp_max_amt_action: "string",
         sp_max_amt_action: "string",
-        agnt_cd_1:this.agentNumber_0,
-        agnt_nm: this.agent_name,
-        agnt_comm_split_1: parseInt(this.agentCommissionSPlit_0),
-        agntsub_1: this.agentSubCount_0,
-        agnt_cd_2: this.agentNumber_1,
-        agnt_comm_split_2: parseInt(this.agentCommissionSPlit_1),
-        agntsub_2: this.agentSubCount_1,
-        agnt_cd_3: this.agentNumber_2,
-        agnt_comm_split_3: parseInt(this.agentCommissionSPlit_2),
-        agntsub_3: this.agentSubCount_2,
-        agnt_cd_4: this.agentNumber_3,
-        agnt_comm_split_4: parseInt(this.agentCommissionSPlit_3),
-        agntsub_4: this.agentSubCount_3,
+        agnt_cd_1:this.agentformgrp.get('AgentNumber').value,
+        agnt_nm: this.agentformgrp.get('AgentName').value,
+        agnt_comm_split_1: parseInt(this.agentformgrp.get('CommissonSplit').value),
+        agntsub_1: this.agentformgrp.get('AgentSubCount').value,
+        agnt_cd_2: this.agentformgrp.get('AgentNumber1').value,
+        agnt_comm_split_2: parseInt(this.agentformgrp.get('CommissonSplit1').value),
+        agntsub_2: this.agentformgrp.get('AgentSubCount1').value,
+        agnt_cd_3: this.agentformgrp.get('AgentNumber2').value,
+        agnt_comm_split_3: parseInt(this.agentformgrp.get('CommissonSplit2').value),
+        agntsub_3: this.agentformgrp.get('AgentSubCount2').value,
+        agnt_cd_4: this.agentformgrp.get('AgentNumber3').value,
+        agnt_comm_split_4: parseInt(this.agentformgrp.get('CommissonSplit3').value),
+        agntsub_4: this.agentformgrp.get('AgentSubCount3').value,
       },
-      "isACC_HIActive": false,
+      "isACC_HIActive": this.isCheckedAccident,
       "acC_HI": {
         "effctv_dt": "2020-06-21T12:03:45.088Z",
         "grp_situs_state": "string",
@@ -328,21 +595,21 @@ export class GroupSetupComponent implements OnInit {
         "effctv_dt_action": "string",
         "grp_situs_state_action": "string",
         "rate_lvl_action": "string",
-        "agnt_cd_1": "string",
-        "agnt_nm": "string",
-        "agnt_comm_split_1": 0,
-        "agntsub_1": "string",
-        "agnt_cd_2": "string",
-        "agnt_comm_split_2": 0,
-        "agntsub_2": "string",
-        "agnt_cd_3": "string",
-        "agnt_comm_split_3": 0,
-        "agntsub_3": "string",
-        "agnt_cd_4": "string",
-        "agnt_comm_split_4": 0,
-        "agntsub_4": "string"
+        agnt_cd_1:this.agentformgrp.get('AgentNumberaccident').value,
+        agnt_nm: this.agentformgrp.get('AgentNameaccident').value,
+        agnt_comm_split_1: parseInt(this.agentformgrp.get('CommissonSplitaccident').value),
+        agntsub_1: this.agentformgrp.get('AgentSubCountaccident').value,
+        agnt_cd_2: this.agentformgrp.get('AgentNumber1accident').value,
+        agnt_comm_split_2: parseInt(this.agentformgrp.get('CommissonSplit1accident').value),
+        agntsub_2: this.agentformgrp.get('AgentSubCount1accident').value,
+        agnt_cd_3: this.agentformgrp.get('AgentNumber2accident').value,
+        agnt_comm_split_3: parseInt(this.agentformgrp.get('CommissonSplit2accident').value),
+        agntsub_3: this.agentformgrp.get('AgentSubCount2accident').value,
+        agnt_cd_4: this.agentformgrp.get('AgentNumber3accident').value,
+        agnt_comm_split_4: parseInt(this.agentformgrp.get('CommissonSplit3accident').value),
+        agntsub_4: this.agentformgrp.get('AgentSubCount3accident').value,
       },
-      "isER_CIActive": false,
+      "isER_CIActive": this.isCheckedEmpPaidCi ,
       "eR_CI": {
         "grp_nmbr": "string",
         "effctv_dt": "2020-06-21T12:03:45.088Z",
@@ -353,21 +620,21 @@ export class GroupSetupComponent implements OnInit {
         "grp_situs_state_action": "string",
         "emp_face_amt_mon_bnft_action": "string",
         "sp_face_amt_mon_bnft_action": "string",
-        "agnt_cd_1": "string",
-        "agnt_nm": "string",
-        "agnt_comm_split_1": 0,
-        "agntsub_1": "string",
-        "agnt_cd_2": "string",
-        "agnt_comm_split_2": 0,
-        "agntsub_2": "string",
-        "agnt_cd_3": "string",
-        "agnt_comm_split_3": 0,
-        "agntsub_3": "string",
-        "agnt_cd_4": "string",
-        "agnt_comm_split_4": 0,
-        "agntsub_4": "string"
+        agnt_cd_1:this.agentformgrp.get('AgentNumberempPaidci').value,
+        agnt_nm: this.agentformgrp.get('AgentNameempPaidci').value,
+        agnt_comm_split_1: parseInt(this.agentformgrp.get('CommissonSplitempPaidci').value),
+        agntsub_1: this.agentformgrp.get('AgentSubCountempPaidci').value,
+        agnt_cd_2: this.agentformgrp.get('AgentNumber1empPaidci').value,
+        agnt_comm_split_2: parseInt(this.agentformgrp.get('CommissonSplit1empPaidci').value),
+        agntsub_2: this.agentformgrp.get('AgentSubCount1empPaidci').value,
+        agnt_cd_3: this.agentformgrp.get('AgentNumber2empPaidci').value,
+        agnt_comm_split_3: parseInt(this.agentformgrp.get('CommissonSplit2empPaidci').value),
+        agntsub_3: this.agentformgrp.get('AgentSubCount2empPaidci').value,
+        agnt_cd_4: this.agentformgrp.get('AgentNumber3empPaidci').value,
+        agnt_comm_split_4: parseInt(this.agentformgrp.get('CommissonSplit3empPaidci').value),
+        agntsub_4: this.agentformgrp.get('AgentSubCount3empPaidci').value,
       },
-      "isVOL_CIActive": false,
+      "isVOL_CIActive": this.isCheckedVolutaryCi ,
       "voL_CI": {
         "grp_nmbr": "string",
         "effctv_dt": "2020-06-21T12:03:45.088Z",
@@ -386,21 +653,21 @@ export class GroupSetupComponent implements OnInit {
         "sp_qi_max_amt_action": "string",
         "emp_max_amt_action": "string",
         "sp_max_amt_action": "string",
-        "agnt_cd_1": "string",
-        "agnt_nm": "string",
-        "agnt_comm_split_1": 0,
-        "agntsub_1": "string",
-        "agnt_cd_2": "string",
-        "agnt_comm_split_2": 0,
-        "agntsub_2": "string",
-        "agnt_cd_3": "string",
-        "agnt_comm_split_3": 0,
-        "agntsub_3": "string",
-        "agnt_cd_4": "string",
-        "agnt_comm_split_4": 0,
-        "agntsub_4": "string"
+        agnt_cd_1:this.agentformgrp.get('AgentNumbervolCi').value,
+        agnt_nm: this.agentformgrp.get('AgentNamevolCi').value,
+        agnt_comm_split_1: parseInt(this.agentformgrp.get('CommissonSplitvolCi').value),
+        agntsub_1: this.agentformgrp.get('AgentSubCountvolCi').value,
+        agnt_cd_2: this.agentformgrp.get('AgentNumber1volCi').value,
+        agnt_comm_split_2: parseInt(this.agentformgrp.get('CommissonSplit1volCi').value),
+        agntsub_2: this.agentformgrp.get('AgentSubCount1volCi').value,
+        agnt_cd_3: this.agentformgrp.get('AgentNumber2volCi').value,
+        agnt_comm_split_3: parseInt(this.agentformgrp.get('CommissonSplit2volCi').value),
+        agntsub_3: this.agentformgrp.get('AgentSubCount2volCi').value,
+        agnt_cd_4: this.agentformgrp.get('AgentNumber3volCi').value,
+        agnt_comm_split_4: parseInt(this.agentformgrp.get('CommissonSplit3volCi').value),
+        agntsub_4: this.agentformgrp.get('AgentSubCount3volCi').value,
       },
-      "isVGLActive": false,
+      "isVGLActive": this.isCheckedVolGrpLife ,
       "vgl": {
         "grp_nmbr": "string",
         "effctv_dt": "2020-06-21T12:03:45.088Z",
@@ -419,21 +686,21 @@ export class GroupSetupComponent implements OnInit {
         "sp_qi_max_amt_action": "string",
         "emp_max_amt_action": "string",
         "sp_max_amt_action": "string",
-        "agnt_cd_1": "string",
-        "agnt_nm": "string",
-        "agnt_comm_split_1": 0,
-        "agntsub_1": "string",
-        "agnt_cd_2": "string",
-        "agnt_comm_split_2": 0,
-        "agntsub_2": "string",
-        "agnt_cd_3": "string",
-        "agnt_comm_split_3": 0,
-        "agntsub_3": "string",
-        "agnt_cd_4": "string",
-        "agnt_comm_split_4": 0,
-        "agntsub_4": "string"
+        agnt_cd_1:this.agentformgrp.get('AgentNumberVolGrpLife').value,
+        agnt_nm: this.agentformgrp.get('AgentNameVolGrpLife').value,
+        agnt_comm_split_1: parseInt(this.agentformgrp.get('CommissonSplitVolGrpLife').value),
+        agntsub_1: this.agentformgrp.get('AgentSubCountVolGrpLife').value,
+        agnt_cd_2: this.agentformgrp.get('AgentNumber1VolGrpLife').value,
+        agnt_comm_split_2: parseInt(this.agentformgrp.get('CommissonSplit1VolGrpLife').value),
+        agntsub_2: this.agentformgrp.get('AgentSubCount1VolGrpLife').value,
+        agnt_cd_3: this.agentformgrp.get('AgentNumber2VolGrpLife').value,
+        agnt_comm_split_3: parseInt(this.agentformgrp.get('CommissonSplit2VolGrpLife').value),
+        agntsub_3: this.agentformgrp.get('AgentSubCount2VolGrpLife').value,
+        agnt_cd_4: this.agentformgrp.get('AgentNumber3VolGrpLife').value,
+        agnt_comm_split_4: parseInt(this.agentformgrp.get('CommissonSplit3VolGrpLife').value),
+        agntsub_4: this.agentformgrp.get('AgentSubCount3VolGrpLife').value,
       },
-      "isBGLActive": false,
+      "isBGLActive": this.isCheckedBasicGrpLife ,
       "bgl": {
         "grp_nmbr": "string",
         "effctv_dt": "2020-06-21T12:03:45.089Z",
@@ -442,21 +709,21 @@ export class GroupSetupComponent implements OnInit {
         "effctv_dt_action": "string",
         "grp_situs_state_action": "string",
         "emp_face_amt_mon_bnft_action": "string",
-        "agnt_cd_1": "string",
-        "agnt_nm": "string",
-        "agnt_comm_split_1": 0,
-        "agntsub_1": "string",
-        "agnt_cd_2": "string",
-        "agnt_comm_split_2": 0,
-        "agntsub_2": "string",
-        "agnt_cd_3": "string",
-        "agnt_comm_split_3": 0,
-        "agntsub_3": "string",
-        "agnt_cd_4": "string",
-        "agnt_comm_split_4": 0,
-        "agntsub_4": "string"
+        agnt_cd_1:this.agentformgrp.get('AgentNumberBasicgrpLife').value,
+        agnt_nm: this.agentformgrp.get('AgentNameBasicgrpLife').value,
+        agnt_comm_split_1: parseInt(this.agentformgrp.get('CommissonSplitBasicgrpLife').value),
+        agntsub_1: this.agentformgrp.get('AgentSubCountBasicgrpLife').value,
+        agnt_cd_2: this.agentformgrp.get('AgentNumber1BasicgrpLife').value,
+        agnt_comm_split_2: parseInt(this.agentformgrp.get('CommissonSplit1BasicgrpLife').value),
+        agntsub_2: this.agentformgrp.get('AgentSubCount1BasicgrpLife').value,
+        agnt_cd_3: this.agentformgrp.get('AgentNumber2BasicgrpLife').value,
+        agnt_comm_split_3: parseInt(this.agentformgrp.get('CommissonSplit2BasicgrpLife').value),
+        agntsub_3: this.agentformgrp.get('AgentSubCount2BasicgrpLife').value,
+        agnt_cd_4: this.agentformgrp.get('AgentNumber3BasicgrpLife').value,
+        agnt_comm_split_4: parseInt(this.agentformgrp.get('CommissonSplit3BasicgrpLife').value),
+        agntsub_4: this.agentformgrp.get('AgentSubCount3BasicgrpLife').value,
       },
-      "isFPPIActive": false,
+      "isFPPIActive": this.isCheckedFppInd,
       "fppi": {
         "grp_nmbr": "string",
         "effctv_dt": "2020-06-21T12:03:45.089Z",
@@ -475,26 +742,43 @@ export class GroupSetupComponent implements OnInit {
         "sp_qi_max_amt_action": "string",
         "emp_max_amt_action": "string",
         "sp_max_amt_action": "string",
-        "agnt_cd_1": "string",
-        "agnt_nm": "string",
-        "agnt_comm_split_1": 0,
-        "agntsub_1": "string",
-        "agnt_cd_2": "string",
-        "agnt_comm_split_2": 0,
-        "agntsub_2": "string",
-        "agnt_cd_3": "string",
-        "agnt_comm_split_3": 0,
-        "agntsub_3": "string",
-        "agnt_cd_4": "string",
-        "agnt_comm_split_4": 0,
-        "agntsub_4": "string"
+        agnt_cd_1:this.agentformgrp.get('AgentNumberFppIndivisual').value,
+        agnt_nm: this.agentformgrp.get('AgentNameFppIndivisual').value,
+        agnt_comm_split_1: parseInt(this.agentformgrp.get('CommissonSplitFppIndivisual').value),
+        agntsub_1: this.agentformgrp.get('AgentSubCountFppIndivisual').value,
+        agnt_cd_2: this.agentformgrp.get('AgentNumber1FppIndivisual').value,
+        agnt_comm_split_2: parseInt(this.agentformgrp.get('CommissonSplit1FppIndivisual').value),
+        agntsub_2: this.agentformgrp.get('AgentSubCount1FppIndivisual').value,
+        agnt_cd_3: this.agentformgrp.get('AgentNumber2FppIndivisual').value,
+        agnt_comm_split_3: parseInt(this.agentformgrp.get('CommissonSplit2FppIndivisual').value),
+        agntsub_3: this.agentformgrp.get('AgentSubCount2FppIndivisual').value,
+        agnt_cd_4: this.agentformgrp.get('AgentNumber3FppIndivisual').value,
+        agnt_comm_split_4: parseInt(this.agentformgrp.get('CommissonSplit3FppIndivisual').value),
+        agntsub_4: this.agentformgrp.get('AgentSubCount3FppIndivisual').value,
       }
-
-
     }
+    
+    this.sum = parseFloat(this.agentCommissionSPlit_0)+ 
+    parseFloat(this.agentCommissionSPlit_1)+
+    parseFloat(this.agentCommissionSPlit_2)+
+    parseFloat(this.agentCommissionSPlit_3)
+
     this.eppcreategroupservice.PosteppCreate(body).subscribe((data: any) => {
       console.log("data", data);
     });
+
+    // if((this.sum) < 100 && this.sum == 0){
+    //       this.answer = this.sum;
+    //       console.log("this.answer",this.answer);
+         
+    // }
+    // else{
+    //     this.snackBar.open("CommonSplit Value is Greater Than 100%", "close", {
+    //       duration: 5000,
+    //     });
+    // }
+    
   }
+  answer;
 
 }
