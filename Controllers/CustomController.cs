@@ -138,13 +138,13 @@ namespace AFBA.EPP.Controllers
                 foreach (var item in eppAddPrdAttrbt.EppPrdAttrFields)
                 {
                    if (grpprdctId == 0) grpprdctId = item.GrpprdctId;
-                   var data = _unitofWork.eppAttributeRepository.GetAttrId(item.DbAttrNm);
-                    if (data != null)
-                    {
+                   //var data = _unitofWork.eppAttributeRepository.GetAttrId(item.DbAttrNm);
+                   // if (data != null)
+                   // {
 
                         EppPrdctattrbts.Add(new EppPrdctattrbt
                         {
-                            AttrId = data.AttrId,
+                            AttrId = item.AttrId,
                             GrpprdctId = item.GrpprdctId,
                             ClmnOrdr = item.ClmnOrdr,
                             RqdFlg = item.RqdFlg == true ? 'Y' : 'N',
@@ -152,7 +152,7 @@ namespace AFBA.EPP.Controllers
                             CrtdBy = "",
                         });
 
-                    }
+                    //}
                 }
                
                 foreach (var data in EppPrdctattrbts)
