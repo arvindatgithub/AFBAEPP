@@ -166,7 +166,7 @@ export class GroupSetupComponent implements OnInit {
   agentCommissionSPlit_2:string;
   agentCommissionSPlit_3:string;
   agent_name:any=""
-
+  paymentModes: any;
   constructor(private eppcreategroupservice: EppCreateGrpSetupService, private _fb: FormBuilder,
     private snackBar: MatSnackBar, private lookupService: LookupService) {
   }
@@ -188,6 +188,9 @@ export class GroupSetupComponent implements OnInit {
     //   this.eppData = (data);
 
     // });
+    this.lookupService.getPaymentMode().subscribe((data:any) => {
+      this.paymentModes = data;
+    });
     this.eppcreategroupservice.getepp().subscribe((data: any) => {
       console.log("radioBUttonData",data)
       this.eppgetwhole = data;
@@ -537,7 +540,7 @@ export class GroupSetupComponent implements OnInit {
       grpNbr: this.groupNumber.toString(),
       grpNm: this.groupName,
       grpEfftvDt: this.dateChange,
-       grpPymn: parseInt(this.grpPymn.slice(0,2)),
+       grpPymn: parseInt(this.grpPymn),
      // grpPymn: "10001",
       actvFlg: "false",
       // "actvFlg": this.isChecked,

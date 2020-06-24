@@ -51,10 +51,9 @@
       </div>
       <div class="form-group col-md-3">
         <span class="label label-default">Group Payment Mode</span>
-        <select class="select-dropdown" #paymentMode (change)="getLookupValuePaymentMode(paymentMode.value)"
-          [value]="lookUpDataPaymentModes[5]">
+        <select class="select-dropdown" #paymentMode (change)="getLookupValuePaymentMode($event.target.value)">
           <!-- <option hidden disabled selected value> -- select a Payment Mode -- </option> -->
-          <option *ngFor="let lookUpDataPaymentMode of lookUpDataPaymentModes">{{lookUpDataPaymentMode}}</option>
+          <option *ngFor="let each of paymentModes" [selected]="each.grpPymn == '10007'" value="{{each.grpPymn}}">{{each.grpPymntMdNm}}</option>
         </select>
       </div>
     </div>
@@ -901,7 +900,7 @@
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit3" [ngModel]="agentCommissionSPlit_3"
+                    <input type="text" formControlName="CommissonSplit3BasicgrpLife" [ngModel]="agentCommissionSPlit_3"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split">
                   </div>
   

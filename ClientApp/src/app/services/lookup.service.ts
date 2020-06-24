@@ -56,11 +56,9 @@ export class LookupService {
         )); 
   }
 
-  // sendSitusValue(value:string){
-  //   this.subject.next(value);
-  // }
-  // getSitusValue(){
-  //   return this.subject.asObservable();
-  // }
+  getPaymentMode() {
+    const LookupDataUrl = environment.apiurl + 'Lookup/GroupPaymentMethod';
+    return this.http.get(LookupDataUrl);
+  }
   
 }
