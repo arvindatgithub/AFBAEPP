@@ -723,7 +723,7 @@ export class GroupSetupComponent implements OnInit {
       "isFPPIActive": this.isCheckedFppInd,
       "fppi": {
         "grp_nmbr": "string",
-        "effctv_dt": "2020-06-21T12:03:45.089Z",
+        "effctv_dt": (new Date(this.fppComponent.fppiformgrp.value.FCfppEffectiveDate)).toISOString(),
         "grp_situs_state": "string",
         "emp_gi_max_amt": "string",
         "sp_gi_max_amt": "string",
