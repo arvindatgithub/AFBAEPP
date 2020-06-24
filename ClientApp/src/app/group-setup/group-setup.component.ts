@@ -543,7 +543,7 @@ export class GroupSetupComponent implements OnInit {
       grpNm: this.groupName,
       grpEfftvDt: this.dateChange,
       // grpPymn: parseInt(this.grpPymn),
-     grpPymn: "10007",
+     grpPymn: 10007,
       actvFlg: "false",
       // "actvFlg": this.isChecked,
       occClass: parseInt(this.occupationArray),
