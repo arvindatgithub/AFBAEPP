@@ -97,7 +97,8 @@ namespace AFBA.EPP.Controllers
                             lstEppTemplateViewModel.SelectedList.Add(new EppAttrFieldViewModel
                             {
                                  AttrId= item.AttrId,
-                                DbAttrNm = data.DbAttrNm,
+                                DisplyAttrNm= data.DisplyAttrNm,
+                                 DbAttrNm = data.DbAttrNm,
                                 ClmnOrdr = item.ClmnOrdr,
                                 RqdFlg = item.RqdFlg,
                                 GrpprdctId = item.GrpprdctId,
