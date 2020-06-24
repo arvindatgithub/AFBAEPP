@@ -146,11 +146,12 @@ namespace AFBA.EPP.Helpers
                 {
                     AttrId=data.AttrId,
                     DbAttrNm= data.DbAttrNm,
+                    DisplyAttrNm= data.DisplyAttrNm,
                     RqdFlg = false,
 
                 });
             }
-            return eppAttrFieldViewModels.OrderBy(x => x.DbAttrNm);
+            return eppAttrFieldViewModels.OrderBy(x => x.DisplyAttrNm);
 
             //return .Select(d => new EppAttrFieldViewModel
             //{

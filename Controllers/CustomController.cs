@@ -34,7 +34,7 @@ namespace AFBA.EPP.Controllers
             return _unitofWork.eppAttributeRepository.GetAll().Result.Select(d => new EppAttributeViewModel
             {
              
-                AttrId= d.AttrId,
+               AttrId= d.AttrId,
               DbAttrNm= d.DbAttrNm,
               DisplyAttrNm= d.DisplyAttrNm
               
