@@ -21,14 +21,14 @@ export class CustomBulkTemplateComponent implements OnInit {
   selectedFields: any;
 
   fieldsByGrpPrdt: any;
-  fieldsByPrdt: any;
   editFlag:boolean;
   userData = {
     groupNumber: '',
     product: '',
   };
   submitted = false;
-
+  grpprdctId: any;
+  successMsg = false;
 
   constructor(private customattributeService: CustomeppattributeService, private excelService: ExcelService) {
 
@@ -62,6 +62,7 @@ export class CustomBulkTemplateComponent implements OnInit {
         this.availableFields = this.fieldsByGrpPrdt.availableList;
         this.selectedFields = this.fieldsByGrpPrdt.selectedList;
         this.editFlag = this.fieldsByGrpPrdt.isEdit;
+        this.grpprdctId = this.fieldsByGrpPrdt.grpprdctId;
       }, err => {
         console.log("error occurred " + err.status);
         //this.editFlag = false;
@@ -100,7 +101,7 @@ export class CustomBulkTemplateComponent implements OnInit {
     let tempObj = {};
     for(let i=0; i<this.selectedFields.length; i++){
       this.selectedFields[i].clmnOrdr = i+1;
-      tempObj[this.selectedFields[i].dbAttrNm] = ''; 
+      tempObj[this.selectedFields[i].displyAttrNm] = ''; 
     }
     console.log('object' + JSON.stringify(tempObj));
     excelFields[0]=tempObj;
@@ -117,6 +118,7 @@ export class CustomBulkTemplateComponent implements OnInit {
     let reqObj = {
       grpNbr: this.grpNum,
       productId: this.selectedProductId.toString(),
+      grpprdctId: this.grpprdctId.toString(),
       eppPrdAttrFields: this.selectedFields,
       isEdit: this.editFlag
     };
@@ -124,17 +126,27 @@ export class CustomBulkTemplateComponent implements OnInit {
     if (this.editFlag) {
       this.customattributeService.editProdAttr(reqObj).subscribe(
         data => {
-        console.log('edit request response' + data);
+        console.log('edit request response status' + data);
       }, err => {
         console.log('edit save api'+ err.status);
+        if(err.status == 200){
+          this.successMsg = true;
+        } else{
+          this.successMsg = false;
+        }
       });
     } else {
       console.log('request obj' + JSON.stringify(reqObj));
       this.customattributeService.addProdAttr(reqObj).subscribe(
         data => {
-        console.log('Add request response' + data);
+        console.log('Add request response status' + data);
       }, err => {
         console.log('add save api'+ err.status);
+        if(err.status == 200){
+          this.successMsg = true;
+        } else{
+          this.successMsg = false;
+        }
       });
     }
   }

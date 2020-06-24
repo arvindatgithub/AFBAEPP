@@ -1,3 +1,4 @@
+
 <div class="container">
     <!-- Group Number Section-->
     <form (ngSubmit)="onSubmit(form, userData)" #form="ngForm">
@@ -24,6 +25,10 @@
             </div>
         </div>
     </form>
+    <div class="alert alert-success" *ngIf="successMsg">
+        <strong>Success!</strong> 
+        Custom Template added Successfully.
+    </div>
     <!-- Product Custom File Section  -->
     <div *ngIf="selectedProduct">
         <div class="card mt-2" style="cursor: pointer;">
@@ -40,7 +45,7 @@
                         <div cdkDropList #availableFieldsList="cdkDropList" [cdkDropListData]="availableFields"
                             [cdkDropListConnectedTo]="[selectedFieldsList]" class="fields-list"
                             (cdkDropListDropped)="drop($event)">
-                            <div class="field-box" *ngFor="let item of availableFields" cdkDrag>{{item.dbAttrNm}}
+                            <div class="field-box" *ngFor="let item of availableFields" cdkDrag>{{item.displyAttrNm}}
                             </div>
                         </div>
                     </div>
@@ -53,7 +58,7 @@
                             [cdkDropListConnectedTo]="[availableFieldsList]" class="fields-list"
                             (cdkDropListDropped)="drop($event)">
                             <div class="field-box" *ngFor="let item of selectedFields; let i=index;" cdkDrag>
-                                {{item.dbAttrNm}}
+                                {{item.displyAttrNm}}
                                 <input type="checkbox" name="selectedFields" [(ngModel)]="item.rqdFlg"
                                     (change)="updateCheckedOptions(item, $event)">
                             </div>
@@ -68,4 +73,5 @@
                 Custom Layout</button>
         </div>
     </div>
+    
 </div>
