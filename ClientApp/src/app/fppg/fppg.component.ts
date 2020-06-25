@@ -61,7 +61,11 @@ ngOnChanges(simpleChange:SimpleChanges){
       FCfppgSpouseQIAmtMax: ["",Validators.required],
       FCfppgSpouseMaxAmt: ["",Validators.required],
       FCfppgOpenEnrollGI: ["",Validators.required],
-      FCfppgPlanCodeManualEntry: ["",Validators.required],
+     
+      FCfppgEmpPlanCode: ["", Validators.required],
+      FCfppgSpousePlanCode: ["", Validators.required],
+      FCfppgChildPlanCode: ["", Validators.required],
+      
       FCfppgQolRiders: ["",Validators.required],
       FCfppgWaiver:["",Validators.required],
       FCfppgEffectiveDate_Action: ['', Validators.required],
