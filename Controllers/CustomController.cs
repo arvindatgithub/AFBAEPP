@@ -27,8 +27,7 @@ namespace AFBA.EPP.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        //GetQuetsionAttr
-        [Route("[action]")]
+
         [HttpGet]
         public IEnumerable<EppAttributeViewModel> GetQuetsionAttr()
         {
@@ -38,10 +37,22 @@ namespace AFBA.EPP.Controllers
                 AttrId = d.AttrId,
                 DbAttrNm = d.DbAttrNm,
                 DisplyAttrNm = d.DisplyAttrNm,
-                 
+
 
             }).ToList().OrderBy(x => x.DisplyAttrNm);
         }
+
+
+        [Route("getBulkQuestionsAttr/groupNbr/{groupNbr}/productId/{productId}")]
+        [HttpGet]
+        
+        public IActionResult GetSavedQueAttr(string groupNbr, string productId)
+        {
+            var questionDataAttr = _unitofWork.eppBulkRefTblRepository.GetEppQuestionAtrr(groupNbr, long.Parse(productId));
+            return Ok(questionDataAttr);
+        }
+
+        //GetEppQuestionAtrr
 
 
         [Route("[action]")]
