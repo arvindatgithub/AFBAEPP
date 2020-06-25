@@ -35,4 +35,14 @@ export class CustomeppattributeService {
     return this.http.put(GroupsDataUrl,requestObj);
   }
 
+  getQuestionAttr() {
+    const GroupsDataUrl = environment.apiurl + 'Custom/GetQuetsionAttr';
+    return this.http.get(GroupsDataUrl);
+  }
+
+  getGroupQuestionAttr(grpNbr) {
+    const GroupsDataUrl = environment.apiurl + 'Custom/GetGroupQuestionAtrr/groupNbr/' + grpNbr;
+    return this.http.get(GroupsDataUrl);
+  }
+
 }
