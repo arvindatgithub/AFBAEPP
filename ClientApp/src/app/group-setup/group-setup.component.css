@@ -91,4 +91,9 @@ padding-bottom: 60px;
     background-color: #cfe5cf
 }
 
+.required {
+    color: red;
+  }
+  
+
 

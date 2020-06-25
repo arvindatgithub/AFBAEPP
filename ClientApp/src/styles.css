@@ -55,6 +55,6 @@ select, option {
   background-color: green !important;
 }
 
-.container-fluid{
-  min-height: 100vh;
+.tooltip-red {
+  background: #b71c1c;
 }

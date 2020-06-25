@@ -1,13 +1,14 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input,ViewChild,SimpleChanges, OnChanges } from '@angular/core';
 import { LookupService } from '../services/lookup.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AgentSetupComponent } from '../agent-setup/agent-setup.component';
 import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-basic-group-life',
   templateUrl: './basic-group-life.component.html',
   styleUrls: ['./basic-group-life.component.css']
 })
-export class BasicGroupLifeComponent implements OnInit {
+export class BasicGroupLifeComponent implements OnInit,OnChanges {
   basicGrpLfformgrp: FormGroup;
   @Input() lookupValue: any;
   @Input() dateValue: any;
@@ -19,23 +20,24 @@ export class BasicGroupLifeComponent implements OnInit {
   indeterminate = false;
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
+  latest_datebasicgrplife
   public minDate = new Date().toISOString().slice(0,10);
 
-  latest_date;
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe) {
   }
 
-  ngOnChanges(simpleChange:SimpleChanges){
-    console.log("simpleChange",simpleChange);
-    this.latest_date = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+
+  ngOnChanges(){
+    
+    this.latest_datebasicgrplife = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
   }
-  
   ngOnInit() {
     this.lookupService.getLookupsData()
       .subscribe((data: any) => {
         this.isLoading = true;
         console.log("data", data);
         this.lookUpDataSitusStates = data.situsState;
+       
       });
 
       this.basicGrpLfformgrp = this.fb.group({
@@ -47,12 +49,11 @@ export class BasicGroupLifeComponent implements OnInit {
         FCbasicEmpFcAmt: ["",Validators.required],
         FCbasicADDRider_Action: ["",Validators.required],
         FCbasicADDRider: ["",Validators.required],
-      })
+      });
+      this.basicGrpLfformgrp.controls['FCbasicSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
 
   }
-  // getLookupValueSitusState(value: any){
-  //   this.lookupSitusStateValue = value;
-  // }
+ 
   onItemChange(value){
     console.log(" Value is : ", value );
  }
