@@ -140,11 +140,11 @@ namespace AFBA.EPP.Controllers
                 var prdid = Helper.GetProductIdbyName("FPPG", _unitofWork);
                 var grpprdId = Helper.GetRandomNumber();
 
-                AddProductCodes(new ProductCodesViewModel
-                {
-                    ProductCode = groupSetupModel.FPPG.emp_ProductCode,
-                     ProductId= prdid
-                }); 
+                //AddProductCodes(new ProductCodesViewModel
+                //{
+                //    ProductCode = groupSetupModel.FPPG.emp_ProductCode,
+                //     ProductId= prdid
+                //}); 
 
                _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
                 {

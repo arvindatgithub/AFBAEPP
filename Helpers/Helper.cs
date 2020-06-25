@@ -19,10 +19,6 @@ namespace AFBA.EPP.Helpers
 {
     public static class Helper
     {
-
-
-        
-
         public static EppTemplateViewModel GetProductAvailableFields(string webRootPath, IUnitofWork _unitofWork,string groupName)
         {
            string  path = Path.Combine(webRootPath, "attrs_maps.json");
@@ -124,7 +120,6 @@ namespace AFBA.EPP.Helpers
             return lstEppTemplateViewModel;
 
          }
-
         private static void MarkRequired(List<EppAttrFieldViewModel> lstEppAttrFieldViewModel, string[] stringArray)
         {
             foreach( var field in stringArray)
@@ -151,25 +146,15 @@ namespace AFBA.EPP.Helpers
 
                 });
             }
-            return eppAttrFieldViewModels.OrderBy(x => x.DisplyAttrNm);
-
-            //return .Select(d => new EppAttrFieldViewModel
-            //{
-            //    DbAttrNm = d.DbAttrNm,
-            //    RqdFlg = false,
-            //}).ToList().OrderBy(x => x.DbAttrNm);
+            return eppAttrFieldViewModels.OrderBy(x => x.DisplyAttrNm);        
         }
-
-
         public static  long GetRandomNumber()
         {
             var min = 1;
             var max = 99999;
-            var rndnumber = RandomNumberGenerator.GetInt32(min, max) + DateTime.Now.ToString("MMddyyHHmmssffffff");
-            return  RandomNumberGenerator.GetInt32(min, max);
+            var rnd = RandomNumberGenerator.GetInt32(min, max);
+            return long.Parse(rnd + DateTime.Now.ToString("MMdd0yyHHmmss"));
         }
-
-
         public static List<ClsPropertyInfo> GetProperties(Object  classobject)
         {
             List<ClsPropertyInfo> clsPropertyInfos = new List<ClsPropertyInfo>();
@@ -187,9 +172,6 @@ namespace AFBA.EPP.Helpers
             }
             return clsPropertyInfos;
         }
-
-
-
         public static long GetProductIdbyName(string productName, IUnitofWork _unitofWork)
         {
             var product = _unitofWork.EppProductRepository.Find(x => x.ProductNm.Contains(productName)).Result.FirstOrDefault();
