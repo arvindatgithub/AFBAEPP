@@ -35,7 +35,23 @@ namespace AFBA.EPP.Repositories
             return result.ToList();
         }
 
-      
+
+        public IList<EppAttrFieldViewModel> ClonedEppPrdctattrbts(long GrpprdctId)
+        {
+            var result = _dbContext.EppPrdctattrbt.Where(x => x.GrpprdctId == GrpprdctId).Select(x =>
+             new EppAttrFieldViewModel
+             {
+                  AttrId = x.AttrId,
+                 DbAttrNm = x.Attr.DbAttrNm,
+                 ClmnOrdr = x.ClmnOrdr,
+                 DisplyAttrNm = x.Attr.DisplyAttrNm,
+                 RqdFlg = x.RqdFlg == 'N' ? false : true
+             }).OrderBy(x => x.ClmnOrdr);
+
+            return result.ToList();
+        }
+
+
     }
 
 }

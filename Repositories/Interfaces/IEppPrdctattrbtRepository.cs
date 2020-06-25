@@ -11,5 +11,6 @@ namespace AFBA.EPP.Repositories.Interfaces
     {
 
         public IList<EppAttrFieldViewModel> GetEppPrdctattrbts(long GrpprdctId);
+        public IList<EppAttrFieldViewModel> ClonedEppPrdctattrbts(long GrpprdctId);
     }
 }

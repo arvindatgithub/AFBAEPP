@@ -65,8 +65,7 @@ namespace AFBA.EPP.Controllers
         [HttpPost]
         public IActionResult UpdateQuestionAttrs(GroupBlkQuestionAttrbs  groupBlkQuestionAttrbs)
         {
-            
-          
+                     
             
 
            return Ok();
@@ -109,6 +108,56 @@ namespace AFBA.EPP.Controllers
             }).ToList().OrderBy(x => x.DbAttrNm);
         }
 
+
+        [Route("Tobecloned/{grpNo}/productId/{productId}")]
+        [HttpGet]
+        public IActionResult Tobecloned(string grpNo, string productId)
+        {
+           
+                var grpprdct = _unitofWork.eppGrpprdctRepository.GetEppGrpprdct(grpNo, productId);
+                if (grpprdct == null) return NotFound("incorret group number  or product id ");
+                EppTemplateViewModel lstEppTemplateViewModel = new EppTemplateViewModel
+                {
+                    AvailableList = new List<EppAttrFieldViewModel>(),
+                    SelectedList = new List<EppAttrFieldViewModel>()
+                };
+                lstEppTemplateViewModel.AvailableList = Helper.EppGetAvailableFields(_unitofWork).ToList();
+                lstEppTemplateViewModel.isEdit = false;
+
+            lstEppTemplateViewModel.AvailableList = Helper.EppGetAvailableFields(_unitofWork).ToList();
+            IList<EppAttrFieldViewModel> eppAttrFields = new List<EppAttrFieldViewModel>();
+            if (grpprdct != null)
+            {
+                var eppPrdctattrbt = _unitofWork.eppPrdctattrbtRepository.ClonedEppPrdctattrbts(grpprdct.GrpprdctId);
+                 foreach (var item in eppPrdctattrbt)
+                {
+                    var data = _unitofWork.eppAttributeRepository.Get(item.AttrId).Result;
+                    if (data != null)
+                    {
+                        lstEppTemplateViewModel.SelectedList.Add(new EppAttrFieldViewModel
+                        {
+                            AttrId = item.AttrId,
+                            DisplyAttrNm = data.DisplyAttrNm,
+                            DbAttrNm = data.DbAttrNm,
+                            ClmnOrdr = item.ClmnOrdr,
+                            RqdFlg = item.RqdFlg,
+                       });
+                    }
+                }
+                // removing the item from available list
+                foreach (var item in lstEppTemplateViewModel.SelectedList)
+                {
+                    var isdata = lstEppTemplateViewModel.AvailableList.Where(x => x.DbAttrNm.Contains(item.DbAttrNm)).FirstOrDefault();
+                    if (isdata != null)
+                    {
+                        lstEppTemplateViewModel.AvailableList.Remove(isdata);
+                    }
+
+                }
+            }
+
+            return Ok(lstEppTemplateViewModel);
+        }
         [Route("grpNbr/{grpNbr}/productId/{productId}")]
         [HttpGet]
         public  IActionResult EppGetGrpPrdAttrbt(string grpNbr, string productId)
@@ -116,8 +165,8 @@ namespace AFBA.EPP.Controllers
             try
             {
                 var grpprdct = _unitofWork.eppGrpprdctRepository.GetEppGrpprdct(grpNbr, productId);
-                //   if (grpprdct == null) return NotFound("Not available");
-                // 
+                 if (grpprdct == null) return NotFound("incorret group number  or product id ");
+                
 
                 EppTemplateViewModel lstEppTemplateViewModel = new EppTemplateViewModel
                 {
@@ -176,6 +225,9 @@ namespace AFBA.EPP.Controllers
             }
         }
 
+       
+        
+        
         [Route("[action]")]
         [HttpPut]
         public IActionResult EppEditPrdctAttrbt(EppAddPrdAttrbt eppAddPrdAttrbt)
