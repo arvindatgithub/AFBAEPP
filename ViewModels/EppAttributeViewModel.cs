@@ -10,5 +10,6 @@ namespace AFBA.EPP.ViewModels
         public long AttrId { get; set; }
        public string DisplyAttrNm { get; set; }
         public string DbAttrNm { get; set; }
+     
     }
 }

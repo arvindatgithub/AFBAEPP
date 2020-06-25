@@ -27,6 +27,23 @@ namespace AFBA.EPP.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
+        //GetQuetsionAttr
+        [Route("[action]")]
+        [HttpGet]
+        public IEnumerable<EppAttributeViewModel> GetQuetsionAttr()
+        {
+            return _unitofWork.eppAttributeRepository.GetAll().Result.Select(d => new EppAttributeViewModel
+            {
+
+                AttrId = d.AttrId,
+                DbAttrNm = d.DbAttrNm,
+                DisplyAttrNm = d.DisplyAttrNm,
+                 
+
+            }).ToList().OrderBy(x => x.DisplyAttrNm);
+        }
+
+
         [Route("[action]")]
         [HttpGet]
         public IEnumerable<EppAttributeViewModel> EppAttributes()
