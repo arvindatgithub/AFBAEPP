@@ -31,3 +31,7 @@ table {
     color: #495057;
     height: 40px;
   }
+  
+.required {
+  color: red;
+}

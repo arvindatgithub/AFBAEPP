@@ -1,10 +1,15 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4 form-group">
-            <label>Group Number</label>
-            <input type="number" class="form-control" placeholder="Enter Group Number">
+            <span class="label label-default">Group Number<span aria-hidden="true" class="required">*</span></span>
+            <input type="text" class="form-control" [(ngModel)]="grpNbr" placeholder="Enter Group Number" maxlength="5" onkeyup="this.value=this.value.replace(/[^\d]/,'')" >
+            <div *ngIf="grpNbrEmpty" style="color: red;">Group Number is required</div>
+            <div *ngIf="grpNbrErr" style="color: red;">Group Number should be 5 digits</div>
         </div>
-    </div>
+        <div class="col-md-4" style="margin-top: 23px;">
+            <button class="btn btn-primary" type="submit" (click)="getQuestionsByGrp()">Submit</button>
+        </div>
+    </div>  
     <div id="accordion" class="accordion">
         <div class="card mt-2" style="cursor: pointer;">
             <div class="card-header collapsed mb-2" data-toggle="collapse" href="#collapseOne">
