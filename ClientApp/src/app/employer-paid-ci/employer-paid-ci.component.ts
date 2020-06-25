@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,ViewChild } from '@angular/core';
+import { Component, OnInit, Input,ViewChild,OnChanges } from '@angular/core';
 import { LookupService } from '../services/lookup.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AgentSetupComponent } from '../agent-setup/agent-setup.component';
@@ -8,7 +8,7 @@ import { DatePipe } from '@angular/common';
   templateUrl: './employer-paid-ci.component.html',
   styleUrls: ['./employer-paid-ci.component.css']
 })
-export class EmployerPaidCIComponent implements OnInit {
+export class EmployerPaidCIComponent implements OnInit ,OnChanges{
   empCIformgrp: FormGroup;
   @Input() lookupValue: any;
   @Input() dateValue: any;
@@ -25,13 +25,19 @@ export class EmployerPaidCIComponent implements OnInit {
 
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe) { }
 
+
+  ngOnChanges(){
+    
+    this.latest_dateemppaisci = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+  }
+
   ngOnInit() {
     this.lookupService.getLookupsData()
     .subscribe((data: any) => {
       this.isLoading = true;
       console.log("data", data);
       this.lookUpDataSitusStates = data.situsState;
-      this.latest_dateemppaisci = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+      
     });
 
     this.empCIformgrp = this.fb.group({

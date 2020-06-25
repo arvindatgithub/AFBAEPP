@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,ViewChild } from '@angular/core';
+import { Component, OnInit, Input,ViewChild,OnChanges,SimpleChanges } from '@angular/core';
 import { LookupService } from '../services/lookup.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AgentSetupComponent } from '../agent-setup/agent-setup.component';
@@ -8,13 +8,12 @@ import { DatePipe } from '@angular/common';
   templateUrl: './accident.component.html',
   styleUrls: ['./accident.component.css']
 })
-export class AccidentComponent implements OnInit {
+export class AccidentComponent implements OnInit,OnChanges {
   //@ViewChild('agent',{static:false}) agentComponent: AgentSetupComponent;
   accformgrp: FormGroup;
   @Input() lookupValue: any;
   @Input() dateValue: any;
   situsValue:string;
-  // subscription: Subscription;
   public isLoading = false;
   lookUpDataSitusStates: any = [];
   checked = false;
@@ -26,13 +25,20 @@ export class AccidentComponent implements OnInit {
 
   constructor(private lookupService: LookupService, private fb:FormBuilder, public datepipe: DatePipe) { }
 
+
+  ngOnChanges(){
+   
+    this.latest_dateaccident = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+  }
+
+
   ngOnInit() {
     this.lookupService.getLookupsData()
     .subscribe((data: any) => {
       this.isLoading = true;
       console.log("data", data);
       this.lookUpDataSitusStates = data.situsState;
-      this.latest_dateaccident = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+      // this.latest_dateaccident = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
     });
     this.accformgrp = this.fb.group({
       FCaccSitusState_Action: ["",Validators.required],

@@ -1,12 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { LookupService } from '../services/lookup.service';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'app-voluntary-ci',
   templateUrl: './voluntary-ci.component.html',
   styleUrls: ['./voluntary-ci.component.css']
 })
-export class VoluntaryCIComponent implements OnInit {
+export class VoluntaryCIComponent implements OnInit,OnChanges {
   volCIformgrp: FormGroup;
   @Input() lookupValue: any;
   @Input() dateValue: any;
@@ -19,10 +21,13 @@ export class VoluntaryCIComponent implements OnInit {
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
   public minDate = new Date().toISOString().slice(0,10);
+  latest_datevolci
+  constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe) { }
 
+ngOnChanges(){
+  this.latest_datevolci = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+}
 
-
-  constructor(private lookupService: LookupService, private fb:FormBuilder) { }
 
   ngOnInit() {
     this.lookupService.getLookupsData()

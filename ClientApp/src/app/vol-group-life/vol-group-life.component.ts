@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,ViewChild } from '@angular/core';
+import { Component, OnInit, Input,ViewChild ,OnChanges} from '@angular/core';
 import { LookupService } from '../services/lookup.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AgentSetupComponent } from '../agent-setup/agent-setup.component';
@@ -8,7 +8,7 @@ import { DatePipe } from '@angular/common';
   templateUrl: './vol-group-life.component.html',
   styleUrls: ['./vol-group-life.component.css']
 })
-export class VolGroupLifeComponent implements OnInit {
+export class VolGroupLifeComponent implements OnInit,OnChanges {
   volGrpLfformgrp: FormGroup;
   @Input() lookupValue: any;
   @Input() dateValue: any;
@@ -24,13 +24,19 @@ export class VolGroupLifeComponent implements OnInit {
   latest_datevolgrplife
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe) { }
 
+
+  ngOnChanges(){
+   
+    this.latest_datevolgrplife = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+  }
+
   ngOnInit() {
     this.lookupService.getLookupsData()
     .subscribe((data: any) => {
       this.isLoading = true;
       console.log("data", data);
       this.lookUpDataSitusStates = data.situsState;
-      this.latest_datevolgrplife = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+     
     });
     this.volGrpLfformgrp = this.fb.group({
       FCVolGrpLfEffectiveDate: ["",Validators.required],

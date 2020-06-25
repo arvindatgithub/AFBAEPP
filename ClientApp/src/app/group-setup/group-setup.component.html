@@ -230,7 +230,7 @@
         </div>
         <div id="collapseOne" class="card-body collapse" data-parent="#accordion">
 
-          <app-fppg [lookupValue]="lookupSitusStateValue" #child [dateValue]="dateChange">
+          <app-fppg [lookupValue]="lookupSitusStateValue" #child0 [dateValue]="dateChange">
             <form class="agent-form" [formGroup]="agentformgrp">
               <!-- first-row -->
               <div class="row" style="justify-content:space-evenly;">
@@ -319,7 +319,7 @@
         </div>
         <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
 
-          <app-fpp-individual [lookupValue]="lookupSitusStateValue" #child [dateValue]="dateChange">
+          <app-fpp-individual [lookupValue]="lookupSitusStateValue" #child1 [dateValue]="dateChange">
             <form class="agent-form" [formGroup]="agentformgrp">
               <!-- first-row -->
               <div class="row" style="justify-content:space-evenly;">
@@ -408,7 +408,7 @@
         <div id="collapseThree" class="collapse" data-parent="#accordion">
           <div class="card-body">
 
-            <app-accident [lookupValue]="lookupSitusStateValue" #child [dateValue]="dateChange">
+            <app-accident [lookupValue]="lookupSitusStateValue" #child2 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
                 <!-- first-row -->
                 <div class="row" style="justify-content:space-evenly;">
@@ -497,7 +497,7 @@
         </div>
         <div id="collapseFour" class="collapse" data-parent="#accordion">
           <div class="card-body">
-            <app-hospital-indemnity [lookupValue]="lookupSitusStateValue" #child [dateValue]="dateChange">
+            <app-hospital-indemnity [lookupValue]="lookupSitusStateValue" #child3 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
                 <!-- first-row -->
                 <div class="row" style="justify-content:space-evenly;">
@@ -590,7 +590,7 @@
         </div>
         <div id="collapseFive" class="collapse" data-parent="#accordion">
           <div class="card-body">
-            <app-employer-paid-ci [lookupValue]="lookupSitusStateValue" #child [dateValue]="dateChange">
+            <app-employer-paid-ci [lookupValue]="lookupSitusStateValue" #child4 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
                 <!-- first-row -->
                 <div class="row" style="justify-content:space-evenly;">
@@ -679,7 +679,7 @@
         </div>
         <div id="collapseSix" class="collapse" data-parent="#accordion">
           <div class="card-body">
-            <app-voluntary-ci [lookupValue]="lookupSitusStateValue" #child [dateValue]="dateChange">
+            <app-voluntary-ci [lookupValue]="lookupSitusStateValue" #child5 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
                 <!-- first-row -->
                 <div class="row" style="justify-content:space-evenly;">
@@ -768,7 +768,7 @@
         </div>
         <div id="collapseSeven" class="collapse" data-parent="#accordion">
           <div class="card-body">
-            <app-vol-group-life [lookupValue]="lookupSitusStateValue" #child [dateValue]="dateChange">
+            <app-vol-group-life [lookupValue]="lookupSitusStateValue" #child6 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
                 <!-- first-row -->
                 <div class="row" style="justify-content:space-evenly;">
@@ -857,7 +857,7 @@
         </div>
         <div id="collapseEight" class="collapse" data-parent="#accordion">
           <div class="card-body">
-            <app-basic-group-life [lookupValue]="lookupSitusStateValue" #child [dateValue]="dateChange">
+            <app-basic-group-life [lookupValue]="lookupSitusStateValue" #child7 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
                 <!-- first-row -->
                 <div class="row" style="justify-content:space-evenly;">
@@ -941,7 +941,7 @@
 
     </div>
   </div>
-  <button type="submit" [disabled]="" class="btn btn-success mt-4 mb-4" style="float: right;"
+  <button type="submit" class="btn btn-success mt-4 mb-4" style="float: right;"
     (click)="onSubmit()">Submit Group
     Setup Information</button>
 

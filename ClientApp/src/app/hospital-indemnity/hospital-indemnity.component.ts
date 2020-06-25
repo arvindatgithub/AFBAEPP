@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,ViewChild } from '@angular/core';
+import { Component, OnInit, Input,ViewChild,OnChanges } from '@angular/core';
 import { LookupService } from '../services/lookup.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AgentSetupComponent } from '../agent-setup/agent-setup.component';
@@ -8,12 +8,10 @@ import { DatePipe } from '@angular/common';
   templateUrl: './hospital-indemnity.component.html',
   styleUrls: ['./hospital-indemnity.component.css']
 })
-export class HospitalIndemnityComponent implements OnInit {
+export class HospitalIndemnityComponent implements OnInit,OnChanges {
   hospformgrp: FormGroup;
   @Input() lookupValue: any;
   @Input() dateValue: any;
-
-
   situsValue:string;
   public isLoading = false;
   lookUpDataSitusStates: any = [];
@@ -26,13 +24,19 @@ export class HospitalIndemnityComponent implements OnInit {
   latest_datehospitalindemnity
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe) { }
 
+
+  ngOnChanges(){
+   
+    this.latest_datehospitalindemnity = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+  }
+
   ngOnInit() {
     this.lookupService.getLookupsData()
       .subscribe((data: any) => {
         this.isLoading = true;
         console.log("data", data);
         this.lookUpDataSitusStates = data.situsState;
-        this.latest_datehospitalindemnity = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+       
       });
     
   // getLookupValueSitusState(value: any){
@@ -46,7 +50,15 @@ export class HospitalIndemnityComponent implements OnInit {
     FChospSitusState_Action: ["",Validators.required],
   })
 }
-
+hospitalindemnity(){
+  this.hospformgrp.reset({
+    FChospEffectiveDate: "",
+    FChospEffectiveDate_Action:"",
+    FChospSitusState: "",
+    FChospSitusState_Action: "",
+  }) 
+ 
+}
 
 onItemChange(value){
   console.log(" Value is : ", value );

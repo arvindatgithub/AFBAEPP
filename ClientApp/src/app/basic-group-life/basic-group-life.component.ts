@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,ViewChild } from '@angular/core';
+import { Component, OnInit, Input,ViewChild,SimpleChanges, OnChanges } from '@angular/core';
 import { LookupService } from '../services/lookup.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AgentSetupComponent } from '../agent-setup/agent-setup.component';
@@ -8,7 +8,7 @@ import { DatePipe } from '@angular/common';
   templateUrl: './basic-group-life.component.html',
   styleUrls: ['./basic-group-life.component.css']
 })
-export class BasicGroupLifeComponent implements OnInit {
+export class BasicGroupLifeComponent implements OnInit,OnChanges {
   basicGrpLfformgrp: FormGroup;
   @Input() lookupValue: any;
   @Input() dateValue: any;
@@ -26,13 +26,18 @@ export class BasicGroupLifeComponent implements OnInit {
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe) {
   }
 
+
+  ngOnChanges(){
+    
+    this.latest_datebasicgrplife = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+  }
   ngOnInit() {
     this.lookupService.getLookupsData()
       .subscribe((data: any) => {
         this.isLoading = true;
         console.log("data", data);
         this.lookUpDataSitusStates = data.situsState;
-        this.latest_datebasicgrplife = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+       
       });
 
       this.basicGrpLfformgrp = this.fb.group({

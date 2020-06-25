@@ -14,7 +14,7 @@
     </div>
     <div class="col-3">
       <span class="label label-default">Group Effective Date</span>
-      <input type="date" [value]="dateValue" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
+      <input type="date" [value]="latest_datehospitalindemnity" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
         placeholder="Group Effective Date" [(ngModel)]="latest_datehospitalindemnity" formControlName="FChospEffectiveDate">
 
     </div>
@@ -40,7 +40,7 @@
 
     </div>
     <div class="mt-4">
-      <button class="btn btn-primary" type="submit">Reset Form </button>
+      <button class="btn btn-primary" type="submit" (click) = "hospitalindemnity()">Reset Form </button>
     </div>
   </div>
 

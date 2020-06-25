@@ -26,8 +26,8 @@ export class FPPIndividualComponent implements OnInit, OnChanges {
   constructor(private lookupService: LookupService, private fb:FormBuilder, public datepipe: DatePipe) {
     
    } 
-   ngOnChanges(simpleChange:SimpleChanges){
-    console.log("simpleChange",simpleChange);
+   ngOnChanges(){
+  
     this.latest_datefpp = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
     
   }
