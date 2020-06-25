@@ -25,7 +25,8 @@
             </div>
         </div>
     </form>
-    <div class="alert alert-success" *ngIf="successMsg">
+    <div class="alert alert-success alert-dismissible" *ngIf="successMsg">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong>Success!</strong> 
         Custom Template added Successfully.
     </div>

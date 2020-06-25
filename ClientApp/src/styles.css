@@ -58,3 +58,6 @@ select, option {
 .tooltip-red {
   background: #b71c1c;
 }
+.container-fluid{
+  min-height: 100vh;
+}
