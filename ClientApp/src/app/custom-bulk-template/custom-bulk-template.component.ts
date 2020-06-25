@@ -3,6 +3,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { CustomeppattributeService } from '../services/customeppattribute.service';
 import * as XLSX from 'xlsx';
 import { ExcelService } from '../services/excel.service';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-custom-bulk-template',
@@ -26,9 +27,15 @@ export class CustomBulkTemplateComponent implements OnInit {
     groupNumber: '',
     product: '',
   };
+  
   submitted = false;
   grpprdctId: any;
   successMsg = false;
+  groupExistsShowLists = false;
+  enableCloneSecFlag = true;
+  cloneGroupNumber ='';
+  cloneLists: any;
+  isChecked = false;
 
   constructor(private customattributeService: CustomeppattributeService, private excelService: ExcelService) {
 
@@ -53,25 +60,44 @@ export class CustomBulkTemplateComponent implements OnInit {
     this.getFields(this.grpNum, this.selectedProductId);
   }
 
-  getFields(grpNbr, productId) {
+  CloneSubmit() {
+    console.log('clone form data'+ this.cloneGroupNumber);
+    this.customattributeService.getCloneCustomExistingGroup(this.cloneGroupNumber, this.selectedProductId).subscribe(
+      (data) => {
+      this.cloneLists = data;
+      console.log('cloned data'+ JSON.stringify(data));
+      this.availableFields = this.cloneLists.availableList;
+      this.selectedFields = this.cloneLists.selectedList;
+      this.editFlag = this.cloneLists.isEdit;
+      this.grpNum = this.cloneGroupNumber;
+      this.grpprdctId = this.cloneLists.grpprdctId;
+    });
+  }
 
+  getFields(grpNbr, productId) {
+    this.groupExistsShowLists = false;
+    this.enableCloneSecFlag = true;
     this.customattributeService.getProductFieldsByGroup(grpNbr, productId).subscribe(
       data => {
         console.log('data by group ' + JSON.stringify(data));
+        this.groupExistsShowLists = true;
         this.fieldsByGrpPrdt = data;
         this.availableFields = this.fieldsByGrpPrdt.availableList;
         this.selectedFields = this.fieldsByGrpPrdt.selectedList;
         this.editFlag = this.fieldsByGrpPrdt.isEdit;
         this.grpprdctId = this.fieldsByGrpPrdt.grpprdctId;
+
+       
       }, err => {
         console.log("error occurred " + err.status);
-        //this.editFlag = false;
-        //this.customattributeService.getProductFields(productNm).subscribe((data) => {
-        //  console.log('data by products' + JSON.stringify(data));
-        //  this.fieldsByPrdt = data;
-        //  this.availableFields = this.fieldsByPrdt.availableList;
-        //  this.selectedFields = this.fieldsByPrdt.selectedList;
-        //});
+        this.groupExistsShowLists = false;
+        alert("Group not exists");
+      }, () => {
+        console.log('service call completed');
+        if(this.selectedFields.length == 0 ){
+          //alert("Do you want to clone the Existing Group Template");
+          this.enableCloneSecFlag = false;
+        }
       }
 
     );
