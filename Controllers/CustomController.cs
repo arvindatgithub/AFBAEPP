@@ -27,11 +27,11 @@ namespace AFBA.EPP.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-
+        [Route("[action]")]
         [HttpGet]
         public IEnumerable<EppAttributeViewModel> GetQuetsionAttr()
         {
-            return _unitofWork.eppAttributeRepository.GetAll().Result.Select(d => new EppAttributeViewModel
+            return _unitofWork.eppAttributeRepository.GetQuetsionAttr().Select(d => new EppAttributeViewModel
             {
 
                 AttrId = d.AttrId,
@@ -43,15 +43,36 @@ namespace AFBA.EPP.Controllers
         }
 
 
-        [Route("getBulkQuestionsAttr/groupNbr/{groupNbr}/productId/{productId}")]
-        [HttpGet]
+        //[Route("getBulkQuestionsAttr/groupNbr/{groupNbr}/productId/{productId}")]
+        //[HttpGet]
         
-        public IActionResult GetSavedQueAttr(string groupNbr, string productId)
+        //public IActionResult GetSavedQueAttr(string groupNbr, string productId)
+        //{
+        //    var questionDataAttr = _unitofWork.eppBulkRefTblRepository.GetEppQuestionAtrr(groupNbr, long.Parse(productId));
+        //    return Ok(questionDataAttr);
+        //}
+
+        [Route("GetGroupQuestionAtrr/groupNbr/{groupNbr}")]
+        [HttpGet]
+
+        public IActionResult GetGroupQuestionAtrr(string groupNbr)
         {
-            var questionDataAttr = _unitofWork.eppBulkRefTblRepository.GetEppQuestionAtrr(groupNbr, long.Parse(productId));
+            var questionDataAttr = _unitofWork.eppBulkRefTblRepository.GetGroupQuestionAtrr(groupNbr);
             return Ok(questionDataAttr);
         }
 
+        [Route("[action]")]
+        [HttpPost]
+        public IActionResult UpdateQuestionAttrs(UpdateBlkQuestionAttrbs  updateBlkQuestions)
+        {
+            var grp = updateBlkQuestions.GrpNbr;
+            // get stored 
+          
+            
+
+           return Ok();
+        }
+        //groupNbr
         //GetEppQuestionAtrr
 
 
