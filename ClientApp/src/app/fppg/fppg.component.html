@@ -109,9 +109,35 @@
        </div>
 
      </div>
+   <div class="row mt-4" style="justify-content: space-evenly;margin-right: 7%;">
+  <div class="radio-button">
+    <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+        formControlName="FCfppgPlanCodeManualEntry_Action" />
+      <label class="radio-label"> Always Override</label></div>
+    <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+        value="Update if Blank" formControlName="FCfppgPlanCodeManualEntry_Action" />
+      <label class="radio-label">Update if Blank</label></div>
+    <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+        formControlName="FCfppgPlanCodeManualEntry_Action" />
+      <label class="radio-label">Validate</label></div>
+  </div>
+  <div class="col-3">
+    <span class="label label-default">Plan code Manual Entry</span>
+    <input type="text" formControlName="FCfppgPlanCodeManualEntry" class="form-control mb-2 " style="width: 100%;" placeholder="Plan code manual Entry">
+  </div>
 
+  <div class="col-3">
+    <span class="label label-default">Plan code Manual Entry</span>
+    <input type="text" formControlName="FCfppgPlanCodeManualEntry" class="form-control mb-2 " style="width: 100%;" placeholder="Plan code manual Entry">
+  </div>
 
-     <div class="row mt-4" style="justify-content:space-evenly;">
+  <div class="col-3">
+    <span class="label label-default">Plan code Manual Entry</span>
+    <input type="text" formControlName="FCfppgPlanCodeManualEntry" class="form-control mb-2 " style="width: 100%;" placeholder="Plan code manual Entry">
+  </div>
+</div>
+
+     <div class="row mt-4" style="margin-left: 1%;" >
        <div class="radio-button">
          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
              formControlName="FCfppgOpenEnrollGI_Action" />
@@ -123,13 +149,13 @@
              formControlName="FCfppgOpenEnrollGI_Action" />
            <label class="radio-label">Validate</label></div>
        </div>
-       <div class="col-4">
+       <div class="col-3" style="margin-left: 1%;">
 
          <span class="label label-default">Open Enrollment GI</span>
          <input type="text" formControlName="FCfppgOpenEnrollGI" class="form-control mb-2 " style="width: 100%;" placeholder="Open Enrollment GI">
        </div>
 
-       <div class="radio-button">
+       <!-- <div class="radio-button">
          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
              formControlName="FCfppgPlanCodeManualEntry_Action" />
            <label class="radio-label"> Always Override</label></div>
@@ -143,7 +169,7 @@
        <div class="col-4">
          <span class="label label-default">Plan code Manual Entry</span>
          <input type="text" formControlName="FCfppgPlanCodeManualEntry" class="form-control mb-2 " style="width: 100%;" placeholder="Plan code manual Entry">
-       </div>
+       </div> -->
 
      </div>
 

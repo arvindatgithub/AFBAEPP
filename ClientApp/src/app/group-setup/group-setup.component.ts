@@ -748,7 +748,7 @@ export class GroupSetupComponent implements OnInit {
           "effctv_dt_action": "string",
           "grp_situs_state_action": "string",
           "emp_face_amt_mon_bnft_action": "string",
-          agnt_cd_1:this.agentformgrp.get('AgentNumberBasicgrpLife').value,
+         agnt_cd_1:this.agentformgrp.get('AgentNumberBasicgrpLife').value,
         agnt_nm: this.agentformgrp.get('AgentNameBasicgrpLife').value,
         agnt_comm_split_1: parseInt(this.agentformgrp.get('CommissonSplitBasicgrpLife').value),
         agntsub_1: this.agentformgrp.get('AgentSubCountBasicgrpLife').value,
