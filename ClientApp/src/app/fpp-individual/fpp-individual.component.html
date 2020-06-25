@@ -16,7 +16,7 @@
         </div>
         <div class="col-3">
           <span class="label label-default">Group Effective Date</span>
-          <input type="date"  [(ngModel)]="latest_date" [value]="latest_date" formControlName = "FCfppiEffectiveDate" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
+          <input type="date" [value]="latest_datefpp" formControlName = "FCfppiEffectiveDate" [min]="minDate" [(ngModel)]="latest_datefpp" class="form-control mb-2 " style="width: 100%;"
             placeholder="Group Effective Date">
 
         </div>
@@ -36,7 +36,7 @@
           <input type="text" class="form-control mb-2 "  formControlName = "FCfppiAgentSign" style="width: 100%;" placeholder="Agent Signature">
         </div>
         <div class="mt-4">
-          <button class="btn btn-primary" type="submit">Reset Form </button>
+          <button class="btn btn-primary" (click) ="resetfpp()" type="submit">Reset Form </button>
         </div>
       </div>
     
@@ -60,7 +60,7 @@
 
           <span class="label label-default">Employee GI Amount Max</span>
 
-          <input type="text" class="form-control mb-2 " formControlName="FCfppiEmpGIAmtMax" style="width: 100%;" placeholder="Employee GI Amount Max">
+          <input type="text" class="form-control mb-2" formControlName="FCfppiEmpGIAmtMax" style="width: 100%;" placeholder="Employee GI Amount Max">
         </div>
 
 
@@ -68,11 +68,11 @@
         <div class="col-3">
           <span class="label label-default">Employee QI Amount Max</span>
 
-          <input type="text" class="form-control mb-2 " formControlName="FCfppiEmpQIAmtMax" style="width: 100%;" placeholder="Employee QI Amount Max">
+          <input type="text" class="form-control mb-2" formControlName="FCfppiEmpQIAmtMax" style="width: 100%;" placeholder="Employee QI Amount Max">
         </div>
         <div class="col-3">
           <span class="label label-default">Employee Max Amount</span>
-          <input type="text" class="form-control mb-2 " formControlName="FCfppiEmpAmtMax" style="width: 100%;" placeholder="Employee Max Amount">
+          <input type="text" class="form-control mb-2" formControlName="FCfppiEmpAmtMax" style="width: 100%;" placeholder="Employee Max Amount">
         </div>
       
       </div>
@@ -105,11 +105,37 @@
         </div>
 
       </div>
-     
+      <div class="row mt-2" style="justify-content: space-evenly;margin-right: 7%;">
+        <div class="radio-button">
+          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+              formControlName="FCfppgPlanCodeManualEntry_Action" />
+            <label class="radio-label"> Always Override</label></div>
+          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+              value="Update if Blank" formControlName="FCfppgPlanCodeManualEntry_Action" />
+            <label class="radio-label">Update if Blank</label></div>
+          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+              formControlName="FCfppgPlanCodeManualEntry_Action" />
+            <label class="radio-label">Validate</label></div>
+        </div>
+        <div class="col-3">
+          <span class="label label-default">Plan code Manual Entry</span>
+          <input type="text" formControlName="FCfppgPlanCodeManualEntry" class="form-control mb-2 " style="width: 100%;" placeholder="Plan code manual Entry">
+        </div>
+      
+        <div class="col-3">
+          <span class="label label-default">Plan code Manual Entry</span>
+          <input type="text" formControlName="FCfppgPlanCodeManualEntry" class="form-control mb-2 " style="width: 100%;" placeholder="Plan code manual Entry">
+        </div>
+      
+        <div class="col-3">
+          <span class="label label-default">Plan code Manual Entry</span>
+          <input type="text" formControlName="FCfppgPlanCodeManualEntry" class="form-control mb-2 " style="width: 100%;" placeholder="Plan code manual Entry">
+        </div>
+      </div>
 
 
 
-      <div class="row mt-2" style="justify-content:space-evenly;">
+      <div class="row mt-2" style="margin-left: 2%;">
         <div class="radio-button">
           <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
               formControlName="FCfppiOpenEnrollGI_Action" />
@@ -121,13 +147,13 @@
               formControlName="FCfppiOpenEnrollGI_Action" />
             <label class="radio-label">Validate</label></div>
         </div>
-        <div class="col-4">
+        <div class="col-4" style="margin-left: 1%;">
 
           <span class="label label-default">Open Enrollment GI</span>
           <input type="text" class="form-control mb-2 " formControlName="FCfppiOpenEnrollGI" style="width: 100%;" placeholder="Open Enrollment GI">
         </div>
 
-        <div class="radio-button">
+        <!-- <div class="radio-button">
           <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
               formControlName="FCfppiPlanCodeManualEntry_Action" />
             <label class="radio-label"> Always Override</label></div>
@@ -141,7 +167,7 @@
         <div class="col-4">
           <span class="label label-default">Plan code manual Entry</span>
           <input type="text" class="form-control mb-2 " formControlName="FCfppiPlanCodeManualEntry" style="width: 100%;" placeholder="Plan code manual Entry">
-        </div>
+        </div> -->
 
       </div>
 

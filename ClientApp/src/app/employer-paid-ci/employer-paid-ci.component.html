@@ -15,8 +15,8 @@
     </div>
     <div class="col-3">
       <span class="label label-default">Group Effective Date</span>
-      <input type="date"  [(ngModel)]="latest_date" [value]="latest_date" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
-      formControlName="FCempCIEffectiveDate" placeholder="Group Effective Date">
+      <input type="date" [value]="latest_dateemppaisci" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
+      formControlName="FCempCIEffectiveDate" [(ngModel)]="latest_dateemppaisci" placeholder="Group Effective Date">
 
     </div>
     <div class="radio-button">
@@ -46,7 +46,7 @@
   </div>
 
 
-  <div class="row mt-4" style="justify-content:space-evenly;">
+  <div class="row mt-4" style="justify-content:space-evenly; margin-right: 7%; ">
     <div class="radio-button">
       <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
           formControlName="FCempCISpouseFcAmt_Action" />
@@ -58,15 +58,12 @@
           formControlName="FCempCISpouseFcAmt_Action" />
         <label class="radio-label">Validate</label></div>
     </div>
-    <div class=" col-4">
+    <div class="col-4">
 
       <span class="label label-default">Spouse Standard Face
         Amount</span>
-
       <input type="text" class="form-control mb-2 " formControlName="FCempCISpouseFcAmt" style="width: 100%;" placeholder="Spouse Standard Face Amount">
     </div>
-
-
 
     <div class="radio-button">
       <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
@@ -83,14 +80,29 @@
       <span class="label label-default">Employee Standard Face
         Amount</span>
 
-      <input type="text" class="form-control mb-2 " style="width: 100%;" formControlName="FCempCIEmpFcAmt" placeholder="Employee Standard Face
-Amount">
+      <input type="text" class="form-control mb-2 " style="width: 100%;" formControlName="FCempCIEmpFcAmt" placeholder="Employee Standard Face Amount">
     </div>
+
+    <!-- <div class="radio-button">
+      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+          formControlName="FCempCIChdFcAmt_Action" />
+        <label class="radio-label"> Always Override</label></div>
+      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+          value="Update if Blank" formControlName="FCempCIChdFcAmt_Action" />
+        <label class="radio-label">Update if Blank</label></div>
+      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+          formControlName="FCempCIChdFcAmt_Action" />
+        <label class="radio-label">Validate</label></div>
+    </div>
+    <div class="col-3">
+      <span class="label label-default">Child Standard Face Amount</span>
+      <input type="text" class="form-control mb-2 " formControlName="FCempCIChdFcAmt" style="width: 100%;" placeholder="Child Standard Face Amount">
+    </div> -->
 
 
   </div>
 
-  <div class="row mt-4 mb-4" style="justify-content:space-evenly;">
+  <div class="row mt-4" style="justify-content:space-evenly; margin-right: 7%;">
     <div class="radio-button">
       <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
           formControlName="FCempCIPlanCode_Action" />
@@ -103,26 +115,31 @@ Amount">
         <label class="radio-label">Validate</label></div>
     </div>
     <div class=" col-4">
-      <span class="label label-default">Plan Code </span>
+      <span class="label label-default">Plan Code Manual Entry </span>
       <input type="text" class="form-control mb-2 " formControlName="FCempCIPlanCode" style="width: 100%;" placeholder="Plan Code ">
     </div>
     <div class="radio-button">
       <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-          formControlName="FCempCIChdFcAmt_Action" />
+          formControlName="FCempCIPlanCode_Action" />
         <label class="radio-label"> Always Override</label></div>
       <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-          value="Update if Blank" formControlName="FCempCIChdFcAmt_Action" />
+          value="Update if Blank" formControlName="FCempCIPlanCode_Action" />
         <label class="radio-label">Update if Blank</label></div>
       <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-          formControlName="FCempCIChdFcAmt_Action" />
+          formControlName="FCempCIPlanCode_Action" />
         <label class="radio-label">Validate</label></div>
     </div>
     <div class="col-4">
-      <span class="label label-default">Child Standard Face Amount</span>
-      <input type="text" class="form-control mb-2 " formControlName="FCempCIChdFcAmt" style="width: 100%;" placeholder="Child Standard Face Amount">
+      <span class="label label-default">Plan Code Manual Entry</span>
+      <input type="text" class="form-control mb-2 " formControlName="FCempCIChdFcAmt" style="width: 100%;" placeholder="Employee Standard Face Amount">
     </div>
-
+<!-- 
+    <div class="col-3">
+      <span class="label label-default">Plan Code Manual Entry</span>
+      <input type="text" class="form-control mb-2 " formControlName="FCempCIChdFcAmt" style="width: 100%;" placeholder="Child Standard Face Amount">
+    </div> -->
   </div>
+ 
   <div class="mt-4">
     <ng-content></ng-content>
    </div>

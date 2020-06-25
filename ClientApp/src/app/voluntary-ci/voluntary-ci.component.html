@@ -15,7 +15,7 @@
       </div>
       <div class="col-3">
         <span class="label label-default">Group Effective Date</span>
-        <input type="date"  [(ngModel)]="latest_date" [value]="latest_date" formControlName="FCVolCIEffectiveDate" [min]="minDate"
+        <input type="date" [value]="latest_datevolci" [(ngModel)]="latest_datevolci" formControlName="FCVolCIEffectiveDate" [min]="minDate"
           class="form-control mb-2 " style="width: 100%;" placeholder="Group Effective Date">
 
       </div>
@@ -112,6 +112,39 @@
 
     </div>
 
+    <div class="row mt-2" style="margin-top: 10px;justify-content:space-evenly;margin-right: 7%;">
+      <div class="radio-button">
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+            formControlName="FCVolCIPlanCodeManualEntry_Action" />
+          <label class="radio-label"> Always Override</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+            value="Update if Blank" formControlName="FCVolCIPlanCodeManualEntry_Action" />
+          <label class="radio-label">Update if Blank</label></div>
+        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+            formControlName="FCVolCIPlanCodeManualEntry_Action" />
+          <label class="radio-label">Validate</label></div>
+      </div>
+      <div class="col-3">
+        <span class="label label-default">Plan code manual Entry</span>
+        <input type="text" class="form-control mb-2 " formControlName="FCVolCIPlanCodeManualEntry" style="width: 100%;"
+          placeholder="Plan code manual Entry">
+      </div>
+
+      <div class="col-3">
+        <span class="label label-default">Plan code manual Entry</span>
+        <input type="text" class="form-control mb-2 " formControlName="FCVolCIPlanCodeManualEntry" style="width: 100%;"
+          placeholder="Plan code manual Entry">
+      </div>
+
+      <div class="col-3">
+        <span class="label label-default">Plan code manual Entry</span>
+        <input type="text" class="form-control mb-2 " formControlName="FCVolCIPlanCodeManualEntry" style="width: 100%;"
+          placeholder="Plan code manual Entry">
+      </div>
+
+
+    </div>
+
     <div class="row mt-2" style="justify-content:space-evenly;">
       <div class="radio-button">
         <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
@@ -131,7 +164,7 @@
           placeholder="Open Enrollment GI">
       </div>
 
-      <div class="radio-button">
+      <!-- <div class="radio-button">
         <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
             formControlName="FCVolCIPlanCodeManualEntry_Action" />
           <label class="radio-label"> Always Override</label></div>
@@ -146,7 +179,7 @@
         <span class="label label-default">Plan code manual Entry</span>
         <input type="text" class="form-control mb-2 " formControlName="FCVolCIPlanCodeManualEntry" style="width: 100%;"
           placeholder="Plan code manual Entry">
-      </div>
+      </div> -->
 
     </div>
 

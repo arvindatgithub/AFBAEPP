@@ -50,10 +50,10 @@ export class CustomBulkTemplateComponent implements OnInit {
       }
     });
     console.log('selected product'+ this.selectedProduct + '  ' + this.selectedProductId);
-    this.getFields(this.grpNum, this.selectedProduct, this.selectedProductId);
+    this.getFields(this.grpNum, this.selectedProductId);
   }
 
-  getFields(grpNbr, productNm, productId) {
+  getFields(grpNbr, productId) {
 
     this.customattributeService.getProductFieldsByGroup(grpNbr, productId).subscribe(
       data => {
@@ -131,6 +131,7 @@ export class CustomBulkTemplateComponent implements OnInit {
         console.log('edit save api'+ err.status);
         if(err.status == 200){
           this.successMsg = true;
+          this.getFields(this.grpNum,this.selectedProductId);
         } else{
           this.successMsg = false;
         }
@@ -144,6 +145,7 @@ export class CustomBulkTemplateComponent implements OnInit {
         console.log('add save api'+ err.status);
         if(err.status == 200){
           this.successMsg = true;
+          this.getFields(this.grpNum,this.selectedProductId);
         } else{
           this.successMsg = false;
         }
