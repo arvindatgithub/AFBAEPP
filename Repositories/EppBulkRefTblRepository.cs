@@ -18,41 +18,50 @@ namespace AFBA.EPP.Repositories
             _dbContext = dbContext;
         }
 
-        public IEnumerable<EppQueAtrrViewModel> GetEppQuestionAtrr(string groupNo, long productId)
-        {
-            var result = _dbContext.EppBulkRefTbl.Where( x=> x.Grpprdct.Grp.GrpNbr== groupNo &&  x.Grpprdct.ProductId== productId  && x.Attr.IsQstnAttrbt=='Y').Select(
-            data=> new EppQueAtrrViewModel {
-             AttrId= data.AttrId,
-            BulkId= data.BulkId,
-            DbAttrNm=data.Attr.DbAttrNm,
-            DisplyAttrNm=data.Attr.DisplyAttrNm,
-            GrpNbr = data.Grpprdct.Grp.GrpNbr,
-            GrpprdctId= data.GrpprdctId,
-             ProductId=data.Grpprdct.ProductId,
-              Value= data.Value,
-            } );
+        //public IEnumerable<EppQueAtrrViewModel> GetEppQuestionAtrr(string groupNo, long productId)
+        //{
+        //    GroupBlkQuestionAttrbs groupBlkQuestionAttrbs= GroupBlkQuestionAttrbs
 
-            return result;
-        }
+        //    var result = _dbContext.EppBulkRefTbl.Where( x=> x.Grpprdct.Grp.GrpNbr== groupNo &&  x.Grpprdct.ProductId== productId  && x.Attr.IsQstnAttrbt=='Y').Select(
+        //    data=> new EppQueAtrrViewModel {
+        //     AttrId= data.AttrId,
+        //    BulkId= data.BulkId,
+        //    DbAttrNm=data.Attr.DbAttrNm,
+        //    DisplyAttrNm=data.Attr.DisplyAttrNm,
+        //    GrpNbr = data.Grpprdct.Grp.GrpNbr,
+        //    GrpprdctId= data.GrpprdctId,
+        //     ProductId=data.Grpprdct.ProductId,
+        //      Value= data.Value,
+        //    } );
+
+        //    return result;
+        //}
 
         
-        public IEnumerable<EppQueAtrrViewModel> GetGroupQuestionAtrr(string groupNo)
-        {
-            var result = _dbContext.EppBulkRefTbl.Where(x => x.Grpprdct.Grp.GrpNbr == groupNo && x.Attr.IsQstnAttrbt == 'Y').Select(
-            data => new EppQueAtrrViewModel
-            {
-                AttrId = data.AttrId,
-                BulkId = data.BulkId,
-                DbAttrNm = data.Attr.DbAttrNm,
-                DisplyAttrNm = data.Attr.DisplyAttrNm,
-                GrpNbr = data.Grpprdct.Grp.GrpNbr,
-                GrpprdctId = data.GrpprdctId,
-                ProductName = data.Grpprdct.Product.ProductNm,
-                ProductId = data.Grpprdct.ProductId,
-                Value = data.Value,
-            });
+        //public IEnumerable<EppQueAtrrViewModel> GetGroupQuestionAtrr(string groupNo)
+        //{
+        //    GroupBlkQuestionAttrbs groupBlkQuestionAttrbs = new GroupBlkQuestionAttrbs();
+        //    var result = _dbContext.EppBulkRefTbl.Where(x => x.Grpprdct.Grp.GrpNbr == groupNo && x.Attr.IsQstnAttrbt == 'Y');
+        //    var kdata = 
 
-            return result;
-        }
+
+        //  groupBlkQuestionAttrbs.GrpNbr = groupNo;
+        //    groupBlkQuestionAttrbs
+        //    var result = _dbContext.EppBulkRefTbl.Where(x => x.Grpprdct.Grp.GrpNbr == groupNo && x.Attr.IsQstnAttrbt == 'Y').Select(
+        //    data => new EppQueAtrrViewModel
+        //    {
+        //        AttrId = data.AttrId,
+        //        BulkId = data.BulkId,
+        //        DbAttrNm = data.Attr.DbAttrNm,
+        //        DisplyAttrNm = data.Attr.DisplyAttrNm,
+        //        GrpNbr = data.Grpprdct.Grp.GrpNbr,
+        //        GrpprdctId = data.GrpprdctId,
+        //        ProductName = data.Grpprdct.Product.ProductNm,
+        //        ProductId = data.Grpprdct.ProductId,
+        //        Value = data.Value,
+        //    });
+
+        //    return result;
+        //}
     }
 }

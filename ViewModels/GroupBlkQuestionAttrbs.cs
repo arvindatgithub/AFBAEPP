@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AFBA.EPP.ViewModels
 {
-    public class UpdateBlkQuestionAttrbs
+    public class GroupBlkQuestionAttrbs
     {
         public string GrpNbr { get; set; }
         public List<EppQueAtrrViewModel> EppQueAtrrViewModel { get; set; }

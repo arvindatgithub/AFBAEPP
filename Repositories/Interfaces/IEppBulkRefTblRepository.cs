@@ -9,8 +9,8 @@ namespace AFBA.EPP.Repositories.Interfaces
 {
    public interface IEppBulkRefTblRepository: IRepository<EppBulkRefTbl>
     {
-      public  IEnumerable<EppQueAtrrViewModel> GetEppQuestionAtrr(string groupNo, long productId);
-      public IEnumerable<EppQueAtrrViewModel> GetGroupQuestionAtrr(string groupNo);
+      //public  IEnumerable<EppQueAtrrViewModel> GetEppQuestionAtrr(string groupNo, long productId);
+      //public IEnumerable<EppQueAtrrViewModel> GetGroupQuestionAtrr(string groupNo);
 
     }
 

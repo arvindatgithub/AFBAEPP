@@ -52,21 +52,20 @@ namespace AFBA.EPP.Controllers
         //    return Ok(questionDataAttr);
         //}
 
-        [Route("GetGroupQuestionAtrr/groupNbr/{groupNbr}")]
-        [HttpGet]
+        //[Route("GetGroupQuestionAtrr/groupNbr/{groupNbr}")]
+        //[HttpGet]
 
-        public IActionResult GetGroupQuestionAtrr(string groupNbr)
-        {
-            var questionDataAttr = _unitofWork.eppBulkRefTblRepository.GetGroupQuestionAtrr(groupNbr);
-            return Ok(questionDataAttr);
-        }
+        //public IActionResult GetGroupQuestionAtrr(string groupNbr)
+        //{
+        //    var questionDataAttr = _unitofWork.eppBulkRefTblRepository.GetGroupQuestionAtrr(groupNbr);
+        //    return Ok(questionDataAttr);
+        //}
 
         [Route("[action]")]
         [HttpPost]
-        public IActionResult UpdateQuestionAttrs(UpdateBlkQuestionAttrbs  updateBlkQuestions)
+        public IActionResult UpdateQuestionAttrs(GroupBlkQuestionAttrbs  groupBlkQuestionAttrbs)
         {
-            var grp = updateBlkQuestions.GrpNbr;
-            // get stored 
+            
           
             
 
