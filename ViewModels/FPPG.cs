@@ -7,6 +7,7 @@ namespace AFBA.EPP.ViewModels
 {
     public class FPPG: CommonViewModel
     {
+
         public string grp_nmbr { get; set; }
         public DateTime effctv_dt { get; set; }
         
