@@ -22,6 +22,11 @@ export class BasicGroupLifeComponent implements OnInit,OnChanges {
   disabled = false;
   latest_datebasicgrplife
   public minDate = new Date().toISOString().slice(0,10);
+  radioButtonArr=[
+    {value:'10002',name:'Always Override'},
+    {value:'10001',name:'Update if Blank'},
+    {value:'10003',name:'Validate'}
+  ]
 
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe) {
   }
@@ -41,14 +46,14 @@ export class BasicGroupLifeComponent implements OnInit,OnChanges {
       });
 
       this.basicGrpLfformgrp = this.fb.group({
-        FCbasicEffectiveDate_Action: ["10001",Validators.required],
+        FCbasicEffectiveDate_Action: [this.radioButtonArr[1].value,Validators.required],
         FCbasicEffectiveDate: [this.dateValue,Validators.required],
-        FCbasicSitusState_Action: ["10001",Validators.required],
+        FCbasicSitusState_Action: [this.radioButtonArr[1].value,Validators.required],
         FCbasicSitusState: [this.lookupValue,Validators.required],
-        FCbasicEmpFcAmt_Action: ["10001",Validators.required],
+        FCbasicEmpFcAmt_Action: [this.radioButtonArr[1].value,Validators.required],
         FCbasicEmpFcAmt: ["",Validators.required],
-        FCbasicADDRider_Action: ["10001",Validators.required],
-        FCbasicADDRider: ["",Validators.required],
+        //FCbasicADDRider_Action: ["10001",Validators.required],
+        //FCbasicADDRider: ["",Validators.required],
       });
       this.basicGrpLfformgrp.controls['FCbasicSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
 
