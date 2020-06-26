@@ -642,8 +642,6 @@ export class GroupSetupComponent implements OnInit {
           "agntsub_4_action": "10002"
 
 
-
-
         },
         "isACC_HIActive": this.isCheckedAccident,
         "acC_HI": {
@@ -824,9 +822,9 @@ export class GroupSetupComponent implements OnInit {
           "agnt_sig_txt_1_action": this.fppComponent.fppiformgrp.value.FCfppiAgentSign_Action,
           "user_token_action": this.fppComponent.fppiformgrp.value.FCfppiUserToken_Action,
           "case_token_action": this.fppComponent.fppiformgrp.value.FCfppiCaseToken_Action,
-          "emp_ProductCode": this.fppComponent.fppiformgrp.value.FCfppgempPlanCode,
-          "sp_ProductCode": this.fppComponent.fppiformgrp.value.FCfppgSpousePlanCode,
-          "ch_ProductCode": this.fppComponent.fppiformgrp.value.FCfppgChildPlanCode,
+          "emp_ProductCode": this.fppComponent.fppiformgrp.value.FCfppiempPlanCode,
+          "sp_ProductCode": this.fppComponent.fppiformgrp.value.FCfppiSpousePlanCode,
+          "ch_ProductCode": this.fppComponent.fppiformgrp.value.FCfppiChildPlanCode,
           "emp_waiver_of_prem": "020",
           "sp_waiver_of_prem": "020",
           "emp_quality_of_life": "070",
