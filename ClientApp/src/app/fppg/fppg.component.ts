@@ -30,6 +30,12 @@ export class FPPGComponent implements OnInit, OnChanges {
   latest_date;
   initial_SitusState;
 
+  radioButtonArr=[
+    {value:'10002',name:'Always Override'},
+    {value:'10001',name:'Update if Blank'},
+    {value:'10003',name:'Validate'}
+  ]
+
   constructor(private lookupService: LookupService, 
     private fb:FormBuilder, private eppservice:EppCreateGrpSetupService,
     public datepipe: DatePipe ) { 
@@ -73,14 +79,14 @@ ngOnChanges(simpleChange:SimpleChanges){
       
       FCfppgQolRiders: ["",Validators.required],
       FCfppgWaiver:["",Validators.required],
-      FCfppgEffectiveDate_Action: ['10001', Validators.required],
-      FCfppgSitusState_Action:  ['10001', Validators.required],
-      FCfppgEmpAmtMax_Action: ['10001', Validators.required],
-      FCfppgSpouseAmtMax_Action: ['10001', Validators.required],
-      FCfppgOpenEnrollGI_Action: ['10001', Validators.required],
-      FCfppgPlanCodeManualEntry_Action: ['10001', Validators.required],
-      FCfppgQolRiders_Action: ['10001', Validators.required],
-      FCfppgWaiver_Action: ['10001', Validators.required],
+      FCfppgEffectiveDate_Action: [this.radioButtonArr[1].value, Validators.required],
+      FCfppgSitusState_Action:  [this.radioButtonArr[1].value, Validators.required],
+      FCfppgEmpAmtMax_Action: [this.radioButtonArr[1].value, Validators.required],
+      FCfppgSpouseAmtMax_Action: [this.radioButtonArr[1].value, Validators.required],
+      FCfppgOpenEnrollGI_Action: [this.radioButtonArr[1].value, Validators.required],
+      FCfppgPlanCodeManualEntry_Action: [this.radioButtonArr[1].value, Validators.required],
+      FCfppgQolRiders_Action: [this.radioButtonArr[1].value, Validators.required],
+      FCfppgWaiver_Action: [this.radioButtonArr[1].value, Validators.required],
     });
     //  this.fppgformgrp.controls['FCfppgSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
  
