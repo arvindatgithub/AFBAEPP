@@ -21,7 +21,13 @@ export class VolGroupLifeComponent implements OnInit,OnChanges {
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
   public minDate = new Date().toISOString().slice(0,10);
-  latest_datevolgrplife
+  latest_datevolgrplife;
+  radioButtonArr=[
+    {value:'10002',name:'Always Override'},
+    {value:'10001',name:'Update if Blank'},
+    {value:'10003',name:'Validate'}
+  ]
+
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe) { }
 
 
@@ -40,22 +46,22 @@ export class VolGroupLifeComponent implements OnInit,OnChanges {
     });
     this.volGrpLfformgrp = this.fb.group({
       FCVolGrpLfEffectiveDate: [this.dateValue,Validators.required],
-      FCVolGrpLfEffectiveDate_Action: ["",Validators.required],
-      FCVolGrpLfSitusState_Action: ["",Validators.required],
+      FCVolGrpLfEffectiveDate_Action: [this.radioButtonArr[1].value,Validators.required],
+      FCVolGrpLfSitusState_Action: [this.radioButtonArr[1].value,Validators.required],
       FCVolGrpLfSitusState: [this.lookupValue,Validators.required],
-      FCVolGrpLfEmpAmtMax_Action: ["",Validators.required],
+      FCVolGrpLfEmpAmtMax_Action: [this.radioButtonArr[1].value,Validators.required],
       FCVolGrpLfEmpGIAmtMax: ["",Validators.required],
       FCVolGrpLfEmpAmtMax: ["",Validators.required],
-      FCVolGrpLfSpouseAmtMax_Action: ["",Validators.required],
+      FCVolGrpLfSpouseAmtMax_Action: [this.radioButtonArr[1].value,Validators.required],
       FCVolGrpLfSpouseGIAmtMax: ["",Validators.required],
       FCVolGrpLfSpouseMaxAmt: ["",Validators.required],
-      FCVolGrpLfOpenEnrollGI_Action: ["",Validators.required],
+      FCVolGrpLfOpenEnrollGI_Action: [this.radioButtonArr[1].value,Validators.required],
       FCVolGrpLfOpenEnrollGI: ["",Validators.required],
-      FCVolGrpLfPlanCodeManualEntry_Action: ["",Validators.required],
+      FCVolGrpLfPlanCodeManualEntry_Action: [this.radioButtonArr[1].value,Validators.required],
       FCVolGrpLfPlanCodeManualEntry: ["",Validators.required],
-      FCVolGrpLfUserToken_Action: ["",Validators.required],
+      FCVolGrpLfUserToken_Action: [this.radioButtonArr[1].value,Validators.required],
       FCVolGrpLfUserToken: ["",Validators.required],
-      FCVolGrpLfCaseToken_Action: ["",Validators.required],
+      FCVolGrpLfCaseToken_Action: [this.radioButtonArr[1].value,Validators.required],
       FCVolGrpLfCaseToken: ["",Validators.required],
     });
  
@@ -64,8 +70,5 @@ export class VolGroupLifeComponent implements OnInit,OnChanges {
   // getLookupValueSitusState(value: any){
   //   this.lookupSitusStateValue = value;
   // }
-  onItemChange(value){
-    console.log(" Value is : ", value );
- }
 
 }

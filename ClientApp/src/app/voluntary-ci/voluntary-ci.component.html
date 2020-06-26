@@ -3,15 +3,8 @@
   <form [formGroup]="volCIformgrp">
     <div class="row" style="justify-content:space-evenly;margin-right: 7%;">
       <div class="radio-button">
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-            formControlName="FCVolCIEffectiveDate_Action" />
-          <label class="radio-label"> Always Override</label></div>
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-            value="Update if Blank" formControlName="FCVolCIEffectiveDate_Action" />
-          <label class="radio-label">Update if Blank</label></div>
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-            formControlName="FCVolCIEffectiveDate_Action" />
-          <label class="radio-label">Validate</label></div>
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCVolCIEffectiveDate_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-3">
         <span class="label label-default">VOL CI Effective Date</span>
@@ -20,18 +13,11 @@
 
       </div>
       <div class="radio-button">
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-            formControlName="FCVolCISitusState_Action" />
-          <label class="radio-label"> Always Override</label></div>
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-            value="Update if Blank" formControlName="FCVolCISitusState_Action" />
-          <label class="radio-label">Update if Blank</label></div>
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-            formControlName="FCVolCISitusState_Action" />
-          <label class="radio-label">Validate</label></div>
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCVolCISitusState_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-3">
-        <span class="label label-default">Sitius State</span>
+        <span class="label label-default">Situs State</span>
         <select class="form-control" [value]="lookupValue" formControlName="FCVolCISitusState">
           <!-- <option value="0" selected="selected">{{ lookupValue }}</option> -->
           <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
@@ -50,15 +36,8 @@
     <div class="row" style="margin-top: 10px;justify-content:space-evenly;margin-right: 7%;">
 
       <div class="radio-button">
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-            formControlName="FCVolCIEmpGIAmtMax_Action" />
-          <label class="radio-label"> Always Override</label></div>
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-            value="Update if Blank" formControlName="FCVolCIEmpGIAmtMax_Action" />
-          <label class="radio-label">Update if Blank</label></div>
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-            formControlName="FCVolCIEmpGIAmtMax_Action" />
-          <label class="radio-label">Validate</label></div>
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCVolCIEmpGIAmtMax_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-3">
 
@@ -82,15 +61,8 @@
     </div>
     <div class="row mt-2" style="margin-top: 10px;justify-content:space-evenly;margin-right: 7%;">
       <div class="radio-button">
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-            formControlName="FCVolCISpouseAmtMax_Action" />
-          <label class="radio-label"> Always Override</label></div>
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-            value="Update if Blank" formControlName="FCVolCISpouseAmtMax_Action" />
-          <label class="radio-label">Update if Blank</label></div>
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-            formControlName="FCVolCISpouseAmtMax_Action" />
-          <label class="radio-label">Validate</label></div>
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCVolCISpouseAmtMax_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-3">
         <span class="label label-default">Spouse GI Amount Max</span>
@@ -114,15 +86,8 @@
 
     <div class="row mt-2" style="margin-top: 10px;justify-content:space-evenly;margin-right: 7%;">
       <div class="radio-button">
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-            formControlName="FCVolCIPlanCodeManualEntry_Action" />
-          <label class="radio-label"> Always Override</label></div>
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-            value="Update if Blank" formControlName="FCVolCIPlanCodeManualEntry_Action" />
-          <label class="radio-label">Update if Blank</label></div>
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-            formControlName="FCVolCIPlanCodeManualEntry_Action" />
-          <label class="radio-label">Validate</label></div>
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCVolCIPlanCodeManualEntry_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-3">
         <span class="label label-default">Plan code manual Entry</span>
@@ -174,15 +139,8 @@
     </div>
     <div class="row mt-2" style="justify-content:space-evenly;">
       <div class="radio-button">
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-            formControlName="FCVolCIEmpNTB_Action" />
-          <label class="radio-label"> Always Override</label></div>
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-            value="Update if Blank" formControlName="FCVolCIEmpNTB_Action" />
-          <label class="radio-label">Update if Blank</label></div>
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-            formControlName="FCVolCIEmpNTB_Action" />
-          <label class="radio-label">Validate</label></div>
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCVolCIEmpNTB_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-4">
         <div class="row" style="justify-content:space-evenly;">
@@ -195,15 +153,8 @@
         </div>
       </div>
       <div class="radio-button">
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-            formControlName="FCVolCIEmpTB_Action" />
-          <label class="radio-label"> Always Override</label></div>
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-            value="Update if Blank" formControlName="FCVolCIEmpTB_Action" />
-          <label class="radio-label">Update if Blank</label></div>
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-            formControlName="FCVolCIEmpTB_Action" />
-          <label class="radio-label">Validate</label></div>
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCVolCIEmpTB_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-4 pb-4">
         <div class="row" style="justify-content:space-evenly;">
@@ -218,15 +169,8 @@
     </div>
     <div class="row mt-2" style="justify-content:space-evenly;">
       <div class="radio-button">
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-            formControlName="FCVolCISpouseNTB_Action" />
-          <label class="radio-label"> Always Override</label></div>
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-            value="Update if Blank" formControlName="FCVolCISpouseNTB_Action" />
-          <label class="radio-label">Update if Blank</label></div>
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-            formControlName="FCVolCISpouseNTB_Action" />
-          <label class="radio-label">Validate</label></div>
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCVolCISpouseNTB_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-4">
         <div class="row" style="justify-content:space-evenly;">
@@ -240,15 +184,8 @@
       </div>
 
       <div class="radio-button">
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-            formControlName="FCVolCISpouseTB_Action" />
-          <label class="radio-label"> Always Override</label></div>
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-            value="Update if Blank" formControlName="FCVolCISpouseTB_Action" />
-          <label class="radio-label">Update if Blank</label></div>
-        <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-            formControlName="FCVolCISpouseTB_Action" />
-          <label class="radio-label">Validate</label></div>
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCVolCISpouseTB_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-4">
         <div class="row" style="justify-content:space-evenly;">

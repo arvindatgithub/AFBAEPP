@@ -2,15 +2,8 @@
   <form [formGroup]="hospformgrp">
   <div class="row" style="justify-content:space-evenly;margin-right: 7%;">
     <div class="radio-button">
-      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-          formControlName="FChospEffectiveDate_Action" />
-        <label class="radio-label"> Always Override</label></div>
-      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-          value="Update if Blank" formControlName="FChospEffectiveDate_Action" />
-        <label class="radio-label">Update if Blank</label></div>
-      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-          formControlName="FChospEffectiveDate_Action" />
-        <label class="radio-label">Validate</label></div>
+      <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FChospEffectiveDate_Action" />
+        <label class="radio-label"> {{item.name}}</label></div>
     </div>
     <div class="col-3">
       <span class="label label-default">HI Effective Date</span>
@@ -19,15 +12,8 @@
 
     </div>
     <div class="radio-button">
-      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-          formControlName="FChospSitusState_Action" />
-        <label class="radio-label"> Always Override</label></div>
-      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-          value="Update if Blank" formControlName="FChospSitusState_Action" />
-        <label class="radio-label">Update if Blank</label></div>
-      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-          formControlName="FChospSitusState_Action" />
-        <label class="radio-label">Validate</label></div>
+      <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FChospSitusState_Action" />
+        <label class="radio-label"> {{item.name}}</label></div>
     </div>
     <div class="col-3">
       <span class="label label-default">Situs State</span>
