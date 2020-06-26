@@ -164,8 +164,10 @@ namespace AFBA.EPP.Controllers
         {
             try
             {
-                var grpprdct = _unitofWork.eppGrpprdctRepository.GetEppGrpprdct(grpNbr, productId);
-                 if (grpprdct == null) return NotFound("incorret group number  or product id ");
+                //var grpprdct = _unitofWork.eppGrpprdctRepository.GetEppGrpprdct(grpNbr, productId);
+
+                var grpprdct = _unitofWork.eppGrpprdctRepository.Find(x => x.Grp.GrpNbr == grpNbr && x.ProductId == long.Parse(productId)).Result.FirstOrDefault();
+                 if (grpprdct ==null) return NotFound("incorret group number  or product id ");
                 
 
                 EppTemplateViewModel lstEppTemplateViewModel = new EppTemplateViewModel

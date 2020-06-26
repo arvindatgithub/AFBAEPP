@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AFBA.EPP.ViewModels
 {
-    public class ER_CI
+    public class ER_CI: CommonViewModel
     {
         public string grp_nmbr { get; set; }
         public DateTime effctv_dt { get; set; }
@@ -29,20 +29,6 @@ namespace AFBA.EPP.ViewModels
         public string emp_ad_bnft { get; set; }
         public string emp_ad_bnft_action{ get; set; }
         public string sp_ad_bnft { get; set; }
-        public string agnt_cd_1 { get; set; }
-        public string agnt_nm { get; set; }
-        public Int32 agnt_comm_split_1 { get; set; }
-        public string agntsub_1 { get; set; }
-        public string agnt_cd_2 { get; set; }
-        public Int32 agnt_comm_split_2 { get; set; }
-        public string agntsub_2 { get; set; }
-
-        public string agnt_cd_3 { get; set; }
-        public Int32 agnt_comm_split_3 { get; set; }
-        public string agntsub_3 { get; set; }
-
-        public string agnt_cd_4 { get; set; }
-        public Int32 agnt_comm_split_4 { get; set; }
-        public string agntsub_4 { get; set; }
+      
     }
 }
