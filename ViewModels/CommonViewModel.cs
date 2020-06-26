@@ -8,9 +8,7 @@ namespace AFBA.EPP.ViewModels
     public class CommonViewModel
     {
 
-
-
-
+       
         public string agnt_cd_1 { get; set; }
         public string agnt_nm { get; set; }
         public Int32 agnt_comm_split_1 { get; set; }
