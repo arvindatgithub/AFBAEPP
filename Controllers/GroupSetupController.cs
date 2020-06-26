@@ -96,279 +96,297 @@ namespace AFBA.EPP.Controllers
         [HttpPost]
         public IActionResult EppCreateGrpSetup(GroupSetupModel  groupSetupModel)
         {
-            
-            var grpprdct = _unitofWork.GroupMasterRepository.Find(x => x.GrpNbr == groupSetupModel.GrpNbr || x.GrpNm== groupSetupModel.GrpNm).Result;
-            if (grpprdct.Count != 0)   return BadRequest(" Group name or number already exist");
-            
-            if (! string.IsNullOrEmpty(groupSetupModel.EmlAddrss))
+            try
             {
-                // get partner id 
-                var enrlmntPrtnr=_unitofWork.eppEnrlmntPrtnrsRepository.GetEnrlmntPrtnrId(groupSetupModel.EmlAddrss);
-                if (enrlmntPrtnr != null)
-                {
-                    groupSetupModel.EnrlmntPrtnrsId = enrlmntPrtnr.EnrlmntPrtnrsId;
-                }
-                else
-                {
-                    groupSetupModel.EnrlmntPrtnrsId = Helper.GetRandomNumber();
-                    _unitofWork.eppEnrlmntPrtnrsRepository.Add(new EppEnrlmntPrtnrs { 
-                          EnrlmntPrtnrsId= groupSetupModel.EnrlmntPrtnrsId,
-                          CrtdBy="",
-                          EmlAddrss= groupSetupModel.EmlAddrss,
-                          EnrlmntPrtnrsNm= groupSetupModel.EnrlmntPrtnrsNm
-                           
-                    });
-                }
 
-            }
-           
-             var grpId = Helper.GetRandomNumber();
-            var CrtdBy = "";
-           _unitofWork.GroupMasterRepository.Add(new EppGrpmstr
+
+                var grpprdct = _unitofWork.GroupMasterRepository.Find(x => x.GrpNbr == groupSetupModel.GrpNbr || x.GrpNm == groupSetupModel.GrpNm).Result;
+                if (grpprdct.Count != 0) return BadRequest(" Group name or number already exist");
+
+                if (!string.IsNullOrEmpty(groupSetupModel.EmlAddrss))
+                {
+                    // get partner id 
+                    var enrlmntPrtnr = _unitofWork.eppEnrlmntPrtnrsRepository.GetEnrlmntPrtnrId(groupSetupModel.EmlAddrss);
+                    if (enrlmntPrtnr != null)
                     {
-                         GrpNbr= groupSetupModel.GrpNbr, GrpNm= groupSetupModel.GrpNm,  ActvFlg='Y' , EnrlmntPrtnrsId= groupSetupModel.EnrlmntPrtnrsId, GrpEfftvDt= groupSetupModel.GrpEfftvDt,
-                         GrpSitusSt= groupSetupModel.GrpSitusSt, GrpPymn= groupSetupModel.GrpPymn, OccClass= groupSetupModel.OccClass, GrpId= grpId, CrtdBy= CrtdBy
-
+                        groupSetupModel.EnrlmntPrtnrsId = enrlmntPrtnr.EnrlmntPrtnrsId;
                     }
-                
-           );
+                    else
+                    {
+                        groupSetupModel.EnrlmntPrtnrsId = Helper.GetRandomNumber();
+                        _unitofWork.eppEnrlmntPrtnrsRepository.Add(new EppEnrlmntPrtnrs
+                        {
+                            EnrlmntPrtnrsId = groupSetupModel.EnrlmntPrtnrsId,
+                            CrtdBy = "",
+                            EmlAddrss = groupSetupModel.EmlAddrss,
+                            EnrlmntPrtnrsNm = groupSetupModel.EnrlmntPrtnrsNm
 
-            List<EppBulkRefTbl> bulkRefTbls = new List<EppBulkRefTbl>();
+                        });
+                    }
 
-            if (groupSetupModel.isFPPGActive)
-            {
-                var prdid = Helper.GetProductIdbyName("FPPG", _unitofWork);
-                var grpprdId = Helper.GetRandomNumber();
+                }
 
-                //AddProductCodes(new ProductCodesViewModel
-                //{
-                //    ProductCode = groupSetupModel.FPPG.emp_ProductCode,
-                //     ProductId= prdid
-                //}); 
-
-               _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
+                var grpId = Helper.GetRandomNumber();
+                var CrtdBy = "";
+                _unitofWork.GroupMasterRepository.Add(new EppGrpmstr
                 {
-                    GrpprdctId= grpprdId,
-                     GrpId= grpId,
-                     ProductId= prdid,
-                     CrtdBy= CrtdBy
+                    GrpNbr = groupSetupModel.GrpNbr,
+                    GrpNm = groupSetupModel.GrpNm,
+                    ActvFlg = 'Y',
+                    EnrlmntPrtnrsId = groupSetupModel.EnrlmntPrtnrsId,
+                    GrpEfftvDt = groupSetupModel.GrpEfftvDt,
+                    GrpSitusSt = groupSetupModel.GrpSitusSt,
+                    GrpPymn = groupSetupModel.GrpPymn,
+                    OccClass = groupSetupModel.OccClass,
+                    GrpId = grpId,
+                    CrtdBy = CrtdBy
 
-               });
+                }
 
-              //search the product code  and add it
+                );
 
+                List<EppBulkRefTbl> bulkRefTbls = new List<EppBulkRefTbl>();
 
-                // add bulkupdate 
-                var bulkAttrs = Helper.GetProperties(groupSetupModel.FPPG);
-                AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
-                if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
+                if (groupSetupModel.isFPPGActive)
                 {
-                         var rndNo = Helper.GetRandomNumber();
+                    var prdid = Helper.GetProductIdbyName("FPPG", _unitofWork);
+                    var grpprdId = Helper.GetRandomNumber();
+
+                    //AddProductCodes(new ProductCodesViewModel
+                    //{
+                    //    ProductCode = groupSetupModel.FPPG.emp_ProductCode,
+                    //     ProductId= prdid
+                    //}); 
+
+                    _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
+                    {
+                        GrpprdctId = grpprdId,
+                        GrpId = grpId,
+                        ProductId = prdid,
+                        CrtdBy = CrtdBy
+
+                    });
+
+                    //search the product code  and add it
+
+
+                    // add bulkupdate 
+                    var bulkAttrs = Helper.GetProperties(groupSetupModel.FPPG);
+                    AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
+                    if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
+                    {
+                        var rndNo = Helper.GetRandomNumber();
                         _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
                         {
 
                             AcctMgrCntctId = rndNo,
-                             EmailAddress= groupSetupModel.EmailAddress,
-                              AcctMgrNm= groupSetupModel.AcctMgrNm
+                            EmailAddress = groupSetupModel.EmailAddress,
+                            AcctMgrNm = groupSetupModel.AcctMgrNm
                         });
+                    }
+
                 }
-
-            }
-            if (groupSetupModel.isACC_HIActive)
-            {
-                var prdid = Helper.GetProductIdbyName("ACC_HI", _unitofWork);
-                var grpprdId = Helper.GetRandomNumber();
-                _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
+                if (groupSetupModel.isACC_HIActive)
                 {
-                    GrpprdctId = grpprdId,
-                    GrpId = grpId,
-                    ProductId = prdid,
-                    CrtdBy = CrtdBy
-
-                });
-                var bulkAttrs = Helper.GetProperties(groupSetupModel.ACC_HI);
-                AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
-
-                if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
-                {
-                    var rndNo = Helper.GetRandomNumber();
-                    _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                    var prdid = Helper.GetProductIdbyName("ACC_HI", _unitofWork);
+                    var grpprdId = Helper.GetRandomNumber();
+                    _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
                     {
+                        GrpprdctId = grpprdId,
+                        GrpId = grpId,
+                        ProductId = prdid,
+                        CrtdBy = CrtdBy
 
-                        AcctMgrCntctId = rndNo,
-                        EmailAddress = groupSetupModel.EmailAddress,
-                        AcctMgrNm = groupSetupModel.AcctMgrNm
                     });
-                }
+                    var bulkAttrs = Helper.GetProperties(groupSetupModel.ACC_HI);
+                    AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
 
-            }
-            if (groupSetupModel.isER_CIActive)
-            {
-                var prdid = Helper.GetProductIdbyName("ER_CI", _unitofWork);
-                var grpprdId = Helper.GetRandomNumber();
-                AddProductCodes(new ProductCodesViewModel
-                {
-                    ProductCode = groupSetupModel.ER_CI.emp_ProductCode,
-                    ProductId = prdid
-                });
-
-
-                _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
-                {
-                    GrpprdctId = grpprdId,
-                    GrpId = grpId,
-                    ProductId = prdid,
-                    CrtdBy = CrtdBy
-
-                });
-                var bulkAttrs = Helper.GetProperties(groupSetupModel.ER_CI);
-                AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
-
-                if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
-                {
-                    var rndNo = Helper.GetRandomNumber();
-                    _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                    if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
                     {
+                        var rndNo = Helper.GetRandomNumber();
+                        _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                        {
 
-                        AcctMgrCntctId = rndNo,
-                        EmailAddress = groupSetupModel.EmailAddress,
-                        AcctMgrNm = groupSetupModel.AcctMgrNm
-                    });
+                            AcctMgrCntctId = rndNo,
+                            EmailAddress = groupSetupModel.EmailAddress,
+                            AcctMgrNm = groupSetupModel.AcctMgrNm
+                        });
+                    }
+
                 }
-
-            }
-            if (groupSetupModel.isVOL_CIActive)
-            {
-                var prdid = Helper.GetProductIdbyName("VOL_CI", _unitofWork);
-                var grpprdId = Helper.GetRandomNumber();
-                AddProductCodes(new ProductCodesViewModel
+                if (groupSetupModel.isER_CIActive)
                 {
-                    ProductCode = groupSetupModel.VOL_CI.emp_ProductCode,
-                    ProductId = prdid
-                });
-                _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
-                {
-                    GrpprdctId = grpprdId,
-                    GrpId = grpId,
-                    ProductId = prdid,
-                    CrtdBy = CrtdBy
-
-                });
-               
-                var bulkAttrs = Helper.GetProperties(groupSetupModel.VOL_CI);
-                AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
-
-                if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
-                {
-                    var rndNo = Helper.GetRandomNumber();
-                    _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                    var prdid = Helper.GetProductIdbyName("ER_CI", _unitofWork);
+                    var grpprdId = Helper.GetRandomNumber();
+                    AddProductCodes(new ProductCodesViewModel
                     {
-
-                        AcctMgrCntctId = rndNo,
-                        EmailAddress = groupSetupModel.EmailAddress,
-                        AcctMgrNm = groupSetupModel.AcctMgrNm
+                        ProductCode = groupSetupModel.ER_CI.emp_ProductCode,
+                        ProductId = prdid
                     });
-                }
 
-            }
-            if (groupSetupModel.isVGLActive)
-            {
-                var prdid = Helper.GetProductIdbyName("VGL", _unitofWork);
-                var grpprdId = Helper.GetRandomNumber();
-                _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
-                {
-                    GrpprdctId = grpprdId,
-                    GrpId = grpId,
-                    ProductId = prdid,
-                    CrtdBy = CrtdBy
 
-                });
-                var bulkAttrs = Helper.GetProperties(groupSetupModel.VGL);
-                AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
-
-                if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
-                {
-                    var rndNo = Helper.GetRandomNumber();
-                    _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                    _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
                     {
+                        GrpprdctId = grpprdId,
+                        GrpId = grpId,
+                        ProductId = prdid,
+                        CrtdBy = CrtdBy
 
-                        AcctMgrCntctId = rndNo,
-                        EmailAddress = groupSetupModel.EmailAddress,
-                        AcctMgrNm = groupSetupModel.AcctMgrNm
                     });
-                }
+                    var bulkAttrs = Helper.GetProperties(groupSetupModel.ER_CI);
+                    AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
 
-            }
-            if (groupSetupModel.isBGLActive)
-            {
-                var prdid = Helper.GetProductIdbyName("BGL", _unitofWork);
-
-                AddProductCodes(new ProductCodesViewModel
-                {
-                    ProductCode = groupSetupModel.VOL_CI.emp_ProductCode,
-                    ProductId = prdid
-                });
-                var grpprdId = Helper.GetRandomNumber();
-                _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
-                {
-                    GrpprdctId = grpprdId,
-                    GrpId = grpId,
-                    ProductId = prdid,
-                    CrtdBy = CrtdBy
-
-                });
-                var bulkAttrs = Helper.GetProperties(groupSetupModel.BGL);
-                AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
-
-                if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
-                {
-                    var rndNo = Helper.GetRandomNumber();
-                    _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                    if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
                     {
+                        var rndNo = Helper.GetRandomNumber();
+                        _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                        {
 
-                        AcctMgrCntctId = rndNo,
-                        EmailAddress = groupSetupModel.EmailAddress,
-                        AcctMgrNm = groupSetupModel.AcctMgrNm
-                    });
+                            AcctMgrCntctId = rndNo,
+                            EmailAddress = groupSetupModel.EmailAddress,
+                            AcctMgrNm = groupSetupModel.AcctMgrNm
+                        });
+                    }
+
                 }
-
-            }
-            if (groupSetupModel.isFPPIActive)
-            {
-
-                var prdid = Helper.GetProductIdbyName("FPPI", _unitofWork);
-                var grpprdId = Helper.GetRandomNumber();
-                _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
+                if (groupSetupModel.isVOL_CIActive)
                 {
-                    GrpprdctId = grpprdId,
-                    GrpId = grpId,
-                    ProductId = prdid,
-                    CrtdBy = CrtdBy
-
-                });
-
-                var bulkAttrs = Helper.GetProperties(groupSetupModel.FPPI);
-                AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
-
-                if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
-                {
-                    var rndNo = Helper.GetRandomNumber();
-                    _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                    var prdid = Helper.GetProductIdbyName("VOL_CI", _unitofWork);
+                    var grpprdId = Helper.GetRandomNumber();
+                    AddProductCodes(new ProductCodesViewModel
                     {
-
-                        AcctMgrCntctId = rndNo,
-                        EmailAddress = groupSetupModel.EmailAddress,
-                        AcctMgrNm = groupSetupModel.AcctMgrNm
+                        ProductCode = groupSetupModel.VOL_CI.emp_ProductCode,
+                        ProductId = prdid
                     });
+                    _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
+                    {
+                        GrpprdctId = grpprdId,
+                        GrpId = grpId,
+                        ProductId = prdid,
+                        CrtdBy = CrtdBy
+
+                    });
+
+                    var bulkAttrs = Helper.GetProperties(groupSetupModel.VOL_CI);
+                    AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
+
+                    if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
+                    {
+                        var rndNo = Helper.GetRandomNumber();
+                        _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                        {
+
+                            AcctMgrCntctId = rndNo,
+                            EmailAddress = groupSetupModel.EmailAddress,
+                            AcctMgrNm = groupSetupModel.AcctMgrNm
+                        });
+                    }
+
                 }
+                if (groupSetupModel.isVGLActive)
+                {
+                    var prdid = Helper.GetProductIdbyName("VGL", _unitofWork);
+                    var grpprdId = Helper.GetRandomNumber();
+                    _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
+                    {
+                        GrpprdctId = grpprdId,
+                        GrpId = grpId,
+                        ProductId = prdid,
+                        CrtdBy = CrtdBy
 
+                    });
+                    var bulkAttrs = Helper.GetProperties(groupSetupModel.VGL);
+                    AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
+
+                    if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
+                    {
+                        var rndNo = Helper.GetRandomNumber();
+                        _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                        {
+
+                            AcctMgrCntctId = rndNo,
+                            EmailAddress = groupSetupModel.EmailAddress,
+                            AcctMgrNm = groupSetupModel.AcctMgrNm
+                        });
+                    }
+
+                }
+                if (groupSetupModel.isBGLActive)
+                {
+                    var prdid = Helper.GetProductIdbyName("BGL", _unitofWork);
+
+                    //AddProductCodes(new ProductCodesViewModel
+                    //{
+                    //    ProductCode = groupSetupModel.VOL_CI.emp_ProductCode,
+                    //    ProductId = prdid
+                    //});
+                    var grpprdId = Helper.GetRandomNumber();
+                    _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
+                    {
+                        GrpprdctId = grpprdId,
+                        GrpId = grpId,
+                        ProductId = prdid,
+                        CrtdBy = CrtdBy
+
+                    });
+                    var bulkAttrs = Helper.GetProperties(groupSetupModel.BGL);
+                    AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
+
+                    if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
+                    {
+                        var rndNo = Helper.GetRandomNumber();
+                        _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                        {
+                            GrpprdctId = grpprdId,
+                            AcctMgrCntctId = rndNo,
+                            EmailAddress = groupSetupModel.EmailAddress,
+                            AcctMgrNm = groupSetupModel.AcctMgrNm,
+                            CrdtBy = CrtdBy,
+
+                        });
+                    }
+
+                }
+                if (groupSetupModel.isFPPIActive)
+                {
+
+                    var prdid = Helper.GetProductIdbyName("FPPI", _unitofWork);
+                    var grpprdId = Helper.GetRandomNumber();
+                    _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
+                    {
+                        GrpprdctId = grpprdId,
+                        GrpId = grpId,
+                        ProductId = prdid,
+                        CrtdBy = CrtdBy
+
+                    });
+
+                    var bulkAttrs = Helper.GetProperties(groupSetupModel.FPPI);
+                    AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
+
+                    if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
+                    {
+                        var rndNo = Helper.GetRandomNumber();
+                        _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                        {
+
+                            AcctMgrCntctId = rndNo,
+                            EmailAddress = groupSetupModel.EmailAddress,
+                            AcctMgrNm = groupSetupModel.AcctMgrNm
+                        });
+                    }
+
+                }
+                if (bulkRefTbls.Count > 0)
+                    _unitofWork.eppBulkRefTblRepository.AddRange(bulkRefTbls);
+
+
+                var id = _unitofWork.Complete().Result;
+                return Ok(id);
+            }catch( Exception ex)
+            {
+                throw ex;
             }
-            if (bulkRefTbls.Count>0)
-            _unitofWork.eppBulkRefTblRepository.AddRange(bulkRefTbls);
-
-
-            var id = _unitofWork.Complete().Result;
-            return Ok(id);
         }
 
         [Route("grpNbr/{grpNbr?}")]
@@ -640,6 +658,7 @@ namespace AFBA.EPP.Controllers
                     var eppAttribute = _unitofWork.eppAttributeRepository.GetAttrId(prop.PropertyName);
                     if (eppAttribute != null)
                     {
+                        eppBulkRefTbl.BulkId = Helper.GetRandomNumber();
                         eppBulkRefTbl.GrpprdctId = grpPrdId;
                         eppBulkRefTbl.AttrId = eppAttribute.AttrId;
                         eppBulkRefTbl.Value = prop.PropertyValue;
