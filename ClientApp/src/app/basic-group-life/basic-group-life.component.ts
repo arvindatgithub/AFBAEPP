@@ -44,16 +44,18 @@ export class BasicGroupLifeComponent implements OnInit,OnChanges {
         FCbasicEffectiveDate_Action: ["",Validators.required],
         FCbasicEffectiveDate: [this.lookupValue,Validators.required],
         FCbasicSitusState_Action: ["",Validators.required],
-        FCbasicSitusState: ["",Validators.required],
+        FCbasicSitusState: ["AL",Validators.required],
         FCbasicEmpFcAmt_Action: ["",Validators.required],
         FCbasicEmpFcAmt: ["",Validators.required],
         FCbasicADDRider_Action: ["",Validators.required],
         FCbasicADDRider: ["",Validators.required],
       });
-      this.basicGrpLfformgrp.controls['FCbasicSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
+      //this.basicGrpLfformgrp.controls['FCbasicSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
 
   }
- 
+  get myForm() {
+    return this.basicGrpLfformgrp.get(['FCbasicSitusState','FCbasicEffectiveDate']);
+  }
   onItemChange(value){
     console.log(" Value is : ", value );
  }
