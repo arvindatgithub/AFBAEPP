@@ -15,10 +15,6 @@ export class CustomeppattributeService {
     return this.http.get(GroupsDataUrl);
   }
 
-  getProductFields(product) {
-    const GroupsDataUrl = environment.apiurl + 'Custom/product/' + product;
-    return this.http.get(GroupsDataUrl);
-  }
 
   getProductFieldsByGroup(grpNbr,productId) {
     const GroupsDataUrl = environment.apiurl + 'Custom/grpNbr/' + grpNbr + '/productId/' + productId;
@@ -34,5 +30,21 @@ export class CustomeppattributeService {
     const GroupsDataUrl = environment.apiurl + 'Custom/EppEditPrdctAttrbt';
     return this.http.put(GroupsDataUrl,requestObj);
   }
+
+  getQuestionAttr() {
+    const GroupsDataUrl = environment.apiurl + 'Custom/GetQuetsionAttr';
+    return this.http.get(GroupsDataUrl);
+  }
+
+  getGroupQuestionAttr(grpNbr) {
+    const GroupsDataUrl = environment.apiurl + 'Custom/GetGroupQuestionAtrr/groupNbr/' + grpNbr;
+    return this.http.get(GroupsDataUrl);
+  }
+
+  getCloneCustomExistingGroup(grpNbr,productId){
+    const GroupsDataUrl = environment.apiurl + 'Custom/Tobecloned/'+ grpNbr +'/productId/' + productId;
+    return this.http.get(GroupsDataUrl);
+  }
+
 
 }

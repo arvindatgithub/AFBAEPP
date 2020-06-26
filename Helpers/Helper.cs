@@ -12,15 +12,13 @@ using System.Security.Cryptography;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using Microsoft.AspNetCore.Mvc.DataAnnotations;
 
 namespace AFBA.EPP.Helpers
 {
     public static class Helper
     {
-
-
-        
-
         public static EppTemplateViewModel GetProductAvailableFields(string webRootPath, IUnitofWork _unitofWork,string groupName)
         {
            string  path = Path.Combine(webRootPath, "attrs_maps.json");
@@ -78,7 +76,11 @@ namespace AFBA.EPP.Helpers
                 SelectedList = new List<EppAttrFieldViewModel>()
             };
 
-            lstEppTemplateViewModel.AvailableList = EppGetAvailableFields(_unitofWork).ToList();
+           var listData = EppGetAvailableFields(_unitofWork);
+            foreach( var data in listData)
+            {
+                lstEppTemplateViewModel.AvailableList.Add(data);
+            }
             
             var enumRoot = root.GetProperty(groupName).EnumerateObject();
                 foreach (var attrName in enumRoot)
@@ -118,7 +120,6 @@ namespace AFBA.EPP.Helpers
             return lstEppTemplateViewModel;
 
          }
-
         private static void MarkRequired(List<EppAttrFieldViewModel> lstEppAttrFieldViewModel, string[] stringArray)
         {
             foreach( var field in stringArray)
@@ -130,23 +131,30 @@ namespace AFBA.EPP.Helpers
         }
 
         public static  IEnumerable<EppAttrFieldViewModel> EppGetAvailableFields(IUnitofWork _unitofWork)
-        {         
-            return _unitofWork.eppAttributeRepository.GetAll().Result.Select(d => new EppAttrFieldViewModel
+        {
+            List<EppAttrFieldViewModel> eppAttrFieldViewModels = new List<EppAttrFieldViewModel>();
+
+            var listData = _unitofWork.eppAttributeRepository.Find( x=> x.DbAttrNm!=null).Result;
+             foreach( var data in listData)
             {
-                DbAttrNm = d.DbAttrNm,
-                RqdFlg = false,
-            }).ToList().OrderBy(x => x.DbAttrNm);
+                eppAttrFieldViewModels.Add(new EppAttrFieldViewModel
+                {
+                    AttrId=data.AttrId,
+                    DbAttrNm= data.DbAttrNm,
+                    DisplyAttrNm= data.DisplyAttrNm,
+                    RqdFlg = false,
+
+                });
+            }
+            return eppAttrFieldViewModels.OrderBy(x => x.DisplyAttrNm);        
         }
-
-
         public static  long GetRandomNumber()
         {
             var min = 1;
-            var max = 999999999;
-            return  RandomNumberGenerator.GetInt32(min, max);
+            var max = 99999;
+            var rnd = RandomNumberGenerator.GetInt32(min, max);
+            return long.Parse(rnd + DateTime.Now.ToString("MMdd0yyHHmmss"));
         }
-
-
         public static List<ClsPropertyInfo> GetProperties(Object  classobject)
         {
             List<ClsPropertyInfo> clsPropertyInfos = new List<ClsPropertyInfo>();
@@ -164,9 +172,6 @@ namespace AFBA.EPP.Helpers
             }
             return clsPropertyInfos;
         }
-
-
-
         public static long GetProductIdbyName(string productName, IUnitofWork _unitofWork)
         {
             var product = _unitofWork.EppProductRepository.Find(x => x.ProductNm.Contains(productName)).Result.FirstOrDefault();

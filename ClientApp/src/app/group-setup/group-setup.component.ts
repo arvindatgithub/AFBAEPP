@@ -72,6 +72,7 @@ export class GroupSetupComponent implements OnInit {
   groupName: string = "";
   grpEfftvDate;
   grpPymn: string;
+  paymentModes: any;
   sum = 0;
   occClass: any = [{
     occupation: 1,
@@ -166,7 +167,7 @@ export class GroupSetupComponent implements OnInit {
   agentCommissionSPlit_2:string;
   agentCommissionSPlit_3:string;
   agent_name:any=""
-  paymentModes: any;
+  
   groupSetupFG:FormGroup;
   constructor(private eppcreategroupservice: EppCreateGrpSetupService, private _fb: FormBuilder,
     private snackBar: MatSnackBar, private lookupService: LookupService) {
@@ -392,6 +393,7 @@ export class GroupSetupComponent implements OnInit {
   }
 
   getLookupValuePaymentMode(value: any) {
+    console.log('payment mode '+ JSON.stringify(value));
     this.lookupPaymentMethodvalue = value;
     this.grpPymn = value;
   }

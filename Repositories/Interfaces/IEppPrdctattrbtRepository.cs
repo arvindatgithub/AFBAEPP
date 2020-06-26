@@ -1,4 +1,5 @@
 ﻿using AFBA.EPP.Models;
+using AFBA.EPP.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace AFBA.EPP.Repositories.Interfaces
     public interface IEppPrdctattrbtRepository: IRepository<EppPrdctattrbt>
     {
 
-        public IList<EppPrdctattrbt> GetEppPrdctattrbts(long GrpprdctId);
+        public IList<EppAttrFieldViewModel> GetEppPrdctattrbts(long GrpprdctId);
+        public IList<EppAttrFieldViewModel> ClonedEppPrdctattrbts(long GrpprdctId);
     }
 }

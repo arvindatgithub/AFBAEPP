@@ -98,8 +98,8 @@ namespace AFBA.EPP.Controllers
         {
             
             var grpprdct = _unitofWork.GroupMasterRepository.Find(x => x.GrpNbr == groupSetupModel.GrpNbr || x.GrpNm== groupSetupModel.GrpNm).Result;
-            if (grpprdct.Count != 0)   return BadRequest(" Group name or number already exist"); 
-
+            if (grpprdct.Count != 0)   return BadRequest(" Group name or number already exist");
+            groupSetupModel.GrpPymn = 10007;
             if (! string.IsNullOrEmpty(groupSetupModel.EmlAddrss))
             {
                 // get partner id 
@@ -110,8 +110,9 @@ namespace AFBA.EPP.Controllers
                 }
                 else
                 {
+                    groupSetupModel.EnrlmntPrtnrsId = Helper.GetRandomNumber();
                     _unitofWork.eppEnrlmntPrtnrsRepository.Add(new EppEnrlmntPrtnrs { 
-                          EnrlmntPrtnrsId= Helper.GetRandomNumber(),
+                          EnrlmntPrtnrsId= groupSetupModel.EnrlmntPrtnrsId,
                           CrtdBy="",
                           EmlAddrss= groupSetupModel.EmlAddrss,
                           EnrlmntPrtnrsNm= groupSetupModel.EnrlmntPrtnrsNm
@@ -139,11 +140,11 @@ namespace AFBA.EPP.Controllers
                 var prdid = Helper.GetProductIdbyName("FPPG", _unitofWork);
                 var grpprdId = Helper.GetRandomNumber();
 
-                AddProductCodes(new ProductCodesViewModel
-                {
-                    ProductCode = groupSetupModel.FPPG.emp_ProductCode,
-                     ProductId= prdid
-                }); 
+                //AddProductCodes(new ProductCodesViewModel
+                //{
+                //    ProductCode = groupSetupModel.FPPG.emp_ProductCode,
+                //     ProductId= prdid
+                //}); 
 
                _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
                 {

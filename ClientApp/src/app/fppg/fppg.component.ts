@@ -54,43 +54,39 @@ ngOnChanges(simpleChange:SimpleChanges){
         this.lookUpDataSitusStates = data.situsState;
       });
   
-      console.log("this.lookup", this.lookUpDataSitusStates);
-      this.fppgformgrp = this.fb.group({
-        FCfppgEffectiveDate: ["",Validators.required],
-        FCfppgSitusState: ["",Validators.required],
-        FCfppgEmpAmtMax: ["",Validators.required],
-        FCfppgEmpGIAmtMax: ["",Validators.required],
-        FCfppgEmpQIAmtMax: ["",Validators.required],
-        FCfppgSpouseGIAmtMax: ["",Validators.required],
-        FCfppgSpouseQIAmtMax: ["",Validators.required],
-        FCfppgSpouseMaxAmt: ["",Validators.required],
-        FCfppgOpenEnrollGI: ["",Validators.required],
-       
-        FCfppgEmpPlanCode: ["", Validators.required],
-        FCfppgSpousePlanCode: ["", Validators.required],
-        FCfppgChildPlanCode: ["", Validators.required],
-        
-        FCfppgQolRiders: ["",Validators.required],
-        FCfppgWaiver:["",Validators.required],
-        FCfppgEffectiveDate_Action: ['Update if Blank', Validators.required],
-        FCfppgSitusState_Action:  ['Update if Blank', Validators.required],
-        FCfppgEmpAmtMax_Action: ['Update if Blank', Validators.required],
-        FCfppgSpouseAmtMax_Action: ['Update if Blank', Validators.required],
-        FCfppgOpenEnrollGI_Action: ['Update if Blank', Validators.required],
-        FCfppgPlanCodeManualEntry_Action: ['Update if Blank', Validators.required],
-        FCfppgQolRiders_Action: ['Update if Blank', Validators.required],
-        FCfppgWaiver_Action: ['Update if Blank', Validators.required],
-      });
-    
-    
-    //  this.myForm.setValue(this.lookUpDataSitusStates.state[0],(new Date().toISOString()));
-   
+      console.log("this.lookup", this.lookupValue);
+
+    this.fppgformgrp = this.fb.group({
+      FCfppgEffectiveDate: ["",Validators.required],
+      FCfppgSitusState: ["",Validators.required],
+      FCfppgEmpAmtMax: ["",Validators.required],
+      FCfppgEmpGIAmtMax: ["",Validators.required],
+      FCfppgEmpQIAmtMax: ["",Validators.required],
+      FCfppgSpouseGIAmtMax: ["",Validators.required],
+      FCfppgSpouseQIAmtMax: ["",Validators.required],
+      FCfppgSpouseMaxAmt: ["",Validators.required],
+      FCfppgOpenEnrollGI: ["",Validators.required],
+     
+      FCfppgEmpPlanCode: ["", Validators.required],
+      FCfppgSpousePlanCode: ["", Validators.required],
+      FCfppgChildPlanCode: ["", Validators.required],
+      
+      FCfppgQolRiders: ["",Validators.required],
+      FCfppgWaiver:["",Validators.required],
+      FCfppgEffectiveDate_Action: ['10001', Validators.required],
+      FCfppgSitusState_Action:  ['10001', Validators.required],
+      FCfppgEmpAmtMax_Action: ['10001', Validators.required],
+      FCfppgSpouseAmtMax_Action: ['10001', Validators.required],
+      FCfppgOpenEnrollGI_Action: ['10001', Validators.required],
+      FCfppgPlanCodeManualEntry_Action: ['10001', Validators.required],
+      FCfppgQolRiders_Action: ['10001', Validators.required],
+      FCfppgWaiver_Action: ['10001', Validators.required],
+    });
+    //  this.fppgformgrp.controls['FCfppgSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
+ 
   }
  
 
-  onItemChange(value){
-    console.log(" Value is : ", value );
- }
  restForm(){
    this.fppgformgrp.reset({
     FCfppgEffectiveDate: "",
@@ -102,7 +98,7 @@ ngOnChanges(simpleChange:SimpleChanges){
     FCfppgSpouseQIAmtMax: "",
     FCfppgSpouseMaxAmt: "",
     FCfppgOpenEnrollGI: "",
-    FCfppgPlanCodeManualEntry: "",
+    //FCfppgPlanCodeManualEntry: "",
     FCfppgQolRiders: "",
     FCfppgWaiver:"",
     FCfppgEffectiveDate_Action: "",

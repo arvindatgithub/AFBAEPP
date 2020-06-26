@@ -28,7 +28,6 @@ ngOnChanges(){
   this.latest_datevolci = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
 }
 
-
   ngOnInit() {
     this.lookupService.getLookupsData()
     .subscribe((data: any) => {
@@ -38,9 +37,9 @@ ngOnChanges(){
     });
 
     this.volCIformgrp = this.fb.group({
-      FCVolCIEffectiveDate: ["",Validators.required],
+      FCVolCIEffectiveDate: [this.dateValue,Validators.required],
       FCVolCIEffectiveDate_Action: [this.lookupValue,Validators.required],
-      FCVolCISitusState: ["",Validators.required],
+      FCVolCISitusState: [this.lookupValue,Validators.required],
       FCVolCISitusState_Action: ["",Validators.required],
       FCVolCIEmpGIAmtMax: ["",Validators.required],
       FCVolCIEmpGIAmtMax_Action: ["",Validators.required],

@@ -22,6 +22,7 @@ export class EmployerPaidCIComponent implements OnInit ,OnChanges{
   disabled = false;
   latest_dateemppaisci;
   public minDate = new Date().toISOString().slice(0,10);
+  latest_date;
 
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe) { }
 
@@ -30,7 +31,7 @@ export class EmployerPaidCIComponent implements OnInit ,OnChanges{
     
     this.latest_dateemppaisci = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
   }
-
+  
   ngOnInit() {
     this.lookupService.getLookupsData()
     .subscribe((data: any) => {
@@ -41,10 +42,10 @@ export class EmployerPaidCIComponent implements OnInit ,OnChanges{
     });
 
     this.empCIformgrp = this.fb.group({
-      FCempCIEffectiveDate: ["",Validators.required],
+      FCempCIEffectiveDate: [this.dateValue,Validators.required],
       FCempCIEffectiveDate_Action: ["",Validators.required],
       FCempCISitusState_Action: ["",Validators.required],
-      FCempCISitusState: ["",Validators.required],
+      FCempCISitusState: [this.lookupValue,Validators.required],
       FCempCISpouseFcAmt: ["",Validators.required],
       FCempCIEmpFcAmt: ["",Validators.required],
       FCempCIEmpFcAmt_Action: ["",Validators.required],

@@ -9,6 +9,8 @@ namespace AFBA.EPP.ViewModels
     {
         public long PrdctAttrbtId { get; set; }
         public string DbAttrNm { get; set; }
+        public string DisplyAttrNm { get; set; }
+        public long AttrId { get; set; }
         public bool? RqdFlg { get; set; }
         public int? ClmnOrdr { get; set; }
         public long GrpprdctId { get; set; }

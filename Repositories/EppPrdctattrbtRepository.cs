@@ -1,8 +1,11 @@
 ﻿using AFBA.EPP.Models;
 using AFBA.EPP.Repositories.Interfaces;
+using AFBA.EPP.ViewModels;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace AFBA.EPP.Repositories
@@ -15,10 +18,40 @@ namespace AFBA.EPP.Repositories
             _dbContext = dbContext;
         }
 
-        public IList<EppPrdctattrbt> GetEppPrdctattrbts(long GrpprdctId)
+        public IList<EppAttrFieldViewModel> GetEppPrdctattrbts(long GrpprdctId)
         {
-            return _dbContext.EppPrdctattrbt.Where(x => x.GrpprdctId == GrpprdctId).OrderBy(x=>x.ClmnOrdr).ToList();
+            var result = _dbContext.EppPrdctattrbt.Where(x => x.GrpprdctId == GrpprdctId).Select(x =>
+             new EppAttrFieldViewModel
+             {
+                 PrdctAttrbtId = x.PrdctAttrbtId,
+                 AttrId = x.AttrId,
+                 DbAttrNm = x.Attr.DbAttrNm,
+                 ClmnOrdr = x.ClmnOrdr,
+                 DisplyAttrNm = x.Attr.DisplyAttrNm,
+                 GrpprdctId = x.GrpprdctId,
+                 RqdFlg = x.RqdFlg == 'N' ? false : true
+             }).OrderBy( x=> x.ClmnOrdr);
+
+            return result.ToList();
         }
+
+
+        public IList<EppAttrFieldViewModel> ClonedEppPrdctattrbts(long GrpprdctId)
+        {
+            var result = _dbContext.EppPrdctattrbt.Where(x => x.GrpprdctId == GrpprdctId).Select(x =>
+             new EppAttrFieldViewModel
+             {
+                  AttrId = x.AttrId,
+                 DbAttrNm = x.Attr.DbAttrNm,
+                 ClmnOrdr = x.ClmnOrdr,
+                 DisplyAttrNm = x.Attr.DisplyAttrNm,
+                 RqdFlg = x.RqdFlg == 'N' ? false : true
+             }).OrderBy(x => x.ClmnOrdr);
+
+            return result.ToList();
+        }
+
+
     }
 
 }

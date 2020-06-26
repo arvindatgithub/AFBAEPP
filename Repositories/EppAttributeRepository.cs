@@ -19,6 +19,12 @@ namespace AFBA.EPP.Repositories
         {
             return _dbContext.EppAttribute.Where(x => x.DbAttrNm == DbAttrNm).FirstOrDefault();
         }
+
+        public IEnumerable<EppAttribute> GetQuetsionAttr()
+        {
+
+            return _dbContext.EppAttribute.Where(x => x.IsQstnAttrbt == 'Y');
+        }
     }
 
    }

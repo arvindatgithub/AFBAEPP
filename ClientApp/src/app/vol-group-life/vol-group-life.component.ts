@@ -39,10 +39,10 @@ export class VolGroupLifeComponent implements OnInit,OnChanges {
      
     });
     this.volGrpLfformgrp = this.fb.group({
-      FCVolGrpLfEffectiveDate: ["",Validators.required],
+      FCVolGrpLfEffectiveDate: [this.dateValue,Validators.required],
       FCVolGrpLfEffectiveDate_Action: ["",Validators.required],
       FCVolGrpLfSitusState_Action: ["",Validators.required],
-      FCVolGrpLfSitusState: ["",Validators.required],
+      FCVolGrpLfSitusState: [this.lookupValue,Validators.required],
       FCVolGrpLfEmpAmtMax_Action: ["",Validators.required],
       FCVolGrpLfEmpGIAmtMax: ["",Validators.required],
       FCVolGrpLfEmpAmtMax: ["",Validators.required],

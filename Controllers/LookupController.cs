@@ -51,9 +51,9 @@ namespace AFBA.EPP.Controllers
         {
             return _unitofWork.GeppGrppymntmdRepository.GetAll().Result.Select(d => new GrppymntmdViewModel
             {
-                GrpPymn= d.GrpPymn,
-                GrpPymntMdCd= d.GrpPymntMdCd,
-                GrpPymntMdNm=d.GrpPymntMdNm
+                GrpPymn = d.GrpPymn,
+                GrpPymntMdCd = d.GrpPymntMdCd,
+                GrpPymntMdNm = d.GrpPymntMdCd + " - " +d.GrpPymntMdNm
             }).ToList();
         }
 

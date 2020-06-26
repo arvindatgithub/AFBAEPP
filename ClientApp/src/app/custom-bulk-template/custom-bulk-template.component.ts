@@ -3,6 +3,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { CustomeppattributeService } from '../services/customeppattribute.service';
 import * as XLSX from 'xlsx';
 import { ExcelService } from '../services/excel.service';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-custom-bulk-template',
@@ -21,14 +22,20 @@ export class CustomBulkTemplateComponent implements OnInit {
   selectedFields: any;
 
   fieldsByGrpPrdt: any;
-  fieldsByPrdt: any;
   editFlag:boolean;
   userData = {
     groupNumber: '',
     product: '',
   };
+  
   submitted = false;
-
+  grpprdctId: any;
+  successMsg = false;
+  groupExistsShowLists = false;
+  enableCloneSecFlag = true;
+  cloneGroupNumber ='';
+  cloneLists: any;
+  isChecked = false;
 
   constructor(private customattributeService: CustomeppattributeService, private excelService: ExcelService) {
 
@@ -50,27 +57,47 @@ export class CustomBulkTemplateComponent implements OnInit {
       }
     });
     console.log('selected product'+ this.selectedProduct + '  ' + this.selectedProductId);
-    this.getFields(this.grpNum, this.selectedProduct, this.selectedProductId);
+    this.getFields(this.grpNum, this.selectedProductId);
   }
 
-  getFields(grpNbr, productNm, productId) {
+  CloneSubmit() {
+    console.log('clone form data'+ this.cloneGroupNumber);
+    this.customattributeService.getCloneCustomExistingGroup(this.cloneGroupNumber, this.selectedProductId).subscribe(
+      (data) => {
+      this.cloneLists = data;
+      console.log('cloned data'+ JSON.stringify(data));
+      this.availableFields = this.cloneLists.availableList;
+      this.selectedFields = this.cloneLists.selectedList;
+      this.editFlag = this.cloneLists.isEdit;
+      this.grpNum = this.cloneGroupNumber;
+      this.grpprdctId = this.cloneLists.grpprdctId;
+    });
+  }
 
+  getFields(grpNbr, productId) {
+    this.groupExistsShowLists = false;
+    this.enableCloneSecFlag = true;
     this.customattributeService.getProductFieldsByGroup(grpNbr, productId).subscribe(
       data => {
         console.log('data by group ' + JSON.stringify(data));
+        this.groupExistsShowLists = true;
         this.fieldsByGrpPrdt = data;
         this.availableFields = this.fieldsByGrpPrdt.availableList;
         this.selectedFields = this.fieldsByGrpPrdt.selectedList;
-        this.editFlag = true;
+        this.editFlag = this.fieldsByGrpPrdt.isEdit;
+        this.grpprdctId = this.fieldsByGrpPrdt.grpprdctId;
+
+       
       }, err => {
         console.log("error occurred " + err.status);
-        this.editFlag = false;
-        this.customattributeService.getProductFields(productNm).subscribe((data) => {
-          console.log('data by products' + JSON.stringify(data));
-          this.fieldsByPrdt = data;
-          this.availableFields = this.fieldsByPrdt.availableList;
-          this.selectedFields = this.fieldsByPrdt.selectedList;
-        });
+        this.groupExistsShowLists = false;
+        alert("Group not exists");
+      }, () => {
+        console.log('service call completed');
+        if(this.selectedFields.length == 0 ){
+          //alert("Do you want to clone the Existing Group Template");
+          this.enableCloneSecFlag = false;
+        }
       }
 
     );
@@ -100,7 +127,7 @@ export class CustomBulkTemplateComponent implements OnInit {
     let tempObj = {};
     for(let i=0; i<this.selectedFields.length; i++){
       this.selectedFields[i].clmnOrdr = i+1;
-      tempObj[this.selectedFields[i].dbAttrNm] = ''; 
+      tempObj[this.selectedFields[i].displyAttrNm] = ''; 
     }
     console.log('object' + JSON.stringify(tempObj));
     excelFields[0]=tempObj;
@@ -117,6 +144,7 @@ export class CustomBulkTemplateComponent implements OnInit {
     let reqObj = {
       grpNbr: this.grpNum,
       productId: this.selectedProductId.toString(),
+      grpprdctId: this.grpprdctId.toString(),
       eppPrdAttrFields: this.selectedFields,
       isEdit: this.editFlag
     };
@@ -124,17 +152,29 @@ export class CustomBulkTemplateComponent implements OnInit {
     if (this.editFlag) {
       this.customattributeService.editProdAttr(reqObj).subscribe(
         data => {
-        console.log('edit request response' + data);
+        console.log('edit request response status' + data);
       }, err => {
         console.log('edit save api'+ err.status);
+        if(err.status == 200){
+          this.successMsg = true;
+          this.getFields(this.grpNum,this.selectedProductId);
+        } else{
+          this.successMsg = false;
+        }
       });
     } else {
       console.log('request obj' + JSON.stringify(reqObj));
       this.customattributeService.addProdAttr(reqObj).subscribe(
         data => {
-        console.log('Add request response' + data);
+        console.log('Add request response status' + data);
       }, err => {
         console.log('add save api'+ err.status);
+        if(err.status == 200){
+          this.successMsg = true;
+          this.getFields(this.grpNum,this.selectedProductId);
+        } else{
+          this.successMsg = false;
+        }
       });
     }
   }

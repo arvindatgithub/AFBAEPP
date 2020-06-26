@@ -41,7 +41,7 @@ export class FPPIndividualComponent implements OnInit, OnChanges {
     });
 
     this.fppiformgrp = this.fb.group({
-      FCfppiEffectiveDate: ["",Validators.required],
+      FCfppiEffectiveDate: [this.dateValue,Validators.required],
       FCfppiEffectiveDate_Action: ["",Validators.required],
       FCfppiAgentSign: ["",Validators.required],
       FCfppiAgentSign_Action: ["",Validators.required],

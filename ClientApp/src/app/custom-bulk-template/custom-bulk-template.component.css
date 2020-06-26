@@ -65,3 +65,7 @@
   .accordion .card-header.collapsed{
     background-color: #cfe5cf
 }
+
+.required {
+  color: red;
+}

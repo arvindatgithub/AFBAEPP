@@ -1,17 +1,19 @@
+
 <div class="container">
     <!-- Group Number Section-->
     <form (ngSubmit)="onSubmit(form, userData)" #form="ngForm">
         <div class="row">
             <div class="form-group col-md-4">
-                <label for="groupNumber" class="label">Group Number</label>
-                <input type="text" id="groupNumber" class="form-control" [(ngModel)]="userData.groupNumber"
-                    name="groupNumber" required placeholder="Enter Group Number">
+                <label for="groupNumber" class="label">Group Number<span aria-hidden="true" class="required">*</span></label>
+                <input type="text" maxlength="5" id="groupNumber" class="form-control" [(ngModel)]="userData.groupNumber"
+                    name="groupNumber" required placeholder="Enter Group Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 <div *ngIf="userData.groupNumber==''" class="alert" style="color:red;padding:0px">Group Number is required</div>
+                <div *ngIf="userData.groupNumber!=='' && userData.groupNumber.length!==5" class="alert" style="color:red;padding:0px">Group Number should be 5 digits</div>
             </div>
 
 
             <div class="form-group col-md-4">
-                <label for="product" class="label">Product Name</label>
+                <label for="product" class="label">Product Name<span aria-hidden="true" class="required">*</span></label>
                 <select id="product" class="form-control" [(ngModel)]="userData.product" name="product" required>
                     <option selected>Select a Product</option>
                     <option *ngFor="let i of productsList">
@@ -20,12 +22,32 @@
                 <div *ngIf="userData.product==''" class="alert" style="color:red;padding:0px">Product Name is required</div>
             </div>
             <div class="col-md-4" style="margin-top: 30px;">
-                <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
+                <button class="btn btn-primary" type="submit" [disabled]="!form.valid || userData.groupNumber.length!==5">Submit</button>
             </div>
         </div>
     </form>
+    <div class="alert alert-success alert-dismissible" *ngIf="successMsg">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Success!</strong> 
+        Custom Template added Successfully.
+    </div>
+    <div>
+        <input type="checkbox" [(ngModel)]="isChecked" [disabled]="enableCloneSecFlag" style="margin-top: 5px;margin-right: 10px;"/><label>Do you want to Clone Template from Existing Group?</label>
+    </div>
+        <div class="row" *ngIf="isChecked">
+            <div class="form-group col-md-4">
+                <label for="cloneGroupNumber" class="label">Clone Group Number</label>
+                <input type="text" maxlength="5" id="cloneGroupNumber" class="form-control" [(ngModel)]="cloneGroupNumber"
+                    name="cloneGroupNumber" required placeholder="Enter Clone Group Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+            </div>
+            <div class="col-md-4" style="margin-top: 30px;">
+                <button class="btn btn-primary" (click)="CloneSubmit()" [disabled]="cloneGroupNumber.length!==5 || cloneGroupNumber==''">Clone</button>
+            </div>
+        </div>
+
+
     <!-- Product Custom File Section  -->
-    <div *ngIf="selectedProduct">
+    <div *ngIf="selectedProduct && groupExistsShowLists">
         <div class="card mt-2" style="cursor: pointer;">
             <div class="card-header mb-2">
                 <a class="card-title label">
@@ -40,7 +62,7 @@
                         <div cdkDropList #availableFieldsList="cdkDropList" [cdkDropListData]="availableFields"
                             [cdkDropListConnectedTo]="[selectedFieldsList]" class="fields-list"
                             (cdkDropListDropped)="drop($event)">
-                            <div class="field-box" *ngFor="let item of availableFields" cdkDrag>{{item.dbAttrNm}}
+                            <div class="field-box" *ngFor="let item of availableFields" cdkDrag>{{item.displyAttrNm}}
                             </div>
                         </div>
                     </div>
@@ -53,7 +75,7 @@
                             [cdkDropListConnectedTo]="[availableFieldsList]" class="fields-list"
                             (cdkDropListDropped)="drop($event)">
                             <div class="field-box" *ngFor="let item of selectedFields; let i=index;" cdkDrag>
-                                {{item.dbAttrNm}}
+                                {{item.displyAttrNm}}
                                 <input type="checkbox" name="selectedFields" [(ngModel)]="item.rqdFlg"
                                     (change)="updateCheckedOptions(item, $event)">
                             </div>
@@ -68,4 +90,6 @@
                 Custom Layout</button>
         </div>
     </div>
+    <div *ngIf="!groupExistsShowLists && selectedProduct"></div>
+    
 </div>
