@@ -55,9 +55,14 @@ export class BasicGroupLifeComponent implements OnInit,OnChanges {
         //FCbasicADDRider_Action: ["10001",Validators.required],
         //FCbasicADDRider: ["",Validators.required],
       });
-      this.basicGrpLfformgrp.controls['FCbasicSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
+      //this.basicGrpLfformgrp.controls['FCbasicSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
 
   }
- 
+  get myForm() {
+    return this.basicGrpLfformgrp.get(['FCbasicSitusState','FCbasicEffectiveDate']);
+  }
+  onItemChange(value){
+    console.log(" Value is : ", value );
+ }
 
 }
