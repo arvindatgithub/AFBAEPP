@@ -93,7 +93,7 @@ ngOnChanges(simpleChange:SimpleChanges){
     FCfppgSpouseQIAmtMax: "",
     FCfppgSpouseMaxAmt: "",
     FCfppgOpenEnrollGI: "",
-    FCfppgPlanCodeManualEntry: "",
+    //FCfppgPlanCodeManualEntry: "",
     FCfppgQolRiders: "",
     FCfppgWaiver:"",
     FCfppgEffectiveDate_Action: "",
