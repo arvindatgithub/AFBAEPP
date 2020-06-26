@@ -2,28 +2,20 @@
   <form [formGroup]="basicGrpLfformgrp">
     <div class="row mb-4" style="justify-content:space-evenly;margin-right: 7%;">
       <div class="radio-button">
-        <div><input type="radio" value="10002" formControlName="FCbasicEffectiveDate_Action" />
-          <label class="radio-label"> Always Override</label></div>
-        <div><input type="radio" value="10001" formControlName="FCbasicEffectiveDate_Action" />
-          <label class="radio-label">Update if Blank</label></div>
-        <div><input type="radio" value="10003" formControlName="FCbasicEffectiveDate_Action" />
-          <label class="radio-label">Validate</label></div>
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCbasicEffectiveDate_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
       </div>
     
       <div class="col-3">
         <span class="label label-default">BGL Effective Date</span>
-        <input type="date" [value]="latest_datebasicgrplife" [(ngModel)]="latest_datebasicgrplife" formControlName="FCbasicEffectiveDate" [min]="minDate"
+        <input type="date" [(ngModel)] ="minDate" formControlName="FCbasicEffectiveDate" [min]="minDate"
           class="form-control mb-2 " style="width: 100%;" placeholder="Group Effective Date">
 
       </div>
       
       <div class="radio-button">
-        <div><input type="radio" value="10002" formControlName="FCbasicSitusState_Action" />
-          <label class="radio-label"> Always Override</label></div>
-        <div><input type="radio" value="10001" formControlName="FCbasicSitusState_Action" />
-          <label class="radio-label">Update if Blank</label></div>
-        <div><input type="radio" value="10003" formControlName="FCbasicSitusState_Action" />
-          <label class="radio-label">Validate</label></div>
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCbasicSitusState_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-3">
         <span class="label label-default">Situs State</span>
@@ -43,16 +35,12 @@
 
     <div class="row mb-4" style="margin-left: 1%;">
       <div class="radio-button">
-        <div><input type="radio" value="10002" formControlName="FCbasicEmpFcAmt_Action" />
-          <label class="radio-label"> Always Override</label></div>
-        <div><input type="radio" value="10001" formControlName="FCbasicEmpFcAmt_Action" />
-          <label class="radio-label">Update if Blank</label></div>
-        <div><input type="radio" value="10003" formControlName="FCbasicEmpFcAmt_Action" />
-          <label class="radio-label">Validate</label></div>
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCbasicEmpFcAmt_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-4">
         <span class="label label-default">Employee Face Amount</span>
-        <input type="number" class="form-control mb-2 " formControlName="FCbasicEmpFcAmt" style="width: 100%;"
+        <input type="text" class="form-control mb-2 " formControlName="FCbasicEmpFcAmt" style="width: 100%;"
           placeholder="Employee Face Amount">
       </div>
       <!-- <div class="radio-button">

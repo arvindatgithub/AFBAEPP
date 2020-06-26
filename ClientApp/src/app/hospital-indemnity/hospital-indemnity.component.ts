@@ -21,7 +21,13 @@ export class HospitalIndemnityComponent implements OnInit,OnChanges {
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
   public minDate = new Date().toISOString().slice(0,10);
-  latest_datehospitalindemnity
+  latest_datehospitalindemnity;
+  radioButtonArr=[
+    {value:'10002',name:'Always Override'},
+    {value:'10001',name:'Update if Blank'},
+    {value:'10003',name:'Validate'}
+  ]
+
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe) { }
 
 
@@ -45,9 +51,9 @@ export class HospitalIndemnityComponent implements OnInit,OnChanges {
 
   this.hospformgrp = this.fb.group({
     FChospEffectiveDate: [this.dateValue,Validators.required],
-    FChospEffectiveDate_Action: [this.lookupValue,Validators.required],
+    FChospEffectiveDate_Action: [this.radioButtonArr[1].value,Validators.required],
     FChospSitusState: [this.lookupValue,Validators.required],
-    FChospSitusState_Action: ["",Validators.required],
+    FChospSitusState_Action: [this.radioButtonArr[1].value,Validators.required],
   })
 }
 hospitalindemnity(){
@@ -60,8 +66,5 @@ hospitalindemnity(){
  
 }
 
-onItemChange(value){
-  console.log(" Value is : ", value );
-}
 
 }

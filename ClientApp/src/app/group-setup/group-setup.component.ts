@@ -166,7 +166,12 @@ export class GroupSetupComponent implements OnInit {
   agentCommissionSPlit_1:string;
   agentCommissionSPlit_2:string;
   agentCommissionSPlit_3:string;
-  agent_name:any=""
+  agent_name:any="";
+  radioButtonArr=[
+    {value:'10002',name:'Always Override'},
+    {value:'10001',name:'Update if Blank'},
+    {value:'10003',name:'Validate'}
+  ]
   
   groupSetupFG:FormGroup;
   constructor(private eppcreategroupservice: EppCreateGrpSetupService, private _fb: FormBuilder,
@@ -182,7 +187,7 @@ export class GroupSetupComponent implements OnInit {
           return payment.formattedData;
         }));
         this.lookUpDataSitusStates = (data.situsState);
-        this.grpPymn = this.lookUpDataPaymentModes[5];
+        //this.grpPymn = this.lookUpDataPaymentModes[5];
         this.grpSitusState = this.lookUpDataSitusStates[0].state;
       });
     // this.eppcreategroupservice.myEppData.subscribe((data: any) => {
@@ -192,18 +197,32 @@ export class GroupSetupComponent implements OnInit {
     // });
     this.lookupService.getPaymentMode().subscribe((data:any) => {
       this.paymentModes = data;
+      this.paymentModes.forEach(element => {
+        if(element.grpPymntMdCd == 12){
+          this.grpPymn = element.grpPymn;
+        }
+      });
     });
-    this.eppcreategroupservice.getepp().subscribe((data: any) => {
-      console.log("radioBUttonData",data)
-      this.eppgetwhole = data;
-    }
-    );
+    // this.eppcreategroupservice.getepp().subscribe((data: any) => {
+    //   console.log("radioBUttonData",data)
+    //   this.eppgetwhole = data;
+    // }
+    // );
 
     this.groupSetupFG = this._fb.group({
       fcEffDate:["",Validators.required]
     })
 
     this.agentformgrp = this._fb.group({
+      fppgAgent_Action: [this.radioButtonArr[1].value,Validators.required],
+      fppiAgent_Action: [this.radioButtonArr[1].value,Validators.required],
+      accAgent_Action: [this.radioButtonArr[1].value,Validators.required],
+      hospAgent_Action: [this.radioButtonArr[1].value,Validators.required],
+      empCIAgent_Action: [this.radioButtonArr[1].value,Validators.required],
+      volCIAgent_Action: [this.radioButtonArr[1].value,Validators.required],
+      volGrpLfAgent_Action: [this.radioButtonArr[1].value,Validators.required],
+      basicGrpLfAgent_Action: [this.radioButtonArr[1].value,Validators.required],
+      
       AgentNumber: ["",Validators.required ],
       AgentSubCount: ["",Validators.required ],
       CommissonSplit: ["",Validators.required ],
@@ -767,11 +786,11 @@ export class GroupSetupComponent implements OnInit {
         "bgl": {
           "grp_nmbr": "",
           "effctv_dt": (new Date(this.basicgrplifeComponent.basicGrpLfformgrp.value.FCbasicEffectiveDate)).toISOString(),
-          // "grp_situs_state": this.basicgrplifeComponent.basicGrpLfformgrp.value.,
-          // "emp_face_amt_mon_bnft": this.basicgrplifeComponent.basicGrpLfformgrp.value.,
-          // "effctv_dt_action": this.basicgrplifeComponent.basicGrpLfformgrp.value.,
-          // "grp_situs_state_action": this.basicgrplifeComponent.basicGrpLfformgrp.value.,
-          // "emp_face_amt_mon_bnft_action": this.basicgrplifeComponent.basicGrpLfformgrp.value.,
+          "grp_situs_state": this.basicgrplifeComponent.basicGrpLfformgrp.value.FCbasicSitusState,
+          "emp_face_amt_mon_bnft": this.basicgrplifeComponent.basicGrpLfformgrp.value.FCbasicEmpFcAmt,
+          "effctv_dt_action": this.basicgrplifeComponent.basicGrpLfformgrp.value.FCbasicEffectiveDate_Action,
+          "grp_situs_state_action": this.basicgrplifeComponent.basicGrpLfformgrp.value.FCbasicSitusState_Action,
+          "emp_face_amt_mon_bnft_action": this.basicgrplifeComponent.basicGrpLfformgrp.value.FCbasicEmpFcAmt.toString(),
          agnt_cd_1:this.agentformgrp.get('AgentNumberBasicgrpLife').value,
         agnt_nm: this.agentformgrp.get('AgentNameBasicgrpLife').value,
         agnt_comm_split_1: parseInt(this.agentformgrp.get('CommissonSplitBasicgrpLife').value),

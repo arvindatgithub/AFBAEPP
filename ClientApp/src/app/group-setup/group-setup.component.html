@@ -51,7 +51,7 @@
     </div>
     <div class="form-group col-md-3">
       <span class="label label-default">Group Payment Mode<span aria-hidden="true" class="required">*</span></span>
-      <select class="select-dropdown" #paymentMode (change)="getLookupValuePaymentMode($event.target.value)">
+      <select class="select-dropdown" #paymentMode [(ngModel)]="grpPymn" (change)="getLookupValuePaymentMode($event.target.value)">
         <!-- <option hidden disabled selected value> -- select a Payment Mode -- </option> -->
         <option *ngFor="let each of paymentModes" [selected]="each.grpPymn == '10007'" value="{{each.grpPymn}}">
           {{each.grpPymntMdNm}}</option>
@@ -231,7 +231,12 @@
         <div id="collapseOne" class="card-body collapse" data-parent="#accordion">
 
           <app-fppg [lookupValue]="lookupSitusStateValue" #child0 [dateValue]="dateChange">
+           
             <form class="agent-form" [formGroup]="agentformgrp">
+              <div class="radio-button" style="display: inline-block;padding-left: 5px;" *ngFor="let item of radioButtonArr">
+                <div><input type="radio" value={{item.value}} formControlName="fppgAgent_Action" />
+                  <label class="radio-label"> {{item.name}}</label></div>
+              </div>
               <!-- first-row -->
               <div class="row" style="justify-content:space-evenly;">
                 <div class="col-md-3">
@@ -321,6 +326,10 @@
 
           <app-fpp-individual [lookupValue]="lookupSitusStateValue" #child1 [dateValue]="dateChange">
             <form class="agent-form" [formGroup]="agentformgrp">
+              <div class="radio-button" style="display: inline-block;padding-left: 5px;" *ngFor="let item of radioButtonArr">
+                <div><input type="radio" value={{item.value}} formControlName="fppiAgent_Action" />
+                  <label class="radio-label"> {{item.name}}</label></div>
+              </div>
               <!-- first-row -->
               <div class="row" style="justify-content:space-evenly;">
                 <div class="col-md-3">
@@ -410,6 +419,10 @@
 
             <app-accident [lookupValue]="lookupSitusStateValue" #child2 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
+                <div class="radio-button" style="display: inline-block;padding-left: 5px;" *ngFor="let item of radioButtonArr">
+                  <div><input type="radio" value={{item.value}} formControlName="accAgent_Action" />
+                    <label class="radio-label"> {{item.name}}</label></div>
+                </div>
                 <!-- first-row -->
                 <div class="row" style="justify-content:space-evenly;">
                   <div class="col-md-3">
@@ -499,6 +512,10 @@
           <div class="card-body">
             <app-hospital-indemnity [lookupValue]="lookupSitusStateValue" #child3 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
+                <div class="radio-button" style="display: inline-block;padding-left: 5px;" *ngFor="let item of radioButtonArr">
+                  <div><input type="radio" value={{item.value}} formControlName="hospAgent_Action" />
+                    <label class="radio-label"> {{item.name}}</label></div>
+                </div>
                 <!-- first-row -->
                 <div class="row" style="justify-content:space-evenly;">
                   <div class="col-md-3">
@@ -592,6 +609,10 @@
           <div class="card-body">
             <app-employer-paid-ci [lookupValue]="lookupSitusStateValue" #child4 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
+                <div class="radio-button" style="display: inline-block;padding-left: 5px;" *ngFor="let item of radioButtonArr">
+                  <div><input type="radio" value={{item.value}} formControlName="empCIAgent_Action" />
+                    <label class="radio-label"> {{item.name}}</label></div>
+                </div>
                 <!-- first-row -->
                 <div class="row" style="justify-content:space-evenly;">
                   <div class="col-md-3">
@@ -681,6 +702,10 @@
           <div class="card-body">
             <app-voluntary-ci [lookupValue]="lookupSitusStateValue" #child5 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
+                <div class="radio-button" style="display: inline-block;padding-left: 5px;" *ngFor="let item of radioButtonArr">
+                  <div><input type="radio" value={{item.value}} formControlName="volCIAgent_Action" />
+                    <label class="radio-label"> {{item.name}}</label></div>
+                </div>
                 <!-- first-row -->
                 <div class="row" style="justify-content:space-evenly;">
                   <div class="col-md-3">
@@ -770,6 +795,10 @@
           <div class="card-body">
             <app-vol-group-life [lookupValue]="lookupSitusStateValue" #child6 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
+                <div class="radio-button" style="display: inline-block;padding-left: 5px;" *ngFor="let item of radioButtonArr">
+                  <div><input type="radio" value={{item.value}} formControlName="volGrpLfAgent_Action" />
+                    <label class="radio-label"> {{item.name}}</label></div>
+                </div>
                 <!-- first-row -->
                 <div class="row" style="justify-content:space-evenly;">
                   <div class="col-md-3">
@@ -859,6 +888,10 @@
           <div class="card-body">
             <app-basic-group-life [lookupValue]="lookupSitusStateValue" #child7 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
+                <div class="radio-button" style="display: inline-block;padding-left: 5px;" *ngFor="let item of radioButtonArr">
+                  <div><input type="radio" value={{item.value}} formControlName="basicGrpLfAgent_Action" />
+                    <label class="radio-label"> {{item.name}}</label></div>
+                </div>
                 <!-- first-row -->
                 <div class="row" style="justify-content:space-evenly;">
                   <div class="col-md-3">
