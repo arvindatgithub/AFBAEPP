@@ -4,12 +4,8 @@
   <form [formGroup]="fppgformgrp">
     <div class="row" style="justify-content:space-evenly;margin-right: 7%;">
       <div class="radio-button">
-        <div><input type="radio" value="10002" formControlName="FCfppgEffectiveDate_Action" />
-          <label class="radio-label"> Always Override</label></div>
-        <div><input type="radio" value="10001" formControlName="FCfppgEffectiveDate_Action" />
-          <label class="radio-label">Update if Blank</label></div>
-        <div><input type="radio" value="10003" formControlName="FCfppgEffectiveDate_Action" />
-          <label class="radio-label">Validate</label></div>
+        <div *ngFor="let item of radioButtonArr"> <input type="radio" value={{item.value}} formControlName="FCfppgEffectiveDate_Action"/>
+          <label class="radio-label"> {{item.name}}</label></div>
       </div>
 
       <div class="col-3">
@@ -18,12 +14,8 @@
           placeholder="Group Effective Date">
       </div>
       <div class="radio-button">
-        <div><input type="radio" value="10002" formControlName="FCfppgSitusState_Action" />
-          <label class="radio-label"> Always Override</label></div>
-        <div><input type="radio" value="10001" formControlName="FCfppgSitusState_Action" />
-          <label class="radio-label">Update if Blank</label></div>
-        <div><input type="radio" value="10003" formControlName="FCfppgSitusState_Action" />
-          <label class="radio-label">Validate</label></div>
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCfppgSitusState_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-3">
         <span class="label label-default">Situs State</span>
@@ -44,12 +36,8 @@
     <div class="row mt-4" style="justify-content:space-evenly;margin-right: 7%;">
 
       <div class="radio-button">
-        <div><input type="radio" value="10002" formControlName="FCfppgEmpAmtMax_Action" />
-          <label class="radio-label"> Always Override</label></div>
-        <div><input type="radio" value="10001" formControlName="FCfppgEmpAmtMax_Action" />
-          <label class="radio-label">Update if Blank</label></div>
-        <div><input type="radio" value="10003" formControlName="FCfppgEmpAmtMax_Action" />
-          <label class="radio-label">Validate</label></div>
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCfppgEmpAmtMax_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-3">
 
@@ -77,12 +65,8 @@
 
     <div class="row mt-4" style="justify-content:space-evenly;margin-right: 7%;">
       <div class="radio-button">
-        <div><input type="radio" value="10002" formControlName="FCfppgSpouseAmtMax_Action" />
-          <label class="radio-label"> Always Override</label></div>
-        <div><input type="radio" value="10001" formControlName="FCfppgSpouseAmtMax_Action" />
-          <label class="radio-label">Update if Blank</label></div>
-        <div><input type="radio" value="10003" formControlName="FCfppgSpouseAmtMax_Action" />
-          <label class="radio-label">Validate</label></div>
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCfppgSpouseAmtMax_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-3">
         <span class="label label-default">Spouse GI Amount Max</span>
@@ -105,12 +89,8 @@
     </div>
     <div class="row mt-4" style="justify-content: space-evenly;margin-right: 7%;">
       <div class="radio-button">
-        <div><input type="radio" value="10002" formControlName="FCfppgPlanCodeManualEntry_Action" />
-          <label class="radio-label"> Always Override</label></div>
-        <div><input type="radio" value="10001" formControlName="FCfppgPlanCodeManualEntry_Action" />
-          <label class="radio-label">Update if Blank</label></div>
-        <div><input type="radio" value="10003" formControlName="FCfppgPlanCodeManualEntry_Action" />
-          <label class="radio-label">Validate</label></div>
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCfppgPlanCodeManualEntry_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-3">
         <span class="label label-default">Employee Plan code </span>
@@ -133,12 +113,8 @@
 
     <div class="row mt-4" style="margin-left: 1%;">
       <div class="radio-button">
-        <div><input type="radio" value="10002" formControlName="FCfppgOpenEnrollGI_Action" />
-          <label class="radio-label"> Always Override</label></div>
-        <div><input type="radio" value="10001" formControlName="FCfppgOpenEnrollGI_Action" />
-          <label class="radio-label">Update if Blank</label></div>
-        <div><input type="radio" value="10003" formControlName="FCfppgOpenEnrollGI_Action" />
-          <label class="radio-label">Validate</label></div>
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCfppgOpenEnrollGI_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-3" style="margin-left: 1%;">
 
@@ -156,12 +132,8 @@
     </div>
     <div class="row mt-2" style="justify-content:space-evenly;">
       <div class="radio-button">
-        <div><input type="radio" value="10002" formControlName="FCfppgQolRiders_Action" />
-          <label class="radio-label"> Always Override</label></div>
-        <div><input type="radio" value="10001" formControlName="FCfppgQolRiders_Action" />
-          <label class="radio-label">Update if Blank</label></div>
-        <div><input type="radio" value="10003" formControlName="FCfppgQolRiders_Action" />
-          <label class="radio-label">Validate</label></div>
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCfppgQolRiders_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-4">
         <div class="row" style="justify-content:space-evenly;">
@@ -175,12 +147,8 @@
         </div>
       </div>
       <div class="radio-button">
-        <div><input type="radio" value="10002" formControlName="FCfppgWaiver_Action" />
-          <label class="radio-label"> Always Override</label></div>
-        <div><input type="radio" value="10001" formControlName="FCfppgWaiver_Action" />
-          <label class="radio-label">Update if Blank</label></div>
-        <div><input type="radio" value="10003" formControlName="FCfppgWaiver_Action" />
-          <label class="radio-label">Validate</label></div>
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCfppgWaiver_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-4">
         <div class="row" style="justify-content:space-evenly;">
