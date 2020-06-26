@@ -16,7 +16,7 @@
         </div>
         <div class="col-3">
           <span class="label label-default">FPPI Effective Date</span>
-          <input type="date" [value]="latest_datefpp" formControlName = "FCfppiEffectiveDate" [min]="minDate" [(ngModel)]="latest_datefpp" class="form-control mb-2 " style="width: 100%;"
+          <input type="date" formControlName = "FCfppiEffectiveDate" [(ngModel)]="minDate" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
             placeholder="Group Effective Date">
 
         </div>
@@ -33,16 +33,13 @@
         </div>
         <div class="col-3">
           <span class="label label-default">Agent Signature</span>
-          <input type="text" class="form-control mb-2 "  formControlName = "FCfppiAgentSign" style="width: 100%;" placeholder="Agent Signature">
+          <input type="text" class="form-control mb-2" formControlName = "FCfppiAgentSign" style="width: 100%;" placeholder="Agent Signature">
         </div>
         <div class="mt-4">
           <button class="btn btn-primary" (click) ="resetfpp()" type="submit">Reset Form </button>
         </div>
       </div>
-    
-
   
-
       <div class="row" style="justify-content:space-evenly;margin-right: 7%;">
 
         <div class="radio-button">
@@ -118,59 +115,24 @@
             <label class="radio-label">Validate</label></div>
         </div>
         <div class="col-3">
-          <span class="label label-default">Plan code Manual Entry</span>
-          <input type="text" formControlName="FCfppgPlanCodeManualEntry" class="form-control mb-2 " style="width: 100%;" placeholder="Plan code manual Entry">
+          <span class="label label-default"> Employee Plan code</span>
+          <input type="text" formControlName="FCfppgempPlanCode" class="form-control mb-2 " style="width: 100%;" placeholder="Plan code manual Entry">
         </div>
       
         <div class="col-3">
-          <span class="label label-default">Plan code Manual Entry</span>
-          <input type="text" formControlName="FCfppgPlanCodeManualEntry" class="form-control mb-2 " style="width: 100%;" placeholder="Plan code manual Entry">
+          <span class="label label-default"> Spouse Plan code </span>
+          <input type="text" formControlName="FCfppgSpousePlanCode" class="form-control mb-2 " style="width: 100%;" placeholder="Plan code manual Entry">
         </div>
       
         <div class="col-3">
-          <span class="label label-default">Plan code Manual Entry</span>
-          <input type="text" formControlName="FCfppgPlanCodeManualEntry" class="form-control mb-2 " style="width: 100%;" placeholder="Plan code manual Entry">
+          <span class="label label-default"> Child Plan code</span>
+          <input type="text" formControlName="FCfppgChildPlanCode" class="form-control mb-2 " style="width: 100%;" placeholder="Plan code manual Entry">
         </div>
       </div>
 
 
 
-      <div class="row mt-2" style="margin-left: 2%;">
-        <div class="radio-button">
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-              formControlName="FCfppiOpenEnrollGI_Action" />
-            <label class="radio-label"> Always Override</label></div>
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-              value="Update if Blank" formControlName="FCfppiOpenEnrollGI_Action" />
-            <label class="radio-label">Update if Blank</label></div>
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-              formControlName="FCfppiOpenEnrollGI_Action" />
-            <label class="radio-label">Validate</label></div>
-        </div>
-        <div class="col-4" style="margin-left: 1%;">
-
-          <span class="label label-default">Open Enrollment GI</span>
-          <input type="text" class="form-control mb-2 " formControlName="FCfppiOpenEnrollGI" style="width: 100%;" placeholder="Open Enrollment GI">
-        </div>
-
-        <!-- <div class="radio-button">
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-              formControlName="FCfppiPlanCodeManualEntry_Action" />
-            <label class="radio-label"> Always Override</label></div>
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-              value="Update if Blank" formControlName="FCfppiPlanCodeManualEntry_Action" />
-            <label class="radio-label">Update if Blank</label></div>
-          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-              formControlName="FCfppiPlanCodeManualEntry_Action" />
-            <label class="radio-label">Validate</label></div>
-        </div>
-        <div class="col-4">
-          <span class="label label-default">Plan code manual Entry</span>
-          <input type="text" class="form-control mb-2 " formControlName="FCfppiPlanCodeManualEntry" style="width: 100%;" placeholder="Plan code manual Entry">
-        </div> -->
-
-      </div>
-
+    
       <div class="row mt-2" style="justify-content:space-evenly;">
         <div class="radio-button">
           <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
@@ -206,7 +168,41 @@
         </div>
 
       </div>
+      <div class="row mt-2" style="margin-left: 0%;"> 
+        <div class="radio-button">
+          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+              formControlName="FCfppiOpenEnrollGI_Action" />
+            <label class="radio-label"> Always Override</label></div>
+          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+              value="Update if Blank" formControlName="FCfppiOpenEnrollGI_Action" />
+            <label class="radio-label">Update if Blank</label></div>
+          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+              formControlName="FCfppiOpenEnrollGI_Action" />
+            <label class="radio-label">Validate</label></div>
+        </div>
+        <div class="col-4" style="margin-left: 1%;">
 
+          <span class="label label-default">Open Enrollment GI</span>
+          <input type="text" class="form-control mb-2 " formControlName="FCfppiOpenEnrollGI" style="width: 100%;" placeholder="Open Enrollment GI">
+        </div>
+
+        <!-- <div class="radio-button">
+          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
+              formControlName="FCfppiPlanCodeManualEntry_Action" />
+            <label class="radio-label"> Always Override</label></div>
+          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
+              value="Update if Blank" formControlName="FCfppiPlanCodeManualEntry_Action" />
+            <label class="radio-label">Update if Blank</label></div>
+          <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
+              formControlName="FCfppiPlanCodeManualEntry_Action" />
+            <label class="radio-label">Validate</label></div>
+        </div>
+        <div class="col-4">
+          <span class="label label-default">Plan code manual Entry</span>
+          <input type="text" class="form-control mb-2 " formControlName="FCfppiPlanCodeManualEntry" style="width: 100%;" placeholder="Plan code manual Entry">
+        </div> -->
+
+      </div>
       <div class="row pt-2 pl-4">
         <h6>
           Riders
@@ -224,17 +220,15 @@
               formControlName="FCfppiQolRiders_Action" />
             <label class="radio-label">Validate</label></div>
         </div>
-        <div class="col-4">
+        <div class="col-2">
           <div class="row" style="justify-content:space-evenly;">
-            <div class="col" style="margin-left: -16px;">
-              
-            </div>
+           
             <div class="col" style="justify-content:flex-start;margin-right: 170px;
             margin-top: 24px;">
               <mat-checkbox class="margin" [(ngModel)]="checked" formControlName="FCfppiQolRiders" name="Qol">QOL Rider</mat-checkbox>
             </div>
           </div>
-        </div>
+        </div> 
         <div class="radio-button">
           <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
               formControlName="FCfppiWaiver_Action" />
@@ -246,11 +240,9 @@
               formControlName="FCfppiWaiver_Action" />
             <label class="radio-label">Validate</label></div>
         </div>
-        <div class="col-4">
+        <div class="col-2">
           <div class="row" style="justify-content:space-evenly;">
-            <div class="col" style="margin-left: -147px;">
-             
-            </div>
+           
             <div class="col" style="margin-top: 24px;">
               <mat-checkbox class="margin" formControlName="FCfppiWaiver" [(ngModel)]="indeterminate" name="Waiver">Waiver</mat-checkbox>
             </div>

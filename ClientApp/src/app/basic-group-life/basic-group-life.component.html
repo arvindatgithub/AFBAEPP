@@ -46,7 +46,7 @@
     </div>
 
 
-    <div class="row mb-4" style="justify-content:space-evenly;">
+    <div class="row mb-4" style="margin-left: 1%;">
       <div class="radio-button">
         <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
             formControlName="FCbasicEmpFcAmt_Action" />
@@ -63,7 +63,7 @@
         <input type="number" class="form-control mb-2 " formControlName="FCbasicEmpFcAmt" style="width: 100%;"
           placeholder="Employee Face Amount">
       </div>
-      <div class="radio-button">
+      <!-- <div class="radio-button">
         <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
             formControlName="FCbasicADDRider_Action" />
           <label class="radio-label"> Always Override</label></div>
@@ -73,14 +73,14 @@
         <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
             formControlName="FCbasicADDRider_Action" />
           <label class="radio-label">Validate</label></div>
-      </div>
-      <div class="col-4 mb-2">
+      </div> -->
+      <!-- <div class="col-4 mb-2">
         <span class="label">AD&D Rider </span>
         <select class="form-control" formControlName="FCbasicADDRider">
           <option selected value="Y">Y</option>
           <option value="N">N</option>
         </select>
-      </div>
+      </div> -->
     </div>
     <div class="mt-4">
       <ng-content></ng-content>

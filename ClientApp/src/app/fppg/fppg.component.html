@@ -16,8 +16,8 @@
        </div>
        
        <div class="col-3">
-         <span class="label label-default">FPPG Effective Date</span>
-         <input type="date" formControlName="FCfppgEffectiveDate" [(ngModel)]="latest_date" [value]="latest_date" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
+         <span class="label label-default">FPPG Effective Date</span> 
+         <input type="date" formControlName="FCfppgEffectiveDate" [(ngModel)] ="minDate" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
            placeholder="Group Effective Date">
        </div>
        <div class="radio-button">
@@ -64,7 +64,7 @@
 
          <span class="label label-default">Employee GI Amount Max</span>
 
-         <input type="text"   formControlName="FCfppgEmpGIAmtMax" class="form-control mb-2 " style="width: 100%;" placeholder="Employee GI Amount Max">
+         <input type="text" formControlName="FCfppgEmpGIAmtMax" class="form-control mb-2 " style="width: 100%;" placeholder="Employee GI Amount Max">
        </div>
 
 
@@ -190,7 +190,7 @@
              formControlName="FCfppgQolRiders_Action" />
            <label class="radio-label">Validate</label></div>
        </div>
-       <div class="col-4">
+       <div class="col-2">
          <div class="row" style="justify-content:space-evenly;">
            <div class="col" style="margin-left: -16px;">
            </div>
@@ -211,10 +211,8 @@
              formControlName="FCfppgWaiver_Action" />
            <label class="radio-label">Validate</label></div>
        </div>
-       <div class="col-4">
+       <div class="col-2">
          <div class="row" style="justify-content:space-evenly;">
-           <div class="col">
-           </div>
            <div class="col" style="margin-top: 24px;">
              <mat-checkbox class="margin" formControlName="FCfppgWaiver" [(ngModel)]="indeterminate" name="Waiver">Waiver</mat-checkbox>
            </div>

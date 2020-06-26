@@ -52,6 +52,7 @@ export class EmployerPaidCIComponent implements OnInit ,OnChanges{
       FCempCIPlanCode_Action: ["",Validators.required],
       FCempCIChdFcAmt: ["",Validators.required],
       FCempCIChdFcAmt_Action: ["",Validators.required],
+      FCempCISpouseFcAmt_Action:["", Validators.required]
     });
     this.empCIformgrp.controls['FCempCISitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
   }

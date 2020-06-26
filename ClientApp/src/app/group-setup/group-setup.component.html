@@ -31,7 +31,7 @@
     <div class="form-group col-md-3">
       <span class="label label-default">Group Number<span aria-hidden="true" class="required">*</span></span>
       <input type="text" maxlength="5" name="name" #name="ngModel" class="form-control" [(ngModel)]="groupNumber"
-        style="width: 100%;" placeholder="Group Number Field" required>
+        style="width: 100%;" placeholder="Group Number Field" required >
       <div *ngIf="name.invalid && (name.dirty || name.touched)">
           <small *ngIf="name.errors.required" style="color: red;">Group Number is required!</small>
       </div>
@@ -44,10 +44,10 @@
         <small *ngIf="grpname.errors?.required" style="color: red;">Group Name is required!</small>
       </div>
     </div>
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-3" [formGroup]="groupSetupFG">
       <span class="label label-default">Group effective date<span aria-hidden="true" class="required">*</span></span>
-      <input type="date" (change)="onDateChange($event)" [min]="minDate" class="form-control"
-        [(ngModel)]="grpEfftvDate" style="width: 100%;" placeholder="Group Effective Date">
+      <input type="date"  formControlName="fcEffDate" [min]="minDate" class="form-control"
+        [(ngModel)]="minDate" style="width: 100%;" placeholder="Group Effective Date">
     </div>
     <div class="form-group col-md-3">
       <span class="label label-default">Group Payment Mode<span aria-hidden="true" class="required">*</span></span>

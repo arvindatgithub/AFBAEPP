@@ -35,6 +35,11 @@ export class FPPGComponent implements OnInit, OnChanges {
     public datepipe: DatePipe ) { 
   }
 
+  
+  get myForm() {
+    return this.fppgformgrp.get(['FCfppgSitusState','FCfppgEffectiveDate']);
+  }
+
 ngOnChanges(simpleChange:SimpleChanges){
   console.log("simpleChange",simpleChange);
   this.latest_date = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
@@ -49,36 +54,37 @@ ngOnChanges(simpleChange:SimpleChanges){
         this.lookUpDataSitusStates = data.situsState;
       });
   
-      console.log("this.lookup", this.lookupValue);
-
-    this.fppgformgrp = this.fb.group({
-      FCfppgEffectiveDate: ["",Validators.required],
-      FCfppgSitusState: ["",Validators.required],
-      FCfppgEmpAmtMax: ["",Validators.required],
-      FCfppgEmpGIAmtMax: ["",Validators.required],
-      FCfppgEmpQIAmtMax: ["",Validators.required],
-      FCfppgSpouseGIAmtMax: ["",Validators.required],
-      FCfppgSpouseQIAmtMax: ["",Validators.required],
-      FCfppgSpouseMaxAmt: ["",Validators.required],
-      FCfppgOpenEnrollGI: ["",Validators.required],
-     
-      FCfppgEmpPlanCode: ["", Validators.required],
-      FCfppgSpousePlanCode: ["", Validators.required],
-      FCfppgChildPlanCode: ["", Validators.required],
-      
-      FCfppgQolRiders: ["",Validators.required],
-      FCfppgWaiver:["",Validators.required],
-      FCfppgEffectiveDate_Action: ['', Validators.required],
-      FCfppgSitusState_Action:  ['', Validators.required],
-      FCfppgEmpAmtMax_Action: ['', Validators.required],
-      FCfppgSpouseAmtMax_Action: ['', Validators.required],
-      FCfppgOpenEnrollGI_Action: ['', Validators.required],
-      FCfppgPlanCodeManualEntry_Action: ['', Validators.required],
-      FCfppgQolRiders_Action: ['', Validators.required],
-      FCfppgWaiver_Action: ['', Validators.required],
-    });
-     this.fppgformgrp.controls['FCfppgSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
- 
+      console.log("this.lookup", this.lookUpDataSitusStates);
+      this.fppgformgrp = this.fb.group({
+        FCfppgEffectiveDate: ["",Validators.required],
+        FCfppgSitusState: ["",Validators.required],
+        FCfppgEmpAmtMax: ["",Validators.required],
+        FCfppgEmpGIAmtMax: ["",Validators.required],
+        FCfppgEmpQIAmtMax: ["",Validators.required],
+        FCfppgSpouseGIAmtMax: ["",Validators.required],
+        FCfppgSpouseQIAmtMax: ["",Validators.required],
+        FCfppgSpouseMaxAmt: ["",Validators.required],
+        FCfppgOpenEnrollGI: ["",Validators.required],
+       
+        FCfppgEmpPlanCode: ["", Validators.required],
+        FCfppgSpousePlanCode: ["", Validators.required],
+        FCfppgChildPlanCode: ["", Validators.required],
+        
+        FCfppgQolRiders: ["",Validators.required],
+        FCfppgWaiver:["",Validators.required],
+        FCfppgEffectiveDate_Action: ['Update if Blank', Validators.required],
+        FCfppgSitusState_Action:  ['Update if Blank', Validators.required],
+        FCfppgEmpAmtMax_Action: ['Update if Blank', Validators.required],
+        FCfppgSpouseAmtMax_Action: ['Update if Blank', Validators.required],
+        FCfppgOpenEnrollGI_Action: ['Update if Blank', Validators.required],
+        FCfppgPlanCodeManualEntry_Action: ['Update if Blank', Validators.required],
+        FCfppgQolRiders_Action: ['Update if Blank', Validators.required],
+        FCfppgWaiver_Action: ['Update if Blank', Validators.required],
+      });
+    
+    
+    //  this.myForm.setValue(this.lookUpDataSitusStates.state[0],(new Date().toISOString()));
+   
   }
  
 
