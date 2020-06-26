@@ -28,18 +28,18 @@ namespace AFBA.EPP.ViewModels
 
         public string agnt_cd_1_action { get; set; }
         public string agnt_nm_action { get; set; }
-        public Int32 agnt_comm_split_1_action { get; set; }
+        public string agnt_comm_split_1_action { get; set; }
         public string agntsub_1_action { get; set; }
         public string agnt_cd_2_action { get; set; }
-        public Int32 agnt_comm_split_2_action { get; set; }
+        public string agnt_comm_split_2_action { get; set; }
         public string agntsub_2_action { get; set; }
 
         public string agnt_cd_3_action { get; set; }
-        public Int32 agnt_comm_split_3_action { get; set; }
+        public string agnt_comm_split_3_action { get; set; }
         public string agntsub_3_action { get; set; }
 
         public string agnt_cd_4_action { get; set; }
-        public Int32 agnt_comm_split_4_action { get; set; }
+        public string agnt_comm_split_4_action { get; set; }
         public string agntsub_4_action { get; set; }
 
 

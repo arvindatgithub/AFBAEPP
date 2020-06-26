@@ -99,7 +99,7 @@ namespace AFBA.EPP.Controllers
             
             var grpprdct = _unitofWork.GroupMasterRepository.Find(x => x.GrpNbr == groupSetupModel.GrpNbr || x.GrpNm== groupSetupModel.GrpNm).Result;
             if (grpprdct.Count != 0)   return BadRequest(" Group name or number already exist");
-            groupSetupModel.GrpPymn = 10007;
+            
             if (! string.IsNullOrEmpty(groupSetupModel.EmlAddrss))
             {
                 // get partner id 

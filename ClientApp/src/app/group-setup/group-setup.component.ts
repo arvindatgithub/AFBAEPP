@@ -607,7 +607,24 @@ export class GroupSetupComponent implements OnInit {
         agntsub_3: this.agentformgrp.get('AgentSubCount2').value,
         agnt_cd_4: this.agentformgrp.get('AgentNumber3').value,
         agnt_comm_split_4: parseInt(this.agentformgrp.get('CommissonSplit3').value),
-        agntsub_4: this.agentformgrp.get('AgentSubCount3').value,
+          agntsub_4: this.agentformgrp.get('AgentSubCount3').value,
+          "agnt_cd_1_action": "10002",
+          "agnt_nm_action": "10002",
+          "agnt_comm_split_1_action": "10002",
+          "agntsub_1_action": "10002",
+          "agnt_cd_2_action": "10002",
+          "agnt_comm_split_2_action": "10002",
+          "agntsub_2_action": "10002",
+          "agnt_cd_3_action": "10002",
+          "agnt_comm_split_3_action": "10002",
+          "agntsub_3_action": "10002",
+          "agnt_cd_4_action": "10002",
+          "agnt_comm_split_4_action": "10002",
+          "agntsub_4_action": "10002"
+
+
+
+
         },
         "isACC_HIActive": this.isCheckedAccident,
         "acC_HI": {
