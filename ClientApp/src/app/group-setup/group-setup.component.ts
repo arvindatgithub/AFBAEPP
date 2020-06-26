@@ -804,6 +804,21 @@ export class GroupSetupComponent implements OnInit {
         agnt_cd_4: this.agentformgrp.get('AgentNumber3BasicgrpLife').value,
         agnt_comm_split_4: parseInt(this.agentformgrp.get('CommissonSplit3BasicgrpLife').value),
         agntsub_4: this.agentformgrp.get('AgentSubCount3BasicgrpLife').value,
+        agnt_cd_1_action: this.agentformgrp.get('basicGrpLfAgent_Action').value.toString(),
+        "agnt_nm_action": this.agentformgrp.get('basicGrpLfAgent_Action').value.toString(),
+        "agnt_comm_split_1_action": this.agentformgrp.get('basicGrpLfAgent_Action').value.toString(),
+        "agntsub_1_action": this.agentformgrp.get('basicGrpLfAgent_Action').value.toString(),
+        "agnt_cd_2_action": this.agentformgrp.get('basicGrpLfAgent_Action').value.toString(),
+        "agnt_comm_split_2_action": this.agentformgrp.get('basicGrpLfAgent_Action').value.toString(),
+        "agntsub_2_action": this.agentformgrp.get('basicGrpLfAgent_Action').value.toString(),
+        "agnt_cd_3_action": this.agentformgrp.get('basicGrpLfAgent_Action').value.toString(),
+        "agnt_comm_split_3_action": this.agentformgrp.get('basicGrpLfAgent_Action').value.toString(),
+        "agntsub_3_action": this.agentformgrp.get('basicGrpLfAgent_Action').value.toString(),
+        "agnt_cd_4_action": this.agentformgrp.get('basicGrpLfAgent_Action').value.toString(),
+        "agnt_comm_split_4_action": this.agentformgrp.get('basicGrpLfAgent_Action').value.toString(),
+        "agntsub_4_action": this.agentformgrp.get('basicGrpLfAgent_Action').value.toString(),
+
+
         },
         "isFPPIActive": this.isCheckedFppInd,
         "fppi": {
