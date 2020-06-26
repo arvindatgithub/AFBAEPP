@@ -41,21 +41,18 @@ export class BasicGroupLifeComponent implements OnInit,OnChanges {
       });
 
       this.basicGrpLfformgrp = this.fb.group({
-        FCbasicEffectiveDate_Action: ["",Validators.required],
+        FCbasicEffectiveDate_Action: ["10001",Validators.required],
         FCbasicEffectiveDate: [this.dateValue,Validators.required],
-        FCbasicSitusState_Action: ["",Validators.required],
+        FCbasicSitusState_Action: ["10001",Validators.required],
         FCbasicSitusState: [this.lookupValue,Validators.required],
-        FCbasicEmpFcAmt_Action: ["",Validators.required],
+        FCbasicEmpFcAmt_Action: ["10001",Validators.required],
         FCbasicEmpFcAmt: ["",Validators.required],
-        FCbasicADDRider_Action: ["",Validators.required],
+        FCbasicADDRider_Action: ["10001",Validators.required],
         FCbasicADDRider: ["",Validators.required],
       });
       this.basicGrpLfformgrp.controls['FCbasicSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
 
   }
  
-  onItemChange(value){
-    console.log(" Value is : ", value );
- }
 
 }

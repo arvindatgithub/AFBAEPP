@@ -42,21 +42,18 @@ export class AccidentComponent implements OnInit,OnChanges {
       // this.latest_dateaccident = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
     });
     this.accformgrp = this.fb.group({
-      FCaccSitusState_Action: ["",Validators.required],
+      FCaccSitusState_Action: ["10001",Validators.required],
       FCaccSitusState: [this.lookupValue,Validators.required],
       FCaccEffectiveDate: [this.dateValue,Validators.required],
-      FCaccEffectiveDate_Action: ["",Validators.required],
+      FCaccEffectiveDate_Action: ["10001",Validators.required],
       FCaccOnOff: ["",Validators.required],
-      FCaccOnOff_Action: ["",Validators.required],
+      FCaccOnOff_Action: ["10001",Validators.required],
       FCaccRateLevel: ["",Validators.required],
-      FCaccRateLevel_Action: ["",Validators.required],
+      FCaccRateLevel_Action: ["10001",Validators.required],
 
     });
     this.accformgrp.controls['FCaccSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
   }
  
  
-  onItemChange(value){
-    console.log(" Value is : ", value );
- }
 }
