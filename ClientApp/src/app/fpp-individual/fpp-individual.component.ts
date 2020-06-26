@@ -65,6 +65,11 @@ export class FPPIndividualComponent implements OnInit, OnChanges {
       FCfppiQolRiders_Action: ["",Validators.required],
       FCfppiWaiver_Action: ["",Validators.required],
       FCfppiWaiver: ["",Validators.required],
+      FCfppgPlanCodeManualEntry_Action: ["",Validators.required ],
+      FCfppgPlanCodeManualEntry: ["" ,Validators.required],
+      FCfppgSpousePlanCode:["", Validators.required],
+      FCfppgChildPlanCode:["", Validators.required],
+
     });
     this.fppiformgrp.controls['FCfppSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
   }

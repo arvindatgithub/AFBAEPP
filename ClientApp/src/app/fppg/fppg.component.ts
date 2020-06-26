@@ -35,6 +35,11 @@ export class FPPGComponent implements OnInit, OnChanges {
     public datepipe: DatePipe ) { 
   }
 
+  
+  get myForm() {
+    return this.fppgformgrp.get(['FCfppgSitusState','FCfppgEffectiveDate']);
+  }
+
 ngOnChanges(simpleChange:SimpleChanges){
   console.log("simpleChange",simpleChange);
   this.latest_date = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
@@ -77,7 +82,7 @@ ngOnChanges(simpleChange:SimpleChanges){
       FCfppgQolRiders_Action: ['10001', Validators.required],
       FCfppgWaiver_Action: ['10001', Validators.required],
     });
-     this.fppgformgrp.controls['FCfppgSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
+    //  this.fppgformgrp.controls['FCfppgSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
  
   }
  
