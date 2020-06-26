@@ -68,23 +68,20 @@ ngOnChanges(simpleChange:SimpleChanges){
       
       FCfppgQolRiders: ["",Validators.required],
       FCfppgWaiver:["",Validators.required],
-      FCfppgEffectiveDate_Action: ['', Validators.required],
-      FCfppgSitusState_Action:  ['', Validators.required],
-      FCfppgEmpAmtMax_Action: ['', Validators.required],
-      FCfppgSpouseAmtMax_Action: ['', Validators.required],
-      FCfppgOpenEnrollGI_Action: ['', Validators.required],
-      FCfppgPlanCodeManualEntry_Action: ['', Validators.required],
-      FCfppgQolRiders_Action: ['', Validators.required],
-      FCfppgWaiver_Action: ['', Validators.required],
+      FCfppgEffectiveDate_Action: ['10001', Validators.required],
+      FCfppgSitusState_Action:  ['10001', Validators.required],
+      FCfppgEmpAmtMax_Action: ['10001', Validators.required],
+      FCfppgSpouseAmtMax_Action: ['10001', Validators.required],
+      FCfppgOpenEnrollGI_Action: ['10001', Validators.required],
+      FCfppgPlanCodeManualEntry_Action: ['10001', Validators.required],
+      FCfppgQolRiders_Action: ['10001', Validators.required],
+      FCfppgWaiver_Action: ['10001', Validators.required],
     });
      this.fppgformgrp.controls['FCfppgSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
  
   }
  
 
-  onItemChange(value){
-    console.log(" Value is : ", value );
- }
  restForm(){
    this.fppgformgrp.reset({
     FCfppgEffectiveDate: "",
