@@ -61,6 +61,19 @@ export class BasicGroupLifeComponent implements OnInit,OnChanges {
   get myForm() {
     return this.basicGrpLfformgrp.get(['FCbasicSitusState','FCbasicEffectiveDate']);
   }
+
+  resetfpp(){
+    this.basicGrpLfformgrp.reset({
+      FCbasicEffectiveDate_Action: "",
+      FCbasicEffectiveDate: "",
+      FCbasicSitusState_Action: "",
+      FCbasicSitusState: "",
+      FCbasicEmpFcAmt_Action: "",
+      FCbasicEmpFcAmt: "",
+      SpouseFaceAmount: "",
+      ChildFaceAmount: "",
+    })
+  }
   onItemChange(value){
     console.log(" Value is : ", value );
  }
