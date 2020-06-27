@@ -152,11 +152,9 @@ namespace AFBA.EPP.Controllers
                     var prdid = Helper.GetProductIdbyName("FPPG", _unitofWork);
                     var grpprdId = Helper.GetRandomNumber();
 
-                    //AddProductCodes(new ProductCodesViewModel
-                    //{
-                    //    ProductCode = groupSetupModel.FPPG.emp_ProductCode,
-                    //     ProductId= prdid
-                    //}); 
+               
+                   
+
 
                     _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
                     {
@@ -167,9 +165,43 @@ namespace AFBA.EPP.Controllers
 
                     });
 
-                    //search the product code  and add it
+
+                    // add Product code
+                    if (string.IsNullOrEmpty(groupSetupModel.FPPG.emp_ProductCode))
+                    {
+                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                        {
+                            ProductCode = groupSetupModel.FPPG.emp_ProductCode,
+                            ProductId= prdid
+
+                        };
+                        groupSetupModel.FPPG.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId;
+                    }
 
 
+                    if (string.IsNullOrEmpty(groupSetupModel.FPPG.sp_ProductCode))
+                    {
+                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                        {
+                            ProductCode = groupSetupModel.FPPG.sp_ProductCode,
+                            ProductId = prdid
+
+                        };
+                        groupSetupModel.FPPG.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId;
+                    }
+
+
+                    if (string.IsNullOrEmpty(groupSetupModel.FPPG.ch_ProductCode))
+                    {
+                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                        {
+                            ProductCode = groupSetupModel.FPPG.ch_ProductCode,
+                            ProductId = prdid
+
+                        };
+                        groupSetupModel.FPPG.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId;
+                    }
+                   
                     // add bulkupdate 
                     var bulkAttrs = Helper.GetProperties(groupSetupModel.FPPG);
                     AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,22 +9,16 @@ namespace AFBA.EPP.ViewModels
     public class FPPG: CommonViewModel
     {
 
-        //public string grp_nmbr { get; set; }
+
         public DateTime effctv_dt { get; set; }
         
         public string grp_situs_state { get; set; }
         
         public string emp_gi_max_amt { get; set; }
         public string sp_gi_max_amt { get; set; }
-
-
-        //public string ch_gi_max_amt { get; set; }
-
-
-
-        //public string emp_ProductCode { get; set; }
-        //public string sp_ProductCode { get; set; }
-        //public string ch_ProductCode { get; set; }
+        public string emp_ProductCode { get; set; }
+        public string sp_ProductCode { get; set; }
+        public string ch_ProductCode { get; set; }
 
         public string emp_waiver_of_prem { get; set; }
         public string sp_waiver_of_prem { get; set; }
@@ -37,9 +32,14 @@ namespace AFBA.EPP.ViewModels
         public string emp_quality_of_life_action { get; set; }
         public string sp_quality_of_life_action { get; set; }
 
-        //public string emp_ProductCode_action { get; set; }
-        //public string sp_ProductCode_action { get; set; }
-        //public string ch_ProductCode_action { get; set; }
+        public long sp_plan_cd { get; set; }
+        public long emp_plan_cd { get; set; }
+        public long ch_plan_cd { get; set; }
+
+
+        public string emp_plan_cd_action { get; set; }
+        public string sp_plan_cd_action { get; set; }
+        public string ch_plan_cd_action { get; set; }
 
         public string emp_qi_max_amt { get; set; }
         public string sp_qi_max_amt { get; set; }
