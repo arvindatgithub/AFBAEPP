@@ -14,6 +14,11 @@ export class EppCreateGrpSetupService {
     this.myEppData = this.eppData.asObservable();
   }
 
+  getGroupNbrEppData(grpNbr){
+    const eppCreateURL = environment.apiurl + 'GroupSetup/grpNbr/' + grpNbr;
+    return this.http.get(eppCreateURL);
+  }
+
   PosteppCreate(postBody){
     const eppCreateURL = environment.apiurl + 'GroupSetup/EppCreateGrpSetup';
     return this.http.post(eppCreateURL,postBody);
@@ -21,9 +26,6 @@ export class EppCreateGrpSetupService {
   getEppData(value:any){
      this.eppData.next(value);
   }
-  getepp(){
-    const eppCreateURL = environment.apiurl + 'GroupSetup/grpNbr/12345';
-    return this.http.get(eppCreateURL);
-  }
+ 
 }
 

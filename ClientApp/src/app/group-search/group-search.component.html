@@ -15,7 +15,7 @@
         <div class="col-md-4 form-group">
             <label>Search by Group Name/Number</label>
             <input type="text" class="form-control" id="searchBoxVal" name="searchBoxVal" 
-            [(ngModel)]="searchBoxVal" (input)="onSearchChange($event.target.value)" (keyup)="applyFilter($event)"
+            [(ngModel)]="searchBoxVal" (input)="onSearchChange($event.target.value)"
             placeholder="Search">
         </div>
     </div>
@@ -27,7 +27,7 @@
         <p>Existing Group Located</p>
         <p>Group Name: {{existingGrp.grpNm}}</p>
         <p>Group Number: {{existingGrp.grpNbr}}</p>
-        <button type="button" class="btn btn-success mt-4 mb-4" (click)="goToSetup()">Go To Group Setup Screen</button>
+        <button type="button" class="btn btn-success mt-4 mb-4" (click)="goToSetup(existingGrp.grpNbr)">Go To Group Setup Screen</button>
     </div>
     <div *ngIf="!existingGrp" style="margin-top: 5%;">
         <p>Existing Group not Located</p>
