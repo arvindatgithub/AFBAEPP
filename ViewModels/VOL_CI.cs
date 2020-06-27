@@ -8,7 +8,7 @@ namespace AFBA.EPP.ViewModels
     public class VOL_CI:CommonViewModel
     {
 
-        public string grp_nmbr { get; set; }
+       
         public DateTime effctv_dt { get; set; }
         public string grp_situs_state { get; set; }
 
