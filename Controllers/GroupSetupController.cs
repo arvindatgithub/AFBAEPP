@@ -263,6 +263,43 @@ namespace AFBA.EPP.Controllers
                         CrtdBy = CrtdBy
 
                     });
+
+                    // add Product code
+                    if (!string.IsNullOrEmpty(groupSetupModel.ER_CI.emp_ProductCode))
+                    {
+                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                        {
+                            ProductCode = groupSetupModel.ER_CI.emp_ProductCode,
+                            ProductId = prdid
+
+                        };
+                        groupSetupModel.ER_CI.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                    }
+
+
+                    if (!string.IsNullOrEmpty(groupSetupModel.ER_CI.sp_ProductCode))
+                    {
+                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                        {
+                            ProductCode = groupSetupModel.ER_CI.sp_ProductCode,
+                            ProductId = prdid
+
+                        };
+                        groupSetupModel.ER_CI.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                    }
+
+
+                    if (!string.IsNullOrEmpty(groupSetupModel.ER_CI.ch_ProductCode))
+                    {
+                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                        {
+                            ProductCode = groupSetupModel.ER_CI.ch_ProductCode,
+                            ProductId = prdid
+
+                        };
+                        groupSetupModel.ER_CI.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                    }
+
                     var bulkAttrs = Helper.GetProperties(groupSetupModel.ER_CI);
                     AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
 
@@ -298,6 +335,43 @@ namespace AFBA.EPP.Controllers
                         CrtdBy = CrtdBy
 
                     });
+
+
+                    // add Product code
+                    if (!string.IsNullOrEmpty(groupSetupModel.VOL_CI.emp_ProductCode))
+                    {
+                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                        {
+                            ProductCode = groupSetupModel.VOL_CI.emp_ProductCode,
+                            ProductId = prdid
+
+                        };
+                        groupSetupModel.VOL_CI.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                    }
+
+
+                    if (!string.IsNullOrEmpty(groupSetupModel.VOL_CI.sp_ProductCode))
+                    {
+                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                        {
+                            ProductCode = groupSetupModel.VOL_CI.sp_ProductCode,
+                            ProductId = prdid
+
+                        };
+                        groupSetupModel.VOL_CI.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                    }
+
+
+                    if (!string.IsNullOrEmpty(groupSetupModel.VOL_CI.ch_ProductCode))
+                    {
+                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                        {
+                            ProductCode = groupSetupModel.VOL_CI.ch_ProductCode,
+                            ProductId = prdid
+
+                        };
+                        groupSetupModel.VOL_CI.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                    }
 
                     var bulkAttrs = Helper.GetProperties(groupSetupModel.VOL_CI);
                     AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
@@ -397,6 +471,41 @@ namespace AFBA.EPP.Controllers
                         CrtdBy = CrtdBy
 
                     });
+
+                    if (!string.IsNullOrEmpty(groupSetupModel.FPPI.emp_ProductCode))
+                    {
+                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                        {
+                            ProductCode = groupSetupModel.FPPI.emp_ProductCode,
+                            ProductId = prdid
+
+                        };
+                        groupSetupModel.FPPI.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                    }
+
+
+                    if (!string.IsNullOrEmpty(groupSetupModel.FPPI.sp_ProductCode))
+                    {
+                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                        {
+                            ProductCode = groupSetupModel.FPPI.sp_ProductCode,
+                            ProductId = prdid
+
+                        };
+                        groupSetupModel.FPPI.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                    }
+
+
+                    if (!string.IsNullOrEmpty(groupSetupModel.FPPI.ch_ProductCode))
+                    {
+                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                        {
+                            ProductCode = groupSetupModel.FPPI.ch_ProductCode,
+                            ProductId = prdid
+
+                        };
+                        groupSetupModel.FPPI.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                    }
 
                     var bulkAttrs = Helper.GetProperties(groupSetupModel.FPPI);
                     AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);

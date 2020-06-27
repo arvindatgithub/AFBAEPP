@@ -24,12 +24,21 @@ namespace AFBA.EPP.ViewModels
         public string sp_ProductCode { get; set; }
         public string ch_ProductCode { get; set; }
 
-        public string emp_ProductCode_action { get; set; }
-        public string sp_ProductCode_action { get; set; }
-        public string ch_ProductCode_action { get; set; }
+       
         public string emp_ad_bnft { get; set; }
         public string emp_ad_bnft_action{ get; set; }
         public string sp_ad_bnft { get; set; }
-      
+
+
+        public string sp_plan_cd { get; set; }
+        public string emp_plan_cd { get; set; }
+        public string ch_plan_cd { get; set; }
+
+
+        public string emp_plan_cd_action { get; set; }
+        public string sp_plan_cd_action { get; set; }
+        public string ch_plan_cd_action { get; set; }
+
+
     }
 }

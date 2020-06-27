@@ -38,11 +38,6 @@ namespace AFBA.EPP.ViewModels
         public string owner_smkr_no_smkr_action{ get; set; }
         public string sp_smkr_no_smkr_action { get; set; }
 
-        public string emp_ProductCode_action { get; set; }
-        public string sp_ProductCode_action { get; set; }
-        public string ch_ProductCode_action { get; set; }
-
-
         public string effctv_dt_action { get; set; }
         public string grp_situs_state_action { get; set; }
 
@@ -53,6 +48,17 @@ namespace AFBA.EPP.ViewModels
         public string emp_max_amt_action { get; set; }
         public string sp_max_amt_action { get; set; }
 
-      
+
+        public string sp_plan_cd { get; set; }
+        public string emp_plan_cd { get; set; }
+        public string ch_plan_cd { get; set; }
+
+
+        public string emp_plan_cd_action { get; set; }
+        public string sp_plan_cd_action { get; set; }
+        public string ch_plan_cd_action { get; set; }
+
+
+
     }
 }
