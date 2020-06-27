@@ -7,7 +7,7 @@ namespace AFBA.EPP.ViewModels
 {
     public class ACC_HI:CommonViewModel
     {
-        public DateTime effctv_dt { get; set; }
+        public string effctv_dt { get; set; }
         public string grp_situs_state { get; set; }
         public string rate_lvl { get; set; }
 
