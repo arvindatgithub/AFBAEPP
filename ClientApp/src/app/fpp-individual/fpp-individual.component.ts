@@ -71,7 +71,7 @@ export class FPPIndividualComponent implements OnInit, OnChanges {
       FCfppiChildPlanCode:["", Validators.required],
 
     });
-    this.fppiformgrp.controls['FCfppSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
+    //this.fppiformgrp.controls['FCfppSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
   }
  
   onItemChange(value){

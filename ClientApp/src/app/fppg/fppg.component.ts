@@ -29,6 +29,8 @@ export class FPPGComponent implements OnInit, OnChanges {
   agentValue: string;
   latest_date;
   initial_SitusState;
+  emp_quality_of_life:any;
+  sp_quality_of_life:any;
 
   radioButtonArr=[
     {value:'10002',name:'Always Override'},
@@ -90,6 +92,22 @@ ngOnChanges(simpleChange:SimpleChanges){
     });
     //  this.fppgformgrp.controls['FCfppgSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
  
+  }
+
+  onQolChecked(event:any){
+    console.log("event",event);
+    if(event.checked){
+      this.emp_quality_of_life = "070";
+      this.sp_quality_of_life = "070";
+    }
+    else{
+      this.emp_quality_of_life = "";
+      this.sp_quality_of_life = "";
+    }
+  }
+
+  onWaiverChecked(event:any){
+    
   }
  
 
