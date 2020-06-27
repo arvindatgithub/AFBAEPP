@@ -98,8 +98,6 @@ namespace AFBA.EPP.Controllers
         {
             try
             {
-
-
                 var grpprdct = _unitofWork.GroupMasterRepository.Find(x => x.GrpNbr == groupSetupModel.GrpNbr || x.GrpNm == groupSetupModel.GrpNm).Result;
                 if (grpprdct.Count != 0) return BadRequest(" Group name or number already exist");
 
@@ -151,10 +149,6 @@ namespace AFBA.EPP.Controllers
                 {
                     var prdid = Helper.GetProductIdbyName("FPPG", _unitofWork);
                     var grpprdId = Helper.GetRandomNumber();
-
-               
-                   
-
 
                     _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
                     {
