@@ -114,30 +114,20 @@
           formControlName="FCempCIPlanCode_Action" />
         <label class="radio-label">Validate</label></div>
     </div>
-    <div class=" col-4">
-      <span class="label label-default">Plan Code Manual Entry </span>
-      <input type="text" class="form-control mb-2 " formControlName="FCempCIPlanCode" style="width: 100%;" placeholder="Plan Code ">
+    <div class=" col-3">
+      <span class="label label-default">Employee Plan Code </span>
+      <input type="text" class="form-control mb-2 " formControlName="FCempCIEMPPlanCode" style="width: 100%;" placeholder="Plan Code ">
     </div>
-    <div class="radio-button">
-      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-          formControlName="FCempCIPlanCode_Action" />
-        <label class="radio-label"> Always Override</label></div>
-      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-          value="Update if Blank" formControlName="FCempCIPlanCode_Action" />
-        <label class="radio-label">Update if Blank</label></div>
-      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-          formControlName="FCempCIPlanCode_Action" />
-        <label class="radio-label">Validate</label></div>
-    </div>
-    <div class="col-4">
-      <span class="label label-default">Plan Code Manual Entry</span>
-      <input type="text" class="form-control mb-2 " formControlName="FCempCIChdFcAmt" style="width: 100%;" placeholder="Employee Standard Face Amount">
-    </div>
-<!-- 
+   
     <div class="col-3">
-      <span class="label label-default">Plan Code Manual Entry</span>
+      <span class="label label-default"> Spouse Plan Code</span>
+      <input type="text" class="form-control mb-2 " formControlName="FCempCISpouseFcAmt" style="width: 100%;" placeholder="Employee Standard Face Amount">
+    </div>
+
+    <div class="col-3">
+      <span class="label label-default"> Child Plan Code</span>
       <input type="text" class="form-control mb-2 " formControlName="FCempCIChdFcAmt" style="width: 100%;" placeholder="Child Standard Face Amount">
-    </div> -->
+    </div>
   </div>
  
   <div class="mt-4">

@@ -52,7 +52,7 @@ export class AccidentComponent implements OnInit,OnChanges {
       FCaccRateLevel_Action: ["10001",Validators.required],
 
     });
-    this.accformgrp.controls['FCaccSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
+    //this.accformgrp.controls['FCaccSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
   }
  
  
