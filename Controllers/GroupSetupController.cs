@@ -707,9 +707,9 @@ namespace AFBA.EPP.Controllers
                         eppBulkRefTbl.AttrId = eppAttribute.AttrId;
                         eppBulkRefTbl.Value = prop.PropertyValue;
                         eppBulkRefTbl.CrtdBy = "";
-
+                        bulkRefTbls.Add(eppBulkRefTbl);
                     }
-                    bulkRefTbls.Add(eppBulkRefTbl);
+                    
 
 
                 }
