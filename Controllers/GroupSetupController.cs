@@ -179,10 +179,11 @@ namespace AFBA.EPP.Controllers
                         _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
                         {
 
+                            GrpprdctId = grpprdId,
                             AcctMgrCntctId = rndNo,
                             EmailAddress = groupSetupModel.EmailAddress,
                             AcctMgrNm = groupSetupModel.AcctMgrNm,
-                            CrdtBy = CrtdBy
+                            CrdtBy = CrtdBy,
                         });
                     }
 
@@ -208,10 +209,11 @@ namespace AFBA.EPP.Controllers
                         _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
                         {
 
+                            GrpprdctId = grpprdId,
                             AcctMgrCntctId = rndNo,
                             EmailAddress = groupSetupModel.EmailAddress,
                             AcctMgrNm = groupSetupModel.AcctMgrNm,
-                             CrdtBy = CrtdBy
+                            CrdtBy = CrtdBy,
                         });
                     }
 
@@ -244,10 +246,11 @@ namespace AFBA.EPP.Controllers
                         _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
                         {
 
+                            GrpprdctId = grpprdId,
                             AcctMgrCntctId = rndNo,
                             EmailAddress = groupSetupModel.EmailAddress,
                             AcctMgrNm = groupSetupModel.AcctMgrNm,
-                              CrdtBy = CrtdBy
+                            CrdtBy = CrtdBy,
                         });
                     }
 
@@ -279,10 +282,11 @@ namespace AFBA.EPP.Controllers
                         _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
                         {
 
+                            GrpprdctId = grpprdId,
                             AcctMgrCntctId = rndNo,
                             EmailAddress = groupSetupModel.EmailAddress,
                             AcctMgrNm = groupSetupModel.AcctMgrNm,
-                            CrdtBy = CrtdBy
+                            CrdtBy = CrtdBy,
                         });
                     }
 
@@ -308,10 +312,11 @@ namespace AFBA.EPP.Controllers
                         _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
                         {
 
+                            GrpprdctId = grpprdId,
                             AcctMgrCntctId = rndNo,
                             EmailAddress = groupSetupModel.EmailAddress,
                             AcctMgrNm = groupSetupModel.AcctMgrNm,
-                            CrdtBy = CrtdBy
+                            CrdtBy = CrtdBy,
                         });
                     }
 
@@ -328,6 +333,7 @@ namespace AFBA.EPP.Controllers
                     var grpprdId = Helper.GetRandomNumber();
                     _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
                     {
+
                         GrpprdctId = grpprdId,
                         GrpId = grpId,
                         ProductId = prdid,
