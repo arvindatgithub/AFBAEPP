@@ -39,7 +39,7 @@
     <div class="form-group col-md-3">
       <span class="label label-default">Group Name<span aria-hidden="true" class="required">*</span></span>
       <input type="text" class="form-control" name="grpname" ngModel #grpname="ngModel" [(ngModel)]="groupName"
-        style="width: 100%;" placeholder="Group Name Field" required onkeyup="this.value=this.value.replace(/[^a-zA-Z]/,'')">
+        style="width: 100%;" placeholder="Group Name Field" required>
       <div *ngIf="grpname.touched">
         <small *ngIf="grpname.errors?.required" style="color: red;">Group Name is required!</small>
       </div>
