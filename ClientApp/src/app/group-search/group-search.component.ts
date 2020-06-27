@@ -20,15 +20,16 @@ export class GroupSearchComponent implements OnInit {
   existingGrp: any;
   groups: any;
 
-  constructor(private router: Router, private groupSearchService: GroupsearchService) {
-    this.groupSearchService.getGroupsData().subscribe((data) => {
-      this.groups = data;
-      console.log(data);
-    });
+  constructor(private router: Router, private groupSearchService: GroupsearchService ) {
+    
   }
 
 
   ngOnInit() {
+    this.groupSearchService.getGroupsData().subscribe((data) => {
+      this.groups = data;
+      console.log(data);
+    });
   }
 
   onSearchChange(searchValue: string): void {
@@ -51,8 +52,15 @@ export class GroupSearchComponent implements OnInit {
     this.groupSearchResults = true;
   }
 
-  goToSetup() {
+  goToSetup(grpNbr) {
+    console.log('Existing Group Number-- go to set up screen '+ grpNbr);
+    this.groupSearchService.existingGrpNbrSelected(grpNbr);
     this.router.navigate(['/group-setup']);
+
+    // this.groupSearchService.getGroupNbrEppData(grpNbr).subscribe((data) => {
+    //   console.log('Group number epp data ' + JSON.stringify(data));
+      
+    // });
   }
 
   goToSearch() {
@@ -60,10 +68,10 @@ export class GroupSearchComponent implements OnInit {
     this.groupSearchResults = false;
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.groups.filter = filterValue.trim().toLowerCase();
-    console.log('filtered' +this.groups);
-  }
+  // applyFilter(event: Event) {
+  //   const filterValue = (event.target as HTMLInputElement).value;
+  //   this.groups.filter = filterValue.trim().toLowerCase();
+  //   console.log('filtered' +this.groups);
+  // }
 
 }

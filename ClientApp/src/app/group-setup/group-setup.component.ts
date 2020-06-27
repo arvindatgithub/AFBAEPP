@@ -16,6 +16,7 @@ import { EmployerPaidCIComponent } from '../employer-paid-ci/employer-paid-ci.co
 import { VoluntaryCIComponent } from '../voluntary-ci/voluntary-ci.component';
 import { VolGroupLifeComponent } from '../vol-group-life/vol-group-life.component';
 import { BasicGroupLifeComponent } from '../basic-group-life/basic-group-life.component'
+import { GroupsearchService } from '../services/groupsearch.service';
 
 @Component({
   selector: 'app-group-setup',
@@ -182,11 +183,24 @@ export class GroupSetupComponent implements OnInit {
   ]
 
   groupSetupFG: FormGroup;
+  groupsData: any;
+
   constructor(private eppcreategroupservice: EppCreateGrpSetupService, private _fb: FormBuilder,
-    private snackBar: MatSnackBar, private lookupService: LookupService) {
+    private snackBar: MatSnackBar, private lookupService: LookupService, private groupsearchService: GroupsearchService) {
   }
 
   ngOnInit() {
+    let existingSelectedGrpNbr: any;
+    this.groupsearchService.castGroupNumber.subscribe(data => {
+      existingSelectedGrpNbr = data; 
+      console.log("selected grp number from search "+ existingSelectedGrpNbr);
+    });
+
+    this.eppcreategroupservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
+      console.log('Groups Data on load from db'+ JSON.stringify(data));
+      this.groupsData = data;
+    });
+
 
     this.lookupService.getLookupsData()
       .subscribe((data: any) => {
@@ -199,11 +213,7 @@ export class GroupSetupComponent implements OnInit {
         //this.grpPymn = this.lookUpDataPaymentModes[5];
         this.grpSitusState = this.lookUpDataSitusStates[0].state;
       });
-    // this.eppcreategroupservice.myEppData.subscribe((data: any) => {
-    //   console.log("radio",data);
-    //   this.eppData = (data);
-
-    // });
+    
     this.lookupService.getPaymentMode().subscribe((data: any) => {
       this.paymentModes = data;
       this.paymentModes.forEach(element => {
@@ -212,13 +222,7 @@ export class GroupSetupComponent implements OnInit {
         }
       });
     });
-    // this.eppcreategroupservice.getepp().subscribe((data: any) => {
-    //   console.log("radioBUttonData",data)
-    //   this.eppgetwhole = data;
-    // }
-    // );
-
-
+    
 
     this.groupSetupFG = this._fb.group({
       fcEffDate: ["", Validators.required]
