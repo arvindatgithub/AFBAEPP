@@ -193,7 +193,7 @@ export class GroupSetupComponent implements OnInit {
     let existingSelectedGrpNbr: any;
     this.groupsearchService.castGroupNumber.subscribe(data => {
       existingSelectedGrpNbr = data; 
-      console.log("selected grp number from search "+ existingSelectedGrpNbr);
+      console.log("selected grp number from search "+ existingSelectedGrpNbr); 
     });
 
     this.eppcreategroupservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
