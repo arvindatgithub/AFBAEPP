@@ -16,14 +16,16 @@ namespace AFBA.EPP.Helpers
             var result= _unitofWork.eppProductCodesRepository.Find(x => x.ProductCode == planCodeViewModel.ProductCode && x.ProductId== planCodeViewModel.ProductId).Result.FirstOrDefault();
             if (result == null)
             {
+                planCodeViewModel.ProdctCdId = Helper.GetRandomNumber();
                 var data = new EppProductCodes
                 {
-                    ProdctCdId = Helper.GetRandomNumber(),
+                    ProdctCdId = planCodeViewModel.ProdctCdId,
                     ProductCode = planCodeViewModel.ProductCode,
                     ProductId = planCodeViewModel.ProductId,
                     CrtdBy = ""
                 };
                 _unitofWork.eppProductCodesRepository.Add(data);
+                
             }
             else
             {
