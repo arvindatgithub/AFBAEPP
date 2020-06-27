@@ -175,7 +175,7 @@ namespace AFBA.EPP.Controllers
                             ProductId= prdid
 
                         };
-                        groupSetupModel.FPPG.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId;
+                        groupSetupModel.FPPG.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
                     }
 
 
@@ -187,7 +187,7 @@ namespace AFBA.EPP.Controllers
                             ProductId = prdid
 
                         };
-                        groupSetupModel.FPPG.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId;
+                        groupSetupModel.FPPG.sp_plan_cd =DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
                     }
 
 
@@ -199,7 +199,7 @@ namespace AFBA.EPP.Controllers
                             ProductId = prdid
 
                         };
-                        groupSetupModel.FPPG.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId;
+                        groupSetupModel.FPPG.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
                     }
                    
                     // add bulkupdate 

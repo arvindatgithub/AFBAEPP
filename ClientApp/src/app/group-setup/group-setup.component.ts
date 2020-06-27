@@ -913,7 +913,10 @@ export class GroupSetupComponent implements OnInit {
         "sp_face_amt_mon_bnft": this.basicgrplifeComponent.basicGrpLfformgrp.value.SpouseFaceAmount,
         "effctv_dt_action": this.basicgrplifeComponent.basicGrpLfformgrp.value.FCbasicEffectiveDate_Action,
         "grp_situs_state_action": this.basicgrplifeComponent.basicGrpLfformgrp.value.FCbasicSitusState_Action,
-        "emp_face_amt_mon_bnft_action": this.basicgrplifeComponent.basicGrpLfformgrp.value.FCbasicEmpFcAmt.toString(),
+        "emp_face_amt_mon_bnft_action": this.basicgrplifeComponent.basicGrpLfformgrp.value.FCbasicEmpFcAmt_Action,
+        "sp_face_amt_mon_bnft_action": this.basicgrplifeComponent.basicGrpLfformgrp.value.FCbasicEmpFcAmt_Action,
+        "ch_face_amt_mon_bnft_01_action": this.basicgrplifeComponent.basicGrpLfformgrp.value.FCbasicEmpFcAmt_Action,
+
         agnt_cd_1: this.agentformgrp.get('AgentNumberBasicgrpLife').value,
         agnt_nm: this.agentformgrp.get('AgentNameBasicgrpLife').value,
         agnt_comm_split_1: parseInt(this.agentformgrp.get('CommissonSplitBasicgrpLife').value),
