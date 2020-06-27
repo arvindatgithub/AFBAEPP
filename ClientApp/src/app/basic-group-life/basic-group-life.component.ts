@@ -52,8 +52,8 @@ export class BasicGroupLifeComponent implements OnInit,OnChanges {
         FCbasicSitusState: [this.lookupValue,Validators.required],
         FCbasicEmpFcAmt_Action: [this.radioButtonArr[1].value,Validators.required],
         FCbasicEmpFcAmt: ["",Validators.required],
-        //FCbasicADDRider_Action: ["10001",Validators.required],
-        //FCbasicADDRider: ["",Validators.required],
+        SpouseFaceAmount: ["",Validators.required],
+        ChildFaceAmount: ["",Validators.required],
       });
       //this.basicGrpLfformgrp.controls['FCbasicSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
 
