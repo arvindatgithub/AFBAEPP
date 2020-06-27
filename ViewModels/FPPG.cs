@@ -21,9 +21,9 @@ namespace AFBA.EPP.ViewModels
 
 
 
-        public string emp_ProductCode { get; set; }
-        public string sp_ProductCode { get; set; }
-        public string ch_ProductCode { get; set; }
+        //public string emp_ProductCode { get; set; }
+        //public string sp_ProductCode { get; set; }
+        //public string ch_ProductCode { get; set; }
 
         public string emp_waiver_of_prem { get; set; }
         public string sp_waiver_of_prem { get; set; }
@@ -37,9 +37,9 @@ namespace AFBA.EPP.ViewModels
         public string emp_quality_of_life_action { get; set; }
         public string sp_quality_of_life_action { get; set; }
 
-        public string emp_ProductCode_action { get; set; }
-        public string sp_ProductCode_action { get; set; }
-        public string ch_ProductCode_action { get; set; }
+        //public string emp_ProductCode_action { get; set; }
+        //public string sp_ProductCode_action { get; set; }
+        //public string ch_ProductCode_action { get; set; }
 
         public string emp_qi_max_amt { get; set; }
         public string sp_qi_max_amt { get; set; }

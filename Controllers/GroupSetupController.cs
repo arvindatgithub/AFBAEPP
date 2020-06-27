@@ -181,7 +181,8 @@ namespace AFBA.EPP.Controllers
 
                             AcctMgrCntctId = rndNo,
                             EmailAddress = groupSetupModel.EmailAddress,
-                            AcctMgrNm = groupSetupModel.AcctMgrNm
+                            AcctMgrNm = groupSetupModel.AcctMgrNm,
+                            CrdtBy = CrtdBy
                         });
                     }
 
@@ -209,7 +210,8 @@ namespace AFBA.EPP.Controllers
 
                             AcctMgrCntctId = rndNo,
                             EmailAddress = groupSetupModel.EmailAddress,
-                            AcctMgrNm = groupSetupModel.AcctMgrNm
+                            AcctMgrNm = groupSetupModel.AcctMgrNm,
+                             CrdtBy = CrtdBy
                         });
                     }
 
@@ -244,7 +246,8 @@ namespace AFBA.EPP.Controllers
 
                             AcctMgrCntctId = rndNo,
                             EmailAddress = groupSetupModel.EmailAddress,
-                            AcctMgrNm = groupSetupModel.AcctMgrNm
+                            AcctMgrNm = groupSetupModel.AcctMgrNm,
+                              CrdtBy = CrtdBy
                         });
                     }
 
@@ -278,7 +281,8 @@ namespace AFBA.EPP.Controllers
 
                             AcctMgrCntctId = rndNo,
                             EmailAddress = groupSetupModel.EmailAddress,
-                            AcctMgrNm = groupSetupModel.AcctMgrNm
+                            AcctMgrNm = groupSetupModel.AcctMgrNm,
+                            CrdtBy = CrtdBy
                         });
                     }
 
@@ -306,7 +310,8 @@ namespace AFBA.EPP.Controllers
 
                             AcctMgrCntctId = rndNo,
                             EmailAddress = groupSetupModel.EmailAddress,
-                            AcctMgrNm = groupSetupModel.AcctMgrNm
+                            AcctMgrNm = groupSetupModel.AcctMgrNm,
+                            CrdtBy = CrtdBy
                         });
                     }
 
@@ -372,7 +377,8 @@ namespace AFBA.EPP.Controllers
 
                             AcctMgrCntctId = rndNo,
                             EmailAddress = groupSetupModel.EmailAddress,
-                            AcctMgrNm = groupSetupModel.AcctMgrNm
+                            AcctMgrNm = groupSetupModel.AcctMgrNm,
+                            CrdtBy = CrtdBy
                         });
                     }
 
