@@ -23,6 +23,7 @@ namespace AFBA.EPP.Helpers
                     ProductId = planCodeViewModel.ProductId,
                     CrtdBy = ""
                 };
+                _unitofWork.eppProductCodesRepository.Add(data);
             }
             else
             {

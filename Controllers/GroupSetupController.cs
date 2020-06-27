@@ -167,7 +167,7 @@ namespace AFBA.EPP.Controllers
 
 
                     // add Product code
-                    if (string.IsNullOrEmpty(groupSetupModel.FPPG.emp_ProductCode))
+                    if (!string.IsNullOrEmpty(groupSetupModel.FPPG.emp_ProductCode))
                     {
                         PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
                         {
@@ -179,7 +179,7 @@ namespace AFBA.EPP.Controllers
                     }
 
 
-                    if (string.IsNullOrEmpty(groupSetupModel.FPPG.sp_ProductCode))
+                    if (!string.IsNullOrEmpty(groupSetupModel.FPPG.sp_ProductCode))
                     {
                         PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
                         {
@@ -191,7 +191,7 @@ namespace AFBA.EPP.Controllers
                     }
 
 
-                    if (string.IsNullOrEmpty(groupSetupModel.FPPG.ch_ProductCode))
+                    if (!string.IsNullOrEmpty(groupSetupModel.FPPG.ch_ProductCode))
                     {
                         PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
                         {
@@ -199,7 +199,7 @@ namespace AFBA.EPP.Controllers
                             ProductId = prdid
 
                         };
-                        groupSetupModel.FPPG.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId;
+                        groupSetupModel.FPPG.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId;
                     }
                    
                     // add bulkupdate 
