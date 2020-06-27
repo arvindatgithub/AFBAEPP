@@ -64,7 +64,7 @@ export class GroupSetupComponent implements OnInit {
   groupNumber: string = "";
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
   position = new FormControl(this.positionOptions[0]);
-  public minDate = new Date().toISOString().slice(0, 10);
+  public minDate;
   dateChange;
   fppg: any;
   hospitalIndemity: any;
@@ -143,7 +143,7 @@ export class GroupSetupComponent implements OnInit {
     id: 15
   },
   ]
-  occupationArray: any = [];
+  occupationArray: any ;
   grpSitusState: string = "";
   EnrolmentPatnerName: string = "";
   EnrolEmailAddress: string = "";
@@ -199,28 +199,42 @@ export class GroupSetupComponent implements OnInit {
     this.eppcreategroupservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
       console.log('Groups Data on load from db'+ JSON.stringify(data));
       this.groupsData = data;
+      //Setting Initial Values for Group Section
+      this.groupNumber = this.groupsData.grpNbr;
+      this.groupName = this.groupsData.grpNm;
+      this.minDate = this.groupsData.grpEfftvDt.slice(0, 10);
+      this.grpPymn = this.groupsData.grpPymn;
+      this.EnrolmentPatnerName = this.groupsData.enrlmntPrtnrsNm;
+      this.EnrolEmailAddress = this.groupsData.emlAddrss;
+      this.occupationArray = this.groupsData.occClass;
+      this.ManegerName = this.groupsData.acctMgrNm;
+      this.ManagerEmail = this.groupsData.emailAddress;
+      this.lookUpDataSitusStates[0].state = this.groupsData.grpSitusSt;
+
     });
 
+    this.occupationArray = this.occClass[0].occupation;
+    console.log('occ class' + this.occupationArray);
 
     this.lookupService.getLookupsData()
       .subscribe((data: any) => {
         this.isLoading = true;
 
-        this.lookUpDataPaymentModes = (data.paymentMode.map((payment) => {
-          return payment.formattedData;
-        }));
-        this.lookUpDataSitusStates = (data.situsState);
-        //this.grpPymn = this.lookUpDataPaymentModes[5];
-        this.grpSitusState = this.lookUpDataSitusStates[0].state;
+        if(this.lookUpDataSitusStates.length==0){
+          this.lookUpDataSitusStates = (data.situsState);
+          this.grpSitusState = this.lookUpDataSitusStates[0].state;
+        }
       });
     
     this.lookupService.getPaymentMode().subscribe((data: any) => {
       this.paymentModes = data;
-      this.paymentModes.forEach(element => {
-        if (element.grpPymntMdCd == 12) {
-          this.grpPymn = element.grpPymn;
-        }
-      });
+      if(this.grpPymn ==''){
+        this.paymentModes.forEach(element => {
+          if (element.grpPymntMdCd == 12) {
+            this.grpPymn = element.grpPymn;
+          }
+        });
+      }
     });
     
 
