@@ -459,9 +459,9 @@ namespace AFBA.EPP.Controllers
                     }
 
                     groupSetupModel.GrpEfftvDt = GrpMaster.GrpEfftvDt;
-                    groupSetupModel.GrpPymn = groupSetupModel.GrpPymn;
-                    groupSetupModel.GrpSitusSt = groupSetupModel.GrpSitusSt;
-                    groupSetupModel.OccClass = groupSetupModel.OccClass;
+                    groupSetupModel.GrpPymn = GrpMaster.GrpPymn;
+                    groupSetupModel.GrpSitusSt = GrpMaster.GrpSitusSt;
+                    groupSetupModel.OccClass = GrpMaster.OccClass;
 
                     // Load Product Master
 
