@@ -85,7 +85,7 @@ ngOnChanges(simpleChange:SimpleChanges){
       FCfppgSitusState_Action:  [this.radioButtonArr[1].value, Validators.required],
       FCfppgEmpAmtMax_Action: [this.radioButtonArr[1].value, Validators.required],
       FCfppgSpouseAmtMax_Action: [this.radioButtonArr[1].value, Validators.required],
-      FCfppgOpenEnrollGI_Action: [this.radioButtonArr[1].value, Validators.required],
+      // FCfppgOpenEnrollGI_Action: [this.radioButtonArr[1].value, Validators.required],
       FCfppgPlanCodeManualEntry_Action: [this.radioButtonArr[1].value, Validators.required],
       FCfppgQolRiders_Action: [this.radioButtonArr[1].value, Validators.required],
       FCfppgWaiver_Action: [this.radioButtonArr[1].value, Validators.required],
