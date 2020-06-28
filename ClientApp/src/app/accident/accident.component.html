@@ -8,11 +8,11 @@
       <div class="col-3">
         <span class="label label-default">Accident Effective Date</span>   
         <input type="date"  [min]="minDate" formControlName="FCaccEffectiveDate" [(ngModel)]="minDate" class="form-control mb-2 " style="width: 100%;"
-          placeholder="Group Effective Date">   FCaccSitusState_Action
+          placeholder="Group Effective Date">  
   
       </div>
       <div class="radio-button">
-        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName=" FCaccSitusState_Action" />
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCaccSitusState_Action" />
           <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-3">
@@ -30,7 +30,7 @@
     </div>
     <div class="row pb-2 " style="justify-content:space-evenly;">
       <div class="radio-button">
-        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName=" FCaccOnOff_Action" />
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCaccOnOff_Action" />
           <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-4">
@@ -44,7 +44,7 @@
           <option selected>On and off the job</option>
           <option> Off the job only</option>
           <option>Both</option>
-        </select> -->         FCaccRateLevel_Action
+        </select> -->
       
       </div>
       <div class="radio-button">

@@ -53,7 +53,7 @@ export class AccidentComponent implements OnInit,OnChanges {
       console.log("data", data);
       this.lookUpDataSitusStates = data.situsState;
        this.latest_dateaccident = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
-    });
+    }); 
     this.accformgrp = this.fb.group({
       FCaccSitusState_Action: [this.radioButtonArr[1].value,Validators.required],
       FCaccSitusState: [this.lookupValue,Validators.required],
