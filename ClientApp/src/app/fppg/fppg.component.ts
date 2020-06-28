@@ -13,7 +13,7 @@ import { DatePipe } from '@angular/common';
 })
 export class FPPGComponent implements OnInit, OnChanges {
 
-  fppgformgrp: FormGroup;
+  // fppgformgrp: FormGroup;
   @Input() lookupValue: any;
   @Input() dateValue: any;
   @ViewChild('effDate',{static:false}) radiobutton:ElementRef;
@@ -43,53 +43,57 @@ export class FPPGComponent implements OnInit, OnChanges {
     public datepipe: DatePipe ) { 
   }
 
+  fppgformgrp = this.fb.group({
+    FCfppgEffectiveDate: ["",Validators.required],
+    FCfppgSitusState: ["",Validators.required],
+    FCfppgEmpAmtMax: ["",Validators.required],
+    FCfppgEmpGIAmtMax: ["",Validators.required],
+    FCfppgEmpQIAmtMax: ["",Validators.required],
+    FCfppgSpouseGIAmtMax: ["",Validators.required],
+    FCfppgSpouseQIAmtMax: ["",Validators.required],
+    FCfppgSpouseMaxAmt: ["",Validators.required],
+    FCfppgOpenEnrollGI: ["",Validators.required],
+   
+    FCfppgEmpPlanCode: ["", Validators.required],
+    FCfppgSpousePlanCode: ["", Validators.required],
+    FCfppgChildPlanCode: ["", Validators.required],
+    
+    FCfppgQolRiders: ["",Validators.required],
+    FCfppgWaiver:["",Validators.required],
+    FCfppgEffectiveDate_Action: [this.radioButtonArr[1].value, Validators.required],
+    FCfppgSitusState_Action:  [this.radioButtonArr[1].value, Validators.required],
+    FCfppgEmpAmtMax_Action: [this.radioButtonArr[1].value, Validators.required],
+    FCfppgSpouseAmtMax_Action: [this.radioButtonArr[1].value, Validators.required],
+    FCfppgOpenEnrollGI_Action: [this.radioButtonArr[1].value, Validators.required],
+    FCfppgPlanCodeManualEntry_Action: [this.radioButtonArr[1].value, Validators.required],
+    FCfppgQolRiders_Action: [this.radioButtonArr[1].value, Validators.required],
+    FCfppgWaiver_Action: [this.radioButtonArr[1].value, Validators.required],
+  });
   
   get myForm() {
-    return this.fppgformgrp.get(['FCfppgSitusState','FCfppgEffectiveDate']);
+    return this.fppgformgrp.get('FCfppgSitusState');
   }
 
 ngOnChanges(simpleChange:SimpleChanges){
   console.log("simpleChange",simpleChange);
   this.latest_date = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+  this.myForm.setValue(this.lookupValue);
   
 }
 
   ngOnInit() {
+    
     this.lookupService.getLookupsData()
       .subscribe((data: any) => {
         this.isLoading = true;
         console.log("data", data);
         this.lookUpDataSitusStates = data.situsState;
+        this.myForm.setValue(this.lookUpDataSitusStates[0].state);
       });
   
       console.log("this.lookup", this.lookupValue);
 
-    this.fppgformgrp = this.fb.group({
-      FCfppgEffectiveDate: ["",Validators.required],
-      FCfppgSitusState: ["",Validators.required],
-      FCfppgEmpAmtMax: ["",Validators.required],
-      FCfppgEmpGIAmtMax: ["",Validators.required],
-      FCfppgEmpQIAmtMax: ["",Validators.required],
-      FCfppgSpouseGIAmtMax: ["",Validators.required],
-      FCfppgSpouseQIAmtMax: ["",Validators.required],
-      FCfppgSpouseMaxAmt: ["",Validators.required],
-      FCfppgOpenEnrollGI: ["",Validators.required],
-     
-      FCfppgEmpPlanCode: ["", Validators.required],
-      FCfppgSpousePlanCode: ["", Validators.required],
-      FCfppgChildPlanCode: ["", Validators.required],
-      
-      FCfppgQolRiders: ["",Validators.required],
-      FCfppgWaiver:["",Validators.required],
-      FCfppgEffectiveDate_Action: [this.radioButtonArr[1].value, Validators.required],
-      FCfppgSitusState_Action:  [this.radioButtonArr[1].value, Validators.required],
-      FCfppgEmpAmtMax_Action: [this.radioButtonArr[1].value, Validators.required],
-      FCfppgSpouseAmtMax_Action: [this.radioButtonArr[1].value, Validators.required],
-      FCfppgOpenEnrollGI_Action: [this.radioButtonArr[1].value, Validators.required],
-      FCfppgPlanCodeManualEntry_Action: [this.radioButtonArr[1].value, Validators.required],
-      FCfppgQolRiders_Action: [this.radioButtonArr[1].value, Validators.required],
-      FCfppgWaiver_Action: [this.radioButtonArr[1].value, Validators.required],
-    });
+   
     //  this.fppgformgrp.controls['FCfppgSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
  
   }

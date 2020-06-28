@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common';
 })
 export class AccidentComponent implements OnInit,OnChanges {
   //@ViewChild('agent',{static:false}) agentComponent: AgentSetupComponent;
-  accformgrp: FormGroup;
+  // accformgrp: FormGroup;
   @Input() lookupValue: any;
   @Input() dateValue: any;
   situsValue:string;
@@ -39,10 +39,24 @@ export class AccidentComponent implements OnInit,OnChanges {
 
   constructor(private lookupService: LookupService, private fb:FormBuilder, public datepipe: DatePipe) { }
 
+  accformgrp = this.fb.group({
+    FCaccSitusState_Action: [this.radioButtonArr[1].value,Validators.required],
+    FCaccSitusState: ["",Validators.required],
+    FCaccEffectiveDate: ["",Validators.required],
+    FCaccEffectiveDate_Action: [this.radioButtonArr[1].value,Validators.required],
+    FCaccOnOff: ["",Validators.required],
+    FCaccOnOff_Action: [this.radioButtonArr[1].value,Validators.required],
+    FCaccRateLevel: ["",Validators.required],
+    FCaccRateLevel_Action: [this.radioButtonArr[1].value,Validators.required],
 
+  });
+  get myForm() {
+    return this.accformgrp.get('FCaccSitusState');
+  }
   ngOnChanges(){
    
     this.latest_dateaccident = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+    this.myForm.setValue(this.lookupValue);
   }
 
 
@@ -52,24 +66,12 @@ export class AccidentComponent implements OnInit,OnChanges {
       this.isLoading = true;
       console.log("data", data);
       this.lookUpDataSitusStates = data.situsState;
+      this.myForm.setValue(this.lookUpDataSitusStates[0].state);
        this.latest_dateaccident = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
     }); 
-    this.accformgrp = this.fb.group({
-      FCaccSitusState_Action: [this.radioButtonArr[1].value,Validators.required],
-      FCaccSitusState: [this.lookupValue,Validators.required],
-      FCaccEffectiveDate: ["",Validators.required],
-      FCaccEffectiveDate_Action: [this.radioButtonArr[1].value,Validators.required],
-      FCaccOnOff: ["",Validators.required],
-      FCaccOnOff_Action: [this.radioButtonArr[1].value,Validators.required],
-      FCaccRateLevel: ["",Validators.required],
-      FCaccRateLevel_Action: [this.radioButtonArr[1].value,Validators.required],
-
-    });
+   
     this.accformgrp.controls['FCaccOnOff'].setValue( this.jobs[0].abbrev, {onlySelf: true}); 
-    //this.accformgrp.controls['FCaccSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
   }
  
-  get myForm() {
-    return this.accformgrp.get(['FCaccEffectiveDate']);
-  }
+  
 }

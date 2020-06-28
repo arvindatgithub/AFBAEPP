@@ -183,6 +183,7 @@ export class GroupSetupComponent implements OnInit {
   ]
 
   groupSetupFG: FormGroup;
+  groupSetupOCC: FormGroup;
   groupsData: any;
 
   constructor(private eppcreategroupservice: EppCreateGrpSetupService, private _fb: FormBuilder,
@@ -209,7 +210,7 @@ export class GroupSetupComponent implements OnInit {
       this.occupationArray = this.groupsData.occClass;
       this.ManegerName = this.groupsData.acctMgrNm;
       this.ManagerEmail = this.groupsData.emailAddress;
-      this.lookUpDataSitusStates[0].state = this.groupsData.grpSitusSt;
+      // this.lookUpDataSitusStates[0].state = this.groupsData.grpSitusSt;
 
     });
 
@@ -239,7 +240,13 @@ export class GroupSetupComponent implements OnInit {
     
 
     this.groupSetupFG = this._fb.group({
-      fcEffDate: ["", Validators.required]
+      fcEffDate: ["", Validators.required],
+      FCOccControl: ["", Validators.required]
+    })
+
+    this.groupSetupOCC = this._fb.group({
+      
+      FCOccControl: ["", Validators.required]
     })
 
     this.agentformgrp = this._fb.group({
@@ -461,18 +468,19 @@ export class GroupSetupComponent implements OnInit {
     if (event.checked && this.isChecked) {
       this.checkedToggle = "Active";
       this.isChecked = event.checked;
+      event.stopPropagation();
 
     }
     else {
       this.checkedToggle = "Inactive";
       this.isChecked = event.checked;
-
+      event.stopPropagation();
     }
 
   }
 
   toggleChangeProductFppg(event: any) {
-
+    console.log("event",event);
     if (event.checked) {
       this.checkedToggleProductFppg = "Active";
       this.isCheckedFppg = event.checked;
@@ -634,13 +642,13 @@ export class GroupSetupComponent implements OnInit {
     let body = {
 
       "grpId": 0,
-      "grpNbr": this.groupNumber.toString(),
+      "grpNbr": this.groupNumber,
       "grpNm": this.groupName,
       "grpEfftvDt": (new Date(this.groupSetupFG.get('fcEffDate').value)).toISOString(),
       "grpSitusSt": this.grpSitusState,
       // "actvFlg": "false",
       "actvFlg": this.isChecked.toString(),
-      "occClass": parseInt(this.occupationArray),
+      "occClass": parseInt(this.groupSetupOCC.get('FCOccControl').value),
       "grpPymn": parseInt(this.grpPymn),
       "enrlmntPrtnrsId": 0,
       "enrlmntPrtnrsNm": this.EnrolmentPatnerName,

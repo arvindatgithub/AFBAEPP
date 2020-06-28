@@ -92,11 +92,19 @@
         <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCVolGrpLfPlanCodeManualEntry_Action" />
           <label class="radio-label"> {{item.name}}</label></div>
       </div>
-      <div class="col-4">
-        <span class="label label-default">Plan code manual Entry</span>
-        <input type="text" class="form-control mb-2 "  formControlName="FCVolGrpLfPlanCodeManualEntry" style="width: 100%;" placeholder="Plan code manual Entry">
+      <div class="col-3">
+        <span class="label label-default">Employee Plan code</span>
+        <input type="text" class="form-control mb-2 "  formControlName="FCVolGrpLfEmployeePlanCode" style="width: 100%;" placeholder="Employee Plan code">
+      </div>
+      <div class="col-3">
+        <span class="label label-default">Spouse Plan code</span>
+        <input type="text" class="form-control mb-2 "  formControlName="FCVolGrpLfSpousePlanCode" style="width: 100%;" placeholder="Spouse Plan code ">
       </div>
 
+      <div class="col-3">
+        <span class="label label-default">Child Plan code</span>
+        <input type="text" class="form-control mb-2 "  formControlName="FCVolGrpLfChildPlanCode" style="width: 100%;" placeholder="Child Plan code ">
+      </div>
     </div>
 
     <div class="row mt-2" style="justify-content:space-evenly;">

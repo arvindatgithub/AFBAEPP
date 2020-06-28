@@ -9,7 +9,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./vol-group-life.component.css']
 })
 export class VolGroupLifeComponent implements OnInit,OnChanges {
-  volGrpLfformgrp: FormGroup;
+  // volGrpLfformgrp: FormGroup;
   @Input() lookupValue: any;
   @Input() dateValue: any;
   situsValue:string;
@@ -30,10 +30,36 @@ export class VolGroupLifeComponent implements OnInit,OnChanges {
 
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe) { }
 
-
+  volGrpLfformgrp = this.fb.group({
+    FCVolGrpLfEffectiveDate: [this.dateValue,Validators.required],
+    FCVolGrpLfEffectiveDate_Action: [this.radioButtonArr[1].value,Validators.required],
+    FCVolGrpLfSitusState_Action: [this.radioButtonArr[1].value,Validators.required],
+    FCVolGrpLfSitusState: [this.lookupValue,Validators.required],
+    FCVolGrpLfEmpAmtMax_Action: [this.radioButtonArr[1].value,Validators.required],
+    FCVolGrpLfEmpGIAmtMax: ["",Validators.required],
+    FCVolGrpLfEmpAmtMax: ["",Validators.required],
+    FCVolGrpLfSpouseAmtMax_Action: [this.radioButtonArr[1].value,Validators.required],
+    FCVolGrpLfSpouseGIAmtMax: ["",Validators.required],
+    FCVolGrpLfSpouseMaxAmt: ["",Validators.required],
+    FCVolGrpLfOpenEnrollGI_Action: [this.radioButtonArr[1].value,Validators.required],
+    FCVolGrpLfOpenEnrollGI: ["",Validators.required],
+    FCVolGrpLfPlanCodeManualEntry_Action: [this.radioButtonArr[1].value,Validators.required],
+    // FCVolGrpLfPlanCodeManualEntry: ["",Validators.required],
+    FCVolGrpLfEmployeePlanCode: ["",Validators.required],
+    FCVolGrpLfSpousePlanCode: ["",Validators.required],
+    FCVolGrpLfChildPlanCode: ["",Validators.required],
+    FCVolGrpLfUserToken_Action: [this.radioButtonArr[1].value,Validators.required],
+    FCVolGrpLfUserToken: ["",Validators.required],
+    FCVolGrpLfCaseToken_Action: [this.radioButtonArr[1].value,Validators.required],
+    FCVolGrpLfCaseToken: ["",Validators.required],
+  });
+  get myForm() {
+    return this.volGrpLfformgrp.get('FCVolGrpLfSitusState');
+  }
   ngOnChanges(){
    
     this.latest_datevolgrplife = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+    this.myForm.setValue(this.lookupValue);
   }
 
   ngOnInit() {
@@ -42,28 +68,10 @@ export class VolGroupLifeComponent implements OnInit,OnChanges {
       this.isLoading = true;
       console.log("data", data);
       this.lookUpDataSitusStates = data.situsState;
+      this.myForm.setValue(this.lookUpDataSitusStates[0].state);
      
     });
-    this.volGrpLfformgrp = this.fb.group({
-      FCVolGrpLfEffectiveDate: [this.dateValue,Validators.required],
-      FCVolGrpLfEffectiveDate_Action: [this.radioButtonArr[1].value,Validators.required],
-      FCVolGrpLfSitusState_Action: [this.radioButtonArr[1].value,Validators.required],
-      FCVolGrpLfSitusState: [this.lookupValue,Validators.required],
-      FCVolGrpLfEmpAmtMax_Action: [this.radioButtonArr[1].value,Validators.required],
-      FCVolGrpLfEmpGIAmtMax: ["",Validators.required],
-      FCVolGrpLfEmpAmtMax: ["",Validators.required],
-      FCVolGrpLfSpouseAmtMax_Action: [this.radioButtonArr[1].value,Validators.required],
-      FCVolGrpLfSpouseGIAmtMax: ["",Validators.required],
-      FCVolGrpLfSpouseMaxAmt: ["",Validators.required],
-      FCVolGrpLfOpenEnrollGI_Action: [this.radioButtonArr[1].value,Validators.required],
-      FCVolGrpLfOpenEnrollGI: ["",Validators.required],
-      FCVolGrpLfPlanCodeManualEntry_Action: [this.radioButtonArr[1].value,Validators.required],
-      FCVolGrpLfPlanCodeManualEntry: ["",Validators.required],
-      FCVolGrpLfUserToken_Action: [this.radioButtonArr[1].value,Validators.required],
-      FCVolGrpLfUserToken: ["",Validators.required],
-      FCVolGrpLfCaseToken_Action: [this.radioButtonArr[1].value,Validators.required],
-      FCVolGrpLfCaseToken: ["",Validators.required],
-    });
+    
  
     
   }
