@@ -48,7 +48,7 @@
       <div class="col-4">
         <span class="label">On or Off the Job</span>
         <select  class="form-control" formControlName="FCaccOnOff">
-          <option *ngFor="let job of jobs" [ngValue]="job.name">
+          <option *ngFor="let job of jobs" [ngValue]="job.abbrev"> 
             {{ job.name }}
           </option>
         </select>
@@ -73,7 +73,7 @@
           Accident Rate Level
         </span>
         <select  class="form-control" formControlName="FCaccRateLevel">
-          <option *ngFor="let names of Rate" [ngValue]="names.name">
+          <option *ngFor="let names of Rate" [ngValue]="names.abb">
             {{ names.name }}
           </option>
         </select>

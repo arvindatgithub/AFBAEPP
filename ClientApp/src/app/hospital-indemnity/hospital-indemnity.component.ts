@@ -50,9 +50,9 @@ export class HospitalIndemnityComponent implements OnInit,OnChanges {
   // }
 
   this.hospformgrp = this.fb.group({
-    FChospEffectiveDate: [this.dateValue,Validators.required],
+    FChospEffectiveDate: ["",Validators.required],
     FChospEffectiveDate_Action: [this.radioButtonArr[1].value,Validators.required],
-    FChospSitusState: [this.lookupValue,Validators.required],
+    FChospSitusState: ["",Validators.required],
     FChospSitusState_Action: [this.radioButtonArr[1].value,Validators.required],
   })
 }

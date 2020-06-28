@@ -24,13 +24,13 @@ export class AccidentComponent implements OnInit,OnChanges {
   public minDate = new Date().toISOString().slice(0,10);
   latest_date;
 
-  jobs =  [{name: 'On the job only ', abbrev: 'on'},
-  {name: 'off the job only', abbrev: 'off'},
-  {name: 'both', abbrev: 'both'}];
+  jobs =  [{name: 'On the Job Only', abbrev: 'on'},
+  {name: 'Off the Job Only', abbrev: 'off'},
+  {name: 'both', abbrev: 'noupdate'}];
 
-  Rate =  [{name: '1'},
-  {name: '2'},
-  {name: '3'}];
+  Rate =  [{name: '1', abb: '1'},
+  {name: '2', abb: '2'},
+  {name: '3', abb: '3'}];
  // FCaccOnOff
 
   constructor(private lookupService: LookupService, private fb:FormBuilder, public datepipe: DatePipe) { }
