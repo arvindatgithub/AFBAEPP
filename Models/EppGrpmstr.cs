@@ -16,8 +16,8 @@ namespace AFBA.EPP.Models
         public DateTime GrpEfftvDt { get; set; }
         public string GrpSitusSt { get; set; }
         public char? ActvFlg { get; set; }
-        public int? OccClass { get; set; }
-        public int GrpPymn { get; set; }
+        public long? OccClass { get; set; }
+        public long GrpPymn { get; set; }
         public decimal? NewOpnEnrlmntPrd { get; set; }
         public char? PerpetualEnrlmntFlg { get; set; }
         public long EnrlmntPrtnrsId { get; set; }
@@ -27,7 +27,7 @@ namespace AFBA.EPP.Models
         public string LstUpdtBy { get; set; }
 
         public virtual EppEnrlmntPrtnrs EnrlmntPrtnrs { get; set; }
-        public virtual GeppGrppymntmd GrpPymnNavigation { get; set; }
+        public virtual EppGrppymntmd GrpPymnNavigation { get; set; }
         public virtual ICollection<EppGrpprdct> EppGrpprdct { get; set; }
     }
 }

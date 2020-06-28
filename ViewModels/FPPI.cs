@@ -10,7 +10,7 @@ namespace AFBA.EPP.ViewModels
     {
 
         
-        public DateTime effctv_dt { get; set; }
+        public string effctv_dt { get; set; }
         public string grp_situs_state { get; set; }
 
      
@@ -54,9 +54,7 @@ namespace AFBA.EPP.ViewModels
         public string emp_quality_of_life_action { get; set; }
         public string sp_quality_of_life_action { get; set; }
 
-        public string emp_ProductCode_action { get; set; }
-        public string sp_ProductCode_action { get; set; }
-        public string ch_ProductCode_action { get; set; }
+        
         public string emp_gi_max_amt_action { get; set; }
         public string sp_gi_max_amt_action { get; set; }
         public string emp_qi_max_amt_action { get; set; }
@@ -65,6 +63,17 @@ namespace AFBA.EPP.ViewModels
         public string sp_max_amt_action { get; set; }
 
 
-       
+        public string sp_plan_cd { get; set; }
+        public string emp_plan_cd { get; set; }
+        public string ch_plan_cd { get; set; }
+
+
+        public string emp_plan_cd_action { get; set; }
+        public string sp_plan_cd_action { get; set; }
+        public string ch_plan_cd_action { get; set; }
+
+
+
+
     }
 }

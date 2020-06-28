@@ -10,7 +10,7 @@ namespace AFBA.EPP.ViewModels
     {
 
 
-        public DateTime effctv_dt { get; set; }
+        public string effctv_dt { get; set; }
         
         public string grp_situs_state { get; set; }
         
@@ -32,9 +32,9 @@ namespace AFBA.EPP.ViewModels
         public string emp_quality_of_life_action { get; set; }
         public string sp_quality_of_life_action { get; set; }
 
-        public long sp_plan_cd { get; set; }
-        public long emp_plan_cd { get; set; }
-        public long ch_plan_cd { get; set; }
+        public string sp_plan_cd { get; set; }
+        public string emp_plan_cd { get; set; }
+        public string ch_plan_cd { get; set; }
 
 
         public string emp_plan_cd_action { get; set; }

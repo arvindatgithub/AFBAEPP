@@ -86,7 +86,7 @@
       <div>
         <span class="label label-default">Occupation Class<span aria-hidden="true" class="required">*</span></span>
         <select class="select-dropdown" #occClas (change)="occClassChange(occClas.value)"
-          [value]="occClass[0].occupation">
+          [value]="occClass[0].occupation" [(ngModel)]="occupationArray">
           <!-- <option selected>Select Occupation Class</option> -->
           <!-- <option value="1">Occ Class</option> -->
           <option *ngFor="let item of occClass">{{item.occupation}}</option>

@@ -14,6 +14,7 @@ namespace AFBA.EPP.Models
         public string FileNm { get; set; }
         public string PolcyNbr { get; set; }
         public string PrductCd { get; set; }
+        public string ProductName { get; set; }
         public string UsrTkn { get; set; }
         public string GrpNmbr { get; set; }
         public string GrpNm { get; set; }

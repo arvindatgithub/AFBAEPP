@@ -20,9 +20,16 @@ export class AccidentComponent implements OnInit,OnChanges {
   indeterminate = false;
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
-  latest_dateaccident
+  latest_dateaccident;
   public minDate = new Date().toISOString().slice(0,10);
   latest_date;
+
+  jobs =  [{name: 'On the job only ', abbrev: 'on'},
+  {name: 'off the job only', abbrev: 'off'},
+  {name: 'both', abbrev: 'both'}];
+
+
+ // FCaccOnOff
 
   constructor(private lookupService: LookupService, private fb:FormBuilder, public datepipe: DatePipe) { }
 
@@ -52,6 +59,7 @@ export class AccidentComponent implements OnInit,OnChanges {
       FCaccRateLevel_Action: ["10001",Validators.required],
 
     });
+    this.accformgrp.controls['FCaccOnOff'].setValue( this.jobs[0].abbrev, {onlySelf: true}); 
     //this.accformgrp.controls['FCaccSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
   }
  

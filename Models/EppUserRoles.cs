@@ -11,7 +11,7 @@ namespace AFBA.EPP.Models
         }
 
         public long UserRoleId { get; set; }
-        public int UserId { get; set; }
+        public string LoginId { get; set; }
         public string RoleCd { get; set; }
         public DateTime CrtdDt { get; set; }
         public string CrtdBy { get; set; }
@@ -19,7 +19,6 @@ namespace AFBA.EPP.Models
         public string LstUpdtBy { get; set; }
 
         public virtual EppRoles RoleCdNavigation { get; set; }
-        public virtual EppUsers User { get; set; }
         public virtual ICollection<EppUserRolesFunction> EppUserRolesFunction { get; set; }
     }
 }

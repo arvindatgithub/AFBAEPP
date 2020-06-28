@@ -98,8 +98,6 @@ namespace AFBA.EPP.Controllers
         {
             try
             {
-
-
                 var grpprdct = _unitofWork.GroupMasterRepository.Find(x => x.GrpNbr == groupSetupModel.GrpNbr || x.GrpNm == groupSetupModel.GrpNm).Result;
                 if (grpprdct.Count != 0) return BadRequest(" Group name or number already exist");
 
@@ -152,10 +150,6 @@ namespace AFBA.EPP.Controllers
                     var prdid = Helper.GetProductIdbyName("FPPG", _unitofWork);
                     var grpprdId = Helper.GetRandomNumber();
 
-               
-                   
-
-
                     _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
                     {
                         GrpprdctId = grpprdId,
@@ -175,7 +169,7 @@ namespace AFBA.EPP.Controllers
                             ProductId= prdid
 
                         };
-                        groupSetupModel.FPPG.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId;
+                        groupSetupModel.FPPG.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
                     }
 
 
@@ -187,7 +181,7 @@ namespace AFBA.EPP.Controllers
                             ProductId = prdid
 
                         };
-                        groupSetupModel.FPPG.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId;
+                        groupSetupModel.FPPG.sp_plan_cd =DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
                     }
 
 
@@ -199,7 +193,7 @@ namespace AFBA.EPP.Controllers
                             ProductId = prdid
 
                         };
-                        groupSetupModel.FPPG.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId;
+                        groupSetupModel.FPPG.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
                     }
                    
                     // add bulkupdate 
@@ -269,6 +263,43 @@ namespace AFBA.EPP.Controllers
                         CrtdBy = CrtdBy
 
                     });
+
+                    // add Product code
+                    if (!string.IsNullOrEmpty(groupSetupModel.ER_CI.emp_ProductCode))
+                    {
+                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                        {
+                            ProductCode = groupSetupModel.ER_CI.emp_ProductCode,
+                            ProductId = prdid
+
+                        };
+                        groupSetupModel.ER_CI.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                    }
+
+
+                    if (!string.IsNullOrEmpty(groupSetupModel.ER_CI.sp_ProductCode))
+                    {
+                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                        {
+                            ProductCode = groupSetupModel.ER_CI.sp_ProductCode,
+                            ProductId = prdid
+
+                        };
+                        groupSetupModel.ER_CI.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                    }
+
+
+                    if (!string.IsNullOrEmpty(groupSetupModel.ER_CI.ch_ProductCode))
+                    {
+                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                        {
+                            ProductCode = groupSetupModel.ER_CI.ch_ProductCode,
+                            ProductId = prdid
+
+                        };
+                        groupSetupModel.ER_CI.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                    }
+
                     var bulkAttrs = Helper.GetProperties(groupSetupModel.ER_CI);
                     AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
 
@@ -304,6 +335,43 @@ namespace AFBA.EPP.Controllers
                         CrtdBy = CrtdBy
 
                     });
+
+
+                    // add Product code
+                    if (!string.IsNullOrEmpty(groupSetupModel.VOL_CI.emp_ProductCode))
+                    {
+                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                        {
+                            ProductCode = groupSetupModel.VOL_CI.emp_ProductCode,
+                            ProductId = prdid
+
+                        };
+                        groupSetupModel.VOL_CI.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                    }
+
+
+                    if (!string.IsNullOrEmpty(groupSetupModel.VOL_CI.sp_ProductCode))
+                    {
+                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                        {
+                            ProductCode = groupSetupModel.VOL_CI.sp_ProductCode,
+                            ProductId = prdid
+
+                        };
+                        groupSetupModel.VOL_CI.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                    }
+
+
+                    if (!string.IsNullOrEmpty(groupSetupModel.VOL_CI.ch_ProductCode))
+                    {
+                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                        {
+                            ProductCode = groupSetupModel.VOL_CI.ch_ProductCode,
+                            ProductId = prdid
+
+                        };
+                        groupSetupModel.VOL_CI.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                    }
 
                     var bulkAttrs = Helper.GetProperties(groupSetupModel.VOL_CI);
                     AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
@@ -404,6 +472,41 @@ namespace AFBA.EPP.Controllers
 
                     });
 
+                    if (!string.IsNullOrEmpty(groupSetupModel.FPPI.emp_ProductCode))
+                    {
+                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                        {
+                            ProductCode = groupSetupModel.FPPI.emp_ProductCode,
+                            ProductId = prdid
+
+                        };
+                        groupSetupModel.FPPI.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                    }
+
+
+                    if (!string.IsNullOrEmpty(groupSetupModel.FPPI.sp_ProductCode))
+                    {
+                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                        {
+                            ProductCode = groupSetupModel.FPPI.sp_ProductCode,
+                            ProductId = prdid
+
+                        };
+                        groupSetupModel.FPPI.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                    }
+
+
+                    if (!string.IsNullOrEmpty(groupSetupModel.FPPI.ch_ProductCode))
+                    {
+                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                        {
+                            ProductCode = groupSetupModel.FPPI.ch_ProductCode,
+                            ProductId = prdid
+
+                        };
+                        groupSetupModel.FPPI.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                    }
+
                     var bulkAttrs = Helper.GetProperties(groupSetupModel.FPPI);
                     AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
 
@@ -459,9 +562,9 @@ namespace AFBA.EPP.Controllers
                     }
 
                     groupSetupModel.GrpEfftvDt = GrpMaster.GrpEfftvDt;
-                    groupSetupModel.GrpPymn = groupSetupModel.GrpPymn;
-                    groupSetupModel.GrpSitusSt = groupSetupModel.GrpSitusSt;
-                    groupSetupModel.OccClass = groupSetupModel.OccClass;
+                    groupSetupModel.GrpPymn = GrpMaster.GrpPymn;
+                    groupSetupModel.GrpSitusSt = GrpMaster.GrpSitusSt;
+                    groupSetupModel.OccClass = GrpMaster.OccClass;
 
                     // Load Product Master
 

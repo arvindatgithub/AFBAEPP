@@ -9,7 +9,7 @@ namespace AFBA.EPP.ViewModels
     {
 
        
-        public DateTime effctv_dt { get; set; }
+        public string effctv_dt { get; set; }
         public string grp_situs_state { get; set; }
 
         public string emp_gi_max_amt { get; set; }

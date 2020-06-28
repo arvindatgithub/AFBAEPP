@@ -5,7 +5,7 @@ using AFBA.EPP.Repositories.Interfaces;
 namespace AFBA.EPP.Repositories
 {
 
-    public class GeppGrppymntmdRepository : EPPRepository<GeppGrppymntmd>, IGeppGrppymntmdRepository
+    public class GeppGrppymntmdRepository : EPPRepository<EppGrppymntmd>, IGeppGrppymntmdRepository
     {
         private readonly EppAppDbContext _dbContext;
         public GeppGrppymntmdRepository(EppAppDbContext dbContext) : base(dbContext)

@@ -8,6 +8,8 @@ namespace AFBA.EPP.Models
         public long ProdctCdId { get; set; }
         public string ProductCode { get; set; }
         public long ProductId { get; set; }
+        public string Optn { get; set; }
+        public string Description { get; set; }
         public DateTime CrtdDt { get; set; }
         public string CrtdBy { get; set; }
         public DateTime? LstUpdtDt { get; set; }

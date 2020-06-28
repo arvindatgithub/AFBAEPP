@@ -64,7 +64,7 @@ export class GroupSetupComponent implements OnInit {
   groupNumber: string = "";
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
   position = new FormControl(this.positionOptions[0]);
-  public minDate = new Date().toISOString().slice(0, 10);
+  public minDate;
   dateChange;
   fppg: any;
   hospitalIndemity: any;
@@ -143,7 +143,7 @@ export class GroupSetupComponent implements OnInit {
     id: 15
   },
   ]
-  occupationArray: any = [];
+  occupationArray: any ;
   grpSitusState: string = "";
   EnrolmentPatnerName: string = "";
   EnrolEmailAddress: string = "";
@@ -199,28 +199,42 @@ export class GroupSetupComponent implements OnInit {
     this.eppcreategroupservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
       console.log('Groups Data on load from db'+ JSON.stringify(data));
       this.groupsData = data;
+      //Setting Initial Values for Group Section
+      this.groupNumber = this.groupsData.grpNbr;
+      this.groupName = this.groupsData.grpNm;
+      this.minDate = this.groupsData.grpEfftvDt.slice(0, 10);
+      this.grpPymn = this.groupsData.grpPymn;
+      this.EnrolmentPatnerName = this.groupsData.enrlmntPrtnrsNm;
+      this.EnrolEmailAddress = this.groupsData.emlAddrss;
+      this.occupationArray = this.groupsData.occClass;
+      this.ManegerName = this.groupsData.acctMgrNm;
+      this.ManagerEmail = this.groupsData.emailAddress;
+      this.lookUpDataSitusStates[0].state = this.groupsData.grpSitusSt;
+
     });
 
+    this.occupationArray = this.occClass[0].occupation;
+    console.log('occ class' + this.occupationArray);
 
     this.lookupService.getLookupsData()
       .subscribe((data: any) => {
         this.isLoading = true;
 
-        this.lookUpDataPaymentModes = (data.paymentMode.map((payment) => {
-          return payment.formattedData;
-        }));
-        this.lookUpDataSitusStates = (data.situsState);
-        //this.grpPymn = this.lookUpDataPaymentModes[5];
-        this.grpSitusState = this.lookUpDataSitusStates[0].state;
+        if(this.lookUpDataSitusStates.length==0){
+          this.lookUpDataSitusStates = (data.situsState);
+          this.grpSitusState = this.lookUpDataSitusStates[0].state;
+        }
       });
     
     this.lookupService.getPaymentMode().subscribe((data: any) => {
       this.paymentModes = data;
-      this.paymentModes.forEach(element => {
-        if (element.grpPymntMdCd == 12) {
-          this.grpPymn = element.grpPymn;
-        }
-      });
+      if(this.grpPymn ==''){
+        this.paymentModes.forEach(element => {
+          if (element.grpPymntMdCd == 12) {
+            this.grpPymn = element.grpPymn;
+          }
+        });
+      }
     });
     
 
@@ -670,16 +684,16 @@ export class GroupSetupComponent implements OnInit {
         sp_max_amt_action: this.fppgComponent.fppgformgrp.value.FCfppgSpouseAmtMax_Action,
         agnt_cd_1: this.agentformgrp.get('AgentNumber').value,
         agnt_nm: this.agentformgrp.get('AgentName').value,
-        agnt_comm_split_1: parseInt(this.agentformgrp.get('CommissonSplit').value),
+        agnt_comm_split_1: this.agentformgrp.get('CommissonSplit').value,
         agntsub_1: this.agentformgrp.get('AgentSubCount').value,
         agnt_cd_2: this.agentformgrp.get('AgentNumber1').value,
-        agnt_comm_split_2: parseInt(this.agentformgrp.get('CommissonSplit1').value),
+        agnt_comm_split_2: this.agentformgrp.get('CommissonSplit1').value,
         agntsub_2: this.agentformgrp.get('AgentSubCount1').value,
         agnt_cd_3: this.agentformgrp.get('AgentNumber2').value,
-        agnt_comm_split_3: parseInt(this.agentformgrp.get('CommissonSplit2').value),
+        agnt_comm_split_3: this.agentformgrp.get('CommissonSplit2').value,
         agntsub_3: this.agentformgrp.get('AgentSubCount2').value,
         agnt_cd_4: this.agentformgrp.get('AgentNumber3').value,
-        agnt_comm_split_4: parseInt(this.agentformgrp.get('CommissonSplit3').value),
+        agnt_comm_split_4: this.agentformgrp.get('CommissonSplit3').value,
         agntsub_4: this.agentformgrp.get('AgentSubCount3').value,
 
         agnt_cd_1_action: this.agentformgrp.get('fppgAgent_Action').value.toString(),
@@ -711,16 +725,16 @@ export class GroupSetupComponent implements OnInit {
         // "sp_smkr_no_smkr": this.accidentComponent.accformgrp.value.,
         agnt_cd_1: this.agentformgrp.get('AgentNumberaccident').value,
         agnt_nm: this.agentformgrp.get('AgentNameaccident').value,
-        agnt_comm_split_1: parseInt(this.agentformgrp.get('CommissonSplitaccident').value),
+        agnt_comm_split_1: this.agentformgrp.get('CommissonSplitaccident').value,
         agntsub_1: this.agentformgrp.get('AgentSubCountaccident').value,
         agnt_cd_2: this.agentformgrp.get('AgentNumber1accident').value,
-        agnt_comm_split_2: parseInt(this.agentformgrp.get('CommissonSplit1accident').value),
+        agnt_comm_split_2: this.agentformgrp.get('CommissonSplit1accident').value,
         agntsub_2: this.agentformgrp.get('AgentSubCount1accident').value,
         agnt_cd_3: this.agentformgrp.get('AgentNumber2accident').value,
-        agnt_comm_split_3: parseInt(this.agentformgrp.get('CommissonSplit2accident').value),
+        agnt_comm_split_3: this.agentformgrp.get('CommissonSplit2accident').value,
         agntsub_3: this.agentformgrp.get('AgentSubCount2accident').value,
         agnt_cd_4: this.agentformgrp.get('AgentNumber3accident').value,
-        agnt_comm_split_4: parseInt(this.agentformgrp.get('CommissonSplit3accident').value),
+        agnt_comm_split_4: this.agentformgrp.get('CommissonSplit3accident').value,
         agntsub_4: this.agentformgrp.get('AgentSubCount3accident').value,
         agnt_cd_1_action: this.agentformgrp.get('accAgent_Action').value.toString(),
         agnt_nm_action: this.agentformgrp.get('accAgent_Action').value.toString(),
@@ -758,16 +772,16 @@ export class GroupSetupComponent implements OnInit {
         "sp_ad_bnft":"",
         agnt_cd_1: this.agentformgrp.get('AgentNumberempPaidci').value,
         agnt_nm: this.agentformgrp.get('AgentNameempPaidci').value,
-        agnt_comm_split_1: parseInt(this.agentformgrp.get('CommissonSplitempPaidci').value),
+        agnt_comm_split_1: this.agentformgrp.get('CommissonSplitempPaidci').value,
         agntsub_1: this.agentformgrp.get('AgentSubCountempPaidci').value,
         agnt_cd_2: this.agentformgrp.get('AgentNumber1empPaidci').value,
-        agnt_comm_split_2: parseInt(this.agentformgrp.get('CommissonSplit1empPaidci').value),
+        agnt_comm_split_2: this.agentformgrp.get('CommissonSplit1empPaidci').value,
         agntsub_2: this.agentformgrp.get('AgentSubCount1empPaidci').value,
         agnt_cd_3: this.agentformgrp.get('AgentNumber2empPaidci').value,
-        agnt_comm_split_3: parseInt(this.agentformgrp.get('CommissonSplit2empPaidci').value),
+        agnt_comm_split_3: this.agentformgrp.get('CommissonSplit2empPaidci').value,
         agntsub_3: this.agentformgrp.get('AgentSubCount2empPaidci').value,
         agnt_cd_4: this.agentformgrp.get('AgentNumber3empPaidci').value,
-        agnt_comm_split_4: parseInt(this.agentformgrp.get('CommissonSplit3empPaidci').value),
+        agnt_comm_split_4: this.agentformgrp.get('CommissonSplit3empPaidci').value,
         agntsub_4: this.agentformgrp.get('AgentSubCount3empPaidci').value,
 
         agnt_cd_1_action: this.agentformgrp.get('empCIAgent_Action').value.toString(),
@@ -815,16 +829,16 @@ export class GroupSetupComponent implements OnInit {
         "sp_max_amt_action": "string",
         agnt_cd_1: this.agentformgrp.get('AgentNumbervolCi').value,
         agnt_nm: this.agentformgrp.get('AgentNamevolCi').value,
-        agnt_comm_split_1: parseInt(this.agentformgrp.get('CommissonSplitvolCi').value),
+        agnt_comm_split_1: this.agentformgrp.get('CommissonSplitvolCi').value,
         agntsub_1: this.agentformgrp.get('AgentSubCountvolCi').value,
         agnt_cd_2: this.agentformgrp.get('AgentNumber1volCi').value,
-        agnt_comm_split_2: parseInt(this.agentformgrp.get('CommissonSplit1volCi').value),
+        agnt_comm_split_2: this.agentformgrp.get('CommissonSplit1volCi').value,
         agntsub_2: this.agentformgrp.get('AgentSubCount1volCi').value,
         agnt_cd_3: this.agentformgrp.get('AgentNumber2volCi').value,
-        agnt_comm_split_3: parseInt(this.agentformgrp.get('CommissonSplit2volCi').value),
+        agnt_comm_split_3: this.agentformgrp.get('CommissonSplit2volCi').value,
         agntsub_3: this.agentformgrp.get('AgentSubCount2volCi').value,
         agnt_cd_4: this.agentformgrp.get('AgentNumber3volCi').value,
-        agnt_comm_split_4: parseInt(this.agentformgrp.get('CommissonSplit3volCi').value),
+        agnt_comm_split_4: this.agentformgrp.get('CommissonSplit3volCi').value,
         agntsub_4: this.agentformgrp.get('AgentSubCount3volCi').value,
 
         agnt_cd_1_action: this.agentformgrp.get('volCIAgent_Action').value.toString(),
@@ -863,16 +877,16 @@ export class GroupSetupComponent implements OnInit {
 
         agnt_cd_1: this.agentformgrp.get('AgentNumberVolGrpLife').value,
         agnt_nm: this.agentformgrp.get('AgentNameVolGrpLife').value,
-        agnt_comm_split_1: parseInt(this.agentformgrp.get('CommissonSplitVolGrpLife').value),
+        agnt_comm_split_1: this.agentformgrp.get('CommissonSplitVolGrpLife').value,
         agntsub_1: this.agentformgrp.get('AgentSubCountVolGrpLife').value,
         agnt_cd_2: this.agentformgrp.get('AgentNumber1VolGrpLife').value,
-        agnt_comm_split_2: parseInt(this.agentformgrp.get('CommissonSplit1VolGrpLife').value),
+        agnt_comm_split_2: this.agentformgrp.get('CommissonSplit1VolGrpLife').value,
         agntsub_2: this.agentformgrp.get('AgentSubCount1VolGrpLife').value,
         agnt_cd_3: this.agentformgrp.get('AgentNumber2VolGrpLife').value,
-        agnt_comm_split_3: parseInt(this.agentformgrp.get('CommissonSplit2VolGrpLife').value),
+        agnt_comm_split_3: this.agentformgrp.get('CommissonSplit2VolGrpLife').value,
         agntsub_3: this.agentformgrp.get('AgentSubCount2VolGrpLife').value,
         agnt_cd_4: this.agentformgrp.get('AgentNumber3VolGrpLife').value,
-        agnt_comm_split_4: parseInt(this.agentformgrp.get('CommissonSplit3VolGrpLife').value),
+        agnt_comm_split_4: this.agentformgrp.get('CommissonSplit3VolGrpLife').value,
         agntsub_4: this.agentformgrp.get('AgentSubCount3VolGrpLife').value,
 
         agnt_cd_1_action: this.agentformgrp.get('volGrpLfAgent_Action').value.toString(),
@@ -899,19 +913,22 @@ export class GroupSetupComponent implements OnInit {
         "sp_face_amt_mon_bnft": this.basicgrplifeComponent.basicGrpLfformgrp.value.SpouseFaceAmount,
         "effctv_dt_action": this.basicgrplifeComponent.basicGrpLfformgrp.value.FCbasicEffectiveDate_Action,
         "grp_situs_state_action": this.basicgrplifeComponent.basicGrpLfformgrp.value.FCbasicSitusState_Action,
-        "emp_face_amt_mon_bnft_action": this.basicgrplifeComponent.basicGrpLfformgrp.value.FCbasicEmpFcAmt.toString(),
+        "emp_face_amt_mon_bnft_action": this.basicgrplifeComponent.basicGrpLfformgrp.value.FCbasicEmpFcAmt_Action,
+        "sp_face_amt_mon_bnft_action": this.basicgrplifeComponent.basicGrpLfformgrp.value.FCbasicEmpFcAmt_Action,
+        "ch_face_amt_mon_bnft_01_action": this.basicgrplifeComponent.basicGrpLfformgrp.value.FCbasicEmpFcAmt_Action,
+
         agnt_cd_1: this.agentformgrp.get('AgentNumberBasicgrpLife').value,
         agnt_nm: this.agentformgrp.get('AgentNameBasicgrpLife').value,
-        agnt_comm_split_1: parseInt(this.agentformgrp.get('CommissonSplitBasicgrpLife').value),
+        agnt_comm_split_1: this.agentformgrp.get('CommissonSplitBasicgrpLife').value,
         agntsub_1: this.agentformgrp.get('AgentSubCountBasicgrpLife').value,
         agnt_cd_2: this.agentformgrp.get('AgentNumber1BasicgrpLife').value,
-        agnt_comm_split_2: parseInt(this.agentformgrp.get('CommissonSplit1BasicgrpLife').value),
+        agnt_comm_split_2: this.agentformgrp.get('CommissonSplit1BasicgrpLife').value,
         agntsub_2: this.agentformgrp.get('AgentSubCount1BasicgrpLife').value,
         agnt_cd_3: this.agentformgrp.get('AgentNumber2BasicgrpLife').value,
-        agnt_comm_split_3: parseInt(this.agentformgrp.get('CommissonSplit2BasicgrpLife').value),
+        agnt_comm_split_3: this.agentformgrp.get('CommissonSplit2BasicgrpLife').value,
         agntsub_3: this.agentformgrp.get('AgentSubCount2BasicgrpLife').value,
         agnt_cd_4: this.agentformgrp.get('AgentNumber3BasicgrpLife').value,
-        agnt_comm_split_4: parseInt(this.agentformgrp.get('CommissonSplit3BasicgrpLife').value),
+        agnt_comm_split_4: this.agentformgrp.get('CommissonSplit3BasicgrpLife').value,
         agntsub_4: this.agentformgrp.get('AgentSubCount3BasicgrpLife').value,
 
         agnt_cd_1_action: this.agentformgrp.get('basicGrpLfAgent_Action').value.toString(),
@@ -971,16 +988,16 @@ export class GroupSetupComponent implements OnInit {
         "sp_max_amt_action": this.fppComponent.fppiformgrp.value.FCfppiSpouseAmtMax_Action,
         agnt_cd_1: this.agentformgrp.get('AgentNumberFppIndivisual').value,
         agnt_nm: this.agentformgrp.get('AgentNameFppIndivisual').value,
-        agnt_comm_split_1: parseInt(this.agentformgrp.get('CommissonSplitFppIndivisual').value),
+        agnt_comm_split_1: this.agentformgrp.get('CommissonSplitFppIndivisual').value,
         agntsub_1: this.agentformgrp.get('AgentSubCountFppIndivisual').value,
         agnt_cd_2: this.agentformgrp.get('AgentNumber1FppIndivisual').value,
-        agnt_comm_split_2: parseInt(this.agentformgrp.get('CommissonSplit1FppIndivisual').value),
+        agnt_comm_split_2: this.agentformgrp.get('CommissonSplit1FppIndivisual').value,
         agntsub_2: this.agentformgrp.get('AgentSubCount1FppIndivisual').value,
         agnt_cd_3: this.agentformgrp.get('AgentNumber2FppIndivisual').value,
-        agnt_comm_split_3: parseInt(this.agentformgrp.get('CommissonSplit2FppIndivisual').value),
+        agnt_comm_split_3: this.agentformgrp.get('CommissonSplit2FppIndivisual').value,
         agntsub_3: this.agentformgrp.get('AgentSubCount2FppIndivisual').value,
         agnt_cd_4: this.agentformgrp.get('AgentNumber3FppIndivisual').value,
-        agnt_comm_split_4: parseInt(this.agentformgrp.get('CommissonSplit3FppIndivisual').value),
+        agnt_comm_split_4: this.agentformgrp.get('CommissonSplit3FppIndivisual').value,
         agntsub_4: this.agentformgrp.get('AgentSubCount3FppIndivisual').value,
         agnt_cd_1_action: this.agentformgrp.get('fppiAgent_Action').value.toString(),
         agnt_nm_action: this.agentformgrp.get('fppiAgent_Action').value.toString(),

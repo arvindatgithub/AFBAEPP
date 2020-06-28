@@ -7,7 +7,7 @@ namespace AFBA.EPP.ViewModels
 {
     public class GrppymntmdViewModel
     {
-        public int GrpPymn { get; set; }
+        public long GrpPymn { get; set; }
         public string GrpPymntMdCd { get; set; }
         public string GrpPymntMdNm { get; set; }
     }
