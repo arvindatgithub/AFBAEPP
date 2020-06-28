@@ -26,7 +26,7 @@ export class FPPGComponent implements OnInit, OnChanges {
   indeterminate = false;
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
-  public minDate ;
+  public minDate =new Date().toISOString().slice(0,10);
   agentValue: string;
   latest_date;
   initial_SitusState;
@@ -45,18 +45,18 @@ export class FPPGComponent implements OnInit, OnChanges {
     private fb:FormBuilder, private eppservice:EppCreateGrpSetupService,
     public datepipe: DatePipe , private groupsearchService: GroupsearchService) { 
 
-    let existingSelectedGrpNbr: any;
-    this.groupsearchService.castGroupNumber.subscribe(data => {
-      existingSelectedGrpNbr = data; 
-      console.log("selected grp number from search "+ existingSelectedGrpNbr); 
-    });
+  //   let existingSelectedGrpNbr: any;
+  //   this.groupsearchService.castGroupNumber.subscribe(data => {
+  //     existingSelectedGrpNbr = data; 
+  //     console.log("selected grp number from search "+ existingSelectedGrpNbr); 
+  //   });
 
-    this.eppservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
-      console.log('Groups Data on load from db'+ JSON.stringify(data));
-      this.groupsfppgData = data;
-      this.minDate = this.datepipe.transform(this.groupsfppgData.fppg.effctv_dt, 'yyyy-MM-dd');
-    });
-  }
+  //   this.eppservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
+  //     console.log('Groups Data on load from db'+ JSON.stringify(data));
+  //     this.groupsfppgData = data;
+  //     //this.minDate = this.datepipe.transform(this.groupsfppgData.fppg.effctv_dt, 'yyyy-MM-dd');
+  //   });
+   }
 
   
   get myForm() {
@@ -78,7 +78,7 @@ ngOnChanges(simpleChange:SimpleChanges){
       });
   
       console.log("this.lookup", this.lookupValue);
-     let emp_gi_max_amt =  this.groupsfppgData.fppg.emp_gi_max_amt;
+    // let emp_gi_max_amt =  this.groupsfppgData.fppg.emp_gi_max_amt;
     this.fppgformgrp = this.fb.group({
       FCfppgEffectiveDate: ["",Validators.required],
       FCfppgSitusState: ["",Validators.required],
