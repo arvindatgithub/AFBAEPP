@@ -23,6 +23,12 @@ export class FPPIndividualComponent implements OnInit, OnChanges {
   public minDate = new Date().toISOString().slice(0,10);
   situsState:any;
   latest_datefpp;
+  radioButtonArr=[
+    {value:'10002',name:'Always Override'},
+    {value:'10001',name:'Update if Blank'},
+    {value:'10003',name:'Validate'}
+  ]
+
   constructor(private lookupService: LookupService, private fb:FormBuilder, public datepipe: DatePipe) {
     
    } 
@@ -42,28 +48,28 @@ export class FPPIndividualComponent implements OnInit, OnChanges {
 
     this.fppiformgrp = this.fb.group({
       FCfppiEffectiveDate: [this.dateValue,Validators.required],
-      FCfppiEffectiveDate_Action: ["",Validators.required],
+      FCfppiEffectiveDate_Action: [this.radioButtonArr[1].value,Validators.required],
       FCfppiAgentSign: ["",Validators.required],
-      FCfppiAgentSign_Action: ["",Validators.required],
+      FCfppiAgentSign_Action: [this.radioButtonArr[1].value,Validators.required],
       FCfppiEmpGIAmtMax: ["",Validators.required],
-      FCfppiEmpAmtMax_Action: ["",Validators.required],
+      FCfppiEmpAmtMax_Action: [this.radioButtonArr[1].value,Validators.required],
       FCfppiEmpQIAmtMax: ["",Validators.required],
       FCfppiEmpAmtMax: ["",Validators.required],
       FCfppiSpouseGIAmtMax: ["",Validators.required],
       FCfppiSpouseQIAmtMax: ["",Validators.required],
       FCfppiSpouseMaxAmt: ["",Validators.required],
-      FCfppiSpouseAmtMax_Action: ["",Validators.required],
+      FCfppiSpouseAmtMax_Action: [this.radioButtonArr[1].value,Validators.required],
       FCfppiOpenEnrollGI: ["",Validators.required],
-      FCfppiOpenEnrollGI_Action: ["",Validators.required],
-      FCfppiPlanCodeManualEntry_Action: ["",Validators.required],
+      FCfppiOpenEnrollGI_Action: [this.radioButtonArr[1].value,Validators.required],
+      FCfppiPlanCodeManualEntry_Action: [this.radioButtonArr[1].value,Validators.required],
       FCfppiPlanCodeManualEntry: ["",Validators.required],
       FCfppiUserToken: ["",Validators.required],
-      FCfppiUserToken_Action: ["",Validators.required],
+      FCfppiUserToken_Action: [this.radioButtonArr[1].value,Validators.required],
       FCfppiCaseToken: ["",Validators.required],
-      FCfppiCaseToken_Action: ["",Validators.required],
+      FCfppiCaseToken_Action: [this.radioButtonArr[1].value,Validators.required],
       FCfppiQolRiders: ["",Validators.required],
-      FCfppiQolRiders_Action: ["",Validators.required],
-      FCfppiWaiver_Action: ["",Validators.required],
+      FCfppiQolRiders_Action: [this.radioButtonArr[1].value,Validators.required],
+      FCfppiWaiver_Action: [this.radioButtonArr[1].value,Validators.required],
       FCfppiWaiver: ["",Validators.required],
     
       FCfppiempPlanCode: ["" ,Validators.required],
