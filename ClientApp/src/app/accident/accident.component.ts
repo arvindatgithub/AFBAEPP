@@ -28,7 +28,9 @@ export class AccidentComponent implements OnInit,OnChanges {
   {name: 'off the job only', abbrev: 'off'},
   {name: 'both', abbrev: 'both'}];
 
-
+  Rate =  [{name: '1'},
+  {name: '2'},
+  {name: '3'}];
  // FCaccOnOff
 
   constructor(private lookupService: LookupService, private fb:FormBuilder, public datepipe: DatePipe) { }
@@ -46,12 +48,12 @@ export class AccidentComponent implements OnInit,OnChanges {
       this.isLoading = true;
       console.log("data", data);
       this.lookUpDataSitusStates = data.situsState;
-      // this.latest_dateaccident = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+       this.latest_dateaccident = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
     });
     this.accformgrp = this.fb.group({
       FCaccSitusState_Action: ["10001",Validators.required],
       FCaccSitusState: [this.lookupValue,Validators.required],
-      FCaccEffectiveDate: [this.dateValue,Validators.required],
+      FCaccEffectiveDate: ["",Validators.required],
       FCaccEffectiveDate_Action: ["10001",Validators.required],
       FCaccOnOff: ["",Validators.required],
       FCaccOnOff_Action: ["10001",Validators.required],
@@ -63,5 +65,7 @@ export class AccidentComponent implements OnInit,OnChanges {
     //this.accformgrp.controls['FCaccSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
   }
  
- 
+  get myForm() {
+    return this.accformgrp.get(['FCaccEffectiveDate']);
+  }
 }
