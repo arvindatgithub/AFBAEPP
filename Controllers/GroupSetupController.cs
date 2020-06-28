@@ -513,7 +513,7 @@ namespace AFBA.EPP.Controllers
                         var rndNo = Helper.GetRandomNumber();
                         _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
                         {
-
+                            GrpprdctId = grpprdId,
                             AcctMgrCntctId = rndNo,
                             EmailAddress = groupSetupModel.EmailAddress,
                             AcctMgrNm = groupSetupModel.AcctMgrNm,
@@ -545,6 +545,7 @@ namespace AFBA.EPP.Controllers
                         var rndNo = Helper.GetRandomNumber();
                         _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
                         {
+                            GrpprdctId = grpprdId,
                             AcctMgrCntctId = rndNo,
                             EmailAddress = groupSetupModel.EmailAddress,
                             AcctMgrNm = groupSetupModel.AcctMgrNm,
@@ -803,6 +804,36 @@ namespace AFBA.EPP.Controllers
                                     }
                                     break;
                                 }
+                            case "HI":
+                                {
+
+                                    groupSetupModel.isHIActive = true;
+                                    LoadProductBulkRefData(prod.GrpprdctId);
+                                    var blkDatas = _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == prod.GrpprdctId).Result;
+                                    groupSetupModel.HI = new HI();
+                                    Type typeInfo = groupSetupModel.HI.GetType();
+                                    PropertyInfo[] props = typeInfo.GetProperties();
+                                    foreach (var blk in blkDatas)
+                                    {
+                                        var eppAttrs = _unitofWork.eppAttributeRepository.SingleOrDefault(x => x.AttrId == blk.AttrId).Result;
+                                        var propName = props.Where(x => x.Name == eppAttrs.DbAttrNm).Select(x => new { x.Name, x.PropertyType }).FirstOrDefault();
+                                        if (propName != null)
+                                        {
+                                            typeInfo.GetProperty(propName.Name).SetValue(groupSetupModel.HI, Convert.ChangeType(blk.Value, propName.PropertyType), null);
+
+                                            var actionPropName = propName.Name + "_action";
+                                            var isActionAvail = props.Where(x => x.Name == actionPropName).Select(x => x.Name).FirstOrDefault();
+                                            if (isActionAvail != null)
+                                            {
+                                                typeInfo.GetProperty(actionPropName).SetValue(groupSetupModel.HI, Convert.ChangeType(blk.ActionId, propName.PropertyType), null);
+                                            }
+
+                                        }
+                                    }
+                                    break;
+                                }
+
+
                         }
 
                     }

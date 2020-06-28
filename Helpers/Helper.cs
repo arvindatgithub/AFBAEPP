@@ -174,7 +174,7 @@ namespace AFBA.EPP.Helpers
         }
         public static long GetProductIdbyName(string productName, IUnitofWork _unitofWork)
         {
-            var product = _unitofWork.EppProductRepository.Find(x => x.ProductNm.Contains(productName)).Result.FirstOrDefault();
+            var product = _unitofWork.EppProductRepository.Find(x => x.ProductNm==productName).Result.FirstOrDefault();
             return product.ProductId;
         }
     }
