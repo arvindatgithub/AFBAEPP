@@ -143,7 +143,7 @@ export class GroupSetupComponent implements OnInit {
     id: 15
   },
   ]
-  occupationArray: any ;
+  occupationArray: any;
   grpSitusState: string = "";
   EnrolmentPatnerName: string = "";
   EnrolEmailAddress: string = "";
@@ -188,16 +188,17 @@ export class GroupSetupComponent implements OnInit {
   constructor(private eppcreategroupservice: EppCreateGrpSetupService, private _fb: FormBuilder,
     private snackBar: MatSnackBar, private lookupService: LookupService, private groupsearchService: GroupsearchService) {
   }
+  
 
   ngOnInit() {
     let existingSelectedGrpNbr: any;
     this.groupsearchService.castGroupNumber.subscribe(data => {
-      existingSelectedGrpNbr = data; 
-      console.log("selected grp number from search "+ existingSelectedGrpNbr); 
+      existingSelectedGrpNbr = data;
+      console.log("selected grp number from search " + existingSelectedGrpNbr);
     });
 
     this.eppcreategroupservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
-      console.log('Groups Data on load from db'+ JSON.stringify(data));
+      console.log('Groups Data on load from db' + JSON.stringify(data));
       this.groupsData = data;
       //Setting Initial Values for Group Section
       this.groupNumber = this.groupsData.grpNbr;
@@ -220,15 +221,15 @@ export class GroupSetupComponent implements OnInit {
       .subscribe((data: any) => {
         this.isLoading = true;
 
-        if(this.lookUpDataSitusStates.length==0){
+        if (this.lookUpDataSitusStates.length == 0) {
           this.lookUpDataSitusStates = (data.situsState);
           this.grpSitusState = this.lookUpDataSitusStates[0].state;
         }
       });
-    
+
     this.lookupService.getPaymentMode().subscribe((data: any) => {
       this.paymentModes = data;
-      if(this.grpPymn ==''){
+      if (this.grpPymn == '') {
         this.paymentModes.forEach(element => {
           if (element.grpPymntMdCd == 12) {
             this.grpPymn = element.grpPymn;
@@ -236,11 +237,12 @@ export class GroupSetupComponent implements OnInit {
         });
       }
     });
-    
+
 
     this.groupSetupFG = this._fb.group({
       fcEffDate: ["", Validators.required]
     })
+   
 
     this.agentformgrp = this._fb.group({
       fppgAgent_Action: [this.radioButtonArr[1].value, Validators.required],
@@ -413,7 +415,9 @@ export class GroupSetupComponent implements OnInit {
 
 
   }
-
+  get myForm() {
+    return this.groupSetupFG.get(['fcEffDate']);
+  }
   addProducts() {
     this.selectedOption.findIndex((ele, i) => {
       if (this.addedProducts.indexOf(ele) == i) {
@@ -591,7 +595,8 @@ export class GroupSetupComponent implements OnInit {
   sp_quality_of_life: any;
   sp_waiver_of_prem: any;
   emp_waiver_of_prem: any;
-
+  owner_smkr_no_smkr: any;
+  sp_smkr_no_smkr: any;
   onSubmit() {
 
     if (this.fppgComponent.fppgformgrp.value.FCfppgQolRiders) {
@@ -611,6 +616,26 @@ export class GroupSetupComponent implements OnInit {
       this.emp_waiver_of_prem = "";
       this.sp_waiver_of_prem = "";
     }
+
+
+    // if (this.accidentComponent.accformgrp.value.FCaccOnOff) {
+    //   this.owner_smkr_no_smkr = "On";
+    //   this.sp_smkr_no_smkr = "On";
+    // }
+
+    // else {
+    //   this.owner_smkr_no_smkr = "Off";
+    //   this.owner_smkr_no_smkr = "Off";
+    // }
+    if (this.accidentComponent.accformgrp.value.FCaccOnOff) {
+      this.emp_waiver_of_prem = "020";
+      this.sp_waiver_of_prem = "020";
+    }
+    else {
+      this.emp_waiver_of_prem = "";
+      this.sp_waiver_of_prem = "";
+    }
+
 
     if (this.fppComponent.fppiformgrp.value.FCfppQolRiders) {
       this.emp_quality_of_life = "070";
@@ -634,7 +659,7 @@ export class GroupSetupComponent implements OnInit {
     let body = {
 
       "grpId": 0,
-      "grpNbr": this.groupNumber.toString(),
+      "grpNbr": this.groupNumber,
       "grpNm": this.groupName,
       "grpEfftvDt": (new Date(this.groupSetupFG.get('fcEffDate').value)).toISOString(),
       "grpSitusSt": this.grpSitusState,
@@ -719,10 +744,12 @@ export class GroupSetupComponent implements OnInit {
         "effctv_dt_action": this.accidentComponent.accformgrp.value.FCaccEffectiveDate_Action,
         "grp_situs_state_action": this.accidentComponent.accformgrp.value.FCaccSitusState_Action,
         "rate_lvl_action": this.accidentComponent.accformgrp.value.FCaccRateLevel_Action,
-        // "owner_smkr_no_smkr_action": this.accidentComponent.accformgrp.value.,
-        // "sp_smkr_no_smkr_action": this.accidentComponent.accformgrp.value.,
-        // "owner_smkr_no_smkr": this.accidentComponent.accformgrp.value.,
-        // "sp_smkr_no_smkr": this.accidentComponent.accformgrp.value.,
+
+        "owner_smkr_no_smkr_action": this.accidentComponent.accformgrp.value.FCaccOnOff_Action,
+        "sp_smkr_no_smkr_action": this.accidentComponent.accformgrp.value.FCaccOnOff_Action,
+        "owner_smkr_no_smkr": this.accidentComponent.accformgrp.value.FCaccOnOff,
+        "sp_smkr_no_smkr": this.accidentComponent.accformgrp.value.FCaccOnOff,
+
         agnt_cd_1: this.agentformgrp.get('AgentNumberaccident').value,
         agnt_nm: this.agentformgrp.get('AgentNameaccident').value,
         agnt_comm_split_1: this.agentformgrp.get('CommissonSplitaccident').value,
@@ -769,7 +796,7 @@ export class GroupSetupComponent implements OnInit {
         "ch_plan_cd_action": this.empPaidCiComponent.empCIformgrp.value.FCempCIPlanCode_Action,
         "emp_ad_bnft": "",
         "emp_ad_bnft_action": "",
-        "sp_ad_bnft":"",
+        "sp_ad_bnft": "",
         agnt_cd_1: this.agentformgrp.get('AgentNumberempPaidci').value,
         agnt_nm: this.agentformgrp.get('AgentNameempPaidci').value,
         agnt_comm_split_1: this.agentformgrp.get('CommissonSplitempPaidci').value,

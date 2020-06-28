@@ -11,7 +11,7 @@
       </div>
       <div class="col-3">
         <span class="label label-default">Accident Effective Date</span>
-        <input type="date"  [min]="minDate" formControlName="FCaccEffectiveDate" [(ngModel)]="latest_dateaccident" [value]="latest_dateaccident" class="form-control mb-2 " style="width: 100%;"
+        <input type="date"  [min]="minDate" formControlName="FCaccEffectiveDate" [(ngModel)]="minDate" class="form-control mb-2 " style="width: 100%;"
           placeholder="Group Effective Date">
   
       </div>
@@ -48,7 +48,7 @@
       <div class="col-4">
         <span class="label">On or Off the Job</span>
         <select  class="form-control" formControlName="FCaccOnOff">
-          <option *ngFor="let job of jobs" [ngValue]="job">
+          <option *ngFor="let job of jobs" [ngValue]="job.name">
             {{ job.name }}
           </option>
         </select>
@@ -72,10 +72,10 @@
         <span class="label">
           Accident Rate Level
         </span>
-        <select class="form-control" formControlName="FCaccRateLevel">
-          <option selected value="option">1</option>
-          <option value="option">2</option>
-          <option value="option">3</option>
+        <select  class="form-control" formControlName="FCaccRateLevel">
+          <option *ngFor="let names of Rate" [ngValue]="names.name">
+            {{ names.name }}
+          </option>
         </select>
       </div>
       
