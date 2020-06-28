@@ -2,26 +2,18 @@
   <form [formGroup]="accformgrp">
     <div class="row pb-2 " style="justify-content:space-evenly;margin-right: 7%;">
       <div class="radio-button">
-        <div><input type="radio" value="10002" formControlName="FCaccEffectiveDate_Action" />
-          <label class="radio-label"> Always Override</label></div>
-        <div><input type="radio" value="10001" formControlName="FCaccEffectiveDate_Action" />
-          <label class="radio-label">Update if Blank</label></div>
-        <div><input type="radio" value="10003" formControlName="FCaccEffectiveDate_Action" />
-          <label class="radio-label">Validate</label></div>
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCaccEffectiveDate_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-3">
-        <span class="label label-default">Accident Effective Date</span>
-        <input type="date"  [min]="minDate" formControlName="FCaccEffectiveDate" [(ngModel)]="latest_dateaccident" [value]="latest_dateaccident" class="form-control mb-2 " style="width: 100%;"
-          placeholder="Group Effective Date">
+        <span class="label label-default">Accident Effective Date</span>   
+        <input type="date"  [min]="minDate" formControlName="FCaccEffectiveDate" [(ngModel)]="minDate" class="form-control mb-2 " style="width: 100%;"
+          placeholder="Group Effective Date">  
   
       </div>
       <div class="radio-button">
-        <div><input type="radio" value="10002" formControlName="FCaccSitusState_Action" />
-          <label class="radio-label"> Always Override</label></div>
-        <div><input type="radio" value="10001" formControlName="FCaccSitusState_Action" />
-          <label class="radio-label">Update if Blank</label></div>
-        <div><input type="radio" value="10003" formControlName="FCaccSitusState_Action" />
-          <label class="radio-label">Validate</label></div>
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCaccSitusState_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-3">
         <span class="label label-default">Situs State</span>
@@ -31,19 +23,15 @@
             {{lookUpDataSitusState.state}}</option>
   
         </select>
-      </div>
+      </div>              
       <div class="mt-4">
         <button class="btn btn-primary" type="submit">Reset Form </button>
       </div>
     </div>
     <div class="row pb-2 " style="justify-content:space-evenly;">
       <div class="radio-button">
-        <div><input type="radio" value="10002" formControlName="FCaccOnOff_Action" />
-          <label class="radio-label"> Always Override</label></div>
-        <div><input type="radio" value="10001" formControlName="FCaccOnOff_Action" />
-          <label class="radio-label">Update if Blank</label></div>
-        <div><input type="radio" value="10003" formControlName="FCaccOnOff_Action" />
-          <label class="radio-label">Validate</label></div>
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCaccOnOff_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-4">
         <span class="label">On or Off the Job</span>
@@ -60,12 +48,8 @@
       
       </div>
       <div class="radio-button">
-        <div><input type="radio" value="10002" formControlName="FCaccRateLevel_Action" />
-          <label class="radio-label"> Always Override</label></div>
-        <div><input type="radio" value="10001" formControlName="FCaccRateLevel_Action" />
-          <label class="radio-label">Update if Blank</label></div>
-        <div><input type="radio" value="10003" formControlName="FCaccRateLevel_Action" />
-          <label class="radio-label">Validate</label></div>
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCaccRateLevel_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-4 mb-2">
   
@@ -74,7 +58,7 @@
         </span>
         <select  class="form-control" formControlName="FCaccRateLevel">
           <option *ngFor="let names of Rate" [ngValue]="names.abb">
-            {{ names.name }}
+            {{ names.no }}
           </option>
         </select>
       </div>
