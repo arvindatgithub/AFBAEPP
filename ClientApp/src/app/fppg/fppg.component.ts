@@ -6,6 +6,7 @@ import {RadioButtonComponent} from '../radio-button/radio-button.component'
 import { EppCreateGrpSetupService } from '../services/epp-create-grp-setup.service';
 import { AgentSetupComponent } from '../agent-setup/agent-setup.component';
 import { DatePipe } from '@angular/common';
+import { GroupsearchService } from '../services/groupsearch.service';
 @Component({
   selector: 'app-fppg',
   templateUrl: './fppg.component.html',
@@ -25,7 +26,7 @@ export class FPPGComponent implements OnInit, OnChanges {
   indeterminate = false;
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
-  public minDate = new Date().toISOString().slice(0,10);
+  public minDate ;
   agentValue: string;
   latest_date;
   initial_SitusState;
@@ -36,11 +37,25 @@ export class FPPGComponent implements OnInit, OnChanges {
     {value:'10002',name:'Always Override'},
     {value:'10001',name:'Update if Blank'},
     {value:'10003',name:'Validate'}
-  ]
+  ];
+  groupsfppgData : any;
+  
 
   constructor(private lookupService: LookupService, 
     private fb:FormBuilder, private eppservice:EppCreateGrpSetupService,
-    public datepipe: DatePipe ) { 
+    public datepipe: DatePipe , private groupsearchService: GroupsearchService) { 
+
+    let existingSelectedGrpNbr: any;
+    this.groupsearchService.castGroupNumber.subscribe(data => {
+      existingSelectedGrpNbr = data; 
+      console.log("selected grp number from search "+ existingSelectedGrpNbr); 
+    });
+
+    this.eppservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
+      console.log('Groups Data on load from db'+ JSON.stringify(data));
+      this.groupsfppgData = data;
+      this.minDate = this.datepipe.transform(this.groupsfppgData.fppg.effctv_dt, 'yyyy-MM-dd');
+    });
   }
 
   
@@ -63,7 +78,7 @@ ngOnChanges(simpleChange:SimpleChanges){
       });
   
       console.log("this.lookup", this.lookupValue);
-
+     let emp_gi_max_amt =  this.groupsfppgData.fppg.emp_gi_max_amt;
     this.fppgformgrp = this.fb.group({
       FCfppgEffectiveDate: ["",Validators.required],
       FCfppgSitusState: ["",Validators.required],
@@ -90,6 +105,11 @@ ngOnChanges(simpleChange:SimpleChanges){
       FCfppgQolRiders_Action: [this.radioButtonArr[1].value, Validators.required],
       FCfppgWaiver_Action: [this.radioButtonArr[1].value, Validators.required],
     });
+
+   // this.fppgformgrp.get('FCfppgEmpGIAmtMax').setValue(emp_gi_max_amt);
+   // this.fppgformgrp.controls['FCfppgEmpGIAmtMax'].setValue(emp_gi_max_amt);
+    
+    //this.fppgformgrp.setValue({FCfppgEmpGIAmtMax: ''});
     //  this.fppgformgrp.controls['FCfppgSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
  
   }
