@@ -144,7 +144,7 @@ namespace AFBA.EPP.Controllers
                 );
 
                 List<EppBulkRefTbl> bulkRefTbls = new List<EppBulkRefTbl>();
-
+            
                 if (groupSetupModel.isFPPGActive)
                 {
                     var prdid = Helper.GetProductIdbyName("FPPG", _unitofWork);
@@ -483,7 +483,6 @@ namespace AFBA.EPP.Controllers
                         groupSetupModel.FPPI.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
                     }
 
-
                     if (!string.IsNullOrEmpty(groupSetupModel.FPPI.sp_ProductCode))
                     {
                         PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
@@ -494,7 +493,6 @@ namespace AFBA.EPP.Controllers
                         };
                         groupSetupModel.FPPI.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
                     }
-
 
                     if (!string.IsNullOrEmpty(groupSetupModel.FPPI.ch_ProductCode))
                     {
@@ -522,6 +520,39 @@ namespace AFBA.EPP.Controllers
                             CrdtBy = CrtdBy
                         });
                     }
+
+                }
+                if (groupSetupModel.isHIActive)
+                {
+
+                    var prdid = Helper.GetProductIdbyName("HI", _unitofWork);
+                    var grpprdId = Helper.GetRandomNumber();
+                    _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
+                    {
+                        GrpprdctId = grpprdId,
+                        GrpId = grpId,
+                        ProductId = prdid,
+                        CrtdBy = CrtdBy
+
+                    });
+
+                  
+                    var bulkAttrs = Helper.GetProperties(groupSetupModel.HI);
+                    AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
+
+                    if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
+                    {
+                        var rndNo = Helper.GetRandomNumber();
+                        _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                        {
+                            AcctMgrCntctId = rndNo,
+                            EmailAddress = groupSetupModel.EmailAddress,
+                            AcctMgrNm = groupSetupModel.AcctMgrNm,
+                            CrdtBy = CrtdBy
+                        });
+                    }
+
+
 
                 }
                 if (bulkRefTbls.Count > 0)

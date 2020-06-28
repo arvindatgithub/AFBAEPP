@@ -22,8 +22,10 @@ namespace AFBA.EPP.ViewModels
         public string AcctMgrNm { get; set; }
         public long AcctMgrCntctId { get; set; }
         public bool isFPPGActive { get; set; }
+        public bool isHIActive { get; set; }
+        public HI HI { get; set; }
         public FPPG FPPG { get; set; }
-
+        
         public bool isACC_HIActive { get; set; }
         public ACC_HI ACC_HI { get; set; }
         public bool isER_CIActive { get; set; }
