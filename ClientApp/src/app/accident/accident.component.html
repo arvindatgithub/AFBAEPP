@@ -47,11 +47,16 @@
       </div>
       <div class="col-4">
         <span class="label">On or Off the Job</span>
-        <select class="form-control" formControlName="FCaccOnOff">
+        <select  class="form-control" formControlName="FCaccOnOff">
+          <option *ngFor="let job of jobs" [ngValue]="job">
+            {{ job.name }}
+          </option>
+        </select>
+        <!-- <select class="form-control" formControlName="FCaccOnOff">
           <option selected>On and off the job</option>
           <option> Off the job only</option>
           <option>Both</option>
-        </select>
+        </select> -->
       
       </div>
       <div class="radio-button">

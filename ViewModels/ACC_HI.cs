@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace AFBA.EPP.ViewModels
 {
-    public class ACC_HI:CommonViewModel
+    public class ACC_HI: CommonViewModel
     {
+   
         public string effctv_dt { get; set; }
         public string grp_situs_state { get; set; }
         public string rate_lvl { get; set; }
@@ -16,10 +17,13 @@ namespace AFBA.EPP.ViewModels
         public string rate_lvl_action { get; set; }
 
         public string owner_smkr_no_smkr_action { get; set; }
-        public string sp_smkr_no_smkr_action { get; set; }
+        public string sp_smkr_no_smkr_action{ get; set; }
 
-
+     
         public string owner_smkr_no_smkr { get; set; }
         public string sp_smkr_no_smkr { get; set; }
+
+       
+
     }
 }

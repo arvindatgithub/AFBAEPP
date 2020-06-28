@@ -27,6 +27,7 @@ namespace AFBA.EPP.Models
         public virtual DbSet<EppFunctions> EppFunctions { get; set; }
         public virtual DbSet<EppGrpmstr> EppGrpmstr { get; set; }
         public virtual DbSet<EppGrpprdct> EppGrpprdct { get; set; }
+        public virtual DbSet<EppGrppymntmd> EppGrppymntmd { get; set; }
         public virtual DbSet<EppPartnersData> EppPartnersData { get; set; }
         public virtual DbSet<EppPartnersDataChangeStatus> EppPartnersDataChangeStatus { get; set; }
         public virtual DbSet<EppPartnersDataErr> EppPartnersDataErr { get; set; }
@@ -38,8 +39,6 @@ namespace AFBA.EPP.Models
         public virtual DbSet<EppUserActionTypes> EppUserActionTypes { get; set; }
         public virtual DbSet<EppUserRoles> EppUserRoles { get; set; }
         public virtual DbSet<EppUserRolesFunction> EppUserRolesFunction { get; set; }
-        public virtual DbSet<EppUsers> EppUsers { get; set; }
-        public virtual DbSet<GeppGrppymntmd> GeppGrppymntmd { get; set; }
         public virtual DbSet<HoldAttr> HoldAttr { get; set; }
         public virtual DbSet<PgStatStatements> PgStatStatements { get; set; }
 
@@ -47,8 +46,8 @@ namespace AFBA.EPP.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-
-                optionsBuilder.UseNpgsql("Host=ec2-54-208-30-123.compute-1.amazonaws.com;Port=5432;Database=d941budah3t4sd;Username=idsstg;Password=p4311b74476d95c05b982733ec26be9240b1a140aa1d293b40f2e5b846054ad90; Pooling=true;  SSL Mode=Require; TrustServerCertificate=True;");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseNpgsql("Host=ec2-54-208-30-123.compute-1.amazonaws.com;Port=5432;Database=d941budah3t4sd;Username=idsstg;Password=p4311b74476d95c05b982733ec26be9240b1a140aa1d293b40f2e5b846054ad90; SSL Mode=Require; TrustServerCertificate=True;");
             }
         }
 
@@ -308,6 +307,10 @@ namespace AFBA.EPP.Models
                     .HasColumnName("enrlmnt_prtnrs_id")
                     .ValueGeneratedNever();
 
+                entity.Property(e => e.CntctNm)
+                    .HasColumnName("cntct_nm")
+                    .HasMaxLength(100);
+
                 entity.Property(e => e.CrtdBy)
                     .IsRequired()
                     .HasColumnName("crtd_by")
@@ -332,6 +335,10 @@ namespace AFBA.EPP.Models
                 entity.Property(e => e.LstUpdtDt)
                     .HasColumnName("lst_updt_dt")
                     .HasColumnType("date");
+
+                entity.Property(e => e.PhnNbr)
+                    .HasColumnName("phn_nbr")
+                    .HasMaxLength(100);
             });
 
             modelBuilder.Entity<EppEnrollmentFact>(entity =>
@@ -453,8 +460,8 @@ namespace AFBA.EPP.Models
                     .HasColumnName("crtd_dt")
                     .HasColumnType("date");
 
-                entity.Property(e => e.ErrmsgNm)
-                    .HasColumnName("errmsg_nm")
+                entity.Property(e => e.ErrmsgDesc)
+                    .HasColumnName("errmsg_desc")
                     .HasMaxLength(2000);
 
                 entity.Property(e => e.LstUpdtBy)
@@ -611,6 +618,43 @@ namespace AFBA.EPP.Models
                     .WithMany(p => p.EppGrpprdct)
                     .HasForeignKey(d => d.ProductId)
                     .HasConstraintName("RefProduct4");
+            });
+
+            modelBuilder.Entity<EppGrppymntmd>(entity =>
+            {
+                entity.HasKey(e => e.GrpPymn)
+                    .HasName("PK28");
+
+                entity.ToTable("EPP_GRPPYMNTMD");
+
+                entity.Property(e => e.GrpPymn)
+                    .HasColumnName("grpPymn")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.CrtdBy)
+                    .IsRequired()
+                    .HasColumnName("crtd_by")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.CrtdDt)
+                    .HasColumnName("crtd_dt")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.GrpPymntMdCd)
+                    .HasColumnName("grp_pymnt_md_cd")
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.GrpPymntMdNm)
+                    .HasColumnName("grp_pymnt_md_nm")
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.LstUpdtBy)
+                    .HasColumnName("lst_updt_by")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.LstUpdtDt)
+                    .HasColumnName("lst_updt_dt")
+                    .HasColumnType("date");
             });
 
             modelBuilder.Entity<EppPartnersData>(entity =>
@@ -2620,6 +2664,10 @@ namespace AFBA.EPP.Models
 
                 entity.Property(e => e.PrductCd)
                     .HasColumnName("prduct_cd")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.ProductName)
+                    .HasColumnName("product_name")
                     .HasMaxLength(100);
 
                 entity.Property(e => e.RateLvl)
@@ -5421,6 +5469,10 @@ namespace AFBA.EPP.Models
                     .HasColumnName("prduct_cd")
                     .HasMaxLength(100);
 
+                entity.Property(e => e.ProductName)
+                    .HasColumnName("product_name")
+                    .HasMaxLength(100);
+
                 entity.Property(e => e.RateLvl)
                     .HasColumnName("rate_lvl")
                     .HasMaxLength(100);
@@ -6238,12 +6290,12 @@ namespace AFBA.EPP.Models
                     .HasColumnName("rcrd_id")
                     .ValueGeneratedNever();
 
-                entity.Property(e => e.BenftConTierCd)
-                    .HasColumnName("benft_con_tier_cd")
-                    .HasMaxLength(100);
-
                 entity.Property(e => e.BenftCovAmt)
                     .HasColumnName("benft_cov_amt")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.BenftCovTierCd)
+                    .HasColumnName("benft_cov_tier_cd")
                     .HasMaxLength(100);
 
                 entity.Property(e => e.BenftIssueDt)
@@ -6252,6 +6304,18 @@ namespace AFBA.EPP.Models
 
                 entity.Property(e => e.BenftSeqNbr)
                     .HasColumnName("benft_seq_nbr")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.BenftSystmStatusCd)
+                    .HasColumnName("benft_systm_status_cd")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.BenftSystmStatusEfftvDt)
+                    .HasColumnName("benft_systm_status_efftv_dt")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.CompnyCd)
+                    .HasColumnName("compny_cd")
                     .HasMaxLength(100);
 
                 entity.Property(e => e.CrtdBy)
@@ -6263,68 +6327,40 @@ namespace AFBA.EPP.Models
                     .HasColumnName("crtd_dt")
                     .HasColumnType("date");
 
-                entity.Property(e => e.DpndntBenftCovTierCd01)
-                    .HasColumnName("dpndnt_benft_cov_tier_cd_01")
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.DpndntBenftCovTierCd02)
-                    .HasColumnName("dpndnt_benft_cov_tier_cd_02")
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.DpndntInsrdBrthDt01)
-                    .HasColumnName("dpndnt_insrd_brth_dt_01")
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.DpndntInsrdBrthDt02)
-                    .HasColumnName("dpndnt_insrd_brth_dt_02")
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.DpndntInsrdFrstName01)
-                    .HasColumnName("dpndnt_insrd_frst_name_01")
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.DpndntInsrdFrstName02)
-                    .HasColumnName("dpndnt_insrd_frst_name_02")
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.DpndntInsrdLstNm01)
-                    .HasColumnName("dpndnt_insrd_lst_nm_01")
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.DpndntInsrdLstNm02)
-                    .HasColumnName("dpndnt_insrd_lst_nm_02")
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.DpndntInsrdMidlNm01)
-                    .HasColumnName("dpndnt_insrd_midl_nm_01")
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.DpndntInsrdMidlNm02)
-                    .HasColumnName("dpndnt_insrd_midl_nm_02")
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.DpndntInsrdSexCd01)
-                    .HasColumnName("dpndnt_insrd_sex_cd_01")
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.DpndntInsrdSexCd02)
-                    .HasColumnName("dpndnt_insrd_sex_cd_02")
-                    .HasMaxLength(100);
-
                 entity.Property(e => e.GrpId)
                     .HasColumnName("grp_id")
                     .HasMaxLength(100);
 
-                entity.Property(e => e.HashKey)
-                    .HasColumnName("hash_key")
+                entity.Property(e => e.InsrdBrthDt)
+                    .HasColumnName("insrd_brth_dt")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.InsrdFrstNm)
+                    .HasColumnName("insrd_frst_nm")
                     .HasMaxLength(100);
 
                 entity.Property(e => e.InsrdFullNm)
                     .HasColumnName("insrd_full_nm")
                     .HasMaxLength(100);
 
+                entity.Property(e => e.InsrdGndrCd)
+                    .HasColumnName("insrd_gndr_cd")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.InsrdLstNm)
+                    .HasColumnName("insrd_lst_nm")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.InsrdMidlNm)
+                    .HasColumnName("insrd_midl_nm")
+                    .HasMaxLength(100);
+
                 entity.Property(e => e.InsrdOccuptnCd)
                     .HasColumnName("insrd_occuptn_cd")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.InsrdSoclScrtyNbr)
+                    .HasColumnName("insrd_socl_scrty_nbr")
                     .HasMaxLength(100);
 
                 entity.Property(e => e.LstUpdtBy)
@@ -6371,24 +6407,16 @@ namespace AFBA.EPP.Models
                     .HasColumnName("ownr_phn_nbr")
                     .HasMaxLength(100);
 
-                entity.Property(e => e.PolcyNbr)
-                    .HasColumnName("polcy_nbr")
+                entity.Property(e => e.OwnrSoclScrtyNbr)
+                    .HasColumnName("ownr_socl_scrty_nbr")
                     .HasMaxLength(100);
 
-                entity.Property(e => e.PolcyStatusCd)
-                    .HasColumnName("polcy_status_cd")
+                entity.Property(e => e.PlcyNbr)
+                    .HasColumnName("plcy_nbr")
                     .HasMaxLength(100);
 
-                entity.Property(e => e.PolcyStatusEfftvDt)
-                    .HasColumnName("polcy_status_efftv_dt")
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.ProductCd)
-                    .HasColumnName("product_cd")
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.SoclScrtyNbr)
-                    .HasColumnName("socl_scrty_nbr")
+                entity.Property(e => e.PrdctPlnCd)
+                    .HasColumnName("prdct_pln_cd")
                     .HasMaxLength(100);
 
                 entity.Property(e => e.UndrWrtngClsCd)
@@ -6449,6 +6477,10 @@ namespace AFBA.EPP.Models
                     .HasColumnName("crtd_dt")
                     .HasColumnType("date");
 
+                entity.Property(e => e.Description)
+                    .HasColumnName("description")
+                    .HasMaxLength(100);
+
                 entity.Property(e => e.LstUpdtBy)
                     .HasColumnName("lst_updt_by")
                     .HasMaxLength(50);
@@ -6457,9 +6489,13 @@ namespace AFBA.EPP.Models
                     .HasColumnName("lst_updt_dt")
                     .HasColumnType("date");
 
+                entity.Property(e => e.Optn)
+                    .HasColumnName("optn")
+                    .HasMaxLength(100);
+
                 entity.Property(e => e.ProductCode)
                     .HasColumnName("product_code")
-                    .HasMaxLength(10);
+                    .HasMaxLength(100);
 
                 entity.Property(e => e.ProductId).HasColumnName("product_id");
 
@@ -6556,6 +6592,11 @@ namespace AFBA.EPP.Models
                     .HasColumnName("crtd_dt")
                     .HasColumnType("date");
 
+                entity.Property(e => e.LoginId)
+                    .IsRequired()
+                    .HasColumnName("login_id")
+                    .HasMaxLength(50);
+
                 entity.Property(e => e.LstUpdtBy)
                     .HasColumnName("lst_updt_by")
                     .HasMaxLength(50);
@@ -6569,19 +6610,11 @@ namespace AFBA.EPP.Models
                     .HasColumnName("role_cd")
                     .HasMaxLength(50);
 
-                entity.Property(e => e.UserId).HasColumnName("user_id");
-
                 entity.HasOne(d => d.RoleCdNavigation)
                     .WithMany(p => p.EppUserRoles)
                     .HasForeignKey(d => d.RoleCd)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("RefEPP_Roles32");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.EppUserRoles)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefEPP_Users31");
             });
 
             modelBuilder.Entity<EppUserRolesFunction>(entity =>
@@ -6635,88 +6668,6 @@ namespace AFBA.EPP.Models
                     .HasForeignKey(d => d.UserRoleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("RefEPP_UserRoles33");
-            });
-
-            modelBuilder.Entity<EppUsers>(entity =>
-            {
-                entity.HasKey(e => e.UserId)
-                    .HasName("PK20");
-
-                entity.ToTable("EPP_Users");
-
-                entity.Property(e => e.UserId)
-                    .HasColumnName("user_id")
-                    .ValueGeneratedNever();
-
-                entity.Property(e => e.CrtdBy)
-                    .IsRequired()
-                    .HasColumnName("crtd_by")
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.CrtdDt)
-                    .HasColumnName("crtd_dt")
-                    .HasColumnType("date");
-
-                entity.Property(e => e.FirstName)
-                    .HasColumnName("first_name")
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.LastName)
-                    .HasColumnName("last_name")
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.LoginId)
-                    .HasColumnName("login_id")
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.LstUpdtBy)
-                    .HasColumnName("lst_updt_by")
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.LstUpdtDt)
-                    .HasColumnName("lst_updt_dt")
-                    .HasColumnType("date");
-
-                entity.Property(e => e.PhoneNumber)
-                    .HasColumnName("phone_number")
-                    .HasMaxLength(20);
-            });
-
-            modelBuilder.Entity<GeppGrppymntmd>(entity =>
-            {
-                entity.HasKey(e => e.GrpPymn)
-                    .HasName("PK28");
-
-                entity.ToTable("GEPP_GRPPYMNTMD");
-
-                entity.Property(e => e.GrpPymn)
-                    .HasColumnName("grpPymn")
-                    .ValueGeneratedNever();
-
-                entity.Property(e => e.CrtdBy)
-                    .IsRequired()
-                    .HasColumnName("crtd_by")
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.CrtdDt)
-                    .HasColumnName("crtd_dt")
-                    .HasColumnType("date");
-
-                entity.Property(e => e.GrpPymntMdCd)
-                    .HasColumnName("grp_pymnt_md_cd")
-                    .HasMaxLength(10);
-
-                entity.Property(e => e.GrpPymntMdNm)
-                    .HasColumnName("grp_pymnt_md_nm")
-                    .HasMaxLength(20);
-
-                entity.Property(e => e.LstUpdtBy)
-                    .HasColumnName("lst_updt_by")
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.LstUpdtDt)
-                    .HasColumnName("lst_updt_dt")
-                    .HasColumnType("date");
             });
 
             modelBuilder.Entity<HoldAttr>(entity =>

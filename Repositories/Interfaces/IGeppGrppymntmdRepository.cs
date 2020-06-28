@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AFBA.EPP.Repositories.Interfaces
 {
-    public interface IGeppGrppymntmdRepository : IRepository<GeppGrppymntmd>
+    public interface IGeppGrppymntmdRepository : IRepository<EppGrppymntmd>
     {
     }
 }

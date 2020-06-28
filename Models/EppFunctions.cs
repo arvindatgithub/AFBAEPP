@@ -10,7 +10,7 @@ namespace AFBA.EPP.Models
             EppUserRolesFunction = new HashSet<EppUserRolesFunction>();
         }
 
-        public int FunctionId { get; set; }
+        public long FunctionId { get; set; }
         public string FunctionName { get; set; }
         public DateTime CrtdDt { get; set; }
         public string CrtdBy { get; set; }

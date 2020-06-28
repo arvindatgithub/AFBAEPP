@@ -9,7 +9,7 @@ namespace AFBA.EPP.Models
         public long AttrId { get; set; }
         public long GrpprdctId { get; set; }
         public char? RqdFlg { get; set; }
-        public int? ClmnOrdr { get; set; }
+        public long? ClmnOrdr { get; set; }
         public DateTime CrtdDt { get; set; }
         public string CrtdBy { get; set; }
         public DateTime? LstUpdtDt { get; set; }

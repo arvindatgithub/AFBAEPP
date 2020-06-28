@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace AFBA.EPP.Models
 {
-    public partial class GeppGrppymntmd
+    public partial class EppGrppymntmd
     {
-        public GeppGrppymntmd()
+        public EppGrppymntmd()
         {
             EppGrpmstr = new HashSet<EppGrpmstr>();
         }
 
-        public int GrpPymn { get; set; }
+        public long GrpPymn { get; set; }
         public string GrpPymntMdCd { get; set; }
         public string GrpPymntMdNm { get; set; }
         public DateTime CrtdDt { get; set; }

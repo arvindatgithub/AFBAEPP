@@ -11,7 +11,7 @@ namespace AFBA.EPP.Models
         }
 
         public long ErrmsgId { get; set; }
-        public string ErrmsgNm { get; set; }
+        public string ErrmsgDesc { get; set; }
         public DateTime CrtdDt { get; set; }
         public string CrtdBy { get; set; }
         public DateTime? LstUpdtDt { get; set; }
