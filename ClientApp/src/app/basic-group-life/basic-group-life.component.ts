@@ -9,7 +9,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./basic-group-life.component.css']
 })
 export class BasicGroupLifeComponent implements OnInit,OnChanges {
-  basicGrpLfformgrp: FormGroup;
+  // basicGrpLfformgrp: FormGroup;
   @Input() lookupValue: any;
   @Input() dateValue: any;
   situsValue:string;
@@ -30,11 +30,25 @@ export class BasicGroupLifeComponent implements OnInit,OnChanges {
 
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe) {
   }
+  
+  basicGrpLfformgrp = this.fb.group({
+    FCbasicEffectiveDate_Action: [this.radioButtonArr[1].value,Validators.required],
+    FCbasicEffectiveDate: [this.dateValue,Validators.required],
+    FCbasicSitusState_Action: [this.radioButtonArr[1].value,Validators.required],
+    FCbasicSitusState: [this.lookupValue,Validators.required],
+    FCbasicEmpFcAmt_Action: [this.radioButtonArr[1].value,Validators.required],
+    FCbasicEmpFcAmt: ["",Validators.required],
+    SpouseFaceAmount: ["",Validators.required],
+    ChildFaceAmount: ["",Validators.required],
+  });
 
-
+  get myForm() {
+    return this.basicGrpLfformgrp.get('FCbasicSitusState');
+  }
   ngOnChanges(){
     
     this.latest_datebasicgrplife = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+    this.myForm.setValue(this.lookupValue);
   }
   ngOnInit() {
     this.lookupService.getLookupsData()
@@ -42,25 +56,14 @@ export class BasicGroupLifeComponent implements OnInit,OnChanges {
         this.isLoading = true;
         console.log("data", data);
         this.lookUpDataSitusStates = data.situsState;
+        this.myForm.setValue(this.lookUpDataSitusStates[0].state);
        
       });
 
-      this.basicGrpLfformgrp = this.fb.group({
-        FCbasicEffectiveDate_Action: [this.radioButtonArr[1].value,Validators.required],
-        FCbasicEffectiveDate: [this.dateValue,Validators.required],
-        FCbasicSitusState_Action: [this.radioButtonArr[1].value,Validators.required],
-        FCbasicSitusState: [this.lookupValue,Validators.required],
-        FCbasicEmpFcAmt_Action: [this.radioButtonArr[1].value,Validators.required],
-        FCbasicEmpFcAmt: ["",Validators.required],
-        SpouseFaceAmount: ["",Validators.required],
-        ChildFaceAmount: ["",Validators.required],
-      });
       //this.basicGrpLfformgrp.controls['FCbasicSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
 
   }
-  get myForm() {
-    return this.basicGrpLfformgrp.get(['FCbasicSitusState','FCbasicEffectiveDate']);
-  }
+ 
 
   resetfpp(){
     this.basicGrpLfformgrp.reset({

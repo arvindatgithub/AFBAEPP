@@ -82,14 +82,11 @@
 
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-3" [formGroup]="groupSetupOCC">
       <div>
         <span class="label label-default">Occupation Class<span aria-hidden="true" class="required">*</span></span>
-        <select class="select-dropdown" #occClas (change)="occClassChange(occClas.value)"
-          [value]="occClass[0].occupation" [(ngModel)]="occupationArray">
-          <!-- <option selected>Select Occupation Class</option> -->
-          <!-- <option value="1">Occ Class</option> -->
-          <option *ngFor="let item of occClass">{{item.occupation}}</option>
+        <select class="select-dropdown" formControlName="FCOccControl">
+          <option *ngFor="let item of occClass" [ngValue]="item.id">{{item.occupation}}</option> 
         </select>
       </div>
     </div>
@@ -224,7 +221,7 @@
           <a class="card-title">
             FPPG
           </a>
-          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedFppg" (change)="toggleChangeProductFppg($event)"
+          <mat-slide-toggle style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedFppg" (change)="toggleChangeProductFppg($event)"
             [color]="toggleActiveColor">
             {{checkedToggleProductFppg}}</mat-slide-toggle>
         </div>
@@ -318,7 +315,7 @@
           <a class="card-title">
             FPP Individual
           </a>
-          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedFppInd"
+          <mat-slide-toggle style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedFppInd"
             (change)="toggleChangeProductFppIndivisual($event)" [color]="toggleActiveColor">
             {{checkedToggleProductFppi}}</mat-slide-toggle>
         </div>
@@ -410,7 +407,7 @@
           <a class="card-title">
             Accident
           </a>
-          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedAccident"
+          <mat-slide-toggle style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedAccident"
             (change)="toggleChangeProductAccident($event)" [color]="toggleActiveColor">
             {{checkedToggleProductACCident}}</mat-slide-toggle>
         </div>
@@ -504,7 +501,7 @@
           <a class="card-title">
             Hospital Indemnity
           </a>
-          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedHospital"
+          <mat-slide-toggle style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedHospital"
             (change)="toggleChangeProductHospitalIndemnity($event)" [color]="toggleActiveColor">
             {{checkedToggleProductHospitalIndemnity}}</mat-slide-toggle>
         </div>
@@ -601,7 +598,7 @@
           <a class="card-title">
             Employer Paid CI
           </a>
-          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedEmpPaidCi"
+          <mat-slide-toggle style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedEmpPaidCi"
             (change)="toggleChangeProductEmpPaidCi($event)" [color]="toggleActiveColor">
             {{checkedToggleProductEmpPaidCI}}</mat-slide-toggle>
         </div>
@@ -694,7 +691,7 @@
           <a class="card-title">
             Voluntary CI
           </a>
-          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedVolutaryCi"
+          <mat-slide-toggle style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedVolutaryCi"
             (change)="toggleChangeProductVolCI($event)" [color]="toggleActiveColor">
             {{checkedToggleProductVolCI}}</mat-slide-toggle>
         </div>
@@ -787,7 +784,7 @@
           <a class="card-title">
             Vol Group Life
           </a>
-          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedVolGrpLife"
+          <mat-slide-toggle style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedVolGrpLife"
             (change)="toggleChangeProductVilGrpLife($event)" [color]="toggleActiveColor">
             {{checkedToggleProductVolGrpCI}}</mat-slide-toggle>
         </div>
@@ -880,7 +877,7 @@
           <a class="card-title">
             Basic Group Life
           </a>
-          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedBasicGrpLife"
+          <mat-slide-toggle style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedBasicGrpLife"
             (change)="toggleChangeProductBasicGrpLife($event)" [color]="toggleActiveColor">
             {{checkedToggleProductBcsGrpLife}}</mat-slide-toggle>
         </div>

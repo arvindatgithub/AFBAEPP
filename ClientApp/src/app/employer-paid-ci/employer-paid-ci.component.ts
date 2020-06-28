@@ -9,7 +9,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./employer-paid-ci.component.css']
 })
 export class EmployerPaidCIComponent implements OnInit ,OnChanges{
-  empCIformgrp: FormGroup;
+  // empCIformgrp: FormGroup;
   @Input() lookupValue: any;
   @Input() dateValue: any;
   situsValue:string;
@@ -30,10 +30,33 @@ export class EmployerPaidCIComponent implements OnInit ,OnChanges{
   ]
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe) { }
 
+  empCIformgrp = this.fb.group({
+    FCempCIEffectiveDate: [this.dateValue,Validators.required],
+    FCempCIEffectiveDate_Action: [this.radioButtonArr[1].value,Validators.required],
+    FCempCISitusState_Action: [this.radioButtonArr[1].value,Validators.required],
+    FCempCISitusState: [this.lookupValue,Validators.required],
+   
+    FCempCIEmpFcAmt: ["",Validators.required],
+    FCempCIEmpFcAmt_Action: [this.radioButtonArr[1].value,Validators.required],
+  
+    FCempCIPlanCode_Action: [this.radioButtonArr[1].value,Validators.required],
+
+    FCempCIEMPPlanCode: ["",Validators.required],
+    FCempCISpouseFcAmt: ["",Validators.required],
+    FCempCIChdFcAmt: ["",Validators.required],
+    
+    FCempCIChdFcAmt_Action: [this.radioButtonArr[1].value,Validators.required],
+    FCempCISpouseFcAmt_Action:[this.radioButtonArr[1].value, Validators.required]
+  });
+  get myForm() {
+    return this.empCIformgrp.get('FCempCISitusState');
+  }
 
   ngOnChanges(){
     
     this.latest_dateemppaisci = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+    this.myForm.setValue(this.lookupValue);
+   
   }
   
   ngOnInit() {
@@ -42,27 +65,10 @@ export class EmployerPaidCIComponent implements OnInit ,OnChanges{
       this.isLoading = true;
       console.log("data", data);
       this.lookUpDataSitusStates = data.situsState;
-      
+      this.myForm.setValue(this.lookUpDataSitusStates[0].state);
     });
 
-    this.empCIformgrp = this.fb.group({
-      FCempCIEffectiveDate: [this.dateValue,Validators.required],
-      FCempCIEffectiveDate_Action: [this.radioButtonArr[1].value,Validators.required],
-      FCempCISitusState_Action: [this.radioButtonArr[1].value,Validators.required],
-      FCempCISitusState: [this.lookupValue,Validators.required],
-     
-      FCempCIEmpFcAmt: ["",Validators.required],
-      FCempCIEmpFcAmt_Action: [this.radioButtonArr[1].value,Validators.required],
-    
-      FCempCIPlanCode_Action: [this.radioButtonArr[1].value,Validators.required],
-
-      FCempCIEMPPlanCode: ["",Validators.required],
-      FCempCISpouseFcAmt: ["",Validators.required],
-      FCempCIChdFcAmt: ["",Validators.required],
-      
-      FCempCIChdFcAmt_Action: [this.radioButtonArr[1].value,Validators.required],
-      FCempCISpouseFcAmt_Action:[this.radioButtonArr[1].value, Validators.required]
-    });
+   
     //this.empCIformgrp.controls['FCempCISitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
   }
 
