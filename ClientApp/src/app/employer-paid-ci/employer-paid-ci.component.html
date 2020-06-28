@@ -1,17 +1,10 @@
 
 <div class="container" style="width: 100%;">
   <form [formGroup]="empCIformgrp">
-  <div class="row" style="justify-content:space-evenly;margin-right: 7%;">
+  <div class="row" style="justify-content:space-evenly;margin-right: 7%;"> 
     <div class="radio-button">
-      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-          formControlName="FCempCIEffectiveDate_Action" />
-        <label class="radio-label"> Always Override</label></div>
-      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-          value="Update if Blank" formControlName="FCempCIEffectiveDate_Action" />
-        <label class="radio-label">Update if Blank</label></div>
-      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-          formControlName="FCempCIEffectiveDate_Action" />
-        <label class="radio-label">Validate</label></div>
+      <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCempCIEffectiveDate_Action" />
+        <label class="radio-label"> {{item.name}}</label></div>
     </div>
     <div class="col-3">
       <span class="label label-default">EMP Paid CI Effective Date</span>
@@ -20,15 +13,8 @@
 
     </div>
     <div class="radio-button">
-      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-          formControlName="FCempCISitusState_Action" />
-        <label class="radio-label"> Always Override</label></div>
-      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-          value="Update if Blank" formControlName="FCempCISitusState_Action" />
-        <label class="radio-label">Update if Blank</label></div>
-      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-          formControlName="FCempCISitusState_Action" />
-        <label class="radio-label">Validate</label></div>
+      <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCempCISitusState_Action" />
+        <label class="radio-label"> {{item.name}}</label></div>
     </div>
     <div class="col-3">
       <span class="label label-default">Situs State</span>
@@ -47,16 +33,9 @@
 
 
   <div class="row mt-4" style="justify-content:space-evenly; margin-right: 7%; ">
-    <div class="radio-button">
-      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-          formControlName="FCempCISpouseFcAmt_Action" />
-        <label class="radio-label"> Always Override</label></div>
-      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-          value="Update if Blank" formControlName="FCempCISpouseFcAmt_Action" />
-        <label class="radio-label">Update if Blank</label></div>
-      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-          formControlName="FCempCISpouseFcAmt_Action" />
-        <label class="radio-label">Validate</label></div>
+     <div class="radio-button">
+      <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCempCISpouseFcAmt_Action" />
+        <label class="radio-label"> {{item.name}}</label></div>
     </div>
     <div class="col-4">
 
@@ -66,15 +45,8 @@
     </div>
 
     <div class="radio-button">
-      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-          formControlName="FCempCIEmpFcAmt_Action" />
-        <label class="radio-label"> Always Override</label></div>
-      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-          value="Update if Blank" formControlName="FCempCIEmpFcAmt_Action" />
-        <label class="radio-label">Update if Blank</label></div>
-      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-          formControlName="FCempCIEmpFcAmt_Action" />
-        <label class="radio-label">Validate</label></div>
+      <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCempCIEmpFcAmt_Action" />
+        <label class="radio-label"> {{item.name}}</label></div>
     </div>
     <div class="col-4">
       <span class="label label-default">Employee Standard Face
@@ -104,29 +76,22 @@
 
   <div class="row mt-4" style="justify-content:space-evenly; margin-right: 7%;">
     <div class="radio-button">
-      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
-          formControlName="FCempCIPlanCode_Action" />
-        <label class="radio-label"> Always Override</label></div>
-      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" [checked]="true"
-          value="Update if Blank" formControlName="FCempCIPlanCode_Action" />
-        <label class="radio-label">Update if Blank</label></div>
-      <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Validate"
-          formControlName="FCempCIPlanCode_Action" />
-        <label class="radio-label">Validate</label></div>
+      <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCempCIPlanCode_Action" />
+        <label class="radio-label"> {{item.name}}</label></div>
     </div>
     <div class=" col-3">
       <span class="label label-default">Employee Plan Code </span>
-      <input type="text" class="form-control mb-2 " formControlName="FCempCIEMPPlanCode" style="width: 100%;" placeholder="Plan Code ">
+      <input type="text" class="form-control mb-2 " formControlName="FCempCIEMPPlanCode" style="width: 100%;" placeholder=" Employee Plan Code ">
     </div>
    
     <div class="col-3">
       <span class="label label-default"> Spouse Plan Code</span>
-      <input type="text" class="form-control mb-2 " formControlName="FCempCISpouseFcAmt" style="width: 100%;" placeholder="Employee Standard Face Amount">
+      <input type="text" class="form-control mb-2 " formControlName="FCempCISpouseFcAmt" style="width: 100%;" placeholder="Spouse Plan Code">
     </div>
 
     <div class="col-3">
       <span class="label label-default"> Child Plan Code</span>
-      <input type="text" class="form-control mb-2 " formControlName="FCempCIChdFcAmt" style="width: 100%;" placeholder="Child Standard Face Amount">
+      <input type="text" class="form-control mb-2 " formControlName="FCempCIChdFcAmt" style="width: 100%;" placeholder="Child Plan Code">
     </div>
   </div>
  

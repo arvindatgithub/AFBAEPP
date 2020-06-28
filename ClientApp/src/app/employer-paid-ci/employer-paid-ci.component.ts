@@ -23,7 +23,11 @@ export class EmployerPaidCIComponent implements OnInit ,OnChanges{
   latest_dateemppaisci;
   public minDate = new Date().toISOString().slice(0,10);
   latest_date;
-
+  radioButtonArr=[
+    {value:'10002',name:'Always Override'},
+    {value:'10001',name:'Update if Blank'},
+    {value:'10003',name:'Validate'}
+  ]
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe) { }
 
 
@@ -43,21 +47,21 @@ export class EmployerPaidCIComponent implements OnInit ,OnChanges{
 
     this.empCIformgrp = this.fb.group({
       FCempCIEffectiveDate: [this.dateValue,Validators.required],
-      FCempCIEffectiveDate_Action: ["",Validators.required],
-      FCempCISitusState_Action: ["",Validators.required],
+      FCempCIEffectiveDate_Action: [this.radioButtonArr[1].value,Validators.required],
+      FCempCISitusState_Action: [this.radioButtonArr[1].value,Validators.required],
       FCempCISitusState: [this.lookupValue,Validators.required],
      
       FCempCIEmpFcAmt: ["",Validators.required],
-      FCempCIEmpFcAmt_Action: ["",Validators.required],
+      FCempCIEmpFcAmt_Action: [this.radioButtonArr[1].value,Validators.required],
     
-      FCempCIPlanCode_Action: ["",Validators.required],
+      FCempCIPlanCode_Action: [this.radioButtonArr[1].value,Validators.required],
 
       FCempCIEMPPlanCode: ["",Validators.required],
       FCempCISpouseFcAmt: ["",Validators.required],
       FCempCIChdFcAmt: ["",Validators.required],
       
-      FCempCIChdFcAmt_Action: ["",Validators.required],
-      FCempCISpouseFcAmt_Action:["", Validators.required]
+      FCempCIChdFcAmt_Action: [this.radioButtonArr[1].value,Validators.required],
+      FCempCISpouseFcAmt_Action:[this.radioButtonArr[1].value, Validators.required]
     });
     //this.empCIformgrp.controls['FCempCISitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
   }

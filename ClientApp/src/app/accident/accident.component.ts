@@ -23,14 +23,18 @@ export class AccidentComponent implements OnInit,OnChanges {
   latest_dateaccident;
   public minDate = new Date().toISOString().slice(0,10);
   latest_date;
-
+  radioButtonArr=[
+    {value:'10002',name:'Always Override'},
+    {value:'10001',name:'Update if Blank'},
+    {value:'10003',name:'Validate'}
+  ]
   jobs =  [{name: 'On the Job Only', abbrev: 'on'},
   {name: 'Off the Job Only', abbrev: 'off'},
   {name: 'both', abbrev: 'noupdate'}];
 
-  Rate =  [{name: '1', abb: '1'},
-  {name: '2', abb: '2'},
-  {name: '3', abb: '3'}];
+  Rate =  [{no: '1', abb: '1'},
+  {no: '2', abb: '2'},
+  {no: '3', abb: '3'}];
  // FCaccOnOff
 
   constructor(private lookupService: LookupService, private fb:FormBuilder, public datepipe: DatePipe) { }
@@ -51,14 +55,14 @@ export class AccidentComponent implements OnInit,OnChanges {
        this.latest_dateaccident = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
     });
     this.accformgrp = this.fb.group({
-      FCaccSitusState_Action: ["10001",Validators.required],
+      FCaccSitusState_Action: [this.radioButtonArr[1].value,Validators.required],
       FCaccSitusState: [this.lookupValue,Validators.required],
       FCaccEffectiveDate: ["",Validators.required],
-      FCaccEffectiveDate_Action: ["10001",Validators.required],
+      FCaccEffectiveDate_Action: [this.radioButtonArr[1].value,Validators.required],
       FCaccOnOff: ["",Validators.required],
-      FCaccOnOff_Action: ["10001",Validators.required],
+      FCaccOnOff_Action: [this.radioButtonArr[1].value,Validators.required],
       FCaccRateLevel: ["",Validators.required],
-      FCaccRateLevel_Action: ["10001",Validators.required],
+      FCaccRateLevel_Action: [this.radioButtonArr[1].value,Validators.required],
 
     });
     this.accformgrp.controls['FCaccOnOff'].setValue( this.jobs[0].abbrev, {onlySelf: true}); 
