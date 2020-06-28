@@ -10,7 +10,7 @@ namespace AFBA.EPP.Models
             EppGrpmstr = new HashSet<EppGrpmstr>();
         }
 
-        public long GrpPymn { get; set; }
+        public long GrpPymnId { get; set; }
         public string GrpPymntMdCd { get; set; }
         public string GrpPymntMdNm { get; set; }
         public DateTime CrtdDt { get; set; }

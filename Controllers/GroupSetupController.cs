@@ -78,7 +78,7 @@ namespace AFBA.EPP.Controllers
             grpMstdata.EnrlmntPrtnrsId = groupSetupModel.EnrlmntPrtnrsId;
             grpMstdata.GrpEfftvDt = groupSetupModel.GrpEfftvDt;
             grpMstdata.GrpSitusSt = groupSetupModel.GrpSitusSt;
-            grpMstdata.GrpPymn = groupSetupModel.GrpPymn;
+            grpMstdata.GrpPymnId = groupSetupModel.GrpPymn;
             grpMstdata.OccClass = groupSetupModel.OccClass;
             grpMstdata.CrtdBy = CrtdBy;
             
@@ -134,8 +134,8 @@ namespace AFBA.EPP.Controllers
                     EnrlmntPrtnrsId = groupSetupModel.EnrlmntPrtnrsId,
                     GrpEfftvDt = groupSetupModel.GrpEfftvDt,
                     GrpSitusSt = groupSetupModel.GrpSitusSt,
-                    GrpPymn = groupSetupModel.GrpPymn,
-                    OccClass = groupSetupModel.OccClass,
+                    GrpPymnId = groupSetupModel.GrpPymn,
+                     OccClass = groupSetupModel.OccClass,
                     GrpId = grpId,
                     CrtdBy = CrtdBy
 
@@ -562,9 +562,9 @@ namespace AFBA.EPP.Controllers
                     }
 
                     groupSetupModel.GrpEfftvDt = GrpMaster.GrpEfftvDt;
-                    groupSetupModel.GrpPymn = GrpMaster.GrpPymn;
+                    groupSetupModel.GrpPymn = GrpMaster.GrpPymnId;
                     groupSetupModel.GrpSitusSt = GrpMaster.GrpSitusSt;
-                    groupSetupModel.OccClass = GrpMaster.OccClass;
+                 //   groupSetupModel.OccClass = GrpMaster.OccClass;
 
                     // Load Product Master
 

@@ -39,7 +39,6 @@ namespace AFBA.EPP.Models
         public virtual DbSet<EppUserActionTypes> EppUserActionTypes { get; set; }
         public virtual DbSet<EppUserRoles> EppUserRoles { get; set; }
         public virtual DbSet<EppUserRolesFunction> EppUserRolesFunction { get; set; }
-        public virtual DbSet<HoldAttr> HoldAttr { get; set; }
         public virtual DbSet<PgStatStatements> PgStatStatements { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -542,7 +541,7 @@ namespace AFBA.EPP.Models
                     .HasColumnName("grp_nm")
                     .HasMaxLength(100);
 
-                entity.Property(e => e.GrpPymn).HasColumnName("grpPymn");
+                entity.Property(e => e.GrpPymnId).HasColumnName("grpPymn_id");
 
                 entity.Property(e => e.GrpSitusSt)
                     .HasColumnName("grp_situs_st")
@@ -556,13 +555,7 @@ namespace AFBA.EPP.Models
                     .HasColumnName("lst_updt_dt")
                     .HasColumnType("date");
 
-                entity.Property(e => e.NewOpnEnrlmntPrd)
-                    .HasColumnName("new_opn_enrlmnt_prd")
-                    .HasColumnType("numeric(2,0)");
-
                 entity.Property(e => e.OccClass).HasColumnName("occ_class");
-
-                entity.Property(e => e.PerpetualEnrlmntFlg).HasColumnName("perpetual_enrlmnt_flg");
 
                 entity.HasOne(d => d.EnrlmntPrtnrs)
                     .WithMany(p => p.EppGrpmstr)
@@ -570,9 +563,9 @@ namespace AFBA.EPP.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("RefEPP_ENRLMNT_PRTNRS27");
 
-                entity.HasOne(d => d.GrpPymnNavigation)
+                entity.HasOne(d => d.GrpPymn)
                     .WithMany(p => p.EppGrpmstr)
-                    .HasForeignKey(d => d.GrpPymn)
+                    .HasForeignKey(d => d.GrpPymnId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("RefGEPP_GRPPYMNTMD39");
             });
@@ -622,13 +615,13 @@ namespace AFBA.EPP.Models
 
             modelBuilder.Entity<EppGrppymntmd>(entity =>
             {
-                entity.HasKey(e => e.GrpPymn)
+                entity.HasKey(e => e.GrpPymnId)
                     .HasName("PK28");
 
                 entity.ToTable("EPP_GRPPYMNTMD");
 
-                entity.Property(e => e.GrpPymn)
-                    .HasColumnName("grpPymn")
+                entity.Property(e => e.GrpPymnId)
+                    .HasColumnName("grpPymn_id")
                     .ValueGeneratedNever();
 
                 entity.Property(e => e.CrtdBy)
@@ -6668,25 +6661,6 @@ namespace AFBA.EPP.Models
                     .HasForeignKey(d => d.UserRoleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("RefEPP_UserRoles33");
-            });
-
-            modelBuilder.Entity<HoldAttr>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.Property(e => e.AttrId).HasColumnName("attr_id");
-
-                entity.Property(e => e.CreateBy).HasColumnName("create_by");
-
-                entity.Property(e => e.CreateDt).HasColumnName("create_dt");
-
-                entity.Property(e => e.HoldattrId).HasColumnName("holdattr_id");
-
-                entity.Property(e => e.LstUpdtBy).HasColumnName("lst_updt_by");
-
-                entity.Property(e => e.LstUpdtDt).HasColumnName("lst_updt_dt");
-
-                entity.Property(e => e.RcrdId).HasColumnName("rcrd_id");
             });
 
             modelBuilder.Entity<PgStatStatements>(entity =>
