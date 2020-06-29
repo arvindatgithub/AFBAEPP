@@ -69,13 +69,20 @@ export class EmployerPaidCIComponent implements OnInit ,OnChanges{
     });
 
    
-    //this.empCIformgrp.controls['FCempCISitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
+   
   }
 
  
-  // getLookupValueSitusState(value: any){
-  //   this.lookupSitusStateValue = value;
-  // }
+  resetEmpCi(){
+    this.empCIformgrp.reset({
+      FCempCIEffectiveDate: "",
+      FCempCIEmpFcAmt: "",
+      FCempCIEMPPlanCode:"",
+      FCempCISpouseFcAmt: "",
+      FCempCIChdFcAmt:"",
+
+    })
+  }
 
   onItemChange(value){
     console.log(" Value is : ", value );

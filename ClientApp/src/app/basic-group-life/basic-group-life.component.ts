@@ -67,11 +67,10 @@ export class BasicGroupLifeComponent implements OnInit,OnChanges {
 
   resetfpp(){
     this.basicGrpLfformgrp.reset({
-      FCbasicEffectiveDate_Action: "",
+    
       FCbasicEffectiveDate: "",
-      FCbasicSitusState_Action: "",
-      FCbasicSitusState: "",
-      FCbasicEmpFcAmt_Action: "",
+     
+    
       FCbasicEmpFcAmt: "",
       SpouseFaceAmount: "",
       ChildFaceAmount: "",

@@ -86,28 +86,26 @@ export class FPPIndividualComponent implements OnInit, OnChanges {
  resetfpp(){
   this.fppiformgrp.reset({
     FCfppiEffectiveDate: "",
-    FCfppiEffectiveDate_Action:"",
+   
     FCfppiAgentSign: "",
-    FCfppiAgentSign_Action: "",
+   
     FCfppiEmpGIAmtMax: "",
-    FCfppiEmpAmtMax_Action: "",
+ 
     FCfppiEmpQIAmtMax: "",
     FCfppiEmpAmtMax:"",
     FCfppiSpouseGIAmtMax: "",
     FCfppiSpouseQIAmtMax: "",
     FCfppiSpouseMaxAmt: "",
-    FCfppiSpouseAmtMax_Action: "",
+    
     FCfppiOpenEnrollGI: "",
-    FCfppiOpenEnrollGI_Action: "",
-    FCfppiPlanCodeManualEntry_Action: "",
+  
     FCfppiPlanCodeManualEntry:"",
     FCfppiUserToken: "",
-    FCfppiUserToken_Action: "",
+  
     FCfppiCaseToken: "",
-    FCfppiCaseToken_Action: "",
+  
     FCfppiQolRiders: "",
-    FCfppiQolRiders_Action: "",
-    FCfppiWaiver_Action: "",
+  
     FCfppiWaiver: "",
   })
  }
