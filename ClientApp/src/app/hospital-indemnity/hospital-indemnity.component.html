@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="hiData !== undefined">
   <form [formGroup]="hospformgrp">
   <div class="row" style="justify-content:space-evenly;margin-right: 7%;">
     <div class="radio-button">
@@ -7,8 +7,8 @@
     </div>
     <div class="col-3">
       <span class="label label-default">HI Effective Date</span>
-      <input type="date" [value]="latest_datehospitalindemnity" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
-        placeholder="Group Effective Date" [(ngModel)]="latest_datehospitalindemnity" formControlName="FChospEffectiveDate">
+      <input type="date" class="form-control mb-2 " style="width: 100%;"
+        placeholder="Group Effective Date" formControlName="FChospEffectiveDate">
 
     </div>
     <div class="radio-button">
@@ -17,9 +17,9 @@
     </div>
     <div class="col-3">
       <span class="label label-default">Situs State</span>
-      <select class="form-control" [value]="lookupValue" formControlName = "FChospSitusState">
+      <select class="form-control" formControlName = "FChospSitusState">
         <!-- <option value="0" selected="selected">{{ lookupValue }}</option> -->
-        <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
+        <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates" value={{lookUpDataSitusState.state}}>
           {{lookUpDataSitusState.state}}</option>
 
       </select>

@@ -2,6 +2,8 @@ import { Component, OnInit, Input,ViewChild,OnChanges,SimpleChanges } from '@ang
 import { LookupService } from '../services/lookup.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { GroupsearchService } from '../services/groupsearch.service';
+import { EppCreateGrpSetupService } from '../services/epp-create-grp-setup.service';
 
 @Component({
   selector: 'app-accident',
@@ -10,7 +12,7 @@ import { DatePipe } from '@angular/common';
 })
 export class AccidentComponent implements OnInit,OnChanges {
   //@ViewChild('agent',{static:false}) agentComponent: AgentSetupComponent;
-  // accformgrp: FormGroup;
+  accformgrp: FormGroup;
   @Input() lookupValue: any;
   @Input() dateValue: any;
   situsValue:string;
@@ -36,27 +38,70 @@ export class AccidentComponent implements OnInit,OnChanges {
   {no: '2', abb: '2'},
   {no: '3', abb: '3'}];
  // FCaccOnOff
+ accidentData: any;
+ accidentDate;
+ accidentSitus;
+ on_off;
+ rate_level;
 
-  constructor(private lookupService: LookupService, private fb:FormBuilder, public datepipe: DatePipe) { }
+  constructor(private lookupService: LookupService, private fb:FormBuilder, public datepipe: DatePipe,
+    private groupsearchService: GroupsearchService, private eppservice:EppCreateGrpSetupService) {
+      let existingSelectedGrpNbr: any;
+      this.groupsearchService.castGroupNumber.subscribe(data => {
+        existingSelectedGrpNbr = data; 
+        console.log("BGL "+ existingSelectedGrpNbr); 
+      });
 
-  accformgrp = this.fb.group({
-    FCaccSitusState_Action: [this.radioButtonArr[1].value,Validators.required],
-    FCaccSitusState: ["",Validators.required],
-    FCaccEffectiveDate: ["",Validators.required],
-    FCaccEffectiveDate_Action: [this.radioButtonArr[1].value,Validators.required],
-    FCaccOnOff: ["",Validators.required],
-    FCaccOnOff_Action: [this.radioButtonArr[1].value,Validators.required],
-    FCaccRateLevel: ["",Validators.required],
-    FCaccRateLevel_Action: [this.radioButtonArr[1].value,Validators.required],
+      this.eppservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
+        this.accidentData = data;
+        
+        console.log('acc'+ JSON.stringify(data));
+        
+        //this.minDate = this.datepipe.transform(this.groupsfppgData.fppg.effctv_dt, 'yyyy-MM-dd');
+        if(this.accidentData !== undefined){
+          if(this.accidentData.isACC_HIActive){
+            this.accidentDate = this.datepipe.transform(this.accidentData.acC_HI.effctv_dt, 'yyyy-MM-dd');
+            if(this.accidentData.acC_HI.grp_situs_state !== null){
+              this.accidentSitus = this.accidentData.acC_HI.grp_situs_state;
+            } else {
+              this.accidentSitus = this.lookupValue;
+            }
+            if(this.accidentData.acC_HI.sp_smkr_no_smkr !== null){
+              this.on_off = this.accidentData.acC_HI.sp_smkr_no_smkr;
+            } else {
+              this.on_off = this.jobs[2].abbrev;
+            }
+            if(this.accidentData.acC_HI.rate_lvl !== null){
+              this.rate_level = this.accidentData.acC_HI.rate_lvl;
+            } else {
+              this.rate_level = this.Rate[0].no;
+            }
+          }
 
-  });
+          this.accformgrp = this.fb.group({
+            FCaccSitusState_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.grp_situs_state_action : this.radioButtonArr[1].value,Validators.required],
+            FCaccSitusState: [(this.accidentData.isACC_HIActive) ? this.accidentSitus : this.lookupValue,Validators.required],
+            FCaccEffectiveDate: [(this.accidentData.isACC_HIActive) ? this.accidentDate : this.minDate,Validators.required],
+            FCaccEffectiveDate_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.effctv_dt_action : this.radioButtonArr[1].value,Validators.required],
+            FCaccOnOff: [(this.accidentData.isACC_HIActive) ? this.on_off : this.jobs[2].abbrev,Validators.required],
+            FCaccOnOff_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.sp_smkr_no_smkr_action : this.radioButtonArr[1].value,Validators.required],
+            FCaccRateLevel: [(this.accidentData.isACC_HIActive) ? this.Rate[0].no : this.Rate[0].no,Validators.required],
+            FCaccRateLevel_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.rate_lvl_action : this.radioButtonArr[1].value,Validators.required],
+      
+          });
+         
+          
+        }
+        });
+     }
+
+ 
   get myForm() {
     return this.accformgrp.get('FCaccSitusState');
   }
   ngOnChanges(){
    
     this.latest_dateaccident = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
-    this.myForm.setValue(this.lookupValue);
   }
 
 
@@ -66,11 +111,9 @@ export class AccidentComponent implements OnInit,OnChanges {
       this.isLoading = true;
       console.log("data", data);
       this.lookUpDataSitusStates = data.situsState;
-      this.myForm.setValue(this.lookUpDataSitusStates[0].state);
        this.latest_dateaccident = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
     }); 
    
-    this.accformgrp.controls['FCaccOnOff'].setValue( this.jobs[0].abbrev, {onlySelf: true}); 
   }
  
   

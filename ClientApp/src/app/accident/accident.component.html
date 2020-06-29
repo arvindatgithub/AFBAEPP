@@ -1,4 +1,4 @@
-<div class="container" style="width: 100%;">
+<div class="container" style="width: 100%;" *ngIf="accidentData !== undefined">
   <form [formGroup]="accformgrp">
     <div class="row pb-2 " style="justify-content:space-evenly;margin-right: 7%;">
       <div class="radio-button">
@@ -7,7 +7,7 @@
       </div>
       <div class="col-3">
         <span class="label label-default">Accident Effective Date</span>   
-        <input type="date"  [min]="minDate" formControlName="FCaccEffectiveDate" [(ngModel)]="minDate" class="form-control mb-2 " style="width: 100%;"
+        <input type="date" formControlName="FCaccEffectiveDate" class="form-control mb-2 " style="width: 100%;"
           placeholder="Group Effective Date">  
   
       </div>
@@ -17,9 +17,9 @@
       </div>
       <div class="col-3">
         <span class="label label-default">Situs State</span>
-        <select class="form-control" [value]="lookupValue"  formControlName="FCaccSitusState">
+        <select class="form-control" formControlName="FCaccSitusState">
           <!-- <option value="0" selected="selected">{{ lookupValue }}</option> -->
-          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
+          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates" value={{lookUpDataSitusState.state}}>
             {{lookUpDataSitusState.state}}</option>
         </select>
       </div>              
@@ -35,7 +35,7 @@
       <div class="col-4">
         <span class="label">On or Off the Job</span>
         <select  class="form-control" formControlName="FCaccOnOff">
-          <option *ngFor="let job of jobs" [ngValue]="job.abbrev"> 
+          <option *ngFor="let job of jobs" value={{job.abbrev}}> 
             {{ job.name }}
           </option>
         </select>
@@ -56,7 +56,7 @@
           Accident Rate Level
         </span>
         <select  class="form-control" formControlName="FCaccRateLevel">
-          <option *ngFor="let names of Rate" [ngValue]="names.abb">
+          <option *ngFor="let names of Rate"  value={{names.no}}>
             {{ names.no }}
           </option>
         </select>

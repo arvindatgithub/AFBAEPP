@@ -46,7 +46,7 @@
     </div>
     <div class="form-group col-md-3" [formGroup]="groupSetupFG">
       <span class="label label-default">Group effective date<span aria-hidden="true" class="required">*</span></span>
-      <input type="date"  formControlName="fcEffDate" [min]="minDate" class="form-control"
+      <input type="date"  formControlName="fcEffDate" class="form-control"
         [(ngModel)]="minDate" style="width: 100%;" placeholder="Group Effective Date">
     </div>
     <div class="form-group col-md-3">
@@ -85,8 +85,8 @@
     <div class="col-md-3" [formGroup]="groupSetupOCC">
       <div>
         <span class="label label-default">Occupation Class<span aria-hidden="true" class="required">*</span></span>
-        <select class="select-dropdown" formControlName="FCOccControl">
-          <option *ngFor="let item of occClass" [ngValue]="item.id">{{item.occupation}}</option> 
+        <select class="select-dropdown" formControlName="FCOccControl" [(ngModel)]="occupationArray">
+          <option *ngFor="let item of occClass" value={{item.id}}>{{item.occupation}}</option> 
         </select>
       </div>
     </div>
@@ -113,9 +113,9 @@
     </div>
     <div class="col-md-3">
       <span class="label label-default">Situs State<span aria-hidden="true" class="required">*</span></span>
-      <select class="select-dropdown my-1" #situsState (change)="getLookupValueSitusState(situsState.value)">
+      <select class="select-dropdown my-1" #situsState [(ngModel)]="selected.state" (change)="getLookupValueSitusState(situsState.value)">
         <!-- <option hidden disabled selected value> -- select Situs State -- </option> -->
-        <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
+        <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates" value={{lookUpDataSitusState.state}}>
           {{ lookUpDataSitusState.state }}
         </option>
       </select>
@@ -125,7 +125,7 @@
 
   <div>
 
-    <form class="agent-form" [formGroup]="agentformgrp">
+    <form class="agent-form" [formGroup]="agentformgrp"  *ngIf="groupsData !== undefined">
       <!-- first-row -->
       <div class="row" style="justify-content:space-evenly;">
         <div class="col-md-3">
@@ -214,7 +214,7 @@
     </form>
   </div>
 
-  <div class="container">
+  <div class="container"  *ngIf="groupsData !== undefined">
     <div id="accordion" class="accordion">
       <div class="card mt-2" style="cursor: pointer;">
         <div class="card-header collapsed mb-2" data-toggle="collapse" href="#collapseOne">
@@ -227,7 +227,7 @@
         </div>
         <div id="collapseOne" class="card-body collapse" data-parent="#accordion">
 
-          <app-fppg [lookupValue]="lookupSitusStateValue" #child0 [dateValue]="dateChange">
+          <app-fppg [lookupValue]="selected.state" #child0 [dateValue]="dateChange">
            
             <form class="agent-form" [formGroup]="agentformgrp">
               <div class="radio-button" style="display: inline-block;padding-left: 5px;" *ngFor="let item of radioButtonArr">
@@ -238,23 +238,23 @@
               <div class="row" style="justify-content:space-evenly;">
                 <div class="col-md-3">
                   <span class="label label-default">Agent Number</span>
-                  <input type="text" formControlName="AgentNumber" [ngModel]="agentNumber_0" name="text"
+                  <input type="text" formControlName="AgentNumberfppg" name="text"
                     class="form-control mb-2" style="width: 100%;" placeholder="Primary Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
                 <div class="col-md-3">
                   <span class="label label-default">Agent SubCount</span>
-                  <input type="text" formControlName="AgentSubCount" [ngModel]="agentSubCount_0"
+                  <input type="text" formControlName="AgentSubCountfppg"
                     class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
                 <div class="col-md-3">
                   <span class="label label-default">Commisson Split %</span>
-                  <input type="text" formControlName="CommissonSplit" [ngModel]="agentCommissionSPlit_0"
+                  <input type="text" formControlName="CommissonSplitfppg"
                     class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
 
                 <div class="col-md-3">
                   <span class="label label-default">Agent Name</span>
-                  <input type="text" formControlName="AgentName" [ngModel]="agent_name" class="form-control mb-2 "
+                  <input type="text" formControlName="AgentNamefppg" class="form-control mb-2 "
                     style="width: 100%;" placeholder="Agent Name" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/,'')">
                 </div>
               </div>
@@ -262,15 +262,15 @@
               <!-- second-row -->
               <div class="row">
                 <div class="col-md-3">
-                  <input type="text" formControlName="AgentNumber1" [ngModel]="agentNumber_1" class="form-control mb-2"
+                  <input type="text" formControlName="AgentNumber1fppg" class="form-control mb-2"
                     style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
                 <div class="col-md-3">
-                  <input type="text" formControlName="AgentSubCount1" [ngModel]="agentSubCount_1"
+                  <input type="text" formControlName="AgentSubCount1fppg"
                     class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount " onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
                 <div class="col-md-3">
-                  <input type="text" formControlName="CommissonSplit1" [ngModel]="agentCommissionSPlit_1"
+                  <input type="text" formControlName="CommissonSplit1fppg"
                     class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
 
@@ -278,15 +278,15 @@
               <!-- 3rd-row -->
               <div class="row">
                 <div class="col-md-3">
-                  <input type="text" formControlName="AgentNumber2" [ngModel]="agentNumber_2" class="form-control mb-2"
+                  <input type="text" formControlName="AgentNumber2fppg" class="form-control mb-2"
                     style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
                 <div class="col-md-3">
-                  <input type="text" formControlName="AgentSubCount2" [ngModel]="agentSubCount_2"
+                  <input type="text" formControlName="AgentSubCount2fppg"
                     class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
                 <div class="col-md-3">
-                  <input type="text" formControlName="CommissonSplit2" [ngModel]="agentCommissionSPlit_2"
+                  <input type="text" formControlName="CommissonSplit2fppg"
                     class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
 
@@ -294,15 +294,15 @@
               <!-- 4th-row -->
               <div class="row">
                 <div class="col-md-3">
-                  <input type="text" formControlName="AgentNumber3" [ngModel]="agentNumber_3" class="form-control mb-2"
+                  <input type="text" formControlName="AgentNumber3fppg" class="form-control mb-2"
                     style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
                 <div class="col-md-3">
-                  <input type="text" formControlName="AgentSubCount3" [ngModel]="agentSubCount_3"
+                  <input type="text" formControlName="AgentSubCount3fppg"
                     class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
                 <div class="col-md-3">
-                  <input type="text" formControlName="CommissonSplit3" [ngModel]="agentCommissionSPlit_3"
+                  <input type="text" formControlName="CommissonSplit3fppg"
                     class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
 
@@ -321,7 +321,7 @@
         </div>
         <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
 
-          <app-fpp-individual [lookupValue]="lookupSitusStateValue" #child1 [dateValue]="dateChange">
+          <app-fpp-individual [lookupValue]="selected.state" #child1 [dateValue]="dateChange">
             <form class="agent-form" [formGroup]="agentformgrp">
               <div class="radio-button" style="display: inline-block;padding-left: 5px;" *ngFor="let item of radioButtonArr">
                 <div><input type="radio" value={{item.value}} formControlName="fppiAgent_Action" />
@@ -331,23 +331,23 @@
               <div class="row" style="justify-content:space-evenly;">
                 <div class="col-md-3">
                   <span class="label label-default">Agent Number</span>
-                  <input type="text" formControlName="AgentNumberFppIndivisual" [ngModel]="agentNumber_0" name="text"
+                  <input type="text" formControlName="AgentNumberFppIndivisual" name="text"
                     class="form-control mb-2" style="width: 100%;" placeholder="Primary Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
                 <div class="col-md-3">
                   <span class="label label-default">Agent SubCount</span>
-                  <input type="text" formControlName="AgentSubCountFppIndivisual" [ngModel]="agentSubCount_0"
+                  <input type="text" formControlName="AgentSubCountFppIndivisual"
                     class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
                 <div class="col-md-3">
                   <span class="label label-default">Commisson Split %</span>
-                  <input type="text" formControlName="CommissonSplitFppIndivisual" [ngModel]="agentCommissionSPlit_0"
+                  <input type="text" formControlName="CommissonSplitFppIndivisual"
                     class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
 
                 <div class="col-md-3">
                   <span class="label label-default">Agent Name</span>
-                  <input type="text" formControlName="AgentNameFppIndivisual" [ngModel]="agent_name"
+                  <input type="text" formControlName="AgentNameFppIndivisual"
                     class="form-control mb-2 " style="width: 100%;" placeholder="Agent Name" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/,'')">
                 </div>
               </div>
@@ -355,15 +355,15 @@
               <!-- second-row -->
               <div class="row">
                 <div class="col-md-3">
-                  <input type="text" formControlName="AgentNumber1FppIndivisual" [ngModel]="agentNumber_1"
+                  <input type="text" formControlName="AgentNumber1FppIndivisual"
                     class="form-control mb-2" style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
                 <div class="col-md-3">
-                  <input type="text" formControlName="AgentSubCount1FppIndivisual" [ngModel]="agentSubCount_1"
+                  <input type="text" formControlName="AgentSubCount1FppIndivisual"
                     class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
                 <div class="col-md-3">
-                  <input type="text" formControlName="CommissonSplit1FppIndivisual" [ngModel]="agentCommissionSPlit_1"
+                  <input type="text" formControlName="CommissonSplit1FppIndivisual"
                     class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
 
@@ -371,15 +371,15 @@
               <!-- 3rd-row -->
               <div class="row">
                 <div class="col-md-3">
-                  <input type="text" formControlName="AgentNumber2FppIndivisual" [ngModel]="agentNumber_2"
+                  <input type="text" formControlName="AgentNumber2FppIndivisual"
                     class="form-control mb-2" style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
                 <div class="col-md-3">
-                  <input type="text" formControlName="AgentSubCount2FppIndivisual" [ngModel]="agentSubCount_2"
+                  <input type="text" formControlName="AgentSubCount2FppIndivisual"
                     class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
                 <div class="col-md-3">
-                  <input type="text" formControlName="CommissonSplit2FppIndivisual" [ngModel]="agentCommissionSPlit_2"
+                  <input type="text" formControlName="CommissonSplit2FppIndivisual"
                     class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
 
@@ -387,15 +387,15 @@
               <!-- 4th-row -->
               <div class="row">
                 <div class="col-md-3">
-                  <input type="text" formControlName="AgentNumber3FppIndivisual" [ngModel]="agentNumber_3"
+                  <input type="text" formControlName="AgentNumber3FppIndivisual"
                     class="form-control mb-2" style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
                 <div class="col-md-3">
-                  <input type="text" formControlName="AgentSubCount3FppIndivisual" [ngModel]="agentSubCount_3"
+                  <input type="text" formControlName="AgentSubCount3FppIndivisual"
                     class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
                 <div class="col-md-3">
-                  <input type="text" formControlName="CommissonSplit3FppIndivisual" [ngModel]="agentCommissionSPlit_3"
+                  <input type="text" formControlName="CommissonSplit3FppIndivisual"
                     class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
 
@@ -414,7 +414,7 @@
         <div id="collapseThree" class="collapse" data-parent="#accordion">
           <div class="card-body">
 
-            <app-accident [lookupValue]="lookupSitusStateValue" #child2 [dateValue]="dateChange">
+            <app-accident [lookupValue]="selected.state" #child2 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
                 <div class="radio-button" style="display: inline-block;padding-left: 5px;" *ngFor="let item of radioButtonArr">
                   <div><input type="radio" value={{item.value}} formControlName="accAgent_Action" />
@@ -424,23 +424,23 @@
                 <div class="row" style="justify-content:space-evenly;">
                   <div class="col-md-3">
                     <span class="label label-default">Agent Number</span>
-                    <input type="text" formControlName="AgentNumberaccident" [ngModel]="agentNumber_0" name="text"
+                    <input type="text" formControlName="AgentNumberaccident" name="text"
                       class="form-control mb-2" style="width: 100%;" placeholder="Primary Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
                     <span class="label label-default">Agent SubCount</span>
-                    <input type="text" formControlName="AgentSubCountaccident" [ngModel]="agentSubCount_0"
+                    <input type="text" formControlName="AgentSubCountaccident"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
                     <span class="label label-default">Commisson Split %</span>
-                    <input type="text" formControlName="CommissonSplitaccident" [ngModel]="agentCommissionSPlit_0"
+                    <input type="text" formControlName="CommissonSplitaccident"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
                   <div class="col-md-3">
                     <span class="label label-default">Agent Name</span>
-                    <input type="text" formControlName="AgentNameaccident" [ngModel]="agent_name"
+                    <input type="text" formControlName="AgentNameaccident"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Agent Name" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/,'')">
                   </div>
                 </div>
@@ -448,15 +448,15 @@
                 <!-- second-row -->
                 <div class="row">
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentNumber1accident" [ngModel]="agentNumber_1"
+                    <input type="text" formControlName="AgentNumber1accident"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentSubCount1accident" [ngModel]="agentSubCount_1"
+                    <input type="text" formControlName="AgentSubCount1accident"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit1accident" [ngModel]="agentCommissionSPlit_1"
+                    <input type="text" formControlName="CommissonSplit1accident"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -464,15 +464,15 @@
                 <!-- 3rd-row -->
                 <div class="row">
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentNumber2accident" [ngModel]="agentNumber_2"
+                    <input type="text" formControlName="AgentNumber2accident"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentSubCount2accident" [ngModel]="agentSubCount_2"
+                    <input type="text" formControlName="AgentSubCount2accident"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit2accident" [ngModel]="agentCommissionSPlit_2"
+                    <input type="text" formControlName="CommissonSplit2accident"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -480,15 +480,15 @@
                 <!-- 4th-row -->
                 <div class="row">
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentNumber3accident" [ngModel]="agentNumber_3"
+                    <input type="text" formControlName="AgentNumber3accident"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentSubCount3accident" [ngModel]="agentSubCount_3"
+                    <input type="text" formControlName="AgentSubCount3accident"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit3accident" [ngModel]="agentCommissionSPlit_3"
+                    <input type="text" formControlName="CommissonSplit3accident"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -507,7 +507,7 @@
         </div>
         <div id="collapseFour" class="collapse" data-parent="#accordion">
           <div class="card-body">
-            <app-hospital-indemnity [lookupValue]="lookupSitusStateValue" #child3 [dateValue]="dateChange">
+            <app-hospital-indemnity [lookupValue]="selected.state" #child3 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
                 <div class="radio-button" style="display: inline-block;padding-left: 5px;" *ngFor="let item of radioButtonArr">
                   <div><input type="radio" value={{item.value}} formControlName="hospAgent_Action" />
@@ -517,24 +517,24 @@
                 <div class="row" style="justify-content:space-evenly;">
                   <div class="col-md-3">
                     <span class="label label-default">Agent Number</span>
-                    <input type="text" formControlName="AgentNumberHospitalIndemnity" [ngModel]="agentNumber_0"
+                    <input type="text" formControlName="AgentNumberHospitalIndemnity"
                       name="text" class="form-control mb-2" style="width: 100%;" placeholder="Primary Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
                     <span class="label label-default">Agent SubCount</span>
-                    <input type="text" formControlName="AgentSubCountHospitalIndemnity" [ngModel]="agentSubCount_0"
+                    <input type="text" formControlName="AgentSubCountHospitalIndemnity"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
                     <span class="label label-default">Commisson Split %</span>
                     <input type="text" formControlName="CommissonSplitHospitalIndemnity"
-                      [ngModel]="agentCommissionSPlit_0" class="form-control mb-2 " style="width: 100%;"
+                       class="form-control mb-2 " style="width: 100%;"
                       placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
                   <div class="col-md-3">
                     <span class="label label-default">Agent Name</span>
-                    <input type="text" formControlName="AgentNameHospitalIndemnity" [ngModel]="agent_name"
+                    <input type="text" formControlName="AgentNameHospitalIndemnity"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Agent Name" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/,'')">
                   </div>
                 </div>
@@ -542,16 +542,16 @@
                 <!-- second-row -->
                 <div class="row">
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentNumber1HospitalIndemnity" [ngModel]="agentNumber_1"
+                    <input type="text" formControlName="AgentNumber1HospitalIndemnity"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentSubCount1HospitalIndemnity" [ngModel]="agentSubCount_1"
+                    <input type="text" formControlName="AgentSubCount1HospitalIndemnity"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
                     <input type="text" formControlName="CommissonSplit1HospitalIndemnity"
-                      [ngModel]="agentCommissionSPlit_1" class="form-control mb-2 " style="width: 100%;"
+                       class="form-control mb-2 " style="width: 100%;"
                       placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -559,16 +559,16 @@
                 <!-- 3rd-row -->
                 <div class="row">
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentNumber2HospitalIndemnity" [ngModel]="agentNumber_2"
+                    <input type="text" formControlName="AgentNumber2HospitalIndemnity" 
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentSubCount2HospitalIndemnity" [ngModel]="agentSubCount_2"
+                    <input type="text" formControlName="AgentSubCount2HospitalIndemnity"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
                     <input type="text" formControlName="CommissonSplit2HospitalIndemnity"
-                      [ngModel]="agentCommissionSPlit_2" class="form-control mb-2 " style="width: 100%;"
+                       class="form-control mb-2 " style="width: 100%;"
                       placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -576,16 +576,16 @@
                 <!-- 4th-row -->
                 <div class="row">
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentNumber3HospitalIndemnity" [ngModel]="agentNumber_3"
+                    <input type="text" formControlName="AgentNumber3HospitalIndemnity" 
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentSubCount3HospitalIndemnity" [ngModel]="agentSubCount_3"
+                    <input type="text" formControlName="AgentSubCount3HospitalIndemnity"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
                     <input type="text" formControlName="CommissonSplit3HospitalIndemnity"
-                      [ngModel]="agentCommissionSPlit_3" class="form-control mb-2 " style="width: 100%;"
+                      class="form-control mb-2 " style="width: 100%;"
                       placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -604,7 +604,7 @@
         </div>
         <div id="collapseFive" class="collapse" data-parent="#accordion">
           <div class="card-body">
-            <app-employer-paid-ci [lookupValue]="lookupSitusStateValue" #child4 [dateValue]="dateChange">
+            <app-employer-paid-ci [lookupValue]="selected.state" #child4 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
                 <div class="radio-button" style="display: inline-block;padding-left: 5px;" *ngFor="let item of radioButtonArr">
                   <div><input type="radio" value={{item.value}} formControlName="empCIAgent_Action" />
@@ -614,23 +614,23 @@
                 <div class="row" style="justify-content:space-evenly;">
                   <div class="col-md-3">
                     <span class="label label-default">Agent Number</span>
-                    <input type="text" formControlName="AgentNumberempPaidci" [ngModel]="agentNumber_0" name="text"
+                    <input type="text" formControlName="AgentNumberempPaidci" name="text"
                       class="form-control mb-2" style="width: 100%;" placeholder="Primary Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
                     <span class="label label-default">Agent SubCount</span>
-                    <input type="text" formControlName="AgentSubCountempPaidci" [ngModel]="agentSubCount_0"
+                    <input type="text" formControlName="AgentSubCountempPaidci" 
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
                     <span class="label label-default">Commisson Split %</span>
-                    <input type="text" formControlName="CommissonSplitempPaidci" [ngModel]="agentCommissionSPlit_0"
+                    <input type="text" formControlName="CommissonSplitempPaidci"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
                   <div class="col-md-3">
                     <span class="label label-default">Agent Name</span>
-                    <input type="text" formControlName="AgentNameempPaidci" [ngModel]="agent_name"
+                    <input type="text" formControlName="AgentNameempPaidci"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Agent Name" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/,'')">
                   </div>
                 </div>
@@ -638,15 +638,15 @@
                 <!-- second-row -->
                 <div class="row">
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentNumber1empPaidci" [ngModel]="agentNumber_1"
+                    <input type="text" formControlName="AgentNumber1empPaidci"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentSubCount1empPaidci" [ngModel]="agentSubCount_1"
+                    <input type="text" formControlName="AgentSubCount1empPaidci"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit1empPaidci" [ngModel]="agentCommissionSPlit_1"
+                    <input type="text" formControlName="CommissonSplit1empPaidci"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -654,15 +654,15 @@
                 <!-- 3rd-row -->
                 <div class="row">
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentNumber2empPaidci" [ngModel]="agentNumber_2"
+                    <input type="text" formControlName="AgentNumber2empPaidci"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentSubCount2empPaidci" [ngModel]="agentSubCount_2"
+                    <input type="text" formControlName="AgentSubCount2empPaidci"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit2empPaidci" [ngModel]="agentCommissionSPlit_2"
+                    <input type="text" formControlName="CommissonSplit2empPaidci"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -670,15 +670,15 @@
                 <!-- 4th-row -->
                 <div class="row">
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentNumber3empPaidci" [ngModel]="agentNumber_3"
+                    <input type="text" formControlName="AgentNumber3empPaidci"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentSubCount3empPaidci" [ngModel]="agentSubCount_3"
+                    <input type="text" formControlName="AgentSubCount3empPaidci"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit3empPaidci" [ngModel]="agentCommissionSPlit_3"
+                    <input type="text" formControlName="CommissonSplit3empPaidci"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -697,7 +697,7 @@
         </div>
         <div id="collapseSix" class="collapse" data-parent="#accordion">
           <div class="card-body">
-            <app-voluntary-ci [lookupValue]="lookupSitusStateValue" #child5 [dateValue]="dateChange">
+            <app-voluntary-ci [lookupValue]="selected.state" #child5 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
                 <div class="radio-button" style="display: inline-block;padding-left: 5px;" *ngFor="let item of radioButtonArr">
                   <div><input type="radio" value={{item.value}} formControlName="volCIAgent_Action" />
@@ -707,23 +707,23 @@
                 <div class="row" style="justify-content:space-evenly;">
                   <div class="col-md-3">
                     <span class="label label-default">Agent Number</span>
-                    <input type="text" formControlName="AgentNumbervolCi" [ngModel]="agentNumber_0" name="text"
+                    <input type="text" formControlName="AgentNumbervolCi" name="text"
                       class="form-control mb-2" style="width: 100%;" placeholder="Primary Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
                     <span class="label label-default">Agent SubCount</span>
-                    <input type="text" formControlName="AgentSubCountvolCi" [ngModel]="agentSubCount_0"
+                    <input type="text" formControlName="AgentSubCountvolCi"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
                     <span class="label label-default">Commisson Split %</span>
-                    <input type="text" formControlName="CommissonSplitvolCi" [ngModel]="agentCommissionSPlit_0"
+                    <input type="text" formControlName="CommissonSplitvolCi"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
                   <div class="col-md-3">
                     <span class="label label-default">Agent Name</span>
-                    <input type="text" formControlName="AgentNamevolCi" [ngModel]="agent_name"
+                    <input type="text" formControlName="AgentNamevolCi"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Agent Name" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/,'')">
                   </div>
                 </div>
@@ -731,15 +731,15 @@
                 <!-- second-row -->
                 <div class="row">
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentNumber1volCi" [ngModel]="agentNumber_1"
+                    <input type="text" formControlName="AgentNumber1volCi" 
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentSubCount1volCi" [ngModel]="agentSubCount_1"
+                    <input type="text" formControlName="AgentSubCount1volCi" 
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit1volCi" [ngModel]="agentCommissionSPlit_1"
+                    <input type="text" formControlName="CommissonSplit1volCi" 
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -747,15 +747,15 @@
                 <!-- 3rd-row -->
                 <div class="row">
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentNumber2volCi" [ngModel]="agentNumber_2"
+                    <input type="text" formControlName="AgentNumber2volCi"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentSubCount2volCi" [ngModel]="agentSubCount_2"
+                    <input type="text" formControlName="AgentSubCount2volCi"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit2volCi" [ngModel]="agentCommissionSPlit_2"
+                    <input type="text" formControlName="CommissonSplit2volCi"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -763,15 +763,15 @@
                 <!-- 4th-row -->
                 <div class="row">
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentNumber3volCi" [ngModel]="agentNumber_3"
+                    <input type="text" formControlName="AgentNumber3volCi"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentSubCount3volCi" [ngModel]="agentSubCount_3"
+                    <input type="text" formControlName="AgentSubCount3volCi"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit3volCi" [ngModel]="agentCommissionSPlit_3"
+                    <input type="text" formControlName="CommissonSplit3volCi"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -790,7 +790,7 @@
         </div>
         <div id="collapseSeven" class="collapse" data-parent="#accordion">
           <div class="card-body">
-            <app-vol-group-life [lookupValue]="lookupSitusStateValue" #child6 [dateValue]="dateChange">
+            <app-vol-group-life [lookupValue]="selected.state" #child6 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
                 <div class="radio-button" style="display: inline-block;padding-left: 5px;" *ngFor="let item of radioButtonArr">
                   <div><input type="radio" value={{item.value}} formControlName="volGrpLfAgent_Action" />
@@ -800,23 +800,23 @@
                 <div class="row" style="justify-content:space-evenly;">
                   <div class="col-md-3">
                     <span class="label label-default">Agent Number</span>
-                    <input type="text" formControlName="AgentNumberVolGrpLife" [ngModel]="agentNumber_0" name="text"
+                    <input type="text" formControlName="AgentNumberVolGrpLife" name="text"
                       class="form-control mb-2" style="width: 100%;" placeholder="Primary Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
                     <span class="label label-default">Agent SubCount</span>
-                    <input type="text" formControlName="AgentSubCountVolGrpLife" [ngModel]="agentSubCount_0"
+                    <input type="text" formControlName="AgentSubCountVolGrpLife"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
                     <span class="label label-default">Commisson Split %</span>
-                    <input type="text" formControlName="CommissonSplitVolGrpLife" [ngModel]="agentCommissionSPlit_0"
+                    <input type="text" formControlName="CommissonSplitVolGrpLife"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
                   <div class="col-md-3">
                     <span class="label label-default">Agent Name</span>
-                    <input type="text" formControlName="AgentNameVolGrpLife" [ngModel]="agent_name"
+                    <input type="text" formControlName="AgentNameVolGrpLife"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Agent Name" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/,'')">
                   </div>
                 </div>
@@ -824,15 +824,15 @@
                 <!-- second-row -->
                 <div class="row">
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentNumber1VolGrpLife" [ngModel]="agentNumber_1"
+                    <input type="text" formControlName="AgentNumber1VolGrpLife" 
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentSubCount1VolGrpLife" [ngModel]="agentSubCount_1"
+                    <input type="text" formControlName="AgentSubCount1VolGrpLife"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit1VolGrpLife" [ngModel]="agentCommissionSPlit_1"
+                    <input type="text" formControlName="CommissonSplit1VolGrpLife" 
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -840,15 +840,15 @@
                 <!-- 3rd-row -->
                 <div class="row">
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentNumber2VolGrpLife" [ngModel]="agentNumber_2"
+                    <input type="text" formControlName="AgentNumber2VolGrpLife" 
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentSubCount2VolGrpLife" [ngModel]="agentSubCount_2"
+                    <input type="text" formControlName="AgentSubCount2VolGrpLife" 
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit2VolGrpLife" [ngModel]="agentCommissionSPlit_2"
+                    <input type="text" formControlName="CommissonSplit2VolGrpLife" 
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -856,15 +856,15 @@
                 <!-- 4th-row -->
                 <div class="row">
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentNumber3VolGrpLife" [ngModel]="agentNumber_3"
+                    <input type="text" formControlName="AgentNumber3VolGrpLife" 
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentSubCount3VolGrpLife" [ngModel]="agentSubCount_3"
+                    <input type="text" formControlName="AgentSubCount3VolGrpLife"
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit3VolGrpLife" [ngModel]="agentCommissionSPlit_3"
+                    <input type="text" formControlName="CommissonSplit3VolGrpLife" 
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -883,7 +883,7 @@
         </div>
         <div id="collapseEight" class="collapse" data-parent="#accordion">
           <div class="card-body">
-            <app-basic-group-life [lookupValue]="lookupSitusStateValue" #child7 [dateValue]="dateChange">
+            <app-basic-group-life [lookupValue]="selected.state" #child7 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
                 <div class="radio-button" style="display: inline-block;padding-left: 5px;" *ngFor="let item of radioButtonArr">
                   <div><input type="radio" value={{item.value}} formControlName="basicGrpLfAgent_Action" />
@@ -893,23 +893,23 @@
                 <div class="row" style="justify-content:space-evenly;">
                   <div class="col-md-3">
                     <span class="label label-default">Agent Number</span>
-                    <input type="text" formControlName="AgentNumberBasicgrpLife" [ngModel]="agentNumber_0" name="text"
+                    <input type="text" formControlName="AgentNumberBasicgrpLife" name="text"
                       class="form-control mb-2" style="width: 100%;" placeholder="Primary Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
                     <span class="label label-default">Agent SubCount</span>
-                    <input type="text" formControlName="AgentSubCountBasicgrpLife" [ngModel]="agentSubCount_0"
+                    <input type="text" formControlName="AgentSubCountBasicgrpLife" 
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
                     <span class="label label-default">Commisson Split %</span>
-                    <input type="text" formControlName="CommissonSplitBasicgrpLife" [ngModel]="agentCommissionSPlit_0"
+                    <input type="text" formControlName="CommissonSplitBasicgrpLife" 
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
                   <div class="col-md-3">
                     <span class="label label-default">Agent Name</span>
-                    <input type="text" formControlName="AgentNameBasicgrpLife" [ngModel]="agent_name"
+                    <input type="text" formControlName="AgentNameBasicgrpLife"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Agent Name" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/,'')">
                   </div>
                 </div>
@@ -917,15 +917,15 @@
                 <!-- second-row -->
                 <div class="row">
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentNumber1BasicgrpLife" [ngModel]="agentNumber_1"
+                    <input type="text" formControlName="AgentNumber1BasicgrpLife" 
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentSubCount1BasicgrpLife" [ngModel]="agentSubCount_1"
+                    <input type="text" formControlName="AgentSubCount1BasicgrpLife" 
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit1BasicgrpLife" [ngModel]="agentCommissionSPlit_1"
+                    <input type="text" formControlName="CommissonSplit1BasicgrpLife" 
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -933,15 +933,15 @@
                 <!-- 3rd-row -->
                 <div class="row">
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentNumber2BasicgrpLife" [ngModel]="agentNumber_2"
+                    <input type="text" formControlName="AgentNumber2BasicgrpLife" 
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentSubCount2BasicgrpLife" [ngModel]="agentSubCount_2"
+                    <input type="text" formControlName="AgentSubCount2BasicgrpLife" 
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit2BasicgrpLife" [ngModel]="agentCommissionSPlit_2"
+                    <input type="text" formControlName="CommissonSplit2BasicgrpLife" 
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -949,15 +949,15 @@
                 <!-- 4th-row -->
                 <div class="row">
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentNumber3BasicgrpLife" [ngModel]="agentNumber_3"
+                    <input type="text" formControlName="AgentNumber3BasicgrpLife" 
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="AgentSubCount3BasicgrpLife" [ngModel]="agentSubCount_3"
+                    <input type="text" formControlName="AgentSubCount3BasicgrpLife" 
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit3BasicgrpLife" [ngModel]="agentCommissionSPlit_3"
+                    <input type="text" formControlName="CommissonSplit3BasicgrpLife" 
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
