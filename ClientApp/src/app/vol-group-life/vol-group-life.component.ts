@@ -71,12 +71,29 @@ export class VolGroupLifeComponent implements OnInit,OnChanges {
       this.myForm.setValue(this.lookUpDataSitusStates[0].state);
      
     });
-    
- 
-    
+     
   }
-  // getLookupValueSitusState(value: any){
-  //   this.lookupSitusStateValue = value;
-  // }
 
+  volgrplife(){
+    this.volGrpLfformgrp.reset({
+      FCVolGrpLfEffectiveDate: "",
+     
+      FCVolGrpLfEmpGIAmtMax: "",
+      FCVolGrpLfEmpAmtMax: "",
+     
+      FCVolGrpLfSpouseGIAmtMax:"",
+      FCVolGrpLfSpouseMaxAmt: "",
+    
+      FCVolGrpLfOpenEnrollGI: "",
+    
+      FCVolGrpLfEmployeePlanCode: "",
+      FCVolGrpLfSpousePlanCode: "",
+      FCVolGrpLfChildPlanCode: "",
+    
+      FCVolGrpLfUserToken:"",
+    
+      FCVolGrpLfCaseToken: "",
+    })
+  }
+ 
 }

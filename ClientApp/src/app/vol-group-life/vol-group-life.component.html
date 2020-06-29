@@ -25,7 +25,7 @@
         </select>
       </div>
       <div class="mt-4">
-        <button class="btn btn-primary" type="submit">Reset Form </button>
+        <button class="btn btn-primary" (click) = "volgrplife()" type="submit">Reset Form </button>
       </div>
     </div>
 
@@ -78,15 +78,7 @@
     </div>
 
     <div class="row mt-2" style="margin-left: 1%;">
-      <!-- <div class="radio-button">
-        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCVolGrpLfOpenEnrollGI_Action" />
-          <label class="radio-label"> {{item.name}}</label></div>
-      </div>
-      <div class="col-4">
-
-        <span class="label label-default">Open Enrollment GI</span>
-        <input type="text" formControlName="FCVolGrpLfOpenEnrollGI" class="form-control mb-2 " style="width: 100%;" placeholder="Open Enrollment GI">
-      </div> -->
+     
 
       <div class="radio-button">
         <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCVolGrpLfPlanCodeManualEntry_Action" />

@@ -65,9 +65,7 @@ export class HospitalIndemnityComponent implements OnInit,OnChanges {
 hospitalindemnity(){
   this.hospformgrp.reset({
     FChospEffectiveDate: "",
-    FChospEffectiveDate_Action:"",
-    FChospSitusState: "",
-    FChospSitusState_Action: "",
+ 
   }) 
  
 }

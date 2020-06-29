@@ -76,8 +76,29 @@ ngOnChanges(){
 
     
   }
-  // getLookupValueSitusState(value: any){
-  //   this.lookupSitusStateValue = value;
-  // }
+ volcireset(){
+   this.volCIformgrp.reset({
+    FCVolCIEffectiveDate: "",
 
+    FCVolCIEmpGIAmtMax: "",
+    
+    FCVolCIEmpQIAmtMax: "",
+    FCVolCIEmpAmtMax: "",
+    FCVolCISpouseGIAmtMax: "",
+    FCVolCISpouseQIAmtMax: "",
+    FCVolCISpouseAmtMax: "",
+  
+    FCVolCIEmpPlanCode: "",
+    FCVolCISpousePlanCode: "",
+    FCVolCIChildPlanCode: "",
+   
+   
+    FCVolCIEmpNTB: "",
+   
+    FCVolCIEmpTB: "",
+    FCVolCISpouseNTB: "",
+   
+    FCVolCISpouseTB: "",
+   })
+ }
 }

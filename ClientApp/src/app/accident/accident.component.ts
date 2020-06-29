@@ -72,6 +72,17 @@ export class AccidentComponent implements OnInit,OnChanges {
    
     this.accformgrp.controls['FCaccOnOff'].setValue( this.jobs[0].abbrev, {onlySelf: true}); 
   }
- 
+  resetAcc(){
+    this.accformgrp.reset({
+      
+      FCaccEffectiveDate: "",
+     
+      FCaccOnOff: "",
+      FCaccOnOff_Action: "",
+      FCaccRateLevel: "",
+    
+
+    })
+  }
   
 }
