@@ -77,10 +77,14 @@ namespace AFBA.EPP.Repositories
 
         public void Update(TEntity entity)
         {
-            _entities.Update(entity);
+
+                     _entities.Update(entity);
              
         }
-           
-        
+
+        public void UpdateRange(IEnumerable<TEntity> entities)
+        {
+            _entities.UpdateRange(entities);
+        }
     }
 }

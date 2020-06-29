@@ -81,15 +81,89 @@ namespace AFBA.EPP.Controllers
             grpMstdata.GrpPymnId = groupSetupModel.GrpPymn;
             grpMstdata.OccClass = groupSetupModel.OccClass;
             grpMstdata.CrtdBy = CrtdBy;
-            
-                      
-            //grpMstdata.
-            //update the master data
+            // update group Master
+
+            _unitofWork.GroupMasterRepository.Update(grpMstdata);
 
 
+            // add  update enrollment partner
+            if (!string.IsNullOrEmpty(groupSetupModel.EmlAddrss))
+            {
+                // get partner id 
+                var enrlmntPrtnr = _unitofWork.eppEnrlmntPrtnrsRepository.GetEnrlmntPrtnrId(groupSetupModel.EmlAddrss);
+                if (enrlmntPrtnr != null)
+                {
+                    groupSetupModel.EnrlmntPrtnrsId = enrlmntPrtnr.EnrlmntPrtnrsId;
+                }
+                else
+                {
+                    groupSetupModel.EnrlmntPrtnrsId = Helper.GetRandomNumber();
+                    _unitofWork.eppEnrlmntPrtnrsRepository.Add(new EppEnrlmntPrtnrs
+                    {
+                        EnrlmntPrtnrsId = groupSetupModel.EnrlmntPrtnrsId,
+                        CrtdBy = "",
+                        EmlAddrss = groupSetupModel.EmlAddrss,
+                        EnrlmntPrtnrsNm = groupSetupModel.EnrlmntPrtnrsNm
 
-            return Ok();
+                    });
+                }
 
+            }
+             // goup product for existing products
+
+            var Grpprdcts = _unitofWork.eppGrpprdctRepository.Find(x => x.GrpId == groupSetupModel.GrpId).Result;
+             foreach(var prod in Grpprdcts)
+            {
+                // update  vendor details
+                var venderData = _unitofWork.eppAcctMgrCntctsRepository.SingleOrDefault(x => x.GrpprdctId == prod.GrpprdctId && x.EmailAddress== groupSetupModel.EmailAddress).Result;
+                if (venderData == null)
+                {
+                      _unitofWork.eppAcctMgrCntctsRepository.Update(new EppAcctMgrCntcts
+                        {
+                            GrpprdctId = prod.GrpprdctId,
+                            AcctMgrCntctId = venderData.AcctMgrCntctId,
+                            EmailAddress = groupSetupModel.EmailAddress,
+                            AcctMgrNm = groupSetupModel.AcctMgrNm,
+                            LstUpdtBy = CrtdBy,
+                        });                  
+                }
+
+                // 
+                var prodData = _unitofWork.EppProductRepository.SingleOrDefault(x => x.ProductId == prod.ProductId).Result;
+                switch (prodData.ProductNm)
+                {
+                    case "FPPG":
+                        {
+                            // add product code                   
+                            var blkDatas = _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == prod.GrpprdctId).Result;
+                            Type fppgType = groupSetupModel.FPPG.GetType();
+                            foreach (var blk in blkDatas)
+                            {
+                                var eppAttrs = _unitofWork.eppAttributeRepository.SingleOrDefault(x => x.AttrId == blk.AttrId).Result;
+                                if(!string.IsNullOrEmpty(eppAttrs.DbAttrNm))
+                                {
+                                    var actionPrpp = eppAttrs.DbAttrNm + "_action";
+                                    blk.Value = fppgType.GetProperty(eppAttrs.DbAttrNm).GetValue(groupSetupModel.FPPG).ToString();
+
+                                    var s = fppgType.GetProperty(eppAttrs.DbAttrNm).GetValue(groupSetupModel.FPPG).ToString();
+                                    long lvalue = 0;
+                                    long.TryParse(s, out lvalue);
+                                    if ( lvalue!=0)
+                                    blk.ActionId = lvalue;
+                                }
+
+                                
+                            }
+                            _unitofWork.eppBulkRefTblRepository.UpdateRange(blkDatas);
+
+                         
+                            break;
+                        }
+                }
+
+            }
+            var id = _unitofWork.Complete().Result;
+            return Ok(id);
         }
 
         [Route("[action]")]
@@ -849,7 +923,14 @@ namespace AFBA.EPP.Controllers
             }
         }
 
+
+
         [NonAction]
+        private void UpdateEppBulkRefTblData(List<EppBulkRefTbl> bulkRefTbls )
+        {
+
+        }
+       [NonAction]
         private void AddEppBulkRefTblData(List<ClsPropertyInfo> bulkAttrs, List<EppBulkRefTbl> bulkRefTbls, long grpPrdId)
         {
             foreach (var prop in bulkAttrs)
