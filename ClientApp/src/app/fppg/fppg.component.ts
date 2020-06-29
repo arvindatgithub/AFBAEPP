@@ -86,7 +86,7 @@ ngOnChanges(simpleChange:SimpleChanges){
     this.lookupService.getLookupsData()
       .subscribe((data: any) => {
         this.isLoading = true;
-        console.log("data", data);
+       
         this.lookUpDataSitusStates = data.situsState;
         this.myForm.setValue(this.lookUpDataSitusStates[0].state);
       });
