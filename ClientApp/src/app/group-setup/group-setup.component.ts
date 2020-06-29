@@ -185,6 +185,11 @@ export class GroupSetupComponent implements OnInit {
   groupSetupFG: FormGroup;
   groupSetupOCC: FormGroup;
   groupsData: any;
+  selected = {
+    id: "",
+    state: ""
+  };
+  
 
   constructor(private eppcreategroupservice: EppCreateGrpSetupService, private _fb: FormBuilder,
     private snackBar: MatSnackBar, private lookupService: LookupService, private groupsearchService: GroupsearchService) {
@@ -210,10 +215,215 @@ export class GroupSetupComponent implements OnInit {
       this.occupationArray = this.groupsData.occClass;
       this.ManegerName = this.groupsData.acctMgrNm;
       this.ManagerEmail = this.groupsData.emailAddress;
-      // this.lookUpDataSitusStates[0].state = this.groupsData.grpSitusSt;
-
+      this.selected.id = this.groupsData.grpSitusSt;
+      this.selected.state = this.groupsData.grpSitusSt;
+      this.isCheckedAccident = this.groupsData.isACC_HIActive;
+      this.checkedToggleProductACCident = (this.isCheckedAccident) ? "Active" : this.checkedToggleProductACCident;
+      this.isCheckedFppg = this.groupsData.isFPPGActive;
+      this.checkedToggleProductFppg = (this.isCheckedFppg) ? "Active" : this.checkedToggleProductFppg;
+      this.isCheckedHospital = this.groupsData.isHIActive;
+      this.checkedToggleProductHospitalIndemnity = this.isCheckedHospital ? "Active" : this.checkedToggleProductHospitalIndemnity;
+      this.isCheckedVolGrpLife = this.groupsData.isVGLActive;
+      this.checkedToggleProductVolGrpCI = this.isCheckedVolGrpLife ? "Active" : this.checkedToggleProductVolGrpCI;
+      this.isCheckedVolutaryCi = this.groupsData.isVOL_CIActive;
+      this.checkedToggleProductVolCI = this.isCheckedVolutaryCi ? "Active" : this.checkedToggleProductVolCI;
+      this.isCheckedFppInd = this.groupsData.isFPPIActive;
+      this.checkedToggleProductFppi = this.isCheckedFppInd ? "Active" : this.checkedToggleProductFppi;
+      this.isCheckedEmpPaidCi = this.groupsData.isER_CIActive;
+      this.checkedToggleProductEmpPaidCI = this.isCheckedEmpPaidCi ? "Active" : this.checkedToggleProductEmpPaidCI;
+      this.isCheckedBasicGrpLife = this.groupsData.isBGLActive;
+      this.checkedToggleProductBcsGrpLife = this.isCheckedBasicGrpLife ? "Active" : this.checkedToggleProductBcsGrpLife;
+      if(this.groupsData !== undefined){
+        this.agentformgrp = this._fb.group({
+          fppgAgent_Action: [(this.groupsData.isFPPGActive) ? this.groupsData.fppg.agnt_nm_action : this.radioButtonArr[1].value, Validators.required],
+          fppiAgent_Action: [(this.groupsData.isFPPIActive) ? this.groupsData.fppi.agnt_nm_action : this.radioButtonArr[1].value, Validators.required],
+          accAgent_Action: [(this.groupsData.isACC_HIActive) ? this.groupsData.acC_HI.agnt_nm_action : this.radioButtonArr[1].value, Validators.required],
+          hospAgent_Action: [(this.groupsData.isHIActive) ? this.groupsData.hi.agnt_nm_action : this.radioButtonArr[1].value, Validators.required],
+          empCIAgent_Action: [(this.groupsData.isER_CIActive) ? this.groupsData.eR_CI.agnt_nm_action : this.radioButtonArr[1].value, Validators.required],
+          volCIAgent_Action: [(this.groupsData.isVOL_CIActive) ? this.groupsData.voL_CI.agnt_nm_action : this.radioButtonArr[1].value, Validators.required],
+          volGrpLfAgent_Action: [(this.groupsData.isVGLActive) ? this.groupsData.vgl.agnt_nm_action : this.radioButtonArr[1].value, Validators.required],
+          basicGrpLfAgent_Action: [(this.groupsData.isBGLActive) ? this.groupsData.bgl.agnt_nm_action : this.radioButtonArr[1].value, Validators.required],
+          //group
+          AgentNumber: ["", Validators.required],
+          AgentSubCount: ["", Validators.required],
+          CommissonSplit: ["", Validators.required],
+          AgentName: ["", Validators.required],
+    
+          AgentNumber1: ["", Validators.required],
+          AgentSubCount1: ["", Validators.required],
+          CommissonSplit1: ["", Validators.required],
+    
+    
+          AgentNumber2: ["", Validators.required],
+          AgentSubCount2: ["", Validators.required],
+          CommissonSplit2: ["", Validators.required],
+    
+          AgentNumber3: ["", Validators.required],
+          AgentSubCount3: ["", Validators.required],
+          CommissonSplit3: ["", Validators.required],
+          //Fppg
+          AgentNumberfppg: [(this.groupsData.isFPPGActive) ? this.groupsData.fppg.agnt_cd_1 : "", Validators.required],
+          AgentSubCountfppg: [(this.groupsData.isFPPGActive) ? this.groupsData.fppg.agntsub_1 : "", Validators.required],
+          CommissonSplitfppg: [(this.groupsData.isFPPGActive) ? this.groupsData.fppg.agnt_comm_split_1 : "", Validators.required],
+          AgentNamefppg: [(this.groupsData.isFPPGActive) ? this.groupsData.fppg.agnt_nm : "", Validators.required],
+    
+          AgentNumber1fppg: [(this.groupsData.isFPPGActive) ? this.groupsData.fppg.agnt_cd_2 : "", Validators.required],
+          AgentSubCount1fppg: [(this.groupsData.isFPPGActive) ? this.groupsData.fppg.agntsub_2 : "", Validators.required],
+          CommissonSplit1fppg: [(this.groupsData.isFPPGActive) ? this.groupsData.fppg.agnt_comm_split_2 : "", Validators.required],
+    
+    
+          AgentNumber2fppg: [(this.groupsData.isFPPGActive) ? this.groupsData.fppg.agnt_cd_3 : "", Validators.required],
+          AgentSubCount2fppg: [(this.groupsData.isFPPGActive) ? this.groupsData.fppg.agntsub_3 : "", Validators.required],
+          CommissonSplit2fppg: [(this.groupsData.isFPPGActive) ? this.groupsData.fppg.agnt_comm_split_3 : "", Validators.required],
+    
+          AgentNumber3fppg: [(this.groupsData.isFPPGActive) ? this.groupsData.fppg.agnt_cd_4 : "", Validators.required],
+          AgentSubCount3fppg: [(this.groupsData.isFPPGActive) ? this.groupsData.fppg.agntsub_4 : "", Validators.required],
+          CommissonSplit3fppg: [(this.groupsData.isFPPGActive) ? this.groupsData.fppg.agnt_comm_split_4 : "", Validators.required],
+    
+          //FPPI
+          AgentNumberFppIndivisual: [(this.groupsData.isFPPIActive) ? this.groupsData.fppi.agnt_cd_1 : "", Validators.required],
+          AgentSubCountFppIndivisual: [(this.groupsData.isFPPIActive) ? this.groupsData.fppi.agntsub_1 : "", Validators.required],
+          CommissonSplitFppIndivisual: [(this.groupsData.isFPPIActive) ? this.groupsData.fppi.agnt_comm_split_1 : "", Validators.required],
+          AgentNameFppIndivisual: [(this.groupsData.isFPPIActive) ? this.groupsData.fppi.agnt_nm : "", Validators.required],
+    
+          AgentNumber1FppIndivisual: [(this.groupsData.isFPPIActive) ? this.groupsData.fppi.agnt_cd_2 : "", Validators.required],
+          AgentSubCount1FppIndivisual: [(this.groupsData.isFPPIActive) ? this.groupsData.fppi.agntsub_2 : "", Validators.required],
+          CommissonSplit1FppIndivisual: [(this.groupsData.isFPPIActive) ? this.groupsData.fppi.agnt_comm_split_2 : "", Validators.required],
+    
+    
+          AgentNumber2FppIndivisual: [(this.groupsData.isFPPIActive) ? this.groupsData.fppi.agnt_cd_3 : "", Validators.required],
+          AgentSubCount2FppIndivisual: [(this.groupsData.isFPPIActive) ? this.groupsData.fppi.agntsub_3 : "", Validators.required],
+          CommissonSplit2FppIndivisual: [(this.groupsData.isFPPIActive) ? this.groupsData.fppi.agnt_comm_split_3 : "", Validators.required],
+    
+          AgentNumber3FppIndivisual: [(this.groupsData.isFPPIActive) ? this.groupsData.fppi.agnt_cd_4 : "", Validators.required],
+          AgentSubCount3FppIndivisual: [(this.groupsData.isFPPIActive) ? this.groupsData.fppi.agntsub_4 : "", Validators.required],
+          CommissonSplit3FppIndivisual: [(this.groupsData.isFPPIActive) ? this.groupsData.fppi.agnt_comm_split_4 : "", Validators.required],
+    
+          //Accident
+          AgentNumberaccident: [(this.groupsData.isACC_HIActive) ? this.groupsData.acC_HI.agnt_cd_1 : "", Validators.required],
+          AgentSubCountaccident: [(this.groupsData.isACC_HIActive) ? this.groupsData.acC_HI.agntsub_1 : "", Validators.required],
+          CommissonSplitaccident: [(this.groupsData.isACC_HIActive) ? this.groupsData.acC_HI.agnt_comm_split_1 : "", Validators.required],
+          AgentNameaccident: [(this.groupsData.isACC_HIActive) ? this.groupsData.acC_HI.agnt_nm : "", Validators.required],
+    
+          AgentNumber1accident: [(this.groupsData.isACC_HIActive) ? this.groupsData.acC_HI.agnt_cd_2 : "", Validators.required],
+          AgentSubCount1accident: [(this.groupsData.isACC_HIActive) ? this.groupsData.acC_HI.agntsub_2 : "", Validators.required],
+          CommissonSplit1accident: [(this.groupsData.isACC_HIActive) ? this.groupsData.acC_HI.agnt_comm_split_2 : "", Validators.required],
+    
+    
+          AgentNumber2accident: [(this.groupsData.isACC_HIActive) ? this.groupsData.acC_HI.agnt_cd_3 : "", Validators.required],
+          AgentSubCount2accident: [(this.groupsData.isACC_HIActive) ? this.groupsData.acC_HI.agntsub_3 : "", Validators.required],
+          CommissonSplit2accident: [(this.groupsData.isACC_HIActive) ? this.groupsData.acC_HI.agnt_comm_split_3 : "", Validators.required],
+    
+          AgentNumber3accident: [(this.groupsData.isACC_HIActive) ? this.groupsData.acC_HI.agnt_cd_4 : "", Validators.required],
+          AgentSubCount3accident: [(this.groupsData.isACC_HIActive) ? this.groupsData.acC_HI.agntsub_4 : "", Validators.required],
+          CommissonSplit3accident: [(this.groupsData.isACC_HIActive) ? this.groupsData.acC_HI.agnt_comm_split_4 : "", Validators.required],
+    
+    
+          //Hospital
+          
+          AgentNumberHospitalIndemnity: [(this.groupsData.isHIActive) ? this.groupsData.hi.agnt_cd_1 : "", Validators.required],
+          AgentSubCountHospitalIndemnity: [(this.groupsData.isHIActive) ? this.groupsData.hi.agntsub_1: "", Validators.required],
+          CommissonSplitHospitalIndemnity: [(this.groupsData.isHIActive) ? this.groupsData.hi.agnt_comm_split_1 : "", Validators.required],
+          AgentNameHospitalIndemnity: [(this.groupsData.isHIActive) ? this.groupsData.hi.agnt_nm : "", Validators.required],
+    
+          AgentNumber1HospitalIndemnity: [(this.groupsData.isHIActive) ? this.groupsData.hi.agnt_cd_2 : "", Validators.required],
+          AgentSubCount1HospitalIndemnity: [(this.groupsData.isHIActive) ? this.groupsData.hi.agntsub_2 : "", Validators.required],
+          CommissonSplit1HospitalIndemnity: [(this.groupsData.isHIActive) ? this.groupsData.hi.agnt_comm_split_2 : "", Validators.required],
+    
+    
+          AgentNumber2HospitalIndemnity: [(this.groupsData.isHIActive) ? this.groupsData.hi.agnt_cd_3 : "", Validators.required],
+          AgentSubCount2HospitalIndemnity: [(this.groupsData.isHIActive) ? this.groupsData.hi.agntsub_3 : "", Validators.required],
+          CommissonSplit2HospitalIndemnity: [(this.groupsData.isHIActive) ? this.groupsData.hi.agnt_comm_split_3 : "", Validators.required],
+    
+          AgentNumber3HospitalIndemnity: [(this.groupsData.isHIActive) ? this.groupsData.hi.agnt_cd_4 : "", Validators.required],
+          AgentSubCount3HospitalIndemnity: [(this.groupsData.isHIActive) ? this.groupsData.hi.agntsub_4 : "", Validators.required],
+          CommissonSplit3HospitalIndemnity: [(this.groupsData.isHIActive) ? this.groupsData.hi.agnt_comm_split_4 : "", Validators.required],
+    
+          //EMP-CI
+    
+          AgentNumberempPaidci: [(this.groupsData.isER_CIActive) ? this.groupsData.eR_CI.agnt_cd_1 : "", Validators.required],
+          AgentSubCountempPaidci: [(this.groupsData.isER_CIActive) ? this.groupsData.eR_CI.agntsub_1 : "", Validators.required],
+          CommissonSplitempPaidci: [(this.groupsData.isER_CIActive) ? this.groupsData.eR_CI.agnt_comm_split_1 : "", Validators.required],
+          AgentNameempPaidci: [(this.groupsData.isER_CIActive) ? this.groupsData.eR_CI.agnt_nm : "", Validators.required],
+    
+          AgentNumber1empPaidci: [(this.groupsData.isER_CIActive) ? this.groupsData.eR_CI.agnt_cd_2 : "", Validators.required],
+          AgentSubCount1empPaidci: [(this.groupsData.isER_CIActive) ? this.groupsData.eR_CI.agntsub_2 : "", Validators.required],
+          CommissonSplit1empPaidci: [(this.groupsData.isER_CIActive) ? this.groupsData.eR_CI.agnt_comm_split_2 : "", Validators.required],
+    
+    
+          AgentNumber2empPaidci: [(this.groupsData.isER_CIActive) ? this.groupsData.eR_CI.agnt_cd_3 : "", Validators.required],
+          AgentSubCount2empPaidci: [(this.groupsData.isER_CIActive) ? this.groupsData.eR_CI.agntsub_3 : "", Validators.required],
+          CommissonSplit2empPaidci: [(this.groupsData.isER_CIActive) ? this.groupsData.eR_CI.agnt_comm_split_3 : "", Validators.required],
+    
+          AgentNumber3empPaidci: [(this.groupsData.isER_CIActive) ? this.groupsData.eR_CI.agnt_cd_4 : "", Validators.required],
+          AgentSubCount3empPaidci: [(this.groupsData.isER_CIActive) ? this.groupsData.eR_CI.agntsub_4 : "", Validators.required],
+          CommissonSplit3empPaidci: [(this.groupsData.isER_CIActive) ? this.groupsData.eR_CI.agnt_comm_split_4 : "", Validators.required],
+    
+    
+    
+          //VOL-CI
+          AgentNumbervolCi: [(this.groupsData.isVOL_CIActive) ? this.groupsData.voL_CI.agnt_cd_1 : "", Validators.required],
+          AgentSubCountvolCi: [(this.groupsData.isVOL_CIActive) ? this.groupsData.voL_CI.agntsub_1 : "", Validators.required],
+          CommissonSplitvolCi: [(this.groupsData.isVOL_CIActive) ? this.groupsData.voL_CI.agnt_comm_split_1 : "", Validators.required],
+          AgentNamevolCi: [(this.groupsData.isVOL_CIActive) ? this.groupsData.voL_CI.agnt_nm : "", Validators.required],
+    
+          AgentNumber1volCi: [(this.groupsData.isVOL_CIActive) ? this.groupsData.voL_CI.agnt_cd_2 : "", Validators.required],
+          AgentSubCount1volCi: [(this.groupsData.isVOL_CIActive) ? this.groupsData.voL_CI.agntsub_2 : "", Validators.required],
+          CommissonSplit1volCi: [(this.groupsData.isVOL_CIActive) ? this.groupsData.voL_CI.agnt_comm_split_2 : "", Validators.required],
+    
+    
+          AgentNumber2volCi: [(this.groupsData.isVOL_CIActive) ? this.groupsData.voL_CI.agnt_cd_3 : "", Validators.required],
+          AgentSubCount2volCi: [(this.groupsData.isVOL_CIActive) ? this.groupsData.voL_CI.agntsub_3 : "", Validators.required],
+          CommissonSplit2volCi: [(this.groupsData.isVOL_CIActive) ? this.groupsData.voL_CI.agnt_comm_split_3 : "", Validators.required],
+    
+          AgentNumber3volCi: [(this.groupsData.isVOL_CIActive) ? this.groupsData.voL_CI.agnt_cd_4 : "", Validators.required],
+          AgentSubCount3volCi: [(this.groupsData.isVOL_CIActive) ? this.groupsData.voL_CI.agntsub_4 : "", Validators.required],
+          CommissonSplit3volCi: [(this.groupsData.isVOL_CIActive) ? this.groupsData.voL_CI.agnt_comm_split_4 : "", Validators.required],
+    
+    
+          //VOL-GLF
+          AgentNumberVolGrpLife: [(this.groupsData.isVGLActive) ? this.groupsData.vgl.agnt_cd_1 : "", Validators.required],
+          AgentSubCountVolGrpLife: [(this.groupsData.isVGLActive) ? this.groupsData.vgl.agntsub_1 : "", Validators.required],
+          CommissonSplitVolGrpLife: [(this.groupsData.isVGLActive) ? this.groupsData.vgl.agnt_comm_split_1 : "", Validators.required],
+          AgentNameVolGrpLife: [(this.groupsData.isVGLActive) ? this.groupsData.vgl.agnt_nm : "", Validators.required],
+    
+          AgentNumber1VolGrpLife: [(this.groupsData.isVGLActive) ? this.groupsData.vgl.agnt_cd_2 : "", Validators.required],
+          AgentSubCount1VolGrpLife: [(this.groupsData.isVGLActive) ? this.groupsData.vgl.agntsub_2 : "", Validators.required],
+          CommissonSplit1VolGrpLife: [(this.groupsData.isVGLActive) ? this.groupsData.vgl.agnt_comm_split_2 : "", Validators.required],
+    
+    
+          AgentNumber2VolGrpLife: [(this.groupsData.isVGLActive) ? this.groupsData.vgl.agnt_cd_3 : "", Validators.required],
+          AgentSubCount2VolGrpLife: [(this.groupsData.isVGLActive) ? this.groupsData.vgl.agntsub_3 : "", Validators.required],
+          CommissonSplit2VolGrpLife: [(this.groupsData.isVGLActive) ? this.groupsData.vgl.agnt_comm_split_3 : "", Validators.required],
+    
+          AgentNumber3VolGrpLife: [(this.groupsData.isVGLActive) ? this.groupsData.vgl.agnt_cd_4 : "", Validators.required],
+          AgentSubCount3VolGrpLife: [(this.groupsData.isVGLActive) ? this.groupsData.vgl.agntsub_4 : "", Validators.required],
+          CommissonSplit3VolGrpLife: [(this.groupsData.isVGLActive) ? this.groupsData.vgl.agnt_comm_split_4 : "", Validators.required],
+    
+          //BGL
+    
+          AgentNumberBasicgrpLife: [(this.groupsData.isBGLActive) ? this.groupsData.bgl.agnt_cd_1 : "", Validators.required],
+          AgentSubCountBasicgrpLife: [(this.groupsData.isBGLActive) ? this.groupsData.bgl.agntsub_1 : "", Validators.required],
+          CommissonSplitBasicgrpLife: [(this.groupsData.isBGLActive) ? this.groupsData.bgl.agnt_comm_split_1 : "", Validators.required],
+          AgentNameBasicgrpLife: [(this.groupsData.isBGLActive) ? this.groupsData.bgl.agnt_nm : "", Validators.required],
+    
+          AgentNumber1BasicgrpLife: [(this.groupsData.isBGLActive) ? this.groupsData.bgl.agnt_cd_2 : "", Validators.required],
+          AgentSubCount1BasicgrpLife: [(this.groupsData.isBGLActive) ? this.groupsData.bgl.agntsub_2 : "", Validators.required],
+          CommissonSplit1BasicgrpLife: [(this.groupsData.isBGLActive) ? this.groupsData.bgl.agnt_comm_split_2 : "", Validators.required],
+    
+    
+          AgentNumber2BasicgrpLife: [(this.groupsData.isBGLActive) ? this.groupsData.bgl.agnt_cd_3 : "", Validators.required],
+          AgentSubCount2BasicgrpLife: [(this.groupsData.isBGLActive) ? this.groupsData.bgl.agntsub_3 : "", Validators.required],
+          CommissonSplit2BasicgrpLife: [(this.groupsData.isBGLActive) ? this.groupsData.bgl.agnt_comm_split_3 : "", Validators.required],
+    
+          AgentNumber3BasicgrpLife: [(this.groupsData.isBGLActive) ? this.groupsData.bgl.agnt_cd_4 : "", Validators.required],
+          AgentSubCount3BasicgrpLife: [(this.groupsData.isBGLActive) ? this.groupsData.bgl.agntsub_4 : "", Validators.required],
+          CommissonSplit3BasicgrpLife: [(this.groupsData.isBGLActive) ? this.groupsData.bgl.agnt_comm_split_4 : "", Validators.required],
+    
+        });
+      }
     });
-
+    
     this.occupationArray = this.occClass[0].occupation;
     console.log('occ class' + this.occupationArray);
 
@@ -247,175 +457,6 @@ export class GroupSetupComponent implements OnInit {
     this.groupSetupOCC = this._fb.group({
       
       FCOccControl: ["", Validators.required]
-    })
-
-    this.agentformgrp = this._fb.group({
-      fppgAgent_Action: [this.radioButtonArr[1].value, Validators.required],
-      fppiAgent_Action: [this.radioButtonArr[1].value, Validators.required],
-      accAgent_Action: [this.radioButtonArr[1].value, Validators.required],
-      hospAgent_Action: [this.radioButtonArr[1].value, Validators.required],
-      empCIAgent_Action: [this.radioButtonArr[1].value, Validators.required],
-      volCIAgent_Action: [this.radioButtonArr[1].value, Validators.required],
-      volGrpLfAgent_Action: [this.radioButtonArr[1].value, Validators.required],
-      basicGrpLfAgent_Action: [this.radioButtonArr[1].value, Validators.required],
-
-      AgentNumber: ["", Validators.required],
-      AgentSubCount: ["", Validators.required],
-      CommissonSplit: ["", Validators.required],
-      AgentName: ["", Validators.required],
-
-      AgentNumber1: ["", Validators.required],
-      AgentSubCount1: ["", Validators.required],
-      CommissonSplit1: ["", Validators.required],
-
-
-      AgentNumber2: ["", Validators.required],
-      AgentSubCount2: ["", Validators.required],
-      CommissonSplit2: ["", Validators.required],
-
-      AgentNumber3: ["", Validators.required],
-      AgentSubCount3: ["", Validators.required],
-      CommissonSplit3: ["", Validators.required],
-
-
-      AgentNumberFppIndivisual: ["", Validators.required],
-      AgentSubCountFppIndivisual: ["", Validators.required],
-      CommissonSplitFppIndivisual: ["", Validators.required],
-      AgentNameFppIndivisual: ["", Validators.required],
-
-      AgentNumber1FppIndivisual: ["", Validators.required],
-      AgentSubCount1FppIndivisual: ["", Validators.required],
-      CommissonSplit1FppIndivisual: ["", Validators.required],
-
-
-      AgentNumber2FppIndivisual: ["", Validators.required],
-      AgentSubCount2FppIndivisual: ["", Validators.required],
-      CommissonSplit2FppIndivisual: ["", Validators.required],
-
-      AgentNumber3FppIndivisual: ["", Validators.required],
-      AgentSubCount3FppIndivisual: ["", Validators.required],
-      CommissonSplit3FppIndivisual: ["", Validators.required],
-
-
-      AgentNumberaccident: ["", Validators.required],
-      AgentSubCountaccident: ["", Validators.required],
-      CommissonSplitaccident: ["", Validators.required],
-      AgentNameaccident: ["", Validators.required],
-
-      AgentNumber1accident: ["", Validators.required],
-      AgentSubCount1accident: ["", Validators.required],
-      CommissonSplit1accident: ["", Validators.required],
-
-
-      AgentNumber2accident: ["", Validators.required],
-      AgentSubCount2accident: ["", Validators.required],
-      CommissonSplit2accident: ["", Validators.required],
-
-      AgentNumber3accident: ["", Validators.required],
-      AgentSubCount3accident: ["", Validators.required],
-      CommissonSplit3accident: ["", Validators.required],
-
-
-
-      AgentNumberHospitalIndemnity: ["", Validators.required],
-      AgentSubCountHospitalIndemnity: ["", Validators.required],
-      CommissonSplitHospitalIndemnity: ["", Validators.required],
-      AgentNameHospitalIndemnity: ["", Validators.required],
-
-      AgentNumber1HospitalIndemnity: ["", Validators.required],
-      AgentSubCount1HospitalIndemnity: ["", Validators.required],
-      CommissonSplit1HospitalIndemnity: ["", Validators.required],
-
-
-      AgentNumber2HospitalIndemnity: ["", Validators.required],
-      AgentSubCount2HospitalIndemnity: ["", Validators.required],
-      CommissonSplit2HospitalIndemnity: ["", Validators.required],
-
-      AgentNumber3HospitalIndemnity: ["", Validators.required],
-      AgentSubCount3HospitalIndemnity: ["", Validators.required],
-      CommissonSplit3HospitalIndemnity: ["", Validators.required],
-
-
-
-      AgentNumberempPaidci: ["", Validators.required],
-      AgentSubCountempPaidci: ["", Validators.required],
-      CommissonSplitempPaidci: ["", Validators.required],
-      AgentNameempPaidci: ["", Validators.required],
-
-      AgentNumber1empPaidci: ["", Validators.required],
-      AgentSubCount1empPaidci: ["", Validators.required],
-      CommissonSplit1empPaidci: ["", Validators.required],
-
-
-      AgentNumber2empPaidci: ["", Validators.required],
-      AgentSubCount2empPaidci: ["", Validators.required],
-      CommissonSplit2empPaidci: ["", Validators.required],
-
-      AgentNumber3empPaidci: ["", Validators.required],
-      AgentSubCount3empPaidci: ["", Validators.required],
-      CommissonSplit3empPaidci: ["", Validators.required],
-
-
-
-
-      AgentNumbervolCi: ["", Validators.required],
-      AgentSubCountvolCi: ["", Validators.required],
-      CommissonSplitvolCi: ["", Validators.required],
-      AgentNamevolCi: ["", Validators.required],
-
-      AgentNumber1volCi: ["", Validators.required],
-      AgentSubCount1volCi: ["", Validators.required],
-      CommissonSplit1volCi: ["", Validators.required],
-
-
-      AgentNumber2volCi: ["", Validators.required],
-      AgentSubCount2volCi: ["", Validators.required],
-      CommissonSplit2volCi: ["", Validators.required],
-
-      AgentNumber3volCi: ["", Validators.required],
-      AgentSubCount3volCi: ["", Validators.required],
-      CommissonSplit3volCi: ["", Validators.required],
-
-
-
-      AgentNumberVolGrpLife: ["", Validators.required],
-      AgentSubCountVolGrpLife: ["", Validators.required],
-      CommissonSplitVolGrpLife: ["", Validators.required],
-      AgentNameVolGrpLife: ["", Validators.required],
-
-      AgentNumber1VolGrpLife: ["", Validators.required],
-      AgentSubCount1VolGrpLife: ["", Validators.required],
-      CommissonSplit1VolGrpLife: ["", Validators.required],
-
-
-      AgentNumber2VolGrpLife: ["", Validators.required],
-      AgentSubCount2VolGrpLife: ["", Validators.required],
-      CommissonSplit2VolGrpLife: ["", Validators.required],
-
-      AgentNumber3VolGrpLife: ["", Validators.required],
-      AgentSubCount3VolGrpLife: ["", Validators.required],
-      CommissonSplit3VolGrpLife: ["", Validators.required],
-
-
-
-      AgentNumberBasicgrpLife: ["", Validators.required],
-      AgentSubCountBasicgrpLife: ["", Validators.required],
-      CommissonSplitBasicgrpLife: ["", Validators.required],
-      AgentNameBasicgrpLife: ["", Validators.required],
-
-      AgentNumber1BasicgrpLife: ["", Validators.required],
-      AgentSubCount1BasicgrpLife: ["", Validators.required],
-      CommissonSplit1BasicgrpLife: ["", Validators.required],
-
-
-      AgentNumber2BasicgrpLife: ["", Validators.required],
-      AgentSubCount2BasicgrpLife: ["", Validators.required],
-      CommissonSplit2BasicgrpLife: ["", Validators.required],
-
-      AgentNumber3BasicgrpLife: ["", Validators.required],
-      AgentSubCount3BasicgrpLife: ["", Validators.required],
-      CommissonSplit3BasicgrpLife: ["", Validators.required],
-
     })
 
 
@@ -454,6 +495,7 @@ export class GroupSetupComponent implements OnInit {
   }
 
   getLookupValueSitusState(value: any) {
+    console.log("hello + value");
     this.lookupSitusStateValue = value;
     this.grpSitusState = value;
   }
@@ -729,19 +771,19 @@ export class GroupSetupComponent implements OnInit {
         sp_qi_max_amt_action: this.fppgComponent.fppgformgrp.value.FCfppgSpouseAmtMax_Action,
         emp_max_amt_action: this.fppgComponent.fppgformgrp.value.FCfppgEmpAmtMax_Action,
         sp_max_amt_action: this.fppgComponent.fppgformgrp.value.FCfppgSpouseAmtMax_Action,
-        agnt_cd_1: this.agentformgrp.get('AgentNumber').value,
-        agnt_nm: this.agentformgrp.get('AgentName').value,
-        agnt_comm_split_1: this.agentformgrp.get('CommissonSplit').value,
-        agntsub_1: this.agentformgrp.get('AgentSubCount').value,
-        agnt_cd_2: this.agentformgrp.get('AgentNumber1').value,
-        agnt_comm_split_2: this.agentformgrp.get('CommissonSplit1').value,
-        agntsub_2: this.agentformgrp.get('AgentSubCount1').value,
-        agnt_cd_3: this.agentformgrp.get('AgentNumber2').value,
-        agnt_comm_split_3: this.agentformgrp.get('CommissonSplit2').value,
-        agntsub_3: this.agentformgrp.get('AgentSubCount2').value,
-        agnt_cd_4: this.agentformgrp.get('AgentNumber3').value,
-        agnt_comm_split_4: this.agentformgrp.get('CommissonSplit3').value,
-        agntsub_4: this.agentformgrp.get('AgentSubCount3').value,
+        agnt_cd_1: this.agentformgrp.get('AgentNumberfppg').value,
+        agnt_nm: this.agentformgrp.get('AgentNamefppg').value,
+        agnt_comm_split_1: this.agentformgrp.get('CommissonSplitfppg').value,
+        agntsub_1: this.agentformgrp.get('AgentSubCountfppg').value,
+        agnt_cd_2: this.agentformgrp.get('AgentNumber1fppg').value,
+        agnt_comm_split_2: this.agentformgrp.get('CommissonSplit1fppg').value,
+        agntsub_2: this.agentformgrp.get('AgentSubCount1fppg').value,
+        agnt_cd_3: this.agentformgrp.get('AgentNumber2fppg').value,
+        agnt_comm_split_3: this.agentformgrp.get('CommissonSplit2fppg').value,
+        agntsub_3: this.agentformgrp.get('AgentSubCount2fppg').value,
+        agnt_cd_4: this.agentformgrp.get('AgentNumber3fppg').value,
+        agnt_comm_split_4: this.agentformgrp.get('CommissonSplit3fppg').value,
+        agntsub_4: this.agentformgrp.get('AgentSubCount3fppg').value,
 
         agnt_cd_1_action: this.agentformgrp.get('fppgAgent_Action').value.toString(),
         agnt_nm_action: this.agentformgrp.get('fppgAgent_Action').value.toString(),

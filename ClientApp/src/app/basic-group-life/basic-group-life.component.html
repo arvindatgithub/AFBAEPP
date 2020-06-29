@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="bglData !== undefined">
   <form [formGroup]="basicGrpLfformgrp">
     <div class="row mb-4" style="justify-content:space-evenly;margin-right: 7%;">
       <div class="radio-button">
@@ -19,9 +19,9 @@
       </div>
       <div class="col-3">
         <span class="label label-default">Situs State</span>
-        <select class="form-control" [value]="lookupValue" formControlName="FCbasicSitusState">
+        <select class="form-control" formControlName="FCbasicSitusState">
           <!-- <option value="0" selected="selected">{{ lookupValue }}</option> -->
-          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
+          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates" value={{lookUpDataSitusState.state}}>
             {{lookUpDataSitusState.state}}</option>
 
         </select>
