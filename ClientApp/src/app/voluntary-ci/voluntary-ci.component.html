@@ -1,4 +1,4 @@
-<div class="container" style="width: 100%;">
+<div class="container" style="width: 100%;" *ngIf="volCiData !== undefined">
 
   <form [formGroup]="volCIformgrp">
     <div class="row" style="justify-content:space-evenly;margin-right: 7%;">
@@ -8,7 +8,7 @@
       </div>
       <div class="col-3">
         <span class="label label-default">VOL CI Effective Date</span>
-        <input type="date" [value]="latest_datevolci" [(ngModel)]="latest_datevolci" formControlName="FCVolCIEffectiveDate" [min]="minDate"
+        <input type="date" formControlName="FCVolCIEffectiveDate"
           class="form-control mb-2 " style="width: 100%;" placeholder="Group Effective Date">
 
       </div>
@@ -18,9 +18,9 @@
       </div>
       <div class="col-3">
         <span class="label label-default">Situs State</span>
-        <select class="form-control" [value]="lookupValue" formControlName="FCVolCISitusState">
+        <select class="form-control" formControlName="FCVolCISitusState">
           <!-- <option value="0" selected="selected">{{ lookupValue }}</option> -->
-          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
+          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates" value={{lookUpDataSitusState.state}}>
             {{lookUpDataSitusState.state}}</option>
 
         </select>

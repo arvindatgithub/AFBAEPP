@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="fppgData !== undefined">
 
 
   <form [formGroup]="fppgformgrp">
@@ -10,7 +10,7 @@
 
       <div class="col-3">
         <span class="label label-default">FPPG Effective Date</span> 
-        <input type="date" formControlName="FCfppgEffectiveDate" [(ngModel)] ="minDate" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
+        <input type="date" formControlName="FCfppgEffectiveDate" class="form-control mb-2 " style="width: 100%;"
           placeholder="Group Effective Date">
       </div>
       <div class="radio-button">
@@ -19,9 +19,9 @@
       </div>
       <div class="col-3">
         <span class="label label-default">Situs State</span>
-        <select class="form-control" formControlName="FCfppgSitusState" [value]="lookupValue">
+        <select class="form-control" formControlName="FCfppgSitusState" >
           <!-- <option value="0" selected="selected">{{ lookupValue }}</option> -->
-          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
+          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates" value={{lookUpDataSitusState.state}}>
             {{lookUpDataSitusState.state}}</option>
 
         </select>
