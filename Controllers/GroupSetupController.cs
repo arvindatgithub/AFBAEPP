@@ -322,11 +322,7 @@ namespace AFBA.EPP.Controllers
                 {
                     var prdid = Helper.GetProductIdbyName("ER_CI", _unitofWork);
                     var grpprdId = Helper.GetRandomNumber();
-                    //AddProductCodes(new ProductCodesViewModel
-                    //{
-                    //    ProductCode = groupSetupModel.ER_CI.emp_ProductCode,
-                    //    ProductId = prdid
-                    //});
+             
 
 
                     _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
@@ -713,6 +709,11 @@ namespace AFBA.EPP.Controllers
 
                                         }
                                     }
+
+                                    // load product code
+                                    groupSetupModel.FPPG.emp_ProductCode = GetProductCode(groupSetupModel.FPPG.emp_plan_cd);
+                                    groupSetupModel.FPPG.sp_ProductCode = GetProductCode(groupSetupModel.FPPG.sp_plan_cd);
+                                    groupSetupModel.FPPG.ch_ProductCode = GetProductCode(groupSetupModel.FPPG.sp_plan_cd);
                                     break;
                                 }
                             case "ACC_HI":
@@ -740,6 +741,9 @@ namespace AFBA.EPP.Controllers
 
                                         }
                                     }
+
+                                 
+
                                     break;
                                 }
                             case "ER_CI":
@@ -767,6 +771,10 @@ namespace AFBA.EPP.Controllers
 
                                         }
                                     }
+
+                                    groupSetupModel.ER_CI.emp_ProductCode = GetProductCode(groupSetupModel.ER_CI.emp_plan_cd);
+                                    groupSetupModel.ER_CI.sp_ProductCode = GetProductCode(groupSetupModel.ER_CI.sp_plan_cd);
+                                    groupSetupModel.ER_CI.ch_ProductCode = GetProductCode(groupSetupModel.ER_CI.sp_plan_cd);
                                     break;
                                 }
                             case "VOL_CI":
@@ -794,6 +802,11 @@ namespace AFBA.EPP.Controllers
 
                                         }
                                     }
+
+                                    groupSetupModel.VOL_CI.emp_ProductCode = GetProductCode(groupSetupModel.VOL_CI.emp_plan_cd);
+                                    groupSetupModel.VOL_CI.sp_ProductCode = GetProductCode(groupSetupModel.VOL_CI.sp_plan_cd);
+                                    groupSetupModel.VOL_CI.ch_ProductCode = GetProductCode(groupSetupModel.VOL_CI.sp_plan_cd);
+
                                     break;
                                 }
                             case "VGL":
@@ -876,6 +889,11 @@ namespace AFBA.EPP.Controllers
 
                                         }
                                     }
+
+                                    groupSetupModel.FPPI.emp_ProductCode = GetProductCode(groupSetupModel.FPPI.emp_plan_cd);
+                                    groupSetupModel.FPPI.sp_ProductCode = GetProductCode(groupSetupModel.FPPI.sp_plan_cd);
+                                    groupSetupModel.FPPI.ch_ProductCode = GetProductCode(groupSetupModel.FPPI.sp_plan_cd);
+
                                     break;
                                 }
                             case "HI":
@@ -924,12 +942,7 @@ namespace AFBA.EPP.Controllers
         }
 
 
-
-        [NonAction]
-        private void UpdateEppBulkRefTblData(List<EppBulkRefTbl> bulkRefTbls )
-        {
-
-        }
+   
        [NonAction]
         private void AddEppBulkRefTblData(List<ClsPropertyInfo> bulkAttrs, List<EppBulkRefTbl> bulkRefTbls, long grpPrdId)
         {
@@ -963,7 +976,21 @@ namespace AFBA.EPP.Controllers
             }
 
         }
-        
+
+       
+
+        [NonAction]
+        private string GetProductCode(string ProdctCdId)
+        {
+            string productCode = "";
+            var result = _unitofWork.eppProductCodesRepository.Find(x => x.ProdctCdId == long.Parse( ProdctCdId)).Result.FirstOrDefault();
+            if (result != null)
+            {
+                productCode=result.ProductCode;
+            }
+          return  productCode;
+        }
+
 
         [NonAction]
         private void LoadProductBulkRefData(long GrpprdctId)
