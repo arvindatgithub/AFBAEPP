@@ -599,9 +599,13 @@ export class GroupSetupComponent implements OnInit {
   sp_quality_of_life: any;
   sp_waiver_of_prem: any;
   emp_waiver_of_prem: any;
+  emp_quality_of_lifefpp:any;
+  emp_waiver_of_premfpp:any;
+  sp_quality_of_lifefpp:any;
+  sp_waiver_of_premfpp:any;
 
   onSubmit() {
-
+    console.log("this.fppgComponent.fppgformgrp.value.FCfppgQolRiders",this.fppgComponent.fppgformgrp.value.FCfppgQolRiders)
     if (this.fppgComponent.fppgformgrp.value.FCfppgQolRiders) {
       this.emp_quality_of_life = "070";
       this.sp_quality_of_life = "070";
@@ -620,23 +624,23 @@ export class GroupSetupComponent implements OnInit {
       this.sp_waiver_of_prem = "";
     }
 
-    if (this.fppComponent.fppiformgrp.value.FCfppQolRiders) {
-      this.emp_quality_of_life = "070";
-      this.sp_quality_of_life = "070";
-    }
+    // if (this.fppComponent.fppiformgrp.value.FCfppQolRiders) {
+    //   this.emp_quality_of_lifefpp = "070";
+    //   this.sp_quality_of_lifefpp = "070";
+    // }
 
-    else {
-      this.emp_quality_of_life = "";
-      this.sp_quality_of_life = "";
-    }
-    if (this.fppgComponent.fppgformgrp.value.FCfppWaiver) {
-      this.emp_waiver_of_prem = "020";
-      this.sp_waiver_of_prem = "020";
-    }
-    else {
-      this.emp_waiver_of_prem = "";
-      this.sp_waiver_of_prem = "";
-    }
+    // else {
+    //   this.emp_quality_of_lifefpp = "";
+    //   this.sp_quality_of_lifefpp = "";
+    // }
+    // if (this.fppgComponent.fppgformgrp.value.FCfppWaiver) {
+    //   this.emp_waiver_of_premfpp = "020";
+    //   this.sp_waiver_of_premfpp = "020";
+    // }
+    // else {
+    //   this.emp_waiver_of_premfpp = "";
+    //   this.sp_waiver_of_premfpp = "";
+    // }
 
 
     let body = {
@@ -762,10 +766,10 @@ export class GroupSetupComponent implements OnInit {
         "effctv_dt_action": this.accidentComponent.accformgrp.value.FCaccEffectiveDate_Action,
         "grp_situs_state_action": this.accidentComponent.accformgrp.value.FCaccSitusState_Action,
         "rate_lvl_action": this.accidentComponent.accformgrp.value.FCaccRateLevel_Action,
-        // "owner_smkr_no_smkr_action": this.accidentComponent.accformgrp.value.,
-        // "sp_smkr_no_smkr_action": this.accidentComponent.accformgrp.value.,
-        // "owner_smkr_no_smkr": this.accidentComponent.accformgrp.value.,
-        // "sp_smkr_no_smkr": this.accidentComponent.accformgrp.value.,
+        "owner_smkr_no_smkr_action": this.accidentComponent.accformgrp.value.FCaccOnOff_Action,
+        "sp_smkr_no_smkr_action": this.accidentComponent.accformgrp.value.FCaccOnOff_Action,
+        "owner_smkr_no_smkr": this.accidentComponent.accformgrp.value.FCaccOnOff,
+        "sp_smkr_no_smkr": this.accidentComponent.accformgrp.value.FCaccOnOff,
         agnt_cd_1: this.agentformgrp.get('AgentNumberaccident').value,
         agnt_nm: this.agentformgrp.get('AgentNameaccident').value,
         agnt_comm_split_1: this.agentformgrp.get('CommissonSplitaccident').value,
@@ -1012,10 +1016,10 @@ export class GroupSetupComponent implements OnInit {
         "emp_ProductCode": this.fppComponent.fppiformgrp.value.FCfppiempPlanCode,
         "sp_ProductCode": this.fppComponent.fppiformgrp.value.FCfppiSpousePlanCode,
         "ch_ProductCode": this.fppComponent.fppiformgrp.value.FCfppiChildPlanCode,
-        "emp_waiver_of_prem": this.emp_waiver_of_prem,
-        "sp_waiver_of_prem": this.sp_waiver_of_prem,
-        "emp_quality_of_life": this.emp_quality_of_life,
-        "sp_quality_of_life": this.sp_quality_of_life,
+        "emp_waiver_of_prem":"020",
+        "sp_waiver_of_prem": "020",
+        "emp_quality_of_life": "070",
+        "sp_quality_of_life": "070",
         "emp_waiver_of_prem_action": this.fppComponent.fppiformgrp.value.FCfppiWaiver_Action,
         "sp_waiver_of_prem_action": this.fppComponent.fppiformgrp.value.FCfppiWaiver_Action,
         "emp_quality_of_life_action": this.fppComponent.fppiformgrp.value.FCfppiQolRiders_Action,
