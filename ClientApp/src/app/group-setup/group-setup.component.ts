@@ -189,7 +189,8 @@ export class GroupSetupComponent implements OnInit {
     id: "",
     state: ""
   };
-  
+  commissionSplitErr = false;
+  commissionSplitErrFppg = false;
 
   constructor(private eppcreategroupservice: EppCreateGrpSetupService, private _fb: FormBuilder,
     private snackBar: MatSnackBar, private lookupService: LookupService, private groupsearchService: GroupsearchService) {
@@ -464,6 +465,32 @@ export class GroupSetupComponent implements OnInit {
 
 
 /* agent section change events */
+ commissionSplitCheck(){
+  let a= this.agentCommissionSPlit_0 !== undefined && this.agentCommissionSPlit_0 !== '' ? parseInt(this.agentCommissionSPlit_0) : 0;
+  let b= this.agentCommissionSPlit_1 !== undefined && this.agentCommissionSPlit_1 !== '' ? parseInt(this.agentCommissionSPlit_1) : 0;
+  let c= this.agentCommissionSPlit_2 !== undefined && this.agentCommissionSPlit_2 !== '' ?  parseInt(this.agentCommissionSPlit_2) : 0;
+  let d= this.agentCommissionSPlit_3 !== undefined && this.agentCommissionSPlit_3 !== '' ? parseInt(this.agentCommissionSPlit_3) :0;
+  let e = a+b+c+d;
+  if(e > 100){
+    this.commissionSplitErr = true;
+  } else {
+    this.commissionSplitErr = false;
+  }
+ }
+ commisioncheckFppg(){
+  let a= this.agentformgrp.get('CommissonSplitfppg').value !== undefined && this.agentformgrp.get('CommissonSplitfppg').value !== '' ? parseInt(this.agentformgrp.get('CommissonSplitfppg').value) : 0;
+  let b= this.agentformgrp.get('CommissonSplit1fppg').value !== undefined && this.agentformgrp.get('CommissonSplit1fppg').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit1fppg').value) : 0; 
+  let c= this.agentformgrp.get('CommissonSplit2fppg').value !== undefined && this.agentformgrp.get('CommissonSplit2fppg').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit2fppg').value) : 0;
+  let d= this.agentformgrp.get('CommissonSplit3fppg').value !== undefined && this.agentformgrp.get('CommissonSplit3fppg').value !== ''? parseInt(this.agentformgrp.get('CommissonSplit3fppg').value) : 0;
+  let e = a+b+c+d;
+  if(e > 100){
+    this.commissionSplitErrFppg = true;
+  } else {
+    this.commissionSplitErrFppg = false;
+    this.commissionSplitErr = false;
+  }
+ }
+
 //1st row
   changeAgNum0(val){
     console.log('changed val' + val);
@@ -505,6 +532,7 @@ export class GroupSetupComponent implements OnInit {
       CommissonSplitVolGrpLife: val,
       CommissonSplitBasicgrpLife : val,
     });
+    this.commissionSplitCheck();
   }
   changeAgNm0(val){
     console.log('changed val' + val);
@@ -559,6 +587,7 @@ export class GroupSetupComponent implements OnInit {
       CommissonSplit1VolGrpLife: val,
       CommissonSplit1BasicgrpLife: val,
     });
+    this.commissionSplitCheck();
   }
 
   //3 row
@@ -600,6 +629,7 @@ export class GroupSetupComponent implements OnInit {
       CommissonSplit2VolGrpLife: val,
       CommissonSplit2BasicgrpLife: val,
     });
+    this.commissionSplitCheck();
   }
 
   //4 row
@@ -641,6 +671,7 @@ export class GroupSetupComponent implements OnInit {
       CommissonSplit3VolGrpLife: val,
       CommissonSplit3BasicgrpLife: val,
     });
+    this.commissionSplitCheck();
   }
 
 
