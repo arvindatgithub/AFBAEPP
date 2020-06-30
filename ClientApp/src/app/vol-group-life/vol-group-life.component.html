@@ -1,4 +1,4 @@
-<div class="container" style="width: 100%;">
+<div class="container" style="width: 100%;" *ngIf="volGrpData !== undefined">
 
   <form [formGroup]="volGrpLfformgrp">
     <div class="row" style="justify-content:space-evenly;margin-right: 7%;">
@@ -8,7 +8,7 @@
       </div>
       <div class="col-3">
         <span class="label label-default">Vol Grp life Effective Date</span>
-        <input type="date" [value]="latest_datevolgrplife" formControlName="FCVolGrpLfEffectiveDate" [(ngModel)]="latest_datevolgrplife" [min]="minDate" class="form-control mb-2" style="width: 100%;"
+        <input type="date" formControlName="FCVolGrpLfEffectiveDate" class="form-control mb-2" style="width: 100%;"
           placeholder="Group Effective Date">
 
       </div>
@@ -18,14 +18,14 @@
       </div>
       <div class="col-3">
         <span class="label label-default">Situs State</span>
-        <select class="form-control" [value]="lookupValue" formControlName = "FCVolGrpLfSitusState">
-          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
+        <select class="form-control" formControlName = "FCVolGrpLfSitusState">
+          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates" value={{lookUpDataSitusState.state}}>
             {{lookUpDataSitusState.state}}</option>
 
         </select>
       </div>
       <div class="mt-4">
-        <button class="btn btn-primary" (click) = "volgrplife()" type="submit">Reset Form </button>
+        <button class="btn btn-primary" type="submit">Reset Form </button>
       </div>
     </div>
 
@@ -77,8 +77,16 @@
 
     </div>
 
-    <div class="row mt-2" style="margin-left: 1%;">
-     
+    <!-- <div class="row mt-2" style="margin-left: 1%;">
+       <div class="radio-button">
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCVolGrpLfOpenEnrollGI_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
+      </div>
+      <div class="col-4">
+
+        <span class="label label-default">Open Enrollment GI</span>
+        <input type="text" formControlName="FCVolGrpLfOpenEnrollGI" class="form-control mb-2 " style="width: 100%;" placeholder="Open Enrollment GI">
+      </div> 
 
       <div class="radio-button">
         <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCVolGrpLfPlanCodeManualEntry_Action" />
@@ -97,9 +105,9 @@
         <span class="label label-default">Child Plan code</span>
         <input type="text" class="form-control mb-2 "  formControlName="FCVolGrpLfChildPlanCode" style="width: 100%;" placeholder="Child Plan code ">
       </div>
-    </div>
+    </div> -->
 
-    <div class="row mt-2" style="justify-content:space-evenly;">
+    <!-- <div class="row mt-2" style="justify-content:space-evenly;">
       <div class="radio-button">
         <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCVolGrpLfUserToken_Action" />
           <label class="radio-label"> {{item.name}}</label></div>
@@ -121,7 +129,7 @@
         <input type="text"  formControlName="FCVolGrpLfCaseToken" class="form-control mb-2 " style="width: 100%;" placeholder="Case Token">
       </div>
 
-    </div>
+    </div> -->
 
     <div class="mt-4">
       <ng-content></ng-content>

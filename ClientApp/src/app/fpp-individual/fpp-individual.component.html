@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="fppiData !== undefined">
 
   <form [formGroup]="fppiformgrp">
    
@@ -9,7 +9,7 @@
         </div>
         <div class="col-3">
           <span class="label label-default">FPPI Effective Date</span>
-          <input type="date" formControlName = "FCfppiEffectiveDate" [(ngModel)]="minDate" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
+          <input type="date" formControlName = "FCfppiEffectiveDate" class="form-control mb-2 " style="width: 100%;"
             placeholder="Group Effective Date">
 
         </div>
