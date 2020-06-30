@@ -64,7 +64,7 @@ export class GroupSetupComponent implements OnInit {
   groupNumber: string = "";
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
   position = new FormControl(this.positionOptions[0]);
-  public minDate;
+  public minDate = (new Date()).toISOString().slice(0,10);
   dateChange;
   fppg: any;
   hospitalIndemity: any;
@@ -203,19 +203,19 @@ export class GroupSetupComponent implements OnInit {
       //Setting Initial Values for Group Section
       this.groupNumber = this.groupsData.grpNbr;
       this.groupName = this.groupsData.grpNm;
-      this.minDate = this.groupsData.grpEfftvDt.slice(0, 10);
+      // this.minDate = this.groupsData.grpEfftvDt.slice(0, 10);
       this.grpPymn = this.groupsData.grpPymn;
       this.EnrolmentPatnerName = this.groupsData.enrlmntPrtnrsNm;
       this.EnrolEmailAddress = this.groupsData.emlAddrss;
       this.occupationArray = this.groupsData.occClass;
       this.ManegerName = this.groupsData.acctMgrNm;
       this.ManagerEmail = this.groupsData.emailAddress;
-      // this.lookUpDataSitusStates[0].state = this.groupsData.grpSitusSt;
+      // this.lookUpDataSitusStates[0].state = this.groupsData.grpSitusSt; 
 
     });
 
     this.occupationArray = this.occClass[0].occupation;
-    console.log('occ class' + this.occupationArray);
+  
 
     this.lookupService.getLookupsData()
       .subscribe((data: any) => {
@@ -863,6 +863,7 @@ export class GroupSetupComponent implements OnInit {
         // "sp_smkr_no_smkr": this.VolCiComponent.volCIformgrp.value.,
         // "owner_smkr_no_smkr_action": this.VolCiComponent.volCIformgrp.value.,
         // "sp_smkr_no_smkr_action": this.VolCiComponent.volCIformgrp.value.,
+      
         "emp_plan_cd_action": this.VolCiComponent.volCIformgrp.value.FCVolCIPlanCodeManualEntry_Action,
         "sp_plan_cd_action": this.VolCiComponent.volCIformgrp.value.FCVolCIPlanCodeManualEntry_Action,
         "ch_plan_cd_action": this.VolCiComponent.volCIformgrp.value.FCVolCIPlanCodeManualEntry_Action,
@@ -1064,7 +1065,14 @@ export class GroupSetupComponent implements OnInit {
     }
     this.eppcreategroupservice.PosteppCreate(body).subscribe((data: any) => {
       console.log("data", data);
-    });
+    },
+    (error:any) =>{
+      this.snackBar.open(error.error,"close",{
+          duration:2000,
+      });
+      window.scrollTo(0,0);
+    }
+    );
 
 
   }
