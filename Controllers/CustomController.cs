@@ -131,7 +131,7 @@ namespace AFBA.EPP.Controllers
                 var eppPrdctattrbt = _unitofWork.eppPrdctattrbtRepository.ClonedEppPrdctattrbts(grpprdct.GrpprdctId);
                  foreach (var item in eppPrdctattrbt)
                 {
-                    var data = _unitofWork.eppAttributeRepository.Get(item.AttrId).Result;
+                    var data = _unitofWork.eppAttributeRepository.Get(long.Parse(item.AttrId)).Result;
                     if (data != null)
                     {
                         lstEppTemplateViewModel.SelectedList.Add(new EppAttrFieldViewModel
@@ -190,7 +190,7 @@ namespace AFBA.EPP.Controllers
                    
                     foreach (var item in eppPrdctattrbt)
                     {
-                        var data = _unitofWork.eppAttributeRepository.Get(item.AttrId).Result;
+                        var data = _unitofWork.eppAttributeRepository.Get(long.Parse(item.AttrId)).Result;
                         if (data != null)
                         {
                             lstEppTemplateViewModel.SelectedList.Add(new EppAttrFieldViewModel
@@ -247,11 +247,11 @@ namespace AFBA.EPP.Controllers
 
                         EppPrdctattrbts.Add(new EppPrdctattrbt
                         {
-                            AttrId = item.AttrId,
+                            AttrId = long.Parse(item.AttrId),
                             GrpprdctId = grpprdctId,
-                            ClmnOrdr = item.ClmnOrdr,
+                            ClmnOrdr = long.Parse(item.ClmnOrdr),
                             RqdFlg = item.RqdFlg == true ? 'Y' : 'N',
-                            PrdctAttrbtId = item.PrdctAttrbtId,
+                            PrdctAttrbtId = long.Parse(item.PrdctAttrbtId),
                             CrtdBy = "",
                         });
 
@@ -337,7 +337,7 @@ namespace AFBA.EPP.Controllers
                                 PrdctAttrbtId= prdctAttrbtId,
                                 AttrId = data.AttrId,
                                 GrpprdctId = grpprdct.GrpprdctId,
-                                ClmnOrdr = item.ClmnOrdr,
+                                ClmnOrdr = long.Parse(item.ClmnOrdr),
                                 RqdFlg = item.RqdFlg == true ? 'Y' : 'N',
                                 CrtdBy = "",
                             });

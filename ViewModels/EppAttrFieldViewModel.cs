@@ -7,12 +7,12 @@ namespace AFBA.EPP.ViewModels
 {
     public class EppAttrFieldViewModel
     {
-        public long PrdctAttrbtId { get; set; }
+        public string PrdctAttrbtId { get; set; }
         public string DbAttrNm { get; set; }
         public string DisplyAttrNm { get; set; }
-        public long AttrId { get; set; }
+        public string AttrId { get; set; }
         public bool? RqdFlg { get; set; }
-        public long? ClmnOrdr { get; set; }
-        public long GrpprdctId { get; set; }
+        public string? ClmnOrdr { get; set; }
+        public string GrpprdctId { get; set; }
     }
 }
