@@ -88,7 +88,7 @@ ngOnChanges(simpleChange:SimpleChanges){
         this.isLoading = true;
        
         this.lookUpDataSitusStates = data.situsState;
-        this.myForm.setValue(this.lookUpDataSitusStates[0].state);
+        // this.myForm.setValue(this.lookUpDataSitusStates[0].state);
       });
   
       console.log("this.lookup", this.lookupValue);

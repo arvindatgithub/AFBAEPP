@@ -19,6 +19,7 @@
       <div class="col-3">
         <span class="label label-default">Situs State</span>
         <select class="form-control" [value]="lookupValue" formControlName = "FCVolGrpLfSitusState">
+          <option hidden disabled selected value> -- select Situs State -- </option>
           <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
             {{lookUpDataSitusState.state}}</option>
 
