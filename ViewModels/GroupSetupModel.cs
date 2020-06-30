@@ -18,9 +18,12 @@ namespace AFBA.EPP.ViewModels
         public long EnrlmntPrtnrsId { get; set; }
         public string EnrlmntPrtnrsNm { get; set; }
         public string EmlAddrss { get; set; }
-        public string EmailAddress { get; set; }
+
         public string AcctMgrNm { get; set; }
-        public long AcctMgrCntctId { get; set; }
+        public string AcctMgrEmailAddrs { get; set; }
+        public string EmailAddress { get; set; }
+        //public string AcctMgrNm { get; set; }
+        //public long AcctMgrCntctId { get; set; }
         public bool isFPPGActive { get; set; }
         public bool isHIActive { get; set; }
         public HI HI { get; set; }

@@ -25,7 +25,7 @@ namespace AFBA.EPP.Repositories
         public IEppAttributeRepository eppAttributeRepository => new EppAttributeRepository(_dbContext);
         public IEppEnrlmntPrtnrsRepository eppEnrlmntPrtnrsRepository => new EppEnrlmntPrtnrsRepository(_dbContext);
 
-        public IEppAcctMgrCntctsRepository eppAcctMgrCntctsRepository =>  new EppAcctMgrCntctsRepository(_dbContext);
+  //      public IEppAcctMgrCntctsRepository eppAcctMgrCntctsRepository =>  new EppAcctMgrCntctsRepository(_dbContext);
 
         public IEppGrpprdctRepository eppGrpprdctRepository =>  new EppGrpprdctRepositry(_dbContext);
 

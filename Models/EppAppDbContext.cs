@@ -15,7 +15,6 @@ namespace AFBA.EPP.Models
         {
         }
 
-        public virtual DbSet<EppAcctMgrCntcts> EppAcctMgrCntcts { get; set; }
         public virtual DbSet<EppAction> EppAction { get; set; }
         public virtual DbSet<EppAttribute> EppAttribute { get; set; }
         public virtual DbSet<EppBulkRefTbl> EppBulkRefTbl { get; set; }
@@ -53,51 +52,6 @@ namespace AFBA.EPP.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasPostgresExtension("pg_stat_statements");
-
-            modelBuilder.Entity<EppAcctMgrCntcts>(entity =>
-            {
-                entity.HasKey(e => e.AcctMgrCntctId)
-                    .HasName("PK27");
-
-                entity.ToTable("EPP_ACCT_MGR_CNTCTS");
-
-                entity.Property(e => e.AcctMgrCntctId)
-                    .HasColumnName("acct_mgr_cntct_id")
-                    .ValueGeneratedNever();
-
-                entity.Property(e => e.AcctMgrNm)
-                    .HasColumnName("acct_mgr_nm")
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.CrdtBy)
-                    .IsRequired()
-                    .HasColumnName("crdt_by")
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.CrdtDt)
-                    .HasColumnName("crdt_dt")
-                    .HasColumnType("date");
-
-                entity.Property(e => e.EmailAddress)
-                    .HasColumnName("email_address")
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.GrpprdctId).HasColumnName("grpprdct_id");
-
-                entity.Property(e => e.LstUpdtBy)
-                    .HasColumnName("lst_updt_by")
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.LstUpdtDt)
-                    .HasColumnName("lst_updt_dt")
-                    .HasColumnType("date");
-
-                entity.HasOne(d => d.Grpprdct)
-                    .WithMany(p => p.EppAcctMgrCntcts)
-                    .HasForeignKey(d => d.GrpprdctId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefEPP_GRPPRDCT37");
-            });
 
             modelBuilder.Entity<EppAction>(entity =>
             {
@@ -515,6 +469,14 @@ namespace AFBA.EPP.Models
                 entity.Property(e => e.GrpId)
                     .HasColumnName("grp_id")
                     .ValueGeneratedNever();
+
+                entity.Property(e => e.AcctMgrEmailAddrs)
+                    .HasColumnName("acct_mgr_email_addrs")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.AcctMgrNm)
+                    .HasColumnName("acct_mgr_nm")
+                    .HasMaxLength(100);
 
                 entity.Property(e => e.ActvFlg).HasColumnName("actv_flg");
 

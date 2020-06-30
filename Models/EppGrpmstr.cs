@@ -23,6 +23,8 @@ namespace AFBA.EPP.Models
         public DateTime? LstUpdtDt { get; set; }
         public string LstUpdtBy { get; set; }
         public long? OccClass { get; set; }
+        public string AcctMgrNm { get; set; }
+        public string AcctMgrEmailAddrs { get; set; }
 
         public virtual EppEnrlmntPrtnrs EnrlmntPrtnrs { get; set; }
         public virtual EppGrppymntmd GrpPymn { get; set; }

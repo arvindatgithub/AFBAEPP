@@ -14,7 +14,7 @@ namespace AFBA.EPP.Repositories.Interfaces
         public IEppGroupMasterRepository GroupMasterRepository { get; }
         public IEppAttributeRepository eppAttributeRepository { get; }
         public IEppEnrlmntPrtnrsRepository eppEnrlmntPrtnrsRepository { get; }
-        public IEppAcctMgrCntctsRepository   eppAcctMgrCntctsRepository { get; }
+        //public IEppAcctMgrCntctsRepository   eppAcctMgrCntctsRepository { get; }
         public IEppGrpprdctRepository eppGrpprdctRepository { get; }
         public IEppProductCodesRepository eppProductCodesRepository { get; }
         public IEppPrdctattrbtRepository eppPrdctattrbtRepository { get; }

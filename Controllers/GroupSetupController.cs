@@ -72,12 +72,17 @@ namespace AFBA.EPP.Controllers
 
             }
             var CrtdBy = "";
+
+        
             grpMstdata.GrpNbr = groupSetupModel.GrpNbr;
             grpMstdata.GrpNm = groupSetupModel.GrpNm;
             grpMstdata.ActvFlg = groupSetupModel.ActvFlg;
             grpMstdata.EnrlmntPrtnrsId = groupSetupModel.EnrlmntPrtnrsId;
+            grpMstdata.AcctMgrNm = groupSetupModel.AcctMgrNm;
+            grpMstdata.AcctMgrEmailAddrs = groupSetupModel.AcctMgrEmailAddrs;
             grpMstdata.GrpEfftvDt = groupSetupModel.GrpEfftvDt;
             grpMstdata.GrpSitusSt = groupSetupModel.GrpSitusSt;
+
             grpMstdata.GrpPymnId = groupSetupModel.GrpPymn;
             grpMstdata.OccClass = groupSetupModel.OccClass;
             grpMstdata.CrtdBy = CrtdBy;
@@ -115,18 +120,18 @@ namespace AFBA.EPP.Controllers
              foreach(var prod in Grpprdcts)
             {
                 // update  vendor details
-                var venderData = _unitofWork.eppAcctMgrCntctsRepository.SingleOrDefault(x => x.GrpprdctId == prod.GrpprdctId && x.EmailAddress== groupSetupModel.EmailAddress).Result;
-                if (venderData == null)
-                {
-                      _unitofWork.eppAcctMgrCntctsRepository.Update(new EppAcctMgrCntcts
-                        {
-                            GrpprdctId = prod.GrpprdctId,
-                            AcctMgrCntctId = venderData.AcctMgrCntctId,
-                            EmailAddress = groupSetupModel.EmailAddress,
-                            AcctMgrNm = groupSetupModel.AcctMgrNm,
-                            LstUpdtBy = CrtdBy,
-                        });                  
-                }
+                //var venderData = _unitofWork.eppAcctMgrCntctsRepository.SingleOrDefault(x => x.GrpprdctId == prod.GrpprdctId && x.EmailAddress== groupSetupModel.EmailAddress).Result;
+                //if (venderData == null)
+                //{
+                //      _unitofWork.eppAcctMgrCntctsRepository.Update(new EppAcctMgrCntcts
+                //        {
+                //            GrpprdctId = prod.GrpprdctId,
+                //            AcctMgrCntctId = venderData.AcctMgrCntctId,
+                //            EmailAddress = groupSetupModel.EmailAddress,
+                //            AcctMgrNm = groupSetupModel.AcctMgrNm,
+                //            LstUpdtBy = CrtdBy,
+                //        });                  
+                //}
 
                 // 
                 var prodData = _unitofWork.EppProductRepository.SingleOrDefault(x => x.ProductId == prod.ProductId).Result;
@@ -150,13 +155,39 @@ namespace AFBA.EPP.Controllers
                                     long.TryParse(s, out lvalue);
                                     if ( lvalue!=0)
                                     blk.ActionId = lvalue;
-                                }
-
-                                
+                                }                                
                             }
-                            _unitofWork.eppBulkRefTblRepository.UpdateRange(blkDatas);
+                            _unitofWork.eppBulkRefTblRepository.UpdateRange(blkDatas);                         
+                            break;
+                        }
+                    case "ACC_HI":
+                        {
 
-                         
+
+                            break;
+                        }
+                    case "ER_CI":
+                        {
+                            break;
+                        }
+                    case "VOL_CI":
+                        {
+                            break;
+                        }
+                    case "VGL":
+                        {
+                            break;
+                        }
+                    case "BGL":
+                        {
+                            break;
+                        }
+                    case "FPPI":
+                        {
+                            break;
+                        }
+                    case "HI":
+                        {
                             break;
                         }
                 }
@@ -206,6 +237,8 @@ namespace AFBA.EPP.Controllers
                     GrpNm = groupSetupModel.GrpNm,
                     ActvFlg = 'Y',
                     EnrlmntPrtnrsId = groupSetupModel.EnrlmntPrtnrsId,
+                     AcctMgrNm= groupSetupModel.AcctMgrNm,
+                     AcctMgrEmailAddrs=groupSetupModel .AcctMgrEmailAddrs,
                     GrpEfftvDt = groupSetupModel.GrpEfftvDt,
                     GrpSitusSt = groupSetupModel.GrpSitusSt,
                     GrpPymnId = groupSetupModel.GrpPymn,
@@ -273,19 +306,19 @@ namespace AFBA.EPP.Controllers
                     // add bulkupdate 
                     var bulkAttrs = Helper.GetProperties(groupSetupModel.FPPG);
                     AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
-                    if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
-                    {
-                        var rndNo = Helper.GetRandomNumber();
-                        _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
-                        {
+                    //if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
+                    //{
+                    //    var rndNo = Helper.GetRandomNumber();
+                    //    _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                    //    {
 
-                            GrpprdctId = grpprdId,
-                            AcctMgrCntctId = rndNo,
-                            EmailAddress = groupSetupModel.EmailAddress,
-                            AcctMgrNm = groupSetupModel.AcctMgrNm,
-                            CrdtBy = CrtdBy,
-                        });
-                    }
+                    //        GrpprdctId = grpprdId,
+                    //        AcctMgrCntctId = rndNo,
+                    //        EmailAddress = groupSetupModel.EmailAddress,
+                    //        AcctMgrNm = groupSetupModel.AcctMgrNm,
+                    //        CrdtBy = CrtdBy,
+                    //    });
+                    //}
 
                 }
                 if (groupSetupModel.isACC_HIActive)
@@ -303,19 +336,19 @@ namespace AFBA.EPP.Controllers
                     var bulkAttrs = Helper.GetProperties(groupSetupModel.ACC_HI);
                     AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
 
-                    if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
-                    {
-                        var rndNo = Helper.GetRandomNumber();
-                        _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
-                        {
+                    //if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
+                    //{
+                    //    var rndNo = Helper.GetRandomNumber();
+                    //    _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                    //    {
 
-                            GrpprdctId = grpprdId,
-                            AcctMgrCntctId = rndNo,
-                            EmailAddress = groupSetupModel.EmailAddress,
-                            AcctMgrNm = groupSetupModel.AcctMgrNm,
-                            CrdtBy = CrtdBy,
-                        });
-                    }
+                    //        GrpprdctId = grpprdId,
+                    //        AcctMgrCntctId = rndNo,
+                    //        EmailAddress = groupSetupModel.EmailAddress,
+                    //        AcctMgrNm = groupSetupModel.AcctMgrNm,
+                    //        CrdtBy = CrtdBy,
+                    //    });
+                    //}
 
                 }
                 if (groupSetupModel.isER_CIActive)
@@ -373,19 +406,19 @@ namespace AFBA.EPP.Controllers
                     var bulkAttrs = Helper.GetProperties(groupSetupModel.ER_CI);
                     AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
 
-                    if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
-                    {
-                        var rndNo = Helper.GetRandomNumber();
-                        _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
-                        {
+                    //if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
+                    //{
+                    //    var rndNo = Helper.GetRandomNumber();
+                    //    _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                    //    {
 
-                            GrpprdctId = grpprdId,
-                            AcctMgrCntctId = rndNo,
-                            EmailAddress = groupSetupModel.EmailAddress,
-                            AcctMgrNm = groupSetupModel.AcctMgrNm,
-                            CrdtBy = CrtdBy,
-                        });
-                    }
+                    //        GrpprdctId = grpprdId,
+                    //        AcctMgrCntctId = rndNo,
+                    //        EmailAddress = groupSetupModel.EmailAddress,
+                    //        AcctMgrNm = groupSetupModel.AcctMgrNm,
+                    //        CrdtBy = CrtdBy,
+                    //    });
+                    //}
 
                 }
                 if (groupSetupModel.isVOL_CIActive)
@@ -446,19 +479,19 @@ namespace AFBA.EPP.Controllers
                     var bulkAttrs = Helper.GetProperties(groupSetupModel.VOL_CI);
                     AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
 
-                    if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
-                    {
-                        var rndNo = Helper.GetRandomNumber();
-                        _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
-                        {
+                    //if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
+                    //{
+                    //    var rndNo = Helper.GetRandomNumber();
+                    //    _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                    //    {
 
-                            GrpprdctId = grpprdId,
-                            AcctMgrCntctId = rndNo,
-                            EmailAddress = groupSetupModel.EmailAddress,
-                            AcctMgrNm = groupSetupModel.AcctMgrNm,
-                            CrdtBy = CrtdBy,
-                        });
-                    }
+                    //        GrpprdctId = grpprdId,
+                    //        AcctMgrCntctId = rndNo,
+                    //        EmailAddress = groupSetupModel.EmailAddress,
+                    //        AcctMgrNm = groupSetupModel.AcctMgrNm,
+                    //        CrdtBy = CrtdBy,
+                    //    });
+                    //}
 
                 }
                 if (groupSetupModel.isVGLActive)
@@ -476,19 +509,19 @@ namespace AFBA.EPP.Controllers
                     var bulkAttrs = Helper.GetProperties(groupSetupModel.VGL);
                     AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
 
-                    if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
-                    {
-                        var rndNo = Helper.GetRandomNumber();
-                        _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
-                        {
+                    //if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
+                    //{
+                    //    var rndNo = Helper.GetRandomNumber();
+                    //    _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                    //    {
 
-                            GrpprdctId = grpprdId,
-                            AcctMgrCntctId = rndNo,
-                            EmailAddress = groupSetupModel.EmailAddress,
-                            AcctMgrNm = groupSetupModel.AcctMgrNm,
-                            CrdtBy = CrtdBy,
-                        });
-                    }
+                    //        GrpprdctId = grpprdId,
+                    //        AcctMgrCntctId = rndNo,
+                    //        EmailAddress = groupSetupModel.EmailAddress,
+                    //        AcctMgrNm = groupSetupModel.AcctMgrNm,
+                    //        CrdtBy = CrtdBy,
+                    //    });
+                    //}
 
                 }
                 if (groupSetupModel.isBGLActive)
@@ -513,19 +546,19 @@ namespace AFBA.EPP.Controllers
                     var bulkAttrs = Helper.GetProperties(groupSetupModel.BGL);
                     AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
 
-                    if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
-                    {
-                        var rndNo = Helper.GetRandomNumber();
-                        _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
-                        {
-                            GrpprdctId = grpprdId,
-                            AcctMgrCntctId = rndNo,
-                            EmailAddress = groupSetupModel.EmailAddress,
-                            AcctMgrNm = groupSetupModel.AcctMgrNm,
-                            CrdtBy = CrtdBy,
+                    //if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
+                    //{
+                    //    var rndNo = Helper.GetRandomNumber();
+                    //    _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                    //    {
+                    //        GrpprdctId = grpprdId,
+                    //        AcctMgrCntctId = rndNo,
+                    //        EmailAddress = groupSetupModel.EmailAddress,
+                    //        AcctMgrNm = groupSetupModel.AcctMgrNm,
+                    //        CrdtBy = CrtdBy,
 
-                        });
-                    }
+                    //    });
+                    //}
 
                 }
                 if (groupSetupModel.isFPPIActive)
@@ -578,18 +611,18 @@ namespace AFBA.EPP.Controllers
                     var bulkAttrs = Helper.GetProperties(groupSetupModel.FPPI);
                     AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
 
-                    if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
-                    {
-                        var rndNo = Helper.GetRandomNumber();
-                        _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
-                        {
-                            GrpprdctId = grpprdId,
-                            AcctMgrCntctId = rndNo,
-                            EmailAddress = groupSetupModel.EmailAddress,
-                            AcctMgrNm = groupSetupModel.AcctMgrNm,
-                            CrdtBy = CrtdBy
-                        });
-                    }
+                    //if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
+                    //{
+                    //    var rndNo = Helper.GetRandomNumber();
+                    //    _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                    //    {
+                    //        GrpprdctId = grpprdId,
+                    //        AcctMgrCntctId = rndNo,
+                    //        EmailAddress = groupSetupModel.EmailAddress,
+                    //        AcctMgrNm = groupSetupModel.AcctMgrNm,
+                    //        CrdtBy = CrtdBy
+                    //    });
+                    //}
 
                 }
                 if (groupSetupModel.isHIActive)
@@ -610,18 +643,18 @@ namespace AFBA.EPP.Controllers
                     var bulkAttrs = Helper.GetProperties(groupSetupModel.HI);
                     AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
 
-                    if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
-                    {
-                        var rndNo = Helper.GetRandomNumber();
-                        _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
-                        {
-                            GrpprdctId = grpprdId,
-                            AcctMgrCntctId = rndNo,
-                            EmailAddress = groupSetupModel.EmailAddress,
-                            AcctMgrNm = groupSetupModel.AcctMgrNm,
-                            CrdtBy = CrtdBy
-                        });
-                    }
+                    //if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
+                    //{
+                    //    var rndNo = Helper.GetRandomNumber();
+                    //    _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
+                    //    {
+                    //        GrpprdctId = grpprdId,
+                    //        AcctMgrCntctId = rndNo,
+                    //        EmailAddress = groupSetupModel.EmailAddress,
+                    //        AcctMgrNm = groupSetupModel.AcctMgrNm,
+                    //        CrdtBy = CrtdBy
+                    //    });
+                    //}
 
 
 
@@ -662,6 +695,8 @@ namespace AFBA.EPP.Controllers
                         groupSetupModel.EmlAddrss = enrlPartner.EmlAddrss;
                         groupSetupModel.EnrlmntPrtnrsNm = enrlPartner.EnrlmntPrtnrsNm;
                     }
+                    groupSetupModel.AcctMgrNm = GrpMaster.AcctMgrNm;
+                    groupSetupModel.AcctMgrEmailAddrs = GrpMaster.AcctMgrEmailAddrs;
 
                     groupSetupModel.GrpEfftvDt = GrpMaster.GrpEfftvDt;
                     groupSetupModel.GrpPymn = GrpMaster.GrpPymnId;
@@ -673,12 +708,12 @@ namespace AFBA.EPP.Controllers
                     var Grpprdcts = _unitofWork.eppGrpprdctRepository.Find(x => x.GrpId == groupSetupModel.GrpId).Result;
                     foreach (var prod in Grpprdcts)
                     {
-                        var venderData = _unitofWork.eppAcctMgrCntctsRepository.SingleOrDefault(x => x.GrpprdctId == prod.GrpprdctId).Result;
-                        if (venderData != null)
-                        {
-                            groupSetupModel.EmailAddress = venderData.EmailAddress;
-                            groupSetupModel.AcctMgrNm = venderData.AcctMgrNm;
-                        }
+                        //var venderData = _unitofWork.eppAcctMgrCntctsRepository.SingleOrDefault(x => x.GrpprdctId == prod.GrpprdctId).Result;
+                        //if (venderData != null)
+                        //{
+                        //    groupSetupModel.EmailAddress = venderData.EmailAddress;
+                        //    groupSetupModel.AcctMgrNm = venderData.AcctMgrNm;
+                        //}
                         // load product  
 
                         var prodData = _unitofWork.EppProductRepository.SingleOrDefault(x => x.ProductId == prod.ProductId).Result;
