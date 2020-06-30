@@ -680,6 +680,11 @@ namespace AFBA.EPP.Controllers
 
 
                 GroupSetupModel groupSetupModel = new GroupSetupModel();
+                if ( string.IsNullOrEmpty(grpNbr))
+                {
+                    groupSetupModel.GrpEfftvDt = DateTime.UtcNow;
+                }
+
                 var GrpMaster = _unitofWork.GroupMasterRepository.SingleOrDefault(x => x.GrpNbr == grpNbr).Result;
                 if (GrpMaster != null)
                 {

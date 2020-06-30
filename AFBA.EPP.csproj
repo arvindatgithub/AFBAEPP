@@ -34,9 +34,29 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\src\app\shared\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\src\app\shared\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\shared\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="ClientApp\src\app\shared\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\src\app\shared\components\loading-indicator\loader-interceptors.spec.ts" />
+    <None Remove="ClientApp\src\app\shared\components\loading-indicator\loader-interceptors.ts" />
+    <None Remove="ClientApp\src\app\shared\components\loading-indicator\loader.service.spec.ts" />
+    <None Remove="ClientApp\src\app\shared\components\loading-indicator\loader.service.ts" />
+    <None Remove="ClientApp\src\app\shared\components\spinner\spinner.component.css" />
+    <None Remove="ClientApp\src\app\shared\components\spinner\spinner.component.html" />
+    <None Remove="ClientApp\src\app\shared\components\spinner\spinner.component.spec.ts" />
+    <None Remove="ClientApp\src\app\shared\components\spinner\spinner.component.ts" />
+    <None Remove="ClientApp\src\app\shared\error-handler\error-interceptor.spec.ts" />
+    <None Remove="ClientApp\src\app\shared\error-handler\error-interceptor.ts" />
+    <None Remove="ClientApp\src\app\shared\error-handler\http-response-handler.service.spec.ts" />
+    <None Remove="ClientApp\src\app\shared\error-handler\http-response-handler.service.ts" />
+    <None Remove="ClientApp\src\app\shared\shared.module.ts" />
   </ItemGroup>
 
   <ItemGroup>
