@@ -175,8 +175,8 @@ namespace AFBA.EPP.Controllers
                     AvailableList = new List<EppAttrFieldViewModel>(),
                     SelectedList = new List<EppAttrFieldViewModel>()
                 };
-                lstEppTemplateViewModel.isEdit = true;
-              
+                lstEppTemplateViewModel.isEdit = false;
+
                 lstEppTemplateViewModel.AvailableList = Helper.EppGetAvailableFields(_unitofWork).ToList();
                 IList<EppAttrFieldViewModel> eppAttrFields = new List<EppAttrFieldViewModel>();
                 if (grpprdct != null)
