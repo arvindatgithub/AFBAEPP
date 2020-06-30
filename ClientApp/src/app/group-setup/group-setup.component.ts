@@ -1070,8 +1070,15 @@ export class GroupSetupComponent implements OnInit {
       this.snackBar.open(error.error,"close",{
           duration:2000,
       });
-      window.scrollTo(0,0);
+      window.scrollTo(0,0); 
     }
+    // (internalservererror:any) =>{
+    //   this.snackBar.open(error.error,"close",{
+    //       duration:2000,
+    //   });
+    //   window.scrollTo(0,0); 
+    // }
+
     );
 
 
