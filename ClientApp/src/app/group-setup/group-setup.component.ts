@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
 import { TooltipPosition } from '@angular/material/tooltip';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -201,7 +201,7 @@ export class GroupSetupComponent implements OnInit {
       existingSelectedGrpNbr = data; 
       console.log("selected grp number from search "+ existingSelectedGrpNbr); 
     });
-
+    
     this.eppcreategroupservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
       console.log('Groups Data on load from db'+ JSON.stringify(data));
       this.groupsData = data;
@@ -462,6 +462,189 @@ export class GroupSetupComponent implements OnInit {
 
   }
 
+
+/* agent section change events */
+//1st row
+  changeAgNum0(val){
+    console.log('changed val' + val);
+    this.agentformgrp.patchValue({  
+      AgentNumberfppg: val,
+      AgentNumberFppIndivisual: val,
+      AgentNumberaccident: val,
+      AgentNumberHospitalIndemnity: val,
+      AgentNumberempPaidci: val,
+      AgentNumbervolCi: val,
+      AgentNumberVolGrpLife: val,
+      AgentNumberBasicgrpLife: val,
+    });
+  }
+
+  changeAgSub0(val){
+    console.log('changed val' + val);
+    this.agentformgrp.patchValue({
+      AgentSubCountfppg: val,
+      AgentSubCountFppIndivisual: val,
+      AgentSubCountaccident: val,
+      AgentSubCountHospitalIndemnity: val,
+      AgentSubCountempPaidci: val,
+      AgentSubCountvolCi: val,
+      AgentSubCountVolGrpLife: val,
+      AgentSubCountBasicgrpLife: val,  
+    });
+  }
+
+  changeAgComSpl0(val){
+    console.log('changed val' + val);
+    this.agentformgrp.patchValue({  
+      CommissonSplitfppg: val,
+      CommissonSplitFppIndivisual: val,
+      CommissonSplitaccident: val,
+      CommissonSplitHospitalIndemnity: val,
+      CommissonSplitempPaidci: val,
+      CommissonSplitvolCi: val,
+      CommissonSplitVolGrpLife: val,
+      CommissonSplitBasicgrpLife : val,
+    });
+  }
+  changeAgNm0(val){
+    console.log('changed val' + val);
+    this.agentformgrp.patchValue({  
+      AgentNamefppg: val,
+      AgentNameFppIndivisual: val,
+      AgentNameaccident: val,
+      AgentNameHospitalIndemnity: val,
+      AgentNameempPaidci: val,
+      AgentNamevolCi: val,
+      AgentNameVolGrpLife: val,
+      AgentNameBasicgrpLife: val,
+    });
+  }
+
+  //2 row
+  changeAgNum1(val){
+    console.log('changed val' + val);
+    this.agentformgrp.patchValue({  
+      AgentNumber1fppg: val,
+      AgentNumber1FppIndivisual: val,
+      AgentNumber1accident: val,
+      AgentNumber1HospitalIndemnity: val,
+      AgentNumber1empPaidci: val,
+      AgentNumber1volCi: val,
+      AgentNumber1VolGrpLife: val,
+      AgentNumber1BasicgrpLife: val,
+    });
+  }
+  changeAgSub1(val){
+    console.log('changed val' + val);
+    this.agentformgrp.patchValue({  
+      AgentSubCount1fppg: val,
+      AgentSubCount1FppIndivisual: val,
+      AgentSubCount1accident: val,
+      AgentSubCount1HospitalIndemnity: val,
+      AgentSubCount1empPaidci: val,
+      AgentSubCount1volCi: val,
+      AgentSubCount1VolGrpLife: val,
+      AgentSubCount1BasicgrpLife: val,
+    });
+  }
+  changeAgComSpl1(val){
+    console.log('changed val' + val);
+    this.agentformgrp.patchValue({  
+      CommissonSplit1fppg: val,
+      CommissonSplit1FppIndivisual: val,
+      CommissonSplit1accident: val,
+      CommissonSplit1HospitalIndemnity: val,
+      CommissonSplit1empPaidci: val,
+      CommissonSplit1volCi: val,
+      CommissonSplit1VolGrpLife: val,
+      CommissonSplit1BasicgrpLife: val,
+    });
+  }
+
+  //3 row
+  changeAgNum2(val){
+    console.log('changed val' + val);
+    this.agentformgrp.patchValue({  
+      AgentNumber2fppg: val,
+      AgentNumber2FppIndivisual: val,
+      AgentNumber2accident: val,
+      AgentNumber2HospitalIndemnity: val,
+      AgentNumber2empPaidci: val,
+      AgentNumber2volCi: val,
+      AgentNumber2VolGrpLife: val,
+      AgentNumber2BasicgrpLife: val,
+    });
+  }
+  changeAgSub2(val){
+    console.log('changed val' + val);
+    this.agentformgrp.patchValue({  
+      AgentSubCount2fppg: val,
+      AgentSubCount2FppIndivisual: val,
+      AgentSubCount2accident: val,
+      AgentSubCount2HospitalIndemnity: val,
+      AgentSubCount2empPaidci: val,
+      AgentSubCount2volCi: val,
+      AgentSubCount2VolGrpLife: val,
+      AgentSubCount2BasicgrpLife: val,
+    });
+  }
+  changeAgComSpl2(val){
+    console.log('changed val' + val);
+    this.agentformgrp.patchValue({  
+      CommissonSplit2fppg: val,
+      CommissonSplit2FppIndivisual: val,
+      CommissonSplit2accident: val,
+      CommissonSplit2HospitalIndemnity: val,
+      CommissonSplit2empPaidci: val,
+      CommissonSplit2volCi: val,
+      CommissonSplit2VolGrpLife: val,
+      CommissonSplit2BasicgrpLife: val,
+    });
+  }
+
+  //4 row
+  changeAgNum3(val){
+    console.log('changed val' + val);
+    this.agentformgrp.patchValue({  
+      AgentNumber3fppg: val,
+      AgentNumber3FppIndivisual: val,
+      AgentNumber3accident: val,
+      AgentNumber3HospitalIndemnity: val,
+      AgentNumber3empPaidci: val,
+      AgentNumber3volCi: val,
+      AgentNumber3VolGrpLife: val,
+      AgentNumber3BasicgrpLife : val,
+    });
+  }
+  changeAgSub3(val){
+    console.log('changed val' + val);
+    this.agentformgrp.patchValue({  
+      AgentSubCount3fppg: val,
+      AgentSubCount3FppIndivisual: val,
+      AgentSubCount3accident: val,
+      AgentSubCount3HospitalIndemnity: val,
+      AgentSubCount3empPaidci: val,
+      AgentSubCount3volCi: val,
+      AgentSubCount3VolGrpLife: val,
+      AgentSubCount3BasicgrpLife : val,
+    });
+  }
+  changeAgComSpl3(val){
+    console.log('changed val' + val);
+    this.agentformgrp.patchValue({  
+      CommissonSplit3fppg: val,
+      CommissonSplit3FppIndivisual: val,
+      CommissonSplit3accident: val,
+      CommissonSplit3HospitalIndemnity: val,
+      CommissonSplit3empPaidci: val,
+      CommissonSplit3volCi: val,
+      CommissonSplit3VolGrpLife: val,
+      CommissonSplit3BasicgrpLife: val,
+    });
+  }
+
+
+/* agent section change events */
   addProducts() {
     this.selectedOption.findIndex((ele, i) => {
       if (this.addedProducts.indexOf(ele) == i) {

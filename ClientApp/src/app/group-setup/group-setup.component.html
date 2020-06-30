@@ -130,17 +130,17 @@
       <div class="row" style="justify-content:space-evenly;">
         <div class="col-md-3">
           <span class="label label-default">Agent Number</span>
-          <input type="text" formControlName="AgentNumber" [(ngModel)]="agentNumber_0" name="text"
+          <input type="text" formControlName="AgentNumber" [(ngModel)]="agentNumber_0" name="text" (change)="changeAgNum0($event.target.value)"
             class="form-control mb-2" style="width: 100%;" placeholder="Primary Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')" >
         </div>
         <div class="col-md-3">
           <span class="label label-default">Agent SubCount</span>
-          <input type="text" formControlName="AgentSubCount" [(ngModel)]="agentSubCount_0" class="form-control mb-2"
+          <input type="text" formControlName="AgentSubCount" [(ngModel)]="agentSubCount_0" class="form-control mb-2" (change)="changeAgSub0($event.target.value)"
             style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')" >
         </div>
         <div class="col-md-3">
           <span class="label label-default">Commisson Split %</span>
-          <input type="text" formControlName="CommissonSplit" [(ngModel)]="agentCommissionSPlit_0"
+          <input type="text" formControlName="CommissonSplit" [(ngModel)]="agentCommissionSPlit_0" (change)="changeAgComSpl0($event.target.value)"
             class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')" >
           <div *ngIf="agentformgrp.get('CommissonSplit').value > 100">
             <small style="color: #ff6363;">Commonsplit Value Cannot Be More Than 100</small>
@@ -149,7 +149,7 @@
 
         <div class="col-md-3">
           <span class="label label-default">Agent Name</span>
-          <input type="text" formControlName="AgentName" [(ngModel)]="agent_name" class="form-control mb-2 "
+          <input type="text" formControlName="AgentName" [(ngModel)]="agent_name" class="form-control mb-2 " (change)="changeAgNm0($event.target.value)"
             style="width: 100%;" placeholder="Agent Name" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/,'')">
         </div>
       </div>
@@ -157,15 +157,15 @@
       <!-- second-row -->
       <div class="row">
         <div class="col-md-3">
-          <input type="text" formControlName="AgentNumber1" [(ngModel)]="agentNumber_1" class="form-control mb-2"
+          <input type="text" formControlName="AgentNumber1" [(ngModel)]="agentNumber_1" class="form-control mb-2" (change)="changeAgNum1($event.target.value)"
             style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
         <div class="col-md-3">
-          <input type="text" formControlName="AgentSubCount1" [(ngModel)]="agentSubCount_1" class="form-control mb-2"
+          <input type="text" formControlName="AgentSubCount1" [(ngModel)]="agentSubCount_1" class="form-control mb-2"  (change)="changeAgSub1($event.target.value)"
             style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
         <div class="col-md-3">
-          <input type="text" formControlName="CommissonSplit1" [(ngModel)]="agentCommissionSPlit_1"
+          <input type="text" formControlName="CommissonSplit1" [(ngModel)]="agentCommissionSPlit_1"  (change)="changeAgComSpl1($event.target.value)"
             class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
           <div *ngIf="agentformgrp.get('CommissonSplit1').value > 100">
             <small style="color: #ff6363;">Commonsplit Value Cannot Be More Than 100</small>
@@ -176,15 +176,15 @@
       <!-- 3rd-row -->
       <div class="row">
         <div class="col-md-3">
-          <input type="text" formControlName="AgentNumber2" [(ngModel)]="agentNumber_2" class="form-control mb-2"
+          <input type="text" formControlName="AgentNumber2" [(ngModel)]="agentNumber_2" class="form-control mb-2" (change)="changeAgNum2($event.target.value)"
             style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
         <div class="col-md-3">
-          <input type="text" formControlName="AgentSubCount2" [(ngModel)]="agentSubCount_2" class="form-control mb-2"
+          <input type="text" formControlName="AgentSubCount2" [(ngModel)]="agentSubCount_2" class="form-control mb-2" (change)="changeAgSub2($event.target.value)"
             style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
         <div class="col-md-3">
-          <input type="text" formControlName="CommissonSplit2" [(ngModel)]="agentCommissionSPlit_2"
+          <input type="text" formControlName="CommissonSplit2" [(ngModel)]="agentCommissionSPlit_2" (change)="changeAgComSpl2($event.target.value)"
             class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
           <div *ngIf="agentformgrp.get('CommissonSplit2').value > 100">
             <small style="color: #ff6363;">Commonsplit Value Cannot Be More Than 100</small>
@@ -195,15 +195,15 @@
       <!-- 4th-row -->
       <div class="row">
         <div class="col-md-3">
-          <input type="text" formControlName="AgentNumber3" [(ngModel)]="agentNumber_3" class="form-control mb-2"
+          <input type="text" formControlName="AgentNumber3" [(ngModel)]="agentNumber_3" class="form-control mb-2" (change)="changeAgNum3($event.target.value)"
             style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
         <div class="col-md-3">
-          <input type="text" formControlName="AgentSubCount3" [(ngModel)]="agentSubCount_3" class="form-control mb-2"
+          <input type="text" formControlName="AgentSubCount3" [(ngModel)]="agentSubCount_3" class="form-control mb-2" (change)="changeAgSub3($event.target.value)"
             style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
         <div class="col-md-3">
-          <input type="text" formControlName="CommissonSplit3" [(ngModel)]="agentCommissionSPlit_3"
+          <input type="text" formControlName="CommissonSplit3" [(ngModel)]="agentCommissionSPlit_3" (change)="changeAgComSpl3($event.target.value)"
             class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
           <div *ngIf="agentformgrp.get('CommissonSplit3').value > 100">
             <small style="color: #ff6363;">Commonsplit Value Cannot Be More Than 100</small>
