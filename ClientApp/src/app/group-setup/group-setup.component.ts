@@ -83,6 +83,7 @@ export class GroupSetupComponent implements OnInit {
   grpPymn: string;
   paymentModes: any;
   sum = 0;
+  isDisabled = false;
   occClass: any = [{
     occupation: 1,
     id: 1
@@ -740,10 +741,12 @@ export class GroupSetupComponent implements OnInit {
     if (event.checked) {
       this.checkedToggleProductFppg = "Active";
       this.isCheckedFppg = event.checked;
+      this.isDisabled = this.isDisabled;
     }
     else {
       this.checkedToggleProductFppg = "Inactive";
       this.isCheckedFppg = event.checked;
+      this.isDisabled = !this.isDisabled;
     }
 
   }
@@ -1320,8 +1323,15 @@ export class GroupSetupComponent implements OnInit {
     }
     this.eppcreategroupservice.PosteppCreate(body).subscribe((data: any) => {
       console.log("data", data);
-    });
-
+    },
+    (error:any) =>{
+      this.snackBar.open(error.error,"close",{
+          duration:2000,
+      });
+      window.scrollTo(0,0); 
+    }
+    );
+   
 
   }
 

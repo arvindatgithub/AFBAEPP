@@ -96,7 +96,7 @@ export class VolGroupLifeComponent implements OnInit,OnChanges {
       this.isLoading = true;
       console.log("data", data);
       this.lookUpDataSitusStates = data.situsState;
-      //this.myForm.setValue(this.lookUpDataSitusStates[0].state);
+      // this.myForm.setValue(this.lookUpDataSitusStates[0].state);
      
     });
      
