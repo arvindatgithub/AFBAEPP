@@ -91,7 +91,7 @@ export class CustomBulkTemplateComponent implements OnInit {
       }, err => {
         console.log("error occurred " + err.status);
         this.groupExistsShowLists = false;
-        alert("Group not exists");
+        alert(" Template for this group product is not available.");
       }, () => {
         console.log('service call completed');
         if(this.selectedFields.length == 0 ){
