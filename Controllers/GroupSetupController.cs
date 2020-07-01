@@ -71,9 +71,7 @@ namespace AFBA.EPP.Controllers
                 }
 
             }
-            var CrtdBy = "";
-
-        
+            var CrtdBy = "";        
             grpMstdata.GrpNbr = groupSetupModel.GrpNbr;
             grpMstdata.GrpNm = groupSetupModel.GrpNm;
             grpMstdata.ActvFlg = groupSetupModel.ActvFlg;
@@ -90,6 +88,7 @@ namespace AFBA.EPP.Controllers
 
             _unitofWork.GroupMasterRepository.Update(grpMstdata);
 
+            DataHelper.UpdateAgent(groupSetupModel.GrpAgents, _unitofWork, groupSetupModel.GrpId);
 
             // add  update enrollment partner
             if (!string.IsNullOrEmpty(groupSetupModel.EmlAddrss))
@@ -119,21 +118,7 @@ namespace AFBA.EPP.Controllers
             var Grpprdcts = _unitofWork.eppGrpprdctRepository.Find(x => x.GrpId == groupSetupModel.GrpId).Result;
              foreach(var prod in Grpprdcts)
             {
-                // update  vendor details
-                //var venderData = _unitofWork.eppAcctMgrCntctsRepository.SingleOrDefault(x => x.GrpprdctId == prod.GrpprdctId && x.EmailAddress== groupSetupModel.EmailAddress).Result;
-                //if (venderData == null)
-                //{
-                //      _unitofWork.eppAcctMgrCntctsRepository.Update(new EppAcctMgrCntcts
-                //        {
-                //            GrpprdctId = prod.GrpprdctId,
-                //            AcctMgrCntctId = venderData.AcctMgrCntctId,
-                //            EmailAddress = groupSetupModel.EmailAddress,
-                //            AcctMgrNm = groupSetupModel.AcctMgrNm,
-                //            LstUpdtBy = CrtdBy,
-                //        });                  
-                //}
-
-                // 
+               
                 var prodData = _unitofWork.EppProductRepository.SingleOrDefault(x => x.ProductId == prod.ProductId).Result;
                 switch (prodData.ProductNm)
                 {
@@ -244,11 +229,15 @@ namespace AFBA.EPP.Controllers
                     GrpPymnId = groupSetupModel.GrpPymn,
                      OccClass = groupSetupModel.OccClass,
                     GrpId = grpId,
-                    CrtdBy = CrtdBy
+                    CrtdBy = CrtdBy,
+                    CrtdDt= DateTime.UtcNow,
 
                 }
 
                 );
+
+                // add group 
+                DataHelper.UpdateAgent(groupSetupModel.GrpAgents, _unitofWork, grpId);
 
                 List<EppBulkRefTbl> bulkRefTbls = new List<EppBulkRefTbl>();
             

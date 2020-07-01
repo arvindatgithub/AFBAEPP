@@ -39,6 +39,8 @@ namespace AFBA.EPP.Repositories
 
         public IEppErrorDtlRepository eppErrorDtlRepository =>  new EppErrorDtlRepository(_dbContext);
 
+        public IEppAgentRepository eppAgentRepository => new EppAgentRepository(_dbContext);
+
         public async Task<int> Complete()
         {
             return await _dbContext.SaveChangesAsync();

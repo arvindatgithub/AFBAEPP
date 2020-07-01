@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace AFBA.EPP.ViewModels
         public long EnrlmntPrtnrsId { get; set; }
         public string EnrlmntPrtnrsNm { get; set; }
         public string EmlAddrss { get; set; }
-
+        public  List<EppAgentsViewModel>  GrpAgents{ get; set; }
         public string AcctMgrNm { get; set; }
         public string AcctMgrEmailAddrs { get; set; }
         public string EmailAddress { get; set; }
