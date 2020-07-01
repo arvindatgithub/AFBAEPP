@@ -17,9 +17,9 @@
       </div>
       <div class="col-3">
         <span class="label label-default">Situs State</span>
-        <select class="form-control" formControlName="FCaccSitusState">
-          <!-- <option value="0" selected="selected">{{ lookupValue }}</option> -->
-          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates" value={{lookUpDataSitusState.state}}>
+        <select class="form-control" [value]="lookupValue"  formControlName="FCaccSitusState">
+          <option hidden disabled selected value> -- select Situs State -- </option>
+          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
             {{lookUpDataSitusState.state}}</option>
         </select>
       </div>              
@@ -56,8 +56,9 @@
           Accident Rate Level
         </span>
         <select  class="form-control" formControlName="FCaccRateLevel">
-          <option *ngFor="let names of Rate"  value={{names.no}}>
-            {{ names.no }}
+          <option hidden disabled selected value> -- Select Accident Rate Level -- </option>
+          <option *ngFor="let names of Rate" [ngValue]="names.abb">
+            {{ names.no }} 
           </option>
         </select>
       </div>

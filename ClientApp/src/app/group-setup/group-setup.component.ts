@@ -83,6 +83,7 @@ export class GroupSetupComponent implements OnInit {
   grpPymn: string;
   paymentModes: any;
   sum = 0;
+  isDisabled = false;
   occClass: any = [{
     occupation: 1,
     id: 1
@@ -189,7 +190,15 @@ export class GroupSetupComponent implements OnInit {
     id: "",
     state: ""
   };
-  
+  commissionSplitErr = false;
+  commissionSplitErrFppg = false;
+  commissionSplitErrFppi = false;
+  commissionSplitErrAcc = false;
+  commissionSplitErrHos = false;
+  commissionSplitErrEmpCI = false;
+  commissionSplitErrVolCI = false;
+  commissionSplitErrVolGpLf = false;
+  commissionSplitErrBGL = false;
 
   constructor(private eppcreategroupservice: EppCreateGrpSetupService, private _fb: FormBuilder,
     private snackBar: MatSnackBar, private lookupService: LookupService, private groupsearchService: GroupsearchService) {
@@ -464,6 +473,125 @@ export class GroupSetupComponent implements OnInit {
 
 
 /* agent section change events */
+ commissionSplitCheck(){
+  let a= this.agentCommissionSPlit_0 !== undefined && this.agentCommissionSPlit_0 !== '' ? parseInt(this.agentCommissionSPlit_0) : 0;
+  let b= this.agentCommissionSPlit_1 !== undefined && this.agentCommissionSPlit_1 !== '' ? parseInt(this.agentCommissionSPlit_1) : 0;
+  let c= this.agentCommissionSPlit_2 !== undefined && this.agentCommissionSPlit_2 !== '' ?  parseInt(this.agentCommissionSPlit_2) : 0;
+  let d= this.agentCommissionSPlit_3 !== undefined && this.agentCommissionSPlit_3 !== '' ? parseInt(this.agentCommissionSPlit_3) :0;
+  let e = a+b+c+d;
+  if(e > 100){
+    this.commissionSplitErr = true;
+  } else {
+    this.commissionSplitErr = false;
+  }
+ }
+ commisioncheckFppg(){
+  let a= this.agentformgrp.get('CommissonSplitfppg').value !== undefined && this.agentformgrp.get('CommissonSplitfppg').value !== '' ? parseInt(this.agentformgrp.get('CommissonSplitfppg').value) : 0;
+  let b= this.agentformgrp.get('CommissonSplit1fppg').value !== undefined && this.agentformgrp.get('CommissonSplit1fppg').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit1fppg').value) : 0; 
+  let c= this.agentformgrp.get('CommissonSplit2fppg').value !== undefined && this.agentformgrp.get('CommissonSplit2fppg').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit2fppg').value) : 0;
+  let d= this.agentformgrp.get('CommissonSplit3fppg').value !== undefined && this.agentformgrp.get('CommissonSplit3fppg').value !== ''? parseInt(this.agentformgrp.get('CommissonSplit3fppg').value) : 0;
+  let e = a+b+c+d;
+  if(e > 100){
+    this.commissionSplitErrFppg = true;
+  } else {
+    this.commissionSplitErrFppg = false;
+    this.commissionSplitErr = false;
+  }
+ }
+ commisioncheckFppi(){
+  let a= this.agentformgrp.get('CommissonSplitFppIndivisual').value !== undefined && this.agentformgrp.get('CommissonSplitFppIndivisual').value !== '' ? parseInt(this.agentformgrp.get('CommissonSplitFppIndivisual').value) : 0;
+  let b= this.agentformgrp.get('CommissonSplit1FppIndivisual').value !== undefined && this.agentformgrp.get('CommissonSplit1FppIndivisual').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit1FppIndivisual').value) : 0; 
+  let c= this.agentformgrp.get('CommissonSplit2FppIndivisual').value !== undefined && this.agentformgrp.get('CommissonSplit2FppIndivisual').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit2FppIndivisual').value) : 0;
+  let d= this.agentformgrp.get('CommissonSplit3FppIndivisual').value !== undefined && this.agentformgrp.get('CommissonSplit3FppIndivisual').value !== ''? parseInt(this.agentformgrp.get('CommissonSplit3FppIndivisual').value) : 0;
+  let e = a+b+c+d;
+  if(e > 100){
+    this.commissionSplitErrFppi = true;
+  } else {
+    this.commissionSplitErrFppi = false;
+    this.commissionSplitErr = false;
+  }
+ }
+ commisioncheckAcc(){
+  let a= this.agentformgrp.get('CommissonSplitaccident').value !== undefined && this.agentformgrp.get('CommissonSplitaccident').value !== '' ? parseInt(this.agentformgrp.get('CommissonSplitaccident').value) : 0;
+  let b= this.agentformgrp.get('CommissonSplit1accident').value !== undefined && this.agentformgrp.get('CommissonSplit1accident').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit1accident').value) : 0; 
+  let c= this.agentformgrp.get('CommissonSplit2accident').value !== undefined && this.agentformgrp.get('CommissonSplit2accident').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit2accident').value) : 0;
+  let d= this.agentformgrp.get('CommissonSplit3accident').value !== undefined && this.agentformgrp.get('CommissonSplit3accident').value !== ''? parseInt(this.agentformgrp.get('CommissonSplit3accident').value) : 0;
+  let e = a+b+c+d;
+  if(e > 100){
+    this.commissionSplitErrAcc = true;
+  } else {
+    this.commissionSplitErrAcc = false;
+    this.commissionSplitErr = false;
+  }
+ }
+ 
+ commisioncheckHos(){
+  let a= this.agentformgrp.get('CommissonSplitHospitalIndemnity').value !== undefined && this.agentformgrp.get('CommissonSplitHospitalIndemnity').value !== '' ? parseInt(this.agentformgrp.get('CommissonSplitHospitalIndemnity').value) : 0;
+  let b= this.agentformgrp.get('CommissonSplit1HospitalIndemnity').value !== undefined && this.agentformgrp.get('CommissonSplit1HospitalIndemnity').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit1HospitalIndemnity').value) : 0; 
+  let c= this.agentformgrp.get('CommissonSplit2HospitalIndemnity').value !== undefined && this.agentformgrp.get('CommissonSplit2HospitalIndemnity').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit2HospitalIndemnity').value) : 0;
+  let d= this.agentformgrp.get('CommissonSplit3HospitalIndemnity').value !== undefined && this.agentformgrp.get('CommissonSplit3HospitalIndemnity').value !== ''? parseInt(this.agentformgrp.get('CommissonSplit3HospitalIndemnity').value) : 0;
+  let e = a+b+c+d;
+  if(e > 100){
+    this.commissionSplitErrHos = true;
+  } else {
+    this.commissionSplitErrHos = false;
+    this.commissionSplitErr = false;
+  }
+ }
+ commisioncheckEmpCI(){
+  let a= this.agentformgrp.get('CommissonSplitempPaidci').value !== undefined && this.agentformgrp.get('CommissonSplitempPaidci').value !== '' ? parseInt(this.agentformgrp.get('CommissonSplitempPaidci').value) : 0;
+  let b= this.agentformgrp.get('CommissonSplit1empPaidci').value !== undefined && this.agentformgrp.get('CommissonSplit1empPaidci').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit1empPaidci').value) : 0; 
+  let c= this.agentformgrp.get('CommissonSplit2empPaidci').value !== undefined && this.agentformgrp.get('CommissonSplit2empPaidci').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit2empPaidci').value) : 0;
+  let d= this.agentformgrp.get('CommissonSplit3empPaidci').value !== undefined && this.agentformgrp.get('CommissonSplit3empPaidci').value !== ''? parseInt(this.agentformgrp.get('CommissonSplit3empPaidci').value) : 0;
+  let e = a+b+c+d;
+  if(e > 100){
+    this.commissionSplitErrEmpCI = true;
+  } else {
+    this.commissionSplitErrEmpCI = false;
+    this.commissionSplitErr = false;
+  }
+ }
+ commisioncheckVolCI(){
+  let a= this.agentformgrp.get('CommissonSplitvolCi').value !== undefined && this.agentformgrp.get('CommissonSplitvolCi').value !== '' ? parseInt(this.agentformgrp.get('CommissonSplitvolCi').value) : 0;
+  let b= this.agentformgrp.get('CommissonSplit1volCi').value !== undefined && this.agentformgrp.get('CommissonSplit1volCi').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit1volCi').value) : 0; 
+  let c= this.agentformgrp.get('CommissonSplit2volCi').value !== undefined && this.agentformgrp.get('CommissonSplit2volCi').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit2volCi').value) : 0;
+  let d= this.agentformgrp.get('CommissonSplit3volCi').value !== undefined && this.agentformgrp.get('CommissonSplit3volCi').value !== ''? parseInt(this.agentformgrp.get('CommissonSplit3volCi').value) : 0;
+  let e = a+b+c+d;
+  if(e > 100){
+    this.commissionSplitErrVolCI = true;
+  } else {
+    this.commissionSplitErrVolCI = false;
+    this.commissionSplitErr = false;
+  }
+ }
+ commisioncheckVolGpLf(){
+  let a= this.agentformgrp.get('CommissonSplitVolGrpLife').value !== undefined && this.agentformgrp.get('CommissonSplitVolGrpLife').value !== '' ? parseInt(this.agentformgrp.get('CommissonSplitVolGrpLife').value) : 0;
+  let b= this.agentformgrp.get('CommissonSplit1VolGrpLife').value !== undefined && this.agentformgrp.get('CommissonSplit1VolGrpLife').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit1VolGrpLife').value) : 0; 
+  let c= this.agentformgrp.get('CommissonSplit2VolGrpLife').value !== undefined && this.agentformgrp.get('CommissonSplit2VolGrpLife').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit2VolGrpLife').value) : 0;
+  let d= this.agentformgrp.get('CommissonSplit3VolGrpLife').value !== undefined && this.agentformgrp.get('CommissonSplit3VolGrpLife').value !== ''? parseInt(this.agentformgrp.get('CommissonSplit3VolGrpLife').value) : 0;
+  let e = a+b+c+d;
+  if(e > 100){
+    this.commissionSplitErrVolGpLf = true;
+  } else {
+    this.commissionSplitErrVolGpLf = false;
+    this.commissionSplitErr = false;
+  }
+ }
+ commisioncheckBGL(){
+  let a= this.agentformgrp.get('CommissonSplitBasicgrpLife').value !== undefined && this.agentformgrp.get('CommissonSplitBasicgrpLife').value !== '' ? parseInt(this.agentformgrp.get('CommissonSplitBasicgrpLife').value) : 0;
+  let b= this.agentformgrp.get('CommissonSplit1BasicgrpLife').value !== undefined && this.agentformgrp.get('CommissonSplit1BasicgrpLife').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit1BasicgrpLife').value) : 0; 
+  let c= this.agentformgrp.get('CommissonSplit2BasicgrpLife').value !== undefined && this.agentformgrp.get('CommissonSplit2BasicgrpLife').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit2BasicgrpLife').value) : 0;
+  let d= this.agentformgrp.get('CommissonSplit3BasicgrpLife').value !== undefined && this.agentformgrp.get('CommissonSplit3BasicgrpLife').value !== ''? parseInt(this.agentformgrp.get('CommissonSplit3BasicgrpLife').value) : 0;
+  let e = a+b+c+d;
+  if(e > 100){
+    this.commissionSplitErrBGL = true;
+  } else {
+    this.commissionSplitErrBGL = false;
+    this.commissionSplitErr = false;
+  }
+ }
+
+
 //1st row
   changeAgNum0(val){
     console.log('changed val' + val);
@@ -505,6 +633,7 @@ export class GroupSetupComponent implements OnInit {
       CommissonSplitVolGrpLife: val,
       CommissonSplitBasicgrpLife : val,
     });
+    this.commissionSplitCheck();
   }
   changeAgNm0(val){
     console.log('changed val' + val);
@@ -559,6 +688,7 @@ export class GroupSetupComponent implements OnInit {
       CommissonSplit1VolGrpLife: val,
       CommissonSplit1BasicgrpLife: val,
     });
+    this.commissionSplitCheck();
   }
 
   //3 row
@@ -600,6 +730,7 @@ export class GroupSetupComponent implements OnInit {
       CommissonSplit2VolGrpLife: val,
       CommissonSplit2BasicgrpLife: val,
     });
+    this.commissionSplitCheck();
   }
 
   //4 row
@@ -641,6 +772,7 @@ export class GroupSetupComponent implements OnInit {
       CommissonSplit3VolGrpLife: val,
       CommissonSplit3BasicgrpLife: val,
     });
+    this.commissionSplitCheck();
   }
 
 
@@ -709,10 +841,12 @@ export class GroupSetupComponent implements OnInit {
     if (event.checked) {
       this.checkedToggleProductFppg = "Active";
       this.isCheckedFppg = event.checked;
+      this.isDisabled = this.isDisabled;
     }
     else {
       this.checkedToggleProductFppg = "Inactive";
       this.isCheckedFppg = event.checked;
+      this.isDisabled = !this.isDisabled;
     }
 
   }
@@ -1289,8 +1423,15 @@ export class GroupSetupComponent implements OnInit {
     }
     this.eppcreategroupservice.PosteppCreate(body).subscribe((data: any) => {
       console.log("data", data);
-    });
-
+    },
+    (error:any) =>{
+      this.snackBar.open(error.error,"close",{
+          duration:2000,
+      });
+      window.scrollTo(0,0); 
+    }
+    );
+   
 
   }
 

@@ -69,8 +69,11 @@ export class CustomBulkTemplateComponent implements OnInit {
       this.availableFields = this.cloneLists.availableList;
       this.selectedFields = this.cloneLists.selectedList;
       this.editFlag = this.cloneLists.isEdit;
-      this.grpNum = this.cloneGroupNumber;
+      //this.grpNum = this.cloneGroupNumber;
       this.grpprdctId = this.cloneLists.grpprdctId;
+    },
+    (err) => {
+      alert("Group not exists");
     });
   }
 
@@ -140,6 +143,9 @@ export class CustomBulkTemplateComponent implements OnInit {
   saveLayout() {
     for(let i=0; i<this.selectedFields.length; i++){
       this.selectedFields[i].clmnOrdr = i+1;
+    }
+    for(let i=0; i<this.selectedFields.length; i++){
+      this.selectedFields[i].clmnOrdr = this.selectedFields[i].clmnOrdr.toString();
     }
     let reqObj = {
       grpNbr: this.grpNum,

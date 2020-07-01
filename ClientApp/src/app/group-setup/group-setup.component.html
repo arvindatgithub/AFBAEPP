@@ -45,8 +45,8 @@
       </div>
     </div>
     <div class="form-group col-md-3" [formGroup]="groupSetupFG">
-      <span class="label label-default">Group effective date<span aria-hidden="true" class="required">*</span></span>
-      <input type="date"  formControlName="fcEffDate" class="form-control"
+      <span class="label label-default">Product effective date<span aria-hidden="true" class="required">*</span></span>
+      <input type="date"  formControlName="fcEffDate" [min]="minDate" class="form-control"
         [(ngModel)]="minDate" style="width: 100%;" placeholder="Group Effective Date">
     </div>
     <div class="form-group col-md-3">
@@ -72,7 +72,7 @@
     <div class="form-group col-md-3">
       <span class="label label-default">Group Vendor Email<span aria-hidden="true" class="required">*</span></span>
       <input type="email" [(ngModel)]="EnrolEmailAddress" name="email" ngModel #email="ngModel"
-        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required class="form-control"
+        pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$" required class="form-control"
         placeholder=" Group Vendor Email">
       <div *ngIf="email.touched">
         <small *ngIf="email.errors?.required" style="color: red;">Email is a required field!</small>
@@ -85,8 +85,9 @@
     <div class="col-md-3" [formGroup]="groupSetupOCC">
       <div>
         <span class="label label-default">Occupation Class<span aria-hidden="true" class="required">*</span></span>
-        <select class="select-dropdown" formControlName="FCOccControl" [(ngModel)]="occupationArray">
-          <option *ngFor="let item of occClass" value={{item.id}}>{{item.occupation}}</option> 
+        <select class="select-dropdown" formControlName="FCOccControl"> 
+          <option value="" selected disabled hidden>Select Occupation Class</option>
+          <option *ngFor="let item of occClass" [value]="item.id">{{item.occupation}}</option> 
         </select>
       </div>
     </div>
@@ -104,7 +105,7 @@
     <div class="col-md-3">
       <span class="label label-default">Account Manager Email<span aria-hidden="true" class="required">*</span></span>
       <input type="email" name="Accountemail" ngModel #Accountemail="ngModel"
-        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required class="form-control" [(ngModel)]="ManagerEmail"
+        pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$" required class="form-control" [(ngModel)]="ManagerEmail"
         placeholder="Account Manager Email">
       <div *ngIf="Accountemail.touched">
         <small *ngIf="Accountemail.errors?.required" style="color: red;">Email is a required field!</small>
@@ -113,9 +114,9 @@
     </div>
     <div class="col-md-3">
       <span class="label label-default">Situs State<span aria-hidden="true" class="required">*</span></span>
-      <select class="select-dropdown my-1" #situsState [(ngModel)]="selected.state" (change)="getLookupValueSitusState(situsState.value)">
-        <!-- <option hidden disabled selected value> -- select Situs State -- </option> -->
-        <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates" value={{lookUpDataSitusState.state}}>
+      <select class="select-dropdown my-1" #situsState (change)="getLookupValueSitusState(situsState.value)">
+        <option hidden disabled selected value> -- select Situs State -- </option>
+        <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
           {{ lookUpDataSitusState.state }}
         </option>
       </select>
@@ -126,6 +127,9 @@
   <div>
 
     <form class="agent-form" [formGroup]="agentformgrp"  *ngIf="groupsData !== undefined">
+      <div *ngIf="commissionSplitErr">
+        <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
+      </div>
       <!-- first-row -->
       <div class="row" style="justify-content:space-evenly;">
         <div class="col-md-3">
@@ -142,9 +146,7 @@
           <span class="label label-default">Commisson Split %</span>
           <input type="text" formControlName="CommissonSplit" [(ngModel)]="agentCommissionSPlit_0" (change)="changeAgComSpl0($event.target.value)"
             class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')" >
-          <div *ngIf="agentformgrp.get('CommissonSplit').value > 100">
-            <small style="color: #ff6363;">Commonsplit Value Cannot Be More Than 100</small>
-          </div>
+
         </div>
 
         <div class="col-md-3">
@@ -167,9 +169,7 @@
         <div class="col-md-3">
           <input type="text" formControlName="CommissonSplit1" [(ngModel)]="agentCommissionSPlit_1"  (change)="changeAgComSpl1($event.target.value)"
             class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-          <div *ngIf="agentformgrp.get('CommissonSplit1').value > 100">
-            <small style="color: #ff6363;">Commonsplit Value Cannot Be More Than 100</small>
-          </div>
+          
         </div>
 
       </div>
@@ -186,9 +186,7 @@
         <div class="col-md-3">
           <input type="text" formControlName="CommissonSplit2" [(ngModel)]="agentCommissionSPlit_2" (change)="changeAgComSpl2($event.target.value)"
             class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-          <div *ngIf="agentformgrp.get('CommissonSplit2').value > 100">
-            <small style="color: #ff6363;">Commonsplit Value Cannot Be More Than 100</small>
-          </div>
+          
         </div>
 
       </div>
@@ -205,9 +203,7 @@
         <div class="col-md-3">
           <input type="text" formControlName="CommissonSplit3" [(ngModel)]="agentCommissionSPlit_3" (change)="changeAgComSpl3($event.target.value)"
             class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-          <div *ngIf="agentformgrp.get('CommissonSplit3').value > 100">
-            <small style="color: #ff6363;">Commonsplit Value Cannot Be More Than 100</small>
-          </div>
+          
         </div>
 
       </div>
@@ -221,15 +217,18 @@
           <a class="card-title">
             FPPG
           </a>
-          <mat-slide-toggle style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedFppg" (change)="toggleChangeProductFppg($event)"
+          <mat-slide-toggle style="float: right;"  [(ngModel)]="isCheckedFppg" (change)="toggleChangeProductFppg($event)"
             [color]="toggleActiveColor">
             {{checkedToggleProductFppg}}</mat-slide-toggle>
         </div>
-        <div id="collapseOne" class="card-body collapse" data-parent="#accordion">
+        <div id="collapseOne"  class="card-body collapse" data-parent="#accordion">
 
           <app-fppg [lookupValue]="selected.state" #child0 [dateValue]="dateChange">
            
             <form class="agent-form" [formGroup]="agentformgrp">
+              <div *ngIf="commissionSplitErr || commissionSplitErrFppg">
+                <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
+              </div>
               <div class="radio-button" style="display: inline-block;padding-left: 5px;" *ngFor="let item of radioButtonArr">
                 <div><input type="radio" value={{item.value}} formControlName="fppgAgent_Action" />
                   <label class="radio-label"> {{item.name}}</label></div>
@@ -248,7 +247,7 @@
                 </div>
                 <div class="col-md-3">
                   <span class="label label-default">Commisson Split %</span>
-                  <input type="text" formControlName="CommissonSplitfppg"
+                  <input type="text" formControlName="CommissonSplitfppg" (change)="commisioncheckFppg($event.target.value)"
                     class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
 
@@ -270,7 +269,7 @@
                     class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount " onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
                 <div class="col-md-3">
-                  <input type="text" formControlName="CommissonSplit1fppg"
+                  <input type="text" formControlName="CommissonSplit1fppg" (change)="commisioncheckFppg($event.target.value)"
                     class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
 
@@ -286,7 +285,7 @@
                     class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
                 <div class="col-md-3">
-                  <input type="text" formControlName="CommissonSplit2fppg"
+                  <input type="text" formControlName="CommissonSplit2fppg" (change)="commisioncheckFppg($event.target.value)"
                     class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
 
@@ -302,7 +301,7 @@
                     class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
                 <div class="col-md-3">
-                  <input type="text" formControlName="CommissonSplit3fppg"
+                  <input type="text" formControlName="CommissonSplit3fppg" (change)="commisioncheckFppg($event.target.value)"
                     class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
 
@@ -323,6 +322,9 @@
 
           <app-fpp-individual [lookupValue]="selected.state" #child1 [dateValue]="dateChange">
             <form class="agent-form" [formGroup]="agentformgrp">
+              <div *ngIf="commissionSplitErr || commissionSplitErrFppi">
+                <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
+              </div>
               <div class="radio-button" style="display: inline-block;padding-left: 5px;" *ngFor="let item of radioButtonArr">
                 <div><input type="radio" value={{item.value}} formControlName="fppiAgent_Action" />
                   <label class="radio-label"> {{item.name}}</label></div>
@@ -341,7 +343,7 @@
                 </div>
                 <div class="col-md-3">
                   <span class="label label-default">Commisson Split %</span>
-                  <input type="text" formControlName="CommissonSplitFppIndivisual"
+                  <input type="text" formControlName="CommissonSplitFppIndivisual" (change)="commisioncheckFppi($event.target.value)"
                     class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
 
@@ -363,7 +365,7 @@
                     class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
                 <div class="col-md-3">
-                  <input type="text" formControlName="CommissonSplit1FppIndivisual"
+                  <input type="text" formControlName="CommissonSplit1FppIndivisual" (change)="commisioncheckFppi($event.target.value)"
                     class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
 
@@ -379,7 +381,7 @@
                     class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
                 <div class="col-md-3">
-                  <input type="text" formControlName="CommissonSplit2FppIndivisual"
+                  <input type="text" formControlName="CommissonSplit2FppIndivisual" (change)="commisioncheckFppi($event.target.value)"
                     class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
 
@@ -395,7 +397,7 @@
                     class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
                 <div class="col-md-3">
-                  <input type="text" formControlName="CommissonSplit3FppIndivisual"
+                  <input type="text" formControlName="CommissonSplit3FppIndivisual" (change)="commisioncheckFppi($event.target.value)"
                     class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                 </div>
 
@@ -416,6 +418,9 @@
 
             <app-accident [lookupValue]="selected.state" #child2 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
+                <div *ngIf="commissionSplitErr || commissionSplitErrAcc">
+                  <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
+                </div>
                 <div class="radio-button" style="display: inline-block;padding-left: 5px;" *ngFor="let item of radioButtonArr">
                   <div><input type="radio" value={{item.value}} formControlName="accAgent_Action" />
                     <label class="radio-label"> {{item.name}}</label></div>
@@ -434,7 +439,7 @@
                   </div>
                   <div class="col-md-3">
                     <span class="label label-default">Commisson Split %</span>
-                    <input type="text" formControlName="CommissonSplitaccident"
+                    <input type="text" formControlName="CommissonSplitaccident" (change)="commisioncheckAcc($event.target.value)"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -456,7 +461,7 @@
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit1accident"
+                    <input type="text" formControlName="CommissonSplit1accident" (change)="commisioncheckAcc($event.target.value)"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -472,7 +477,7 @@
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit2accident"
+                    <input type="text" formControlName="CommissonSplit2accident" (change)="commisioncheckAcc($event.target.value)"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -488,7 +493,7 @@
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit3accident"
+                    <input type="text" formControlName="CommissonSplit3accident" (change)="commisioncheckAcc($event.target.value)"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -509,6 +514,9 @@
           <div class="card-body">
             <app-hospital-indemnity [lookupValue]="selected.state" #child3 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
+                <div *ngIf="commissionSplitErr || commissionSplitErrHos">
+                  <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
+                </div>
                 <div class="radio-button" style="display: inline-block;padding-left: 5px;" *ngFor="let item of radioButtonArr">
                   <div><input type="radio" value={{item.value}} formControlName="hospAgent_Action" />
                     <label class="radio-label"> {{item.name}}</label></div>
@@ -517,7 +525,7 @@
                 <div class="row" style="justify-content:space-evenly;">
                   <div class="col-md-3">
                     <span class="label label-default">Agent Number</span>
-                    <input type="text" formControlName="AgentNumberHospitalIndemnity"
+                    <input type="text" formControlName="AgentNumberHospitalIndemnity" 
                       name="text" class="form-control mb-2" style="width: 100%;" placeholder="Primary Agent Number" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
@@ -527,7 +535,7 @@
                   </div>
                   <div class="col-md-3">
                     <span class="label label-default">Commisson Split %</span>
-                    <input type="text" formControlName="CommissonSplitHospitalIndemnity"
+                    <input type="text" formControlName="CommissonSplitHospitalIndemnity" (change)="commisioncheckHos($event.target.value)"
                        class="form-control mb-2 " style="width: 100%;"
                       placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
@@ -550,7 +558,7 @@
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit1HospitalIndemnity"
+                    <input type="text" formControlName="CommissonSplit1HospitalIndemnity" (change)="commisioncheckHos($event.target.value)"
                        class="form-control mb-2 " style="width: 100%;"
                       placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
@@ -567,7 +575,7 @@
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit2HospitalIndemnity"
+                    <input type="text" formControlName="CommissonSplit2HospitalIndemnity" (change)="commisioncheckHos($event.target.value)"
                        class="form-control mb-2 " style="width: 100%;"
                       placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
@@ -584,7 +592,7 @@
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit3HospitalIndemnity"
+                    <input type="text" formControlName="CommissonSplit3HospitalIndemnity" (change)="commisioncheckHos($event.target.value)"
                       class="form-control mb-2 " style="width: 100%;"
                       placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
@@ -606,6 +614,9 @@
           <div class="card-body">
             <app-employer-paid-ci [lookupValue]="selected.state" #child4 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
+                <div *ngIf="commissionSplitErr || commissionSplitErrEmpCI">
+                  <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
+                </div>
                 <div class="radio-button" style="display: inline-block;padding-left: 5px;" *ngFor="let item of radioButtonArr">
                   <div><input type="radio" value={{item.value}} formControlName="empCIAgent_Action" />
                     <label class="radio-label"> {{item.name}}</label></div>
@@ -624,7 +635,7 @@
                   </div>
                   <div class="col-md-3">
                     <span class="label label-default">Commisson Split %</span>
-                    <input type="text" formControlName="CommissonSplitempPaidci"
+                    <input type="text" formControlName="CommissonSplitempPaidci" (change)="commisioncheckEmpCI($event.target.value)"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -646,7 +657,7 @@
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit1empPaidci"
+                    <input type="text" formControlName="CommissonSplit1empPaidci" (change)="commisioncheckEmpCI($event.target.value)"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -662,7 +673,7 @@
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit2empPaidci"
+                    <input type="text" formControlName="CommissonSplit2empPaidci" (change)="commisioncheckEmpCI($event.target.value)"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -678,7 +689,7 @@
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit3empPaidci"
+                    <input type="text" formControlName="CommissonSplit3empPaidci" (change)="commisioncheckEmpCI($event.target.value)"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -699,6 +710,9 @@
           <div class="card-body">
             <app-voluntary-ci [lookupValue]="selected.state" #child5 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
+                <div *ngIf="commissionSplitErr || commissionSplitErrVolCI">
+                  <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
+                </div>
                 <div class="radio-button" style="display: inline-block;padding-left: 5px;" *ngFor="let item of radioButtonArr">
                   <div><input type="radio" value={{item.value}} formControlName="volCIAgent_Action" />
                     <label class="radio-label"> {{item.name}}</label></div>
@@ -717,7 +731,7 @@
                   </div>
                   <div class="col-md-3">
                     <span class="label label-default">Commisson Split %</span>
-                    <input type="text" formControlName="CommissonSplitvolCi"
+                    <input type="text" formControlName="CommissonSplitvolCi" (change)="commisioncheckVolCI($event.target.value)"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -739,7 +753,7 @@
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit1volCi" 
+                    <input type="text" formControlName="CommissonSplit1volCi" (change)="commisioncheckVolCI($event.target.value)"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -755,7 +769,7 @@
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit2volCi"
+                    <input type="text" formControlName="CommissonSplit2volCi" (change)="commisioncheckVolCI($event.target.value)"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -771,7 +785,7 @@
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit3volCi"
+                    <input type="text" formControlName="CommissonSplit3volCi" (change)="commisioncheckVolCI($event.target.value)"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -792,6 +806,9 @@
           <div class="card-body">
             <app-vol-group-life [lookupValue]="selected.state" #child6 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
+                <div *ngIf="commissionSplitErr || commissionSplitErrVolGpLf">
+                  <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
+                </div>
                 <div class="radio-button" style="display: inline-block;padding-left: 5px;" *ngFor="let item of radioButtonArr">
                   <div><input type="radio" value={{item.value}} formControlName="volGrpLfAgent_Action" />
                     <label class="radio-label"> {{item.name}}</label></div>
@@ -810,7 +827,7 @@
                   </div>
                   <div class="col-md-3">
                     <span class="label label-default">Commisson Split %</span>
-                    <input type="text" formControlName="CommissonSplitVolGrpLife"
+                    <input type="text" formControlName="CommissonSplitVolGrpLife" (change)="commisioncheckVolGpLf($event.target.value)"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -832,7 +849,7 @@
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit1VolGrpLife" 
+                    <input type="text" formControlName="CommissonSplit1VolGrpLife" (change)="commisioncheckVolGpLf($event.target.value)"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -848,7 +865,7 @@
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit2VolGrpLife" 
+                    <input type="text" formControlName="CommissonSplit2VolGrpLife" (change)="commisioncheckVolGpLf($event.target.value)"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -864,7 +881,7 @@
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit3VolGrpLife" 
+                    <input type="text" formControlName="CommissonSplit3VolGrpLife" (change)="commisioncheckVolGpLf($event.target.value)"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -885,6 +902,9 @@
           <div class="card-body">
             <app-basic-group-life [lookupValue]="selected.state" #child7 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
+                <div *ngIf="commissionSplitErr || commissionSplitErrBGL">
+                  <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
+                </div>
                 <div class="radio-button" style="display: inline-block;padding-left: 5px;" *ngFor="let item of radioButtonArr">
                   <div><input type="radio" value={{item.value}} formControlName="basicGrpLfAgent_Action" />
                     <label class="radio-label"> {{item.name}}</label></div>
@@ -903,7 +923,7 @@
                   </div>
                   <div class="col-md-3">
                     <span class="label label-default">Commisson Split %</span>
-                    <input type="text" formControlName="CommissonSplitBasicgrpLife" 
+                    <input type="text" formControlName="CommissonSplitBasicgrpLife" (change)="commisioncheckBGL($event.target.value)"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -925,7 +945,7 @@
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit1BasicgrpLife" 
+                    <input type="text" formControlName="CommissonSplit1BasicgrpLife" (change)="commisioncheckBGL($event.target.value)"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -941,7 +961,7 @@
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit2BasicgrpLife" 
+                    <input type="text" formControlName="CommissonSplit2BasicgrpLife" (change)="commisioncheckBGL($event.target.value)"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
@@ -957,7 +977,7 @@
                       class="form-control mb-2" style="width: 100%;" placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
                   <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit3BasicgrpLife" 
+                    <input type="text" formControlName="CommissonSplit3BasicgrpLife" (change)="commisioncheckBGL($event.target.value)"
                       class="form-control mb-2 " style="width: 100%;" placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
                   </div>
 
