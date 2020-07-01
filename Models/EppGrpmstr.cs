@@ -7,6 +7,7 @@ namespace AFBA.EPP.Models
     {
         public EppGrpmstr()
         {
+            EppAgents = new HashSet<EppAgents>();
             EppGrpprdct = new HashSet<EppGrpprdct>();
         }
 
@@ -28,6 +29,7 @@ namespace AFBA.EPP.Models
 
         public virtual EppEnrlmntPrtnrs EnrlmntPrtnrs { get; set; }
         public virtual EppGrppymntmd GrpPymn { get; set; }
+        public virtual ICollection<EppAgents> EppAgents { get; set; }
         public virtual ICollection<EppGrpprdct> EppGrpprdct { get; set; }
     }
 }
