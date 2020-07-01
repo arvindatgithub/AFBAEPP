@@ -84,7 +84,12 @@ export class GroupSetupComponent implements OnInit {
   paymentModes: any;
   sum = 0;
   isDisabled = false;
-  occClass: any = [{
+  occClass: any = [
+    {
+      occupation: 'Select',
+      id: ''
+    },
+    {
     occupation: 1,
     id: 1
   },
@@ -144,7 +149,7 @@ export class GroupSetupComponent implements OnInit {
     id: 15
   },
   ]
-  occupationArray: any ;
+ 
   grpSitusState: string = "";
   EnrolmentPatnerName: string = "";
   EnrolEmailAddress: string = "";
@@ -186,10 +191,6 @@ export class GroupSetupComponent implements OnInit {
   groupSetupFG: FormGroup;
   groupSetupOCC: FormGroup;
   groupsData: any;
-  selected = {
-    id: "",
-    state: ""
-  };
   commissionSplitErr = false;
   commissionSplitErrFppg = false;
   commissionSplitErrFppi = false;
@@ -199,6 +200,9 @@ export class GroupSetupComponent implements OnInit {
   commissionSplitErrVolCI = false;
   commissionSplitErrVolGpLf = false;
   commissionSplitErrBGL = false;
+  editExistGrpNbr;
+  occupationSelected = '';
+  selectedState = '';
 
   constructor(private eppcreategroupservice: EppCreateGrpSetupService, private _fb: FormBuilder,
     private snackBar: MatSnackBar, private lookupService: LookupService, private groupsearchService: GroupsearchService) {
@@ -208,6 +212,7 @@ export class GroupSetupComponent implements OnInit {
     let existingSelectedGrpNbr: any;
     this.groupsearchService.castGroupNumber.subscribe(data => {
       existingSelectedGrpNbr = data; 
+      this.editExistGrpNbr = existingSelectedGrpNbr;
       console.log("selected grp number from search "+ existingSelectedGrpNbr); 
     });
     
@@ -221,11 +226,21 @@ export class GroupSetupComponent implements OnInit {
       this.grpPymn = this.groupsData.grpPymn;
       this.EnrolmentPatnerName = this.groupsData.enrlmntPrtnrsNm;
       this.EnrolEmailAddress = this.groupsData.emlAddrss;
-      this.occupationArray = this.groupsData.occClass;
+      //this.occupationArray.id = this.groupsData.occClass;
+      if(this.groupsData.occClass !== null){
+        this.occupationSelected = this.groupsData.occClass;
+      }else{
+        this.occupationSelected = '';
+      }
       this.ManegerName = this.groupsData.acctMgrNm;
       this.ManagerEmail = this.groupsData.emailAddress;
-      this.selected.id = this.groupsData.grpSitusSt;
-      this.selected.state = this.groupsData.grpSitusSt;
+      //this.selected.id = this.groupsData.grpSitusSt;
+      
+      if(this.selectedState !== null){
+        this.selectedState = this.groupsData.grpSitusSt;
+      }else{
+        this.selectedState = '';
+      }
       this.isCheckedAccident = this.groupsData.isACC_HIActive;
       this.checkedToggleProductACCident = (this.isCheckedAccident) ? "Active" : this.checkedToggleProductACCident;
       this.isCheckedFppg = this.groupsData.isFPPGActive;
@@ -433,8 +448,7 @@ export class GroupSetupComponent implements OnInit {
       }
     });
     
-    this.occupationArray = this.occClass[0].occupation;
-    console.log('occ class' + this.occupationArray);
+    
 
     this.lookupService.getLookupsData()
       .subscribe((data: any) => {
@@ -810,6 +824,7 @@ export class GroupSetupComponent implements OnInit {
   }
 
   getLookupValueSitusState(value: any) {
+    this.selectedState = value;
     console.log("hello + value");
     this.lookupSitusStateValue = value;
     this.grpSitusState = value;
@@ -948,12 +963,6 @@ export class GroupSetupComponent implements OnInit {
 
   }
 
-
-  occClassChange(value: any) {
-    this.occupationArray = value;
-    // this.occClass = value;
-    console.log("this.occupationArray", this.occupationArray);
-  }
   emp_quality_of_life: any;
   sp_quality_of_life: any;
   sp_waiver_of_prem: any;
@@ -1001,6 +1010,51 @@ export class GroupSetupComponent implements OnInit {
     //   this.sp_waiver_of_premfpp = "";
     // }
 
+    let groupAgents= [];
+    let agent1 = {
+      agentId: "1",
+      agntNbr: this.agentNumber_0,
+      agntNm: this.agent_name,
+      agntSubCnt: this.agentSubCount_0,
+      agntComsnSplt: this.agentCommissionSPlit_0,
+      grpId: ""
+    }
+    let agent2 = {
+      agentId: "2",
+      agntNbr: this.agentNumber_1,
+      agntNm: "",
+      agntSubCnt: this.agentSubCount_1,
+      agntComsnSplt: this.agentCommissionSPlit_1,
+      grpId: ""
+    }
+    let agent3 = {
+      agentId: "3",
+      agntNbr: this.agentNumber_2,
+      agntNm: "",
+      agntSubCnt: this.agentSubCount_2,
+      agntComsnSplt: this.agentCommissionSPlit_2,
+      grpId: ""
+    }
+    let agent4 = {
+      agentId: "4",
+      agntNbr: this.agentNumber_3,
+      agntNm: "",
+      agntSubCnt: this.agentSubCount_3,
+      agntComsnSplt: this.agentCommissionSPlit_3,
+      grpId: ""
+    }
+    if(this.agentNumber_0 !=="" || this.agentSubCount_0 !=="" || (this.agentCommissionSPlit_0 !=="" && this.agentCommissionSPlit_0 !== undefined) || this.agent_name !==""){
+      groupAgents.push(agent1);
+    }
+    if(this.agentNumber_1 !=="" || this.agentSubCount_1 !=="" || (this.agentCommissionSPlit_1 !=="" && this.agentCommissionSPlit_1 !== undefined)){
+      groupAgents.push(agent2);
+    }
+    if(this.agentNumber_2 !=="" || this.agentSubCount_2 !=="" || (this.agentCommissionSPlit_2 !=="" && this.agentCommissionSPlit_2 !== undefined)){
+      groupAgents.push(agent3);
+    }
+    if(this.agentNumber_3 !=="" || this.agentSubCount_3 !=="" || (this.agentCommissionSPlit_3 !=="" && this.agentCommissionSPlit_3 !== undefined)){
+      groupAgents.push(agent4);
+    }
 
     let body = {
 
@@ -1017,6 +1071,7 @@ export class GroupSetupComponent implements OnInit {
       "enrlmntPrtnrsNm": this.EnrolmentPatnerName,
       "emlAddrss": this.EnrolEmailAddress,
       "emailAddress": this.ManagerEmail,
+      "grpAgents": groupAgents,
       "acctMgrNm": this.ManegerName,
       "acctMgrCntctId": 0,
       "isFPPGActive": this.isCheckedFppg,
@@ -1421,16 +1476,28 @@ export class GroupSetupComponent implements OnInit {
       }
 
     }
-    this.eppcreategroupservice.PosteppCreate(body).subscribe((data: any) => {
-      console.log("data", data);
-    },
-    (error:any) =>{
-      this.snackBar.open(error.error,"close",{
-          duration:2000,
-      });
-      window.scrollTo(0,0); 
+
+    if(this.editExistGrpNbr !== "" && this.editExistGrpNbr !== null && this.editExistGrpNbr !== undefined){
+      this.eppcreategroupservice.postEppEdit(body).subscribe(
+        (data: any) => {
+        console.log("Edit Response data", data);
+      },
+      (err) => {
+        console.log('edit group api'+ err.status);
+      }
+      );
+    } else {
+      this.eppcreategroupservice.PosteppCreate(body).subscribe((data: any) => {
+        console.log("data", data);
+      },
+      (error:any) =>{
+        this.snackBar.open(error.error,"close",{
+            duration:2000,
+        });
+        window.scrollTo(0,0); 
+      }
+      );
     }
-    );
    
 
   }

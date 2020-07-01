@@ -18,9 +18,10 @@
       </div>
       <div class="col-3">
         <span class="label label-default">Situs State</span>
-        <select class="form-control" [value]="lookupValue" formControlName="FCVolCISitusState">
-          <option hidden disabled selected value> -- select Situs State -- </option>
-          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
+        <select class="form-control" formControlName="FCVolCISitusState">
+          <!-- <option hidden disabled selected value> -- select Situs State -- </option> -->
+          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates"  [selected]="lookUpDataSitusState.state == lookupValue" 
+          value={{lookUpDataSitusState.state}}>
             {{lookUpDataSitusState.state}}</option>
 
         </select>

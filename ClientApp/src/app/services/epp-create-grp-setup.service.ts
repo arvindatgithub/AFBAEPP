@@ -27,5 +27,9 @@ export class EppCreateGrpSetupService {
      this.eppData.next(value);
   }
  
+  postEppEdit(postBody){
+    const eppEditURL = environment.apiurl + 'GroupSetup/EditEppGrpSetup';
+    return this.http.put(eppEditURL,postBody);
+  }
 }
 

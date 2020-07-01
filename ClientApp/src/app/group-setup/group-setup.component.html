@@ -85,9 +85,9 @@
     <div class="col-md-3" [formGroup]="groupSetupOCC">
       <div>
         <span class="label label-default">Occupation Class<span aria-hidden="true" class="required">*</span></span>
-        <select class="select-dropdown" formControlName="FCOccControl"> 
-          <option value="" selected disabled hidden>Select Occupation Class</option>
-          <option *ngFor="let item of occClass" [value]="item.id">{{item.occupation}}</option> 
+        <select class="select-dropdown" formControlName="FCOccControl" [(ngModel)]="occupationSelected"> 
+          <!-- <option value="" selected disabled hidden>Select Occupation Class</option> -->
+          <option *ngFor="let item of occClass" [value]="item.id" [selected]="occupationSelected == item.occupation">{{item.occupation}}</option> 
         </select>
       </div>
     </div>
@@ -114,9 +114,9 @@
     </div>
     <div class="col-md-3">
       <span class="label label-default">Situs State<span aria-hidden="true" class="required">*</span></span>
-      <select class="select-dropdown my-1" #situsState (change)="getLookupValueSitusState(situsState.value)">
-        <option hidden disabled selected value> -- select Situs State -- </option>
-        <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
+      <select class="select-dropdown my-1" #situsState (change)="getLookupValueSitusState(situsState.value)" [(ngModel)]="selectedState">
+        <!-- <option hidden disabled selected value> -- select Situs State -- </option> -->
+        <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates"  value={{lookUpDataSitusState.state}} [selected]="lookUpDataSitusState.state == selectedState">
           {{ lookUpDataSitusState.state }}
         </option>
       </select>
@@ -223,7 +223,7 @@
         </div>
         <div id="collapseOne"  class="card-body collapse" data-parent="#accordion">
 
-          <app-fppg [lookupValue]="selected.state" #child0 [dateValue]="dateChange">
+          <app-fppg [lookupValue]="selectedState" #child0 [dateValue]="dateChange">
            
             <form class="agent-form" [formGroup]="agentformgrp">
               <div *ngIf="commissionSplitErr || commissionSplitErrFppg">
@@ -320,7 +320,7 @@
         </div>
         <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
 
-          <app-fpp-individual [lookupValue]="selected.state" #child1 [dateValue]="dateChange">
+          <app-fpp-individual [lookupValue]="selectedState" #child1 [dateValue]="dateChange">
             <form class="agent-form" [formGroup]="agentformgrp">
               <div *ngIf="commissionSplitErr || commissionSplitErrFppi">
                 <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
@@ -416,7 +416,7 @@
         <div id="collapseThree" class="collapse" data-parent="#accordion">
           <div class="card-body">
 
-            <app-accident [lookupValue]="selected.state" #child2 [dateValue]="dateChange">
+            <app-accident [lookupValue]="selectedState" #child2 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
                 <div *ngIf="commissionSplitErr || commissionSplitErrAcc">
                   <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
@@ -512,7 +512,7 @@
         </div>
         <div id="collapseFour" class="collapse" data-parent="#accordion">
           <div class="card-body">
-            <app-hospital-indemnity [lookupValue]="selected.state" #child3 [dateValue]="dateChange">
+            <app-hospital-indemnity [lookupValue]="selectedState" #child3 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
                 <div *ngIf="commissionSplitErr || commissionSplitErrHos">
                   <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
@@ -612,7 +612,7 @@
         </div>
         <div id="collapseFive" class="collapse" data-parent="#accordion">
           <div class="card-body">
-            <app-employer-paid-ci [lookupValue]="selected.state" #child4 [dateValue]="dateChange">
+            <app-employer-paid-ci [lookupValue]="selectedState" #child4 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
                 <div *ngIf="commissionSplitErr || commissionSplitErrEmpCI">
                   <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
@@ -708,7 +708,7 @@
         </div>
         <div id="collapseSix" class="collapse" data-parent="#accordion">
           <div class="card-body">
-            <app-voluntary-ci [lookupValue]="selected.state" #child5 [dateValue]="dateChange">
+            <app-voluntary-ci [lookupValue]="selectedState" #child5 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
                 <div *ngIf="commissionSplitErr || commissionSplitErrVolCI">
                   <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
@@ -804,7 +804,7 @@
         </div>
         <div id="collapseSeven" class="collapse" data-parent="#accordion">
           <div class="card-body">
-            <app-vol-group-life [lookupValue]="selected.state" #child6 [dateValue]="dateChange">
+            <app-vol-group-life [lookupValue]="selectedState" #child6 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
                 <div *ngIf="commissionSplitErr || commissionSplitErrVolGpLf">
                   <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
@@ -900,7 +900,7 @@
         </div>
         <div id="collapseEight" class="collapse" data-parent="#accordion">
           <div class="card-body">
-            <app-basic-group-life [lookupValue]="selected.state" #child7 [dateValue]="dateChange">
+            <app-basic-group-life [lookupValue]="selectedState" #child7 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
                 <div *ngIf="commissionSplitErr || commissionSplitErrBGL">
                   <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
