@@ -203,7 +203,8 @@ export class GroupSetupComponent implements OnInit {
   editExistGrpNbr;
   occupationSelected = '';
   selectedState = '0';
-
+  fieldsetDisabled;
+  
   constructor(private eppcreategroupservice: EppCreateGrpSetupService, private _fb: FormBuilder,
     private snackBar: MatSnackBar, private lookupService: LookupService, private groupsearchService: GroupsearchService) {
   }
@@ -446,6 +447,8 @@ export class GroupSetupComponent implements OnInit {
     
         });
       }
+      this.agentformgrp.disable();
+      this.fieldsetDisabled = true;
     });
     
     

@@ -65,6 +65,7 @@ export class BasicGroupLifeComponent implements OnInit,OnChanges {
             SpouseFaceAmount: [(this.bglData.isBGLActive) ? this.bglData.bgl.sp_face_amt_mon_bnft : "",Validators.required],
             ChildFaceAmount: [(this.bglData.isBGLActive) ? this.bglData.bgl.ch_face_amt_mon_bnft_01 : "",Validators.required],
           });
+          this.basicGrpLfformgrp.disable();
 
         }
         

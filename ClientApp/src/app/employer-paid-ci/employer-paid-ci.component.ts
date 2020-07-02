@@ -78,6 +78,7 @@ export class EmployerPaidCIComponent implements OnInit ,OnChanges{
           FCempCIChdFcAmt_Action: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.ch_plan_cd_action : this.radioButtonArr[1].value,Validators.required],
           FCempCISpouseFcAmt_Action:[(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.sp_plan_cd_action : this.radioButtonArr[1].value, Validators.required]
         });
+        this.empCIformgrp.disable();
        
         
       }

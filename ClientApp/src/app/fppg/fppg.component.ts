@@ -90,6 +90,7 @@ export class FPPGComponent implements OnInit, OnChanges {
             FCfppgQolRiders_Action: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.emp_quality_of_life_action : this.radioButtonArr[1].value, Validators.required],
             FCfppgWaiver_Action: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.emp_waiver_of_prem_action : this.radioButtonArr[1].value, Validators.required],
           });
+          this.fppgformgrp.disable();
 
         }
       });

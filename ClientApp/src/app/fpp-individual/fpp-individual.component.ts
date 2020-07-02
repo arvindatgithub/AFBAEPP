@@ -81,6 +81,7 @@ export class FPPIndividualComponent implements OnInit, OnChanges {
             FCfppiChildPlanCode:[(this.fppiData.isFPPIActive) ? this.fppiData.fppi.ch_plan_cd : "", Validators.required],
       
           });
+          this.fppiformgrp.disable();
 
         }
       });

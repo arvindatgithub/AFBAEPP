@@ -83,6 +83,7 @@ export class VoluntaryCIComponent implements OnInit,OnChanges {
             FCVolCISpouseTB_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.sp_smkr_no_smkr_action : this.radioButtonArr[1].value,Validators.required],
             FCVolCISpouseTB: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.sp_smkr_no_smkr : "",Validators.required],
           });
+          this.volCIformgrp.disable();
         }
       });
      }

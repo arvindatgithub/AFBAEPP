@@ -64,7 +64,7 @@ export class HospitalIndemnityComponent implements OnInit,OnChanges {
               FChospSitusState_Action: [(this.hiData.isHIActive) ? this.hiData.hi.grp_situs_state_action : this.radioButtonArr[1].value,Validators.required],
             });
           
-          
+          this.hospformgrp.disable();
         }
       });
 

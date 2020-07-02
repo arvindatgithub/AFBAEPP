@@ -95,6 +95,7 @@ export class AccidentComponent implements OnInit,OnChanges {
             FcaccChildGender_Action: [this.radioButtonArr[1].value,Validators.required],
           });
          
+          this.accformgrp.disable();
           
         }
         });
