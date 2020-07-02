@@ -59,6 +59,31 @@
       </div>
       
     </div>
+
+    <div class="row pb-2 " style="justify-content:space-evenly;padding-left: 13px;">
+      <div class="radio-button">
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FcaccChildName_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
+      </div>
+      <div class="col-2">
+        <input type="checkbox"  formControlName="FcaccChildName" [checked]=true> Child Name
+      </div>
+      <div class="radio-button">
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FcaccChildDOB_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
+      </div>
+      <div class="col-3">
+        <input type="checkbox" formControlName="FcaccChildDOB" [checked]=true> Child Date of Birth
+      </div>
+      <div class="radio-button">
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FcaccChildGender_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
+      </div>
+      <div class="col-2">
+        <input type="checkbox" formControlName="FcaccChildGender" [checked]=true> Child Gender
+      </div>
+    </div>
+
     <div class="mt-4">
       <ng-content></ng-content>
      </div>

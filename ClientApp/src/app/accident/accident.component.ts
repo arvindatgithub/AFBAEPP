@@ -87,7 +87,12 @@ export class AccidentComponent implements OnInit,OnChanges {
             FCaccOnOff_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.sp_smkr_no_smkr_action : this.radioButtonArr[1].value,Validators.required],
             FCaccRateLevel: [(this.accidentData.isACC_HIActive) ? this.Rate[0].no : this.Rate[0].no,Validators.required],
             FCaccRateLevel_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.rate_lvl_action : this.radioButtonArr[1].value,Validators.required],
-      
+            FcaccChildName: ["",Validators.required],
+            FcaccChildDOB: ["",Validators.required],
+            FcaccChildGender: ["",Validators.required],
+            FcaccChildName_Action: [this.radioButtonArr[1].value,Validators.required],
+            FcaccChildDOB_Action: [this.radioButtonArr[1].value,Validators.required],
+            FcaccChildGender_Action: [this.radioButtonArr[1].value,Validators.required],
           });
          
           
