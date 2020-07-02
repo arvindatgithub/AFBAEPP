@@ -43,24 +43,7 @@ namespace AFBA.EPP.Controllers
         }
 
 
-        //[Route("getBulkQuestionsAttr/groupNbr/{groupNbr}/productId/{productId}")]
-        //[HttpGet]
         
-        //public IActionResult GetSavedQueAttr(string groupNbr, string productId)
-        //{
-        //    var questionDataAttr = _unitofWork.eppBulkRefTblRepository.GetEppQuestionAtrr(groupNbr, long.Parse(productId));
-        //    return Ok(questionDataAttr);
-        //}
-
-        //[Route("GetGroupQuestionAtrr/groupNbr/{groupNbr}")]
-        //[HttpGet]
-
-        //public IActionResult GetGroupQuestionAtrr(string groupNbr)
-        //{
-        //    var questionDataAttr = _unitofWork.eppBulkRefTblRepository.GetGroupQuestionAtrr(groupNbr);
-        //    return Ok(questionDataAttr);
-        //}
-
         [Route("[action]")]
         [HttpPost]
         public IActionResult UpdateQuestionAttrs(GroupBlkQuestionAttrbs  groupBlkQuestionAttrbs)

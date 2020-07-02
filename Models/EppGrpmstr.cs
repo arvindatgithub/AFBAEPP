@@ -26,6 +26,8 @@ namespace AFBA.EPP.Models
         public long? OccClass { get; set; }
         public string AcctMgrNm { get; set; }
         public string AcctMgrEmailAddrs { get; set; }
+        public string UsrTkn { get; set; }
+        public string CaseTkn { get; set; }
 
         public virtual EppEnrlmntPrtnrs EnrlmntPrtnrs { get; set; }
         public virtual EppGrppymntmd GrpPymn { get; set; }
