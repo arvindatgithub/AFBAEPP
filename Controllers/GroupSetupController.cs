@@ -125,25 +125,7 @@ namespace AFBA.EPP.Controllers
                     case "FPPG":
                         {
                             UpdateBulkRefTable(groupSetupModel.FPPG, prod.GrpprdctId);
-                            // add product code                   
-                            //var blkDatas = _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == prod.GrpprdctId).Result;
-                            //Type fppgType = groupSetupModel.FPPG.GetType();
-                            //foreach (var blk in blkDatas)
-                            //{
-                            //    var eppAttrs = _unitofWork.eppAttributeRepository.SingleOrDefault(x => x.AttrId == blk.AttrId).Result;
-                            //    if(!string.IsNullOrEmpty(eppAttrs.DbAttrNm))
-                            //    {
-                            //        var actionPrpp = eppAttrs.DbAttrNm + "_action";
-                            //        blk.Value = fppgType.GetProperty(eppAttrs.DbAttrNm).GetValue(groupSetupModel.FPPG).ToString();
-
-                            //        var s = fppgType.GetProperty(eppAttrs.DbAttrNm).GetValue(groupSetupModel.FPPG).ToString();
-                            //        long lvalue = 0;
-                            //        long.TryParse(s, out lvalue);
-                            //        if ( lvalue!=0)
-                            //        blk.ActionId = lvalue;
-                            //    }                                
-                            //}
-                            //_unitofWork.eppBulkRefTblRepository.UpdateRange(blkDatas);                         
+                                       
                             break;
                         }
                     case "ACC_HI":
@@ -280,16 +262,16 @@ namespace AFBA.EPP.Controllers
                 if (groupSetupModel.isFPPGActive)
                 {
                     var prdid = Helper.GetProductIdbyName("FPPG", _unitofWork);
-                    var grpprdId = Helper.GetRandomNumber();
+                    //var grpprdId = Helper.GetRandomNumber();
 
-                    _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
-                    {
-                        GrpprdctId = grpprdId,
-                        GrpId = grpId,
-                        ProductId = prdid,
-                        CrtdBy = CrtdBy,
-                        CrtdDt = CreatedDate
-                    }); 
+                    //_unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
+                    //{
+                    //    GrpprdctId = grpprdId,
+                    //    GrpId = grpId,
+                    //    ProductId = prdid,
+                    //    CrtdBy = CrtdBy,
+                    //    CrtdDt = CreatedDate
+                    //}); 
 
 
                     // add Product code
@@ -327,10 +309,12 @@ namespace AFBA.EPP.Controllers
                         };
                         groupSetupModel.FPPG.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
                     }
-                   
+
+                    AddGrpPrdBulkRef(groupSetupModel.FPPG, bulkRefTbls, "FPPG", grpId);
+
                     // add bulkupdate 
-                    var bulkAttrs = Helper.GetProperties(groupSetupModel.FPPG);
-                    AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);                
+                    //var bulkAttrs = Helper.GetProperties(groupSetupModel.FPPG);
+                    //AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);                
 
                 }
                 if (groupSetupModel.isACC_HIActive)
@@ -617,6 +601,59 @@ namespace AFBA.EPP.Controllers
                 throw ex;
             }
         }
+
+
+        [NonAction]
+        public void AddGrpPrdBulkRef<T>( T  product, List<EppBulkRefTbl> bulkRefTbls, string ProductName, long grpId)
+        {
+                   
+
+                var prdid = Helper.GetProductIdbyName(ProductName, _unitofWork);
+                var grpprdId = Helper.GetRandomNumber();
+
+                _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
+                {
+                    GrpprdctId = grpprdId,
+                    GrpId = grpId,
+                    ProductId = prdid,
+                    CrtdBy = CrtdBy,
+                    CrtdDt = CreatedDate
+                });
+                       
+                // add bulkupdate 
+                var bulkAttrs = Helper.GetProperties(product);
+                AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);        
+
+
+        }
+
+
+        [NonAction]
+        private  void UpdateProductCode<T>( T product , PlanCodeViewModel planCodeViewModel)
+        {
+            var result = _unitofWork.eppProductCodesRepository.Find(x => x.ProductCode == planCodeViewModel.ProductCode && x.ProductId == planCodeViewModel.ProductId).Result.FirstOrDefault();
+            if (result == null)
+            {
+                planCodeViewModel.ProdctCdId = Helper.GetRandomNumber();
+                var data = new EppProductCodes
+                {
+                    ProdctCdId = planCodeViewModel.ProdctCdId,
+                    ProductCode = planCodeViewModel.ProductCode,
+                    ProductId = planCodeViewModel.ProductId,
+                    CrtdBy = CrtdBy,
+                    CrtdDt= CreatedDate
+                    
+                };
+                _unitofWork.eppProductCodesRepository.Add(data);
+
+            }
+            else
+            {
+                planCodeViewModel.ProductId = result.ProductId;
+            }
+           
+        }
+
 
         [Route("grpNbr/{grpNbr?}")]
         [HttpGet]
@@ -946,8 +983,7 @@ namespace AFBA.EPP.Controllers
             }
         }
 
-
-   
+           
        [NonAction]
         private void AddEppBulkRefTblData(List<ClsPropertyInfo> bulkAttrs, List<EppBulkRefTbl> bulkRefTbls, long grpPrdId)
         {
@@ -970,7 +1006,8 @@ namespace AFBA.EPP.Controllers
                         eppBulkRefTbl.GrpprdctId = grpPrdId;
                         eppBulkRefTbl.AttrId = eppAttribute.AttrId;
                         eppBulkRefTbl.Value = prop.PropertyValue;
-                        eppBulkRefTbl.CrtdBy = "";
+                        eppBulkRefTbl.CrtdBy = CrtdBy;
+                        eppBulkRefTbl.CrtdDt = CreatedDate;
                         bulkRefTbls.Add(eppBulkRefTbl);
                     }                    
                 }             
@@ -1092,10 +1129,10 @@ namespace AFBA.EPP.Controllers
                     _unitofWork.eppAgentRepository.Add(data);
                 }
 
-
-
-
             }
         }
+
+
+  
     }
 }

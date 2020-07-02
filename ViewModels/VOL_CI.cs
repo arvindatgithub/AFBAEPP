@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AFBA.EPP.ViewModels
 {
-    public class VOL_CI:CommonViewModel
+    public class VOL_CI:ProductBase
     {
 
        
