@@ -41,58 +41,72 @@ export class FPPGComponent implements OnInit, OnChanges {
   fppgData;
   fppgDate;
   fppgSitus;
+  resetFlag = true;
 
   constructor(private lookupService: LookupService, 
     private fb:FormBuilder, private eppservice:EppCreateGrpSetupService,
     public datepipe: DatePipe, private groupsearchService: GroupsearchService) { 
+      
+      this.eppservice.castAddEditClone.subscribe(data => {
+        let status = data;
+        if(status == 'Edit' || status == 'Add'){
+          this.fppgformgrp.enable();
+          this.resetFlag = false;
+        } else {
+          this.resetFlag = true;
+        }
+      });
+
       let existingSelectedGrpNbr: any;
       this.groupsearchService.castGroupNumber.subscribe(data => {
         existingSelectedGrpNbr = data; 
-        console.log("BGL "+ existingSelectedGrpNbr); 
-      });
-
-      this.eppservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
-        this.fppgData = data;
-        console.log('fppg'+ JSON.stringify(this.fppgData));
-        if(this.fppgData !== undefined){
-
-          if(this.fppgData.isFPPGActive){
-            this.fppgDate = this.datepipe.transform(this.fppgData.fppg.effctv_dt, 'yyyy-MM-dd');
-            if(this.fppgData.fppg.grp_situs_state !== null){
-              this.fppgSitus = this.fppgData.fppg.grp_situs_state;
-            } else {
-              this.fppgSitus = this.lookupValue;
+        console.log("FPPG "+ existingSelectedGrpNbr); 
+        this.eppservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
+          this.fppgData = data;
+          console.log('fppg'+ JSON.stringify(this.fppgData));
+          if(this.fppgData !== undefined){
+  
+            if(this.fppgData.isFPPGActive){
+              this.fppgDate = this.datepipe.transform(this.fppgData.fppg.effctv_dt, 'yyyy-MM-dd');
+              if(this.fppgData.fppg.grp_situs_state !== null){
+                this.fppgSitus = this.fppgData.fppg.grp_situs_state;
+              } else {
+                this.fppgSitus = this.lookupValue;
+              }
             }
+            this.fppgformgrp = this.fb.group({
+              FCfppgEffectiveDate: [(this.fppgData.isFPPGActive) ? this.fppgDate : this.minDate,Validators.required],
+              FCfppgSitusState: [(this.fppgData.isFPPGActive) ? this.fppgSitus : this.lookupValue,Validators.required],
+              FCfppgEmpAmtMax: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.emp_max_amt: "",Validators.required],
+              FCfppgEmpGIAmtMax: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.emp_gi_max_amt : "",Validators.required],
+              FCfppgEmpQIAmtMax: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.emp_qi_max_amt : "",Validators.required],
+              FCfppgSpouseGIAmtMax: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.sp_gi_max_amt : "",Validators.required],
+              FCfppgSpouseQIAmtMax: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.sp_qi_max_amt : "",Validators.required],
+              FCfppgSpouseMaxAmt: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.sp_max_amt : "",Validators.required],
+              //FCfppgOpenEnrollGI: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg. : "",Validators.required],
+             
+              FCfppgEmpPlanCode: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.emp_plan_cd : "", Validators.required],
+              FCfppgSpousePlanCode: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.sp_plan_cd :"", Validators.required],
+              FCfppgChildPlanCode: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.ch_plan_cd : "", Validators.required],
+              
+              FCfppgQolRiders: [(this.fppgData.isFPPGActive) ?  this.fppgData.fppg.emp_quality_of_life: "",Validators.required],
+              FCfppgWaiver:[(this.fppgData.isFPPGActive) ?  this.fppgData.fppg.emp_waiver_of_prem: "",Validators.required],
+              FCfppgEffectiveDate_Action: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.effctv_dt_action : this.radioButtonArr[1].value, Validators.required],
+              FCfppgSitusState_Action:  [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.grp_situs_state_action : this.radioButtonArr[1].value, Validators.required],
+              FCfppgEmpAmtMax_Action: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.emp_max_amt_action : this.radioButtonArr[1].value, Validators.required],
+              FCfppgSpouseAmtMax_Action: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.sp_max_amt_action : this.radioButtonArr[1].value, Validators.required],
+             // FCfppgOpenEnrollGI_Action: [this.radioButtonArr[1].value, Validators.required],
+              FCfppgPlanCodeManualEntry_Action: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.emp_plan_cd_action : this.radioButtonArr[1].value, Validators.required],
+              FCfppgQolRiders_Action: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.emp_quality_of_life_action : this.radioButtonArr[1].value, Validators.required],
+              FCfppgWaiver_Action: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.emp_waiver_of_prem_action : this.radioButtonArr[1].value, Validators.required],
+            });
+            this.fppgformgrp.disable();
+  
           }
-          this.fppgformgrp = this.fb.group({
-            FCfppgEffectiveDate: [(this.fppgData.isFPPGActive) ? this.fppgDate : this.minDate,Validators.required],
-            FCfppgSitusState: [(this.fppgData.isFPPGActive) ? this.fppgSitus : this.lookupValue,Validators.required],
-            FCfppgEmpAmtMax: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.emp_max_amt: "",Validators.required],
-            FCfppgEmpGIAmtMax: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.emp_gi_max_amt : "",Validators.required],
-            FCfppgEmpQIAmtMax: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.emp_qi_max_amt : "",Validators.required],
-            FCfppgSpouseGIAmtMax: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.sp_gi_max_amt : "",Validators.required],
-            FCfppgSpouseQIAmtMax: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.sp_qi_max_amt : "",Validators.required],
-            FCfppgSpouseMaxAmt: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.sp_max_amt : "",Validators.required],
-            //FCfppgOpenEnrollGI: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg. : "",Validators.required],
-           
-            FCfppgEmpPlanCode: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.emp_plan_cd : "", Validators.required],
-            FCfppgSpousePlanCode: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.sp_plan_cd :"", Validators.required],
-            FCfppgChildPlanCode: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.ch_plan_cd : "", Validators.required],
-            
-            FCfppgQolRiders: [(this.fppgData.isFPPGActive) ?  this.fppgData.fppg.emp_quality_of_life: "",Validators.required],
-            FCfppgWaiver:[(this.fppgData.isFPPGActive) ?  this.fppgData.fppg.emp_waiver_of_prem: "",Validators.required],
-            FCfppgEffectiveDate_Action: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.effctv_dt_action : this.radioButtonArr[1].value, Validators.required],
-            FCfppgSitusState_Action:  [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.grp_situs_state_action : this.radioButtonArr[1].value, Validators.required],
-            FCfppgEmpAmtMax_Action: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.emp_max_amt_action : this.radioButtonArr[1].value, Validators.required],
-            FCfppgSpouseAmtMax_Action: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.sp_max_amt_action : this.radioButtonArr[1].value, Validators.required],
-           // FCfppgOpenEnrollGI_Action: [this.radioButtonArr[1].value, Validators.required],
-            FCfppgPlanCodeManualEntry_Action: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.emp_plan_cd_action : this.radioButtonArr[1].value, Validators.required],
-            FCfppgQolRiders_Action: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.emp_quality_of_life_action : this.radioButtonArr[1].value, Validators.required],
-            FCfppgWaiver_Action: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.emp_waiver_of_prem_action : this.radioButtonArr[1].value, Validators.required],
-          });
-
-        }
+        });
       });
+
+      
   }
 
  
