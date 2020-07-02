@@ -34,45 +34,7 @@ namespace AFBA.EPP.Helpers
             return planCodeViewModel;
          }
 
-        public static  void UpdateAgent( List<EppAgentsViewModel> eppAgentsModels, IUnitofWork _unitofWork, long grpId)
-        {
-            foreach ( var eppAgent in eppAgentsModels)
-            {
-                decimal agntComsnSplt = 0;
-                decimal.TryParse(eppAgent.AgntComsnSplt,out agntComsnSplt);
-
-                var data = _unitofWork.eppAgentRepository.Find(x => x.AgentId == long.Parse(eppAgent.AgentId)).Result.FirstOrDefault();
-                    if  (data!=null)
-                    {
-                         data.AgntNm = eppAgent.AgntNm;
-                        data.AgntNbr = eppAgent.AgntNbr;
-                        data.AgntSubCnt = eppAgent.AgntSubCnt;
-                        data.GrpId = grpId;
-                        data.AgntComsnSplt = agntComsnSplt;
-                        data.AgentId = long.Parse(eppAgent.AgentId);
-                        data.LstUpdtBy = "";
-                        data.LstUpdtDt = DateTime.UtcNow;
-
-                    _unitofWork.eppAgentRepository.Update(data);
-                    }
-                else
-                {
-                    var agentId = Helper.GetRandomNumber();
-                    data.AgntNm = eppAgent.AgntNm;
-                    data.AgntNbr = eppAgent.AgntNbr;
-                    data.AgntSubCnt = eppAgent.AgntSubCnt;
-                    data.GrpId = grpId;
-                    data.AgntComsnSplt = agntComsnSplt;
-                    data.CrtdBy = "";
-                    data.LstUpdtDt = DateTime.UtcNow;
-                   _unitofWork.eppAgentRepository.Add(data);
-                }
-               
-                    
-
-               
-            }
-        }
+         
     }
 
 
