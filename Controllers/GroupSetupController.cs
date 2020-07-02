@@ -1111,21 +1111,22 @@ namespace AFBA.EPP.Controllers
                     data.GrpId = grpId;
                     data.AgntComsnSplt = agntComsnSplt;
                     data.AgentId = long.Parse(eppAgent.AgentId);
-                    data.LstUpdtBy = "";
+                    data.LstUpdtBy = CrtdBy;
                     data.LstUpdtDt = DateTime.UtcNow;
 
                     _unitofWork.eppAgentRepository.Update(data);
                 }
                 else
                 {
-                    var agentId = Helper.GetRandomNumber();
+                    data = new EppAgents();
+                   data.AgentId= Helper.GetRandomNumber();
                     data.AgntNm = eppAgent.AgntNm;
                     data.AgntNbr = eppAgent.AgntNbr;
                     data.AgntSubCnt = eppAgent.AgntSubCnt;
                     data.GrpId = grpId;
                     data.AgntComsnSplt = agntComsnSplt;
-                    data.CrtdBy = "";
-                    data.LstUpdtDt = DateTime.UtcNow;
+                    data.CrtdBy = CrtdBy;
+                    data.CrtdDt = DateTime.UtcNow;
                     _unitofWork.eppAgentRepository.Add(data);
                 }
 
