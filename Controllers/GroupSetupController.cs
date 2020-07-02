@@ -20,6 +20,8 @@ namespace AFBA.EPP.Controllers
     public class GroupSetupController : ControllerBase
     {
         IUnitofWork _unitofWork;
+        string CrtdBy = "";
+        DateTime CreatedDate = DateTime.UtcNow;
         private readonly ILogger<GroupSetupController> _logger;
         public GroupSetupController(ILogger<GroupSetupController> logger, IUnitofWork unitofWork)
         {
@@ -69,7 +71,7 @@ namespace AFBA.EPP.Controllers
                 }
 
             }
-            var CrtdBy = "";        
+               
             grpMstdata.GrpNbr = groupSetupModel.GrpNbr;
             grpMstdata.GrpNm = groupSetupModel.GrpNm;
             grpMstdata.ActvFlg = groupSetupModel.ActvFlg;
@@ -122,55 +124,63 @@ namespace AFBA.EPP.Controllers
                 {
                     case "FPPG":
                         {
+                            UpdateBulkRefTable(groupSetupModel.FPPG, prod.GrpprdctId);
                             // add product code                   
-                            var blkDatas = _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == prod.GrpprdctId).Result;
-                            Type fppgType = groupSetupModel.FPPG.GetType();
-                            foreach (var blk in blkDatas)
-                            {
-                                var eppAttrs = _unitofWork.eppAttributeRepository.SingleOrDefault(x => x.AttrId == blk.AttrId).Result;
-                                if(!string.IsNullOrEmpty(eppAttrs.DbAttrNm))
-                                {
-                                    var actionPrpp = eppAttrs.DbAttrNm + "_action";
-                                    blk.Value = fppgType.GetProperty(eppAttrs.DbAttrNm).GetValue(groupSetupModel.FPPG).ToString();
+                            //var blkDatas = _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == prod.GrpprdctId).Result;
+                            //Type fppgType = groupSetupModel.FPPG.GetType();
+                            //foreach (var blk in blkDatas)
+                            //{
+                            //    var eppAttrs = _unitofWork.eppAttributeRepository.SingleOrDefault(x => x.AttrId == blk.AttrId).Result;
+                            //    if(!string.IsNullOrEmpty(eppAttrs.DbAttrNm))
+                            //    {
+                            //        var actionPrpp = eppAttrs.DbAttrNm + "_action";
+                            //        blk.Value = fppgType.GetProperty(eppAttrs.DbAttrNm).GetValue(groupSetupModel.FPPG).ToString();
 
-                                    var s = fppgType.GetProperty(eppAttrs.DbAttrNm).GetValue(groupSetupModel.FPPG).ToString();
-                                    long lvalue = 0;
-                                    long.TryParse(s, out lvalue);
-                                    if ( lvalue!=0)
-                                    blk.ActionId = lvalue;
-                                }                                
-                            }
-                            _unitofWork.eppBulkRefTblRepository.UpdateRange(blkDatas);                         
+                            //        var s = fppgType.GetProperty(eppAttrs.DbAttrNm).GetValue(groupSetupModel.FPPG).ToString();
+                            //        long lvalue = 0;
+                            //        long.TryParse(s, out lvalue);
+                            //        if ( lvalue!=0)
+                            //        blk.ActionId = lvalue;
+                            //    }                                
+                            //}
+                            //_unitofWork.eppBulkRefTblRepository.UpdateRange(blkDatas);                         
                             break;
                         }
                     case "ACC_HI":
                         {
 
-
+                            UpdateBulkRefTable(groupSetupModel.ACC_HI, prod.GrpprdctId);
                             break;
                         }
                     case "ER_CI":
                         {
+                            UpdateBulkRefTable(groupSetupModel.ER_CI, prod.GrpprdctId);
                             break;
                         }
                     case "VOL_CI":
                         {
+                            UpdateBulkRefTable(groupSetupModel.VOL_CI, prod.GrpprdctId);
                             break;
                         }
                     case "VGL":
                         {
+                            UpdateBulkRefTable(groupSetupModel.VGL, prod.GrpprdctId);
                             break;
                         }
                     case "BGL":
                         {
+                            UpdateBulkRefTable(groupSetupModel.BGL, prod.GrpprdctId);
                             break;
                         }
                     case "FPPI":
                         {
+
+                            UpdateBulkRefTable(groupSetupModel.FPPI, prod.GrpprdctId);
                             break;
                         }
                     case "HI":
                         {
+                            UpdateBulkRefTable(groupSetupModel.HI, prod.GrpprdctId);
                             break;
                         }
                 }
@@ -179,6 +189,32 @@ namespace AFBA.EPP.Controllers
             var id = _unitofWork.Complete().Result;
             return Ok(id);
         }
+
+
+        [NonAction]
+        private   void UpdateBulkRefTable<T>( T  productAttr, long GrpprdctId)
+        {
+            var blkDatas = _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == GrpprdctId).Result;
+            Type fppgType = productAttr.GetType();
+            foreach (var blk in blkDatas)
+            {
+                var eppAttrs = _unitofWork.eppAttributeRepository.SingleOrDefault(x => x.AttrId == blk.AttrId).Result;
+                if (!string.IsNullOrEmpty(eppAttrs.DbAttrNm))
+                {
+                    var actionPrpp = eppAttrs.DbAttrNm + "_action";
+                    blk.Value = fppgType.GetProperty(eppAttrs.DbAttrNm).GetValue(productAttr).ToString();
+
+                    var s = fppgType.GetProperty(eppAttrs.DbAttrNm).GetValue(productAttr).ToString();
+                    long lvalue = 0;
+                    long.TryParse(s, out lvalue);
+                    if (lvalue != 0)
+                        blk.ActionId = lvalue;
+                }
+            }
+            _unitofWork.eppBulkRefTblRepository.UpdateRange(blkDatas);
+        }
+
+       
 
         [Route("[action]")]
         [HttpPost]
@@ -220,19 +256,22 @@ namespace AFBA.EPP.Controllers
                     GrpNm = groupSetupModel.GrpNm,
                     ActvFlg = 'Y',
                     EnrlmntPrtnrsId = groupSetupModel.EnrlmntPrtnrsId,
-                     AcctMgrNm= groupSetupModel.AcctMgrNm,
-                     AcctMgrEmailAddrs=groupSetupModel .AcctMgrEmailAddrs,
+                    AcctMgrNm = groupSetupModel.AcctMgrNm,
+                    AcctMgrEmailAddrs = groupSetupModel.AcctMgrEmailAddrs,
                     GrpEfftvDt = groupSetupModel.GrpEfftvDt,
                     GrpSitusSt = groupSetupModel.GrpSitusSt,
                     GrpPymnId = groupSetupModel.GrpPymn,
-                     OccClass = groupSetupModel.OccClass,
+                    OccClass = groupSetupModel.OccClass,
+                    CaseTkn = groupSetupModel.case_token,
+                    UsrTkn= groupSetupModel.user_token,
                     GrpId = grpId,
                     CrtdBy = CrtdBy,
-                    CrtdDt= DateTime.UtcNow,
+                    CrtdDt = DateTime.UtcNow,
 
                 }
 
                 );
+                
 
                 // add group 
                 DataHelper.UpdateAgent(groupSetupModel.GrpAgents, _unitofWork, grpId);
@@ -249,9 +288,10 @@ namespace AFBA.EPP.Controllers
                         GrpprdctId = grpprdId,
                         GrpId = grpId,
                         ProductId = prdid,
-                        CrtdBy = CrtdBy
+                        CrtdBy = CrtdBy,
+                        CrtdDt = CreatedDate
 
-                    });
+                    }); ;
 
 
                     // add Product code
@@ -304,7 +344,8 @@ namespace AFBA.EPP.Controllers
                         GrpprdctId = grpprdId,
                         GrpId = grpId,
                         ProductId = prdid,
-                        CrtdBy = CrtdBy
+                        CrtdBy = CrtdBy,
+                        CrtdDt = CreatedDate
 
                     });
                     var bulkAttrs = Helper.GetProperties(groupSetupModel.ACC_HI);
@@ -325,7 +366,8 @@ namespace AFBA.EPP.Controllers
                         GrpprdctId = grpprdId,
                         GrpId = grpId,
                         ProductId = prdid,
-                        CrtdBy = CrtdBy
+                        CrtdBy = CrtdBy,
+                        CrtdDt = CreatedDate
 
                     });
 

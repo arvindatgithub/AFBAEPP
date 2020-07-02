@@ -29,15 +29,15 @@ namespace AFBA.EPP.ViewModels
         public string sp_max_amt { get; set; }
         //public string ch_max_amt { get; set; }
 
-        public string user_token { get; set; }
-        public string case_token { get; set; }
+        //public string user_token { get; set; }
+        //public string case_token { get; set; }
         public string effctv_dt_action { get; set; }
         public string grp_situs_state_action { get; set; }
         public string agnt_sig_txt_1 { get; set; }
 
         public string agnt_sig_txt_1_action { get; set; }
-        public string user_token_action { get; set; }
-        public string case_token_action { get; set; }
+        //public string user_token_action { get; set; }
+        //public string case_token_action { get; set; }
         public string emp_ProductCode { get; set; }
         public string sp_ProductCode { get; set; }
         public string ch_ProductCode { get; set; }

@@ -23,6 +23,9 @@ namespace AFBA.EPP.ViewModels
         public string AcctMgrNm { get; set; }
         public string AcctMgrEmailAddrs { get; set; }
         public string EmailAddress { get; set; }
+
+        public string user_token { get; set; }
+        public string case_token { get; set; }
         //public string AcctMgrNm { get; set; }
         //public long AcctMgrCntctId { get; set; }
         public bool isFPPGActive { get; set; }
