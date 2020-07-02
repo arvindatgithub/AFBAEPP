@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AFBA.EPP.ViewModels
 {
-    public class FPPI:CommonViewModel
+    public class FPPI:ProductBase
     {
 
         
