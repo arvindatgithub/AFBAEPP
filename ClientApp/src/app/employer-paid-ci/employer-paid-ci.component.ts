@@ -33,55 +33,68 @@ export class EmployerPaidCIComponent implements OnInit ,OnChanges{
   empCiData;
   empCiDate;
   empCiStatus;
+  resetFlag = true;
 
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe,
     private groupsearchService: GroupsearchService, private eppservice:EppCreateGrpSetupService) {
 
+      this.eppservice.castAddEditClone.subscribe(data => {
+        let status = data;
+        if(status == 'Edit' || status == 'Add'){
+          this.empCIformgrp.enable();
+          this.resetFlag = false;
+        } else {
+          this.resetFlag = true;
+        }
+      });
+
     let existingSelectedGrpNbr: any;
     this.groupsearchService.castGroupNumber.subscribe(data => {
       existingSelectedGrpNbr = data; 
-      console.log("BGL "+ existingSelectedGrpNbr); 
-    });
-
-    this.eppservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
-      this.empCiData = data;
-      
-      console.log('acc'+ JSON.stringify(data));
-      
-      //this.minDate = this.datepipe.transform(this.groupsfppgData.fppg.effctv_dt, 'yyyy-MM-dd');
-      if(this.empCiData !== undefined){
-        if(this.empCiData.isER_CIActive){
-          this.empCiDate = this.datepipe.transform(this.empCiData.eR_CI.effctv_dt, 'yyyy-MM-dd');
-          if(this.empCiData.eR_CI.grp_situs_state !== null){
-            this.empCiStatus = this.empCiData.eR_CI.grp_situs_state;
-          } else {
-            this.empCiStatus = this.lookupValue;
+      console.log("EMP-CI "+ existingSelectedGrpNbr); 
+      this.eppservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
+        this.empCiData = data;
+        
+        console.log('acc'+ JSON.stringify(data));
+        
+        //this.minDate = this.datepipe.transform(this.groupsfppgData.fppg.effctv_dt, 'yyyy-MM-dd');
+        if(this.empCiData !== undefined){
+          if(this.empCiData.isER_CIActive){
+            this.empCiDate = this.datepipe.transform(this.empCiData.eR_CI.effctv_dt, 'yyyy-MM-dd');
+            if(this.empCiData.eR_CI.grp_situs_state !== null){
+              this.empCiStatus = this.empCiData.eR_CI.grp_situs_state;
+            } else {
+              this.empCiStatus = this.lookupValue;
+            }
+            
           }
+  
+          this.empCIformgrp = this.fb.group({
+            FCempCIEffectiveDate: [(this.empCiData.isER_CIActive) ? this.empCiDate : this.minDate,Validators.required],
+            FCempCIEffectiveDate_Action: [(this.empCiData.isER_CIActive) ? this.empCiData.eR_CI.effctv_dt_action : this.radioButtonArr[1].value,Validators.required],
+            FCempCISitusState_Action: [(this.empCiData.isER_CIActive) ? this.empCiData.eR_CI.grp_situs_state_action : this.radioButtonArr[1].value,Validators.required],
+            FCempCISitusState: [(this.empCiData.isER_CIActive) ? this.empCiStatus : this.lookupValue,Validators.required],
+           
+            FCempCIEmpFcAmt: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.emp_face_amt_mon_bnft : "",Validators.required],
+            FCempCIEmpFcAmt_Action: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.emp_face_amt_mon_bnft_action : this.radioButtonArr[1].value,Validators.required],
+          
+            FCempCIPlanCode_Action: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.emp_plan_cd_action : this.radioButtonArr[1].value,Validators.required],
+        
+            FCempCIEMPPlanCode: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.emp_plan_cd :"",Validators.required],
+            FCempCISpouseFcAmt: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.sp_plan_cd : "",Validators.required],
+            FCempCIChdFcAmt: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.ch_plan_cd : "",Validators.required],
+            
+            FCempCIChdFcAmt_Action: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.ch_plan_cd_action : this.radioButtonArr[1].value,Validators.required],
+            FCempCISpouseFcAmt_Action:[(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.sp_plan_cd_action : this.radioButtonArr[1].value, Validators.required]
+          });
+          this.empCIformgrp.disable();
+         
           
         }
-
-        this.empCIformgrp = this.fb.group({
-          FCempCIEffectiveDate: [(this.empCiData.isER_CIActive) ? this.empCiDate : this.minDate,Validators.required],
-          FCempCIEffectiveDate_Action: [(this.empCiData.isER_CIActive) ? this.empCiData.eR_CI.effctv_dt_action : this.radioButtonArr[1].value,Validators.required],
-          FCempCISitusState_Action: [(this.empCiData.isER_CIActive) ? this.empCiData.eR_CI.grp_situs_state_action : this.radioButtonArr[1].value,Validators.required],
-          FCempCISitusState: [(this.empCiData.isER_CIActive) ? this.empCiStatus : this.lookupValue,Validators.required],
-         
-          FCempCIEmpFcAmt: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.emp_face_amt_mon_bnft : "",Validators.required],
-          FCempCIEmpFcAmt_Action: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.emp_face_amt_mon_bnft_action : this.radioButtonArr[1].value,Validators.required],
-        
-          FCempCIPlanCode_Action: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.emp_plan_cd_action : this.radioButtonArr[1].value,Validators.required],
-      
-          FCempCIEMPPlanCode: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.emp_plan_cd :"",Validators.required],
-          FCempCISpouseFcAmt: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.sp_plan_cd : "",Validators.required],
-          FCempCIChdFcAmt: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.ch_plan_cd : "",Validators.required],
-          
-          FCempCIChdFcAmt_Action: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.ch_plan_cd_action : this.radioButtonArr[1].value,Validators.required],
-          FCempCISpouseFcAmt_Action:[(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.sp_plan_cd_action : this.radioButtonArr[1].value, Validators.required]
         });
-       
-        
-      }
-      });
+    });
+
+    
    }
 
  
