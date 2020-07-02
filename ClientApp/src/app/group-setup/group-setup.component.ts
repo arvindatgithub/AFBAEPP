@@ -497,10 +497,11 @@ export class GroupSetupComponent implements OnInit {
   }
 
   onEdit() {
+    let grpNbr = this.groupsearchService.getEditGrpNbr();
     this.editRAddFlag = true;
     this.toggleFlag = false;
     this.agentformgrp.enable();
-    this.groupsearchService.existingGrpNbrSelected(this.editExistGrpNbr);
+    this.groupsearchService.existingGrpNbrSelected(grpNbr);
     this.eppcreategroupservice.setUserStatus('Edit');
   }
   onAdd() {
