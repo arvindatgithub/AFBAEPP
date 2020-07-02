@@ -202,7 +202,7 @@ export class GroupSetupComponent implements OnInit {
   commissionSplitErrBGL = false;
   editExistGrpNbr;
   occupationSelected = '';
-  selectedState = '';
+  selectedState = '0';
 
   constructor(private eppcreategroupservice: EppCreateGrpSetupService, private _fb: FormBuilder,
     private snackBar: MatSnackBar, private lookupService: LookupService, private groupsearchService: GroupsearchService) {
@@ -236,10 +236,10 @@ export class GroupSetupComponent implements OnInit {
       this.ManagerEmail = this.groupsData.emailAddress;
       //this.selected.id = this.groupsData.grpSitusSt;
       
-      if(this.selectedState !== null){
+      if(this.groupsData.grpSitusSt !== null){
         this.selectedState = this.groupsData.grpSitusSt;
       }else{
-        this.selectedState = '';
+        this.selectedState = '0';
       }
       this.isCheckedAccident = this.groupsData.isACC_HIActive;
       this.checkedToggleProductACCident = (this.isCheckedAccident) ? "Active" : this.checkedToggleProductACCident;

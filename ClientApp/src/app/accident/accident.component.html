@@ -19,8 +19,8 @@
         <span class="label label-default">Situs State</span>
         <select class="form-control"  formControlName="FCaccSitusState">
           <!-- <option hidden disabled selected value> -- select Situs State -- </option> -->
-          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates"  [selected]="lookUpDataSitusState.state == lookupValue" 
-          value={{lookUpDataSitusState.state}}>
+          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates"  [selected]="lookUpDataSitusState.id == lookupValue" 
+          value={{lookUpDataSitusState.id}}>
             {{lookUpDataSitusState.state}}</option>
         </select>
       </div>              
@@ -40,12 +40,6 @@
             {{ job.name }}
           </option>
         </select>
-        <!-- <select class="form-control" formControlName="FCaccOnOff">
-          <option selected>On and off the job</option>
-          <option> Off the job only</option>
-          <option>Both</option>
-        </select> -->
-      
       </div>
       <div class="radio-button">
         <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCaccRateLevel_Action" />
@@ -57,7 +51,7 @@
           Accident Rate Level
         </span>
         <select  class="form-control" formControlName="FCaccRateLevel">
-          <option hidden disabled selected value> -- Select Accident Rate Level -- </option>
+          
           <option *ngFor="let names of Rate" [ngValue]="names.abb">
             {{ names.no }} 
           </option>
