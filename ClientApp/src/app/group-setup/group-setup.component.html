@@ -7,15 +7,15 @@
 <div class="container" *ngIf="isLoading && groupsData !== undefined">
   <div class="row">
     <div class="form-group col-md-3">
-      <button type="submit" class="btn btn-primary mt-4 mb-4 disabled" (click)="onSubmit()">New Add
+      <button type="submit" class="btn btn-primary mt-4 mb-4" [disabled]="addDisable" (click)="onAdd()">New Add
       </button>
     </div>
     <div class="form-group col-md-3">
-      <button type="submit" class="btn btn-primary mt-4 mb-4 disabled" (click)="onSubmit()">Edit Existing
+      <button type="submit" class="btn btn-primary mt-4 mb-4" [disabled]="editDisable" (click)="onEdit()">Edit Existing
       </button>
     </div>
     <div class="form-group col-md-3">
-      <button type="submit" class="btn btn-primary mt-4 mb-4 disabled" (click)="onSubmit()">Clone Group
+      <button type="submit" class="btn btn-primary mt-4 mb-4 " [disabled]="cloneDisable" (click)="onClone()">Clone Group
       </button>
     </div>
     <div class="form-group col-md-3 mt-4 mb-4">
@@ -240,7 +240,7 @@
             FPPG
           </a>
           <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedFppg" (change)="toggleChangeProductFppg($event)"
-            [color]="toggleActiveColor" [disabled]="true">
+            [color]="toggleActiveColor" [disabled]="toggleFlag">
             {{checkedToggleProductFppg}}</mat-slide-toggle>
         </div>
         <div id="collapseOne" class="card-body collapse" data-parent="#accordion">
@@ -343,7 +343,7 @@
             FPP Individual
           </a>
           <mat-slide-toggle style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedFppInd"
-            (change)="toggleChangeProductFppIndivisual($event)" [color]="toggleActiveColor"  [disabled]="true">
+            (change)="toggleChangeProductFppIndivisual($event)" [color]="toggleActiveColor"  [disabled]=toggleFlag>
             {{checkedToggleProductFppi}}</mat-slide-toggle>
         </div>
         <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
@@ -449,7 +449,7 @@
             Accident
           </a>
           <mat-slide-toggle style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedAccident"
-            (change)="toggleChangeProductAccident($event)" [color]="toggleActiveColor"  [disabled]="true">
+            (change)="toggleChangeProductAccident($event)" [color]="toggleActiveColor"  [disabled]=toggleFlag>
             {{checkedToggleProductACCident}}</mat-slide-toggle>
         </div>
         <div id="collapseThree" class="collapse" data-parent="#accordion">
@@ -560,7 +560,7 @@
             Hospital Indemnity
           </a>
           <mat-slide-toggle style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedHospital"
-            (change)="toggleChangeProductHospitalIndemnity($event)" [color]="toggleActiveColor"  [disabled]="true">
+            (change)="toggleChangeProductHospitalIndemnity($event)" [color]="toggleActiveColor"  [disabled]=toggleFlag>
             {{checkedToggleProductHospitalIndemnity}}</mat-slide-toggle>
         </div>
         <div id="collapseFour" class="collapse" data-parent="#accordion">
@@ -670,7 +670,7 @@
             Employer Paid CI
           </a>
           <mat-slide-toggle style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedEmpPaidCi"
-            (change)="toggleChangeProductEmpPaidCi($event)" [color]="toggleActiveColor"  [disabled]="true">
+            (change)="toggleChangeProductEmpPaidCi($event)" [color]="toggleActiveColor"  [disabled]=toggleFlag>
             {{checkedToggleProductEmpPaidCI}}</mat-slide-toggle>
         </div>
         <div id="collapseFive" class="collapse" data-parent="#accordion">
@@ -784,7 +784,7 @@
             Voluntary CI
           </a>
           <mat-slide-toggle style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedVolutaryCi"
-            (change)="toggleChangeProductVolCI($event)" [color]="toggleActiveColor"  [disabled]="true">
+            (change)="toggleChangeProductVolCI($event)" [color]="toggleActiveColor"  [disabled]=toggleFlag>
             {{checkedToggleProductVolCI}}</mat-slide-toggle>
         </div>
         <div id="collapseSix" class="collapse" data-parent="#accordion">
@@ -897,7 +897,7 @@
             Vol Group Life
           </a>
           <mat-slide-toggle style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedVolGrpLife"
-            (change)="toggleChangeProductVilGrpLife($event)" [color]="toggleActiveColor"  [disabled]="true">
+            (change)="toggleChangeProductVilGrpLife($event)" [color]="toggleActiveColor"  [disabled]=toggleFlag>
             {{checkedToggleProductVolGrpCI}}</mat-slide-toggle>
         </div>
         <div id="collapseSeven" class="collapse" data-parent="#accordion">
@@ -1011,7 +1011,7 @@
             Basic Group Life
           </a>
           <mat-slide-toggle style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedBasicGrpLife"
-            (change)="toggleChangeProductBasicGrpLife($event)" [color]="toggleActiveColor"  [disabled]="true">
+            (change)="toggleChangeProductBasicGrpLife($event)" [color]="toggleActiveColor"  [disabled]=toggleFlag>
             {{checkedToggleProductBcsGrpLife}}</mat-slide-toggle>
         </div>
         <div id="collapseEight" class="collapse" data-parent="#accordion">

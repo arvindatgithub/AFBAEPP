@@ -32,58 +32,72 @@ export class VoluntaryCIComponent implements OnInit,OnChanges {
   volCiData;
   volCiDate;
   volCiSitus;
+  resetFlag = true;
 
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe,
     private groupsearchService: GroupsearchService, private eppservice:EppCreateGrpSetupService) {
+
+      
+
       let existingSelectedGrpNbr: any;
       this.groupsearchService.castGroupNumber.subscribe(data => {
         existingSelectedGrpNbr = data; 
-        console.log("BGL "+ existingSelectedGrpNbr); 
+        console.log("VCI "+ existingSelectedGrpNbr); 
+        this.eppservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
+          this.volCiData = data;
+          console.log('vol ci'+ JSON.stringify(this.volCiData));
+          if(this.volCiData !== undefined){
+  
+            if(this.volCiData.isVOL_CIActive){
+              this.volCiDate = this.datepipe.transform(this.volCiData.voL_CI.effctv_dt, 'yyyy-MM-dd');
+              if(this.volCiData.voL_CI.grp_situs_state !== null){
+                this.volCiSitus = this.volCiData.voL_CI.grp_situs_state;
+              } else {
+                this.volCiSitus = this.lookupValue;
+              }
+            }
+            this.volCIformgrp = this.fb.group({
+              FCVolCIEffectiveDate: [(this.volCiData.isVOL_CIActive) ? this.volCiDate : this.minDate,Validators.required],
+              FCVolCIEffectiveDate_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.effctv_dt_action : this.radioButtonArr[1].value,Validators.required],
+              FCVolCISitusState: [(this.volCiData.isVOL_CIActive) ? this.volCiSitus : this.lookupValue,Validators.required],
+              FCVolCISitusState_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.grp_situs_state_action : this.radioButtonArr[1].value,Validators.required],
+              FCVolCIEmpGIAmtMax: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.emp_gi_max_amt : "",Validators.required],
+              FCVolCIEmpGIAmtMax_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.emp_gi_max_amt_action : this.radioButtonArr[1].value,Validators.required],
+              FCVolCIEmpQIAmtMax: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.emp_qi_max_amt : "",Validators.required],
+              FCVolCIEmpAmtMax: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.emp_max_amt : "",Validators.required],
+              FCVolCISpouseGIAmtMax: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.sp_gi_max_amt : "",Validators.required],
+              FCVolCISpouseQIAmtMax: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.sp_qi_max_amt : "",Validators.required],
+              FCVolCISpouseAmtMax: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.sp_max_amt : "",Validators.required],
+              FCVolCISpouseAmtMax_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.sp_max_amt_action : this.radioButtonArr[1].value,Validators.required],
+              FCVolCIEmpPlanCode: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.emp_plan_cd : "",Validators.required],
+              FCVolCISpousePlanCode: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.sp_plan_cd : "",Validators.required],
+              FCVolCIChildPlanCode: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.ch_plan_cd : "",Validators.required],
+              FCVolCIPlanCodeManualEntry_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.emp_plan_cd_action : this.radioButtonArr[1].value,Validators.required],
+              //FCVolCIOpenEnrollGI: ["",Validators.required],
+              //FCVolCIOpenEnrollGI_Action: [this.radioButtonArr[1].value,Validators.required],
+              FCVolCIEmpNTB: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.owner_smkr_no_smkr : "",Validators.required],
+              FCVolCIEmpNTB_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.owner_smkr_no_smkr_action : this.radioButtonArr[1].value,Validators.required],
+              FCVolCIEmpTB_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.owner_smkr_no_smkr_action : this.radioButtonArr[1].value,Validators.required],
+              FCVolCIEmpTB: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.owner_smkr_no_smkr : "",Validators.required],
+             
+              FCVolCISpouseNTB: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.sp_smkr_no_smkr : "",Validators.required],
+              FCVolCISpouseNTB_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.sp_smkr_no_smkr_action : this.radioButtonArr[1].value,Validators.required],
+              FCVolCISpouseTB_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.sp_smkr_no_smkr_action : this.radioButtonArr[1].value,Validators.required],
+              FCVolCISpouseTB: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.sp_smkr_no_smkr : "",Validators.required],
+            });
+            this.volCIformgrp.disable();
+          }
+        });
       });
 
-      this.eppservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
-        this.volCiData = data;
-        console.log('vol ci'+ JSON.stringify(this.volCiData));
-        if(this.volCiData !== undefined){
-
-          if(this.volCiData.isVOL_CIActive){
-            this.volCiDate = this.datepipe.transform(this.volCiData.voL_CI.effctv_dt, 'yyyy-MM-dd');
-            if(this.volCiData.voL_CI.grp_situs_state !== null){
-              this.volCiSitus = this.volCiData.voL_CI.grp_situs_state;
-            } else {
-              this.volCiSitus = this.lookupValue;
-            }
-          }
-          this.volCIformgrp = this.fb.group({
-            FCVolCIEffectiveDate: [(this.volCiData.isVOL_CIActive) ? this.volCiDate : this.minDate,Validators.required],
-            FCVolCIEffectiveDate_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.effctv_dt_action : this.radioButtonArr[1].value,Validators.required],
-            FCVolCISitusState: [(this.volCiData.isVOL_CIActive) ? this.volCiSitus : this.lookupValue,Validators.required],
-            FCVolCISitusState_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.grp_situs_state_action : this.radioButtonArr[1].value,Validators.required],
-            FCVolCIEmpGIAmtMax: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.emp_gi_max_amt : "",Validators.required],
-            FCVolCIEmpGIAmtMax_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.emp_gi_max_amt_action : this.radioButtonArr[1].value,Validators.required],
-            FCVolCIEmpQIAmtMax: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.emp_qi_max_amt : "",Validators.required],
-            FCVolCIEmpAmtMax: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.emp_max_amt : "",Validators.required],
-            FCVolCISpouseGIAmtMax: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.sp_gi_max_amt : "",Validators.required],
-            FCVolCISpouseQIAmtMax: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.sp_qi_max_amt : "",Validators.required],
-            FCVolCISpouseAmtMax: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.sp_max_amt : "",Validators.required],
-            FCVolCISpouseAmtMax_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.sp_max_amt_action : this.radioButtonArr[1].value,Validators.required],
-            FCVolCIEmpPlanCode: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.emp_plan_cd : "",Validators.required],
-            FCVolCISpousePlanCode: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.sp_plan_cd : "",Validators.required],
-            FCVolCIChildPlanCode: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.ch_plan_cd : "",Validators.required],
-            FCVolCIPlanCodeManualEntry_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.emp_plan_cd_action : this.radioButtonArr[1].value,Validators.required],
-            //FCVolCIOpenEnrollGI: ["",Validators.required],
-            //FCVolCIOpenEnrollGI_Action: [this.radioButtonArr[1].value,Validators.required],
-            FCVolCIEmpNTB: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.owner_smkr_no_smkr : "",Validators.required],
-            FCVolCIEmpNTB_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.owner_smkr_no_smkr_action : this.radioButtonArr[1].value,Validators.required],
-            FCVolCIEmpTB_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.owner_smkr_no_smkr_action : this.radioButtonArr[1].value,Validators.required],
-            FCVolCIEmpTB: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.owner_smkr_no_smkr : "",Validators.required],
-           
-            FCVolCISpouseNTB: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.sp_smkr_no_smkr : "",Validators.required],
-            FCVolCISpouseNTB_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.sp_smkr_no_smkr_action : this.radioButtonArr[1].value,Validators.required],
-            FCVolCISpouseTB_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.sp_smkr_no_smkr_action : this.radioButtonArr[1].value,Validators.required],
-            FCVolCISpouseTB: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.sp_smkr_no_smkr : "",Validators.required],
-          });
-          this.volCIformgrp.disable();
+      
+      this.eppservice.castAddEditClone.subscribe(data => {
+        let status = data;
+        if(status == 'Edit' || status == 'Add'){
+          this.volCIformgrp.enable();
+          this.resetFlag = false;
+        } else {
+          this.resetFlag = true;
         }
       });
      }

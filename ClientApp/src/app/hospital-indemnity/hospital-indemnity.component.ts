@@ -32,41 +32,53 @@ export class HospitalIndemnityComponent implements OnInit,OnChanges {
   hiData;
   hiDate;
   hiStatus;
+  resetFlag = true;
 
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe,
     private groupsearchService: GroupsearchService, private eppservice:EppCreateGrpSetupService) {
 
+      this.eppservice.castAddEditClone.subscribe(data => {
+        let status = data;
+        if(status == 'Edit' || status == 'Add'){
+          this.hospformgrp.enable();
+          this.resetFlag = false;
+        } else {
+          this.resetFlag = true;
+        }
+      });
+
       let existingSelectedGrpNbr: any;
       this.groupsearchService.castGroupNumber.subscribe(data => {
         existingSelectedGrpNbr = data; 
-        console.log("BGL "+ existingSelectedGrpNbr); 
-      });
-
-      this.eppservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
-        this.hiData = data;
-        
-        console.log('acc'+ JSON.stringify(data));
-
-        if(this.hiData !== undefined){
-          if(this.hiData.isHIActive){
-            this.hiDate = this.datepipe.transform(this.hiData.hi.effctv_dt, 'yyyy-MM-dd');
-            if(this.hiData.hi.grp_situs_state !== null){
-              this.hiStatus = this.hiData.hi.grp_situs_state;
-            } else {
-              this.hiStatus = this.lookupValue;
+        console.log("HI "+ existingSelectedGrpNbr); 
+        this.eppservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
+          this.hiData = data;
+          
+          console.log('acc'+ JSON.stringify(data));
+  
+          if(this.hiData !== undefined){
+            if(this.hiData.isHIActive){
+              this.hiDate = this.datepipe.transform(this.hiData.hi.effctv_dt, 'yyyy-MM-dd');
+              if(this.hiData.hi.grp_situs_state !== null){
+                this.hiStatus = this.hiData.hi.grp_situs_state;
+              } else {
+                this.hiStatus = this.lookupValue;
+              }
             }
+            
+              this.hospformgrp = this.fb.group({
+                FChospEffectiveDate: [(this.hiData.isHIActive) ? this.hiDate : this.minDate,Validators.required],
+                FChospEffectiveDate_Action: [(this.hiData.isHIActive) ? this.hiData.hi.effctv_dt_action : this.radioButtonArr[1].value,Validators.required],
+                FChospSitusState: [(this.hiData.isHIActive) ? this.hiStatus : this.lookupValue,Validators.required],
+                FChospSitusState_Action: [(this.hiData.isHIActive) ? this.hiData.hi.grp_situs_state_action : this.radioButtonArr[1].value,Validators.required],
+              });
+            
+            this.hospformgrp.disable();
           }
-          
-            this.hospformgrp = this.fb.group({
-              FChospEffectiveDate: [(this.hiData.isHIActive) ? this.hiDate : this.minDate,Validators.required],
-              FChospEffectiveDate_Action: [(this.hiData.isHIActive) ? this.hiData.hi.effctv_dt_action : this.radioButtonArr[1].value,Validators.required],
-              FChospSitusState: [(this.hiData.isHIActive) ? this.hiStatus : this.lookupValue,Validators.required],
-              FChospSitusState_Action: [(this.hiData.isHIActive) ? this.hiData.hi.grp_situs_state_action : this.radioButtonArr[1].value,Validators.required],
-            });
-          
-          this.hospformgrp.disable();
-        }
+        });
       });
+
+     
 
     }
   // get myForm() {

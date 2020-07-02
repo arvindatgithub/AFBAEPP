@@ -43,62 +43,75 @@ export class AccidentComponent implements OnInit,OnChanges {
  accidentSitus;
  on_off;
  rate_level;
+ resetFlag = true;
 
   constructor(private lookupService: LookupService, private fb:FormBuilder, public datepipe: DatePipe,
     private groupsearchService: GroupsearchService, private eppservice:EppCreateGrpSetupService) {
+
+      this.eppservice.castAddEditClone.subscribe(data => {
+        let status = data;
+        if(status == 'Edit' || status == 'Add'){
+          this.accformgrp.enable();
+          this.resetFlag = false;
+        } else {
+          this.resetFlag = true;
+        }
+      });
+
       let existingSelectedGrpNbr: any;
       this.groupsearchService.castGroupNumber.subscribe(data => {
         existingSelectedGrpNbr = data; 
-        console.log("BGL "+ existingSelectedGrpNbr); 
+        console.log("Accident "+ existingSelectedGrpNbr); 
+        this.eppservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
+          this.accidentData = data;
+          
+          console.log('acc'+ JSON.stringify(data));
+          
+          //this.minDate = this.datepipe.transform(this.groupsfppgData.fppg.effctv_dt, 'yyyy-MM-dd');
+          if(this.accidentData !== undefined){
+            if(this.accidentData.isACC_HIActive){
+              this.accidentDate = this.datepipe.transform(this.accidentData.acC_HI.effctv_dt, 'yyyy-MM-dd');
+              if(this.accidentData.acC_HI.grp_situs_state !== null){
+                this.accidentSitus = this.accidentData.acC_HI.grp_situs_state;
+              } else {
+                this.accidentSitus = this.lookupValue;
+              }
+              if(this.accidentData.acC_HI.sp_smkr_no_smkr !== null){
+                this.on_off = this.accidentData.acC_HI.sp_smkr_no_smkr;
+              } else {
+                this.on_off = this.jobs[2].abbrev;
+              }
+              if(this.accidentData.acC_HI.rate_lvl !== null){
+                this.rate_level = this.accidentData.acC_HI.rate_lvl;
+              } else {
+                this.rate_level = this.Rate[0].no;
+              }
+            }
+  
+            this.accformgrp = this.fb.group({
+              FCaccSitusState_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.grp_situs_state_action : this.radioButtonArr[1].value,Validators.required],
+              FCaccSitusState: [(this.accidentData.isACC_HIActive) ? this.accidentSitus : this.lookupValue,Validators.required],
+              FCaccEffectiveDate: [(this.accidentData.isACC_HIActive) ? this.accidentDate : this.minDate,Validators.required],
+              FCaccEffectiveDate_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.effctv_dt_action : this.radioButtonArr[1].value,Validators.required],
+              FCaccOnOff: [(this.accidentData.isACC_HIActive) ? this.on_off : this.jobs[2].abbrev,Validators.required],
+              FCaccOnOff_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.sp_smkr_no_smkr_action : this.radioButtonArr[1].value,Validators.required],
+              FCaccRateLevel: [(this.accidentData.isACC_HIActive) ? this.Rate[0].no : this.Rate[0].no,Validators.required],
+              FCaccRateLevel_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.rate_lvl_action : this.radioButtonArr[1].value,Validators.required],
+              FcaccChildName: ["",Validators.required],
+              FcaccChildDOB: ["",Validators.required],
+              FcaccChildGender: ["",Validators.required],
+              FcaccChildName_Action: [this.radioButtonArr[1].value,Validators.required],
+              FcaccChildDOB_Action: [this.radioButtonArr[1].value,Validators.required],
+              FcaccChildGender_Action: [this.radioButtonArr[1].value,Validators.required],
+            });
+           
+            this.accformgrp.disable();
+            
+          }
+          });
       });
 
-      this.eppservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
-        this.accidentData = data;
-        
-        console.log('acc'+ JSON.stringify(data));
-        
-        //this.minDate = this.datepipe.transform(this.groupsfppgData.fppg.effctv_dt, 'yyyy-MM-dd');
-        if(this.accidentData !== undefined){
-          if(this.accidentData.isACC_HIActive){
-            this.accidentDate = this.datepipe.transform(this.accidentData.acC_HI.effctv_dt, 'yyyy-MM-dd');
-            if(this.accidentData.acC_HI.grp_situs_state !== null){
-              this.accidentSitus = this.accidentData.acC_HI.grp_situs_state;
-            } else {
-              this.accidentSitus = this.lookupValue;
-            }
-            if(this.accidentData.acC_HI.sp_smkr_no_smkr !== null){
-              this.on_off = this.accidentData.acC_HI.sp_smkr_no_smkr;
-            } else {
-              this.on_off = this.jobs[2].abbrev;
-            }
-            if(this.accidentData.acC_HI.rate_lvl !== null){
-              this.rate_level = this.accidentData.acC_HI.rate_lvl;
-            } else {
-              this.rate_level = this.Rate[0].no;
-            }
-          }
-
-          this.accformgrp = this.fb.group({
-            FCaccSitusState_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.grp_situs_state_action : this.radioButtonArr[1].value,Validators.required],
-            FCaccSitusState: [(this.accidentData.isACC_HIActive) ? this.accidentSitus : this.lookupValue,Validators.required],
-            FCaccEffectiveDate: [(this.accidentData.isACC_HIActive) ? this.accidentDate : this.minDate,Validators.required],
-            FCaccEffectiveDate_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.effctv_dt_action : this.radioButtonArr[1].value,Validators.required],
-            FCaccOnOff: [(this.accidentData.isACC_HIActive) ? this.on_off : this.jobs[2].abbrev,Validators.required],
-            FCaccOnOff_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.sp_smkr_no_smkr_action : this.radioButtonArr[1].value,Validators.required],
-            FCaccRateLevel: [(this.accidentData.isACC_HIActive) ? this.Rate[0].no : this.Rate[0].no,Validators.required],
-            FCaccRateLevel_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.rate_lvl_action : this.radioButtonArr[1].value,Validators.required],
-            FcaccChildName: ["",Validators.required],
-            FcaccChildDOB: ["",Validators.required],
-            FcaccChildGender: ["",Validators.required],
-            FcaccChildName_Action: [this.radioButtonArr[1].value,Validators.required],
-            FcaccChildDOB_Action: [this.radioButtonArr[1].value,Validators.required],
-            FcaccChildGender_Action: [this.radioButtonArr[1].value,Validators.required],
-          });
-         
-          this.accformgrp.disable();
-          
-        }
-        });
+      
      }
 
  
