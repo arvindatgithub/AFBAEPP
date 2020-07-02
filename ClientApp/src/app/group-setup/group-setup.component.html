@@ -116,7 +116,7 @@
       <span class="label label-default">Situs State<span aria-hidden="true" class="required">*</span></span>
       <select class="select-dropdown my-1" #situsState (change)="getLookupValueSitusState(situsState.value)" [(ngModel)]="selectedState">
         <!-- <option hidden disabled selected value> -- select Situs State -- </option> -->
-        <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates"  value={{lookUpDataSitusState.state}} [selected]="lookUpDataSitusState.state == selectedState">
+        <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates"  value={{lookUpDataSitusState.id}} [selected]="lookUpDataSitusState.id == selectedState">
           {{ lookUpDataSitusState.state }}
         </option>
       </select>

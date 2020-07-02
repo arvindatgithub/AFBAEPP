@@ -20,8 +20,8 @@
       <span class="label label-default">Situs State</span>
       <select class="form-control" formControlName="FCempCISitusState">
         <!-- <option hidden disabled selected value> -- select Situs State -- </option> -->
-        <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates"  [selected]="lookUpDataSitusState.state == lookupValue"
-         value={{lookUpDataSitusState.state}}>
+        <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates"  [selected]="lookUpDataSitusState.id == lookupValue"
+         value={{lookUpDataSitusState.id}}>
           {{lookUpDataSitusState.state}}</option>
 
       </select>
