@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AFBA.EPP.ViewModels
 {
-    public class HI:CommonViewModel
+    public class HI:ProductBase
     {
         public string effctv_dt { get; set; }
         public string grp_situs_state { get; set; }

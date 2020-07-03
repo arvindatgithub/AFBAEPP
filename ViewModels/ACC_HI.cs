@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AFBA.EPP.ViewModels
 {
-    public class ACC_HI: CommonViewModel
+    public class ACC_HI: ProductBase
     {
    
         public string effctv_dt { get; set; }

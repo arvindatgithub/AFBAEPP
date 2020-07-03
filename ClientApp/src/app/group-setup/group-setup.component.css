@@ -94,6 +94,10 @@ padding-bottom: 60px;
 .required {
     color: red;
   }
+
+  .borderBlue {
+      border: 1px solid #1861ac;
+  }
   
 
 
