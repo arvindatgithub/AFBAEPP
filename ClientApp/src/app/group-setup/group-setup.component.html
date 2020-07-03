@@ -47,8 +47,8 @@
           </div>
         </div>
         <div class="form-group col-md-3" [formGroup]="groupSetupFG">
-          <span class="label label-default">Product effective date<span aria-hidden="true" class="required">*</span></span>
-          <input type="date" formControlName="fcEffDate" name="effDate" [min]="minDate" class="form-control" [(ngModel)]="minDate"
+          <span class="label label-default">Group effective date<span aria-hidden="true" class="required">*</span></span>
+          <input type="date" formControlName="fcEffDate" name="effDate"  class="form-control" [(ngModel)]="minDate"
             style="width: 100%;" placeholder="Group Effective Date">
         </div>
         <div class="form-group col-md-3">
@@ -252,9 +252,9 @@
           <app-fppg [lookupValue]="selectedState" #child0 [dateValue]="dateChange">
 
             <form class="agent-form" [formGroup]="agentformgrp">
-              <div *ngIf="commissionSplitErr || commissionSplitErrFppg">
+              <!-- <div *ngIf="commissionSplitErr || commissionSplitErrFppg">
                 <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
-              </div>
+              </div> -->
               <div class="radio-button" style="display: inline-block;padding-left: 5px;"
                 *ngFor="let item of radioButtonArr">
                 <div><input type="radio" value={{item.value}} formControlName="fppgAgent_Action" />
@@ -267,6 +267,7 @@
                   <input type="text" maxlength="5" formControlName="AgentNumberfppg" name="text" class="form-control mb-2"
                     style="width: 100%;" placeholder="Primary Agent Number"
                     onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                   
                 </div>
                 <div class="col-md-3">
                   <span class="label label-default">Agent SubCount</span>
@@ -284,6 +285,9 @@
                   <span class="label label-default">Agent Name</span>
                   <input type="text" formControlName="AgentNamefppg" class="form-control mb-2 " style="width: 100%;"
                     placeholder="Agent Name" onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
+                    <div *ngIf="commissionSplitErr || commissionSplitErrFppg">
+                      <h6 style="color: #ff6363;" >Commission Split Value Cannot Be More Than 100</h6>
+                    </div>
                 </div>
               </div>
 
@@ -354,9 +358,7 @@
 
           <app-fpp-individual [lookupValue]="selectedState" #child1 [dateValue]="dateChange">
             <form class="agent-form" [formGroup]="agentformgrp">
-              <div *ngIf="commissionSplitErr || commissionSplitErrFppi">
-                <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
-              </div>
+            
               <div class="radio-button" style="display: inline-block;padding-left: 5px;"
                 *ngFor="let item of radioButtonArr">
                 <div><input type="radio" value={{item.value}} formControlName="fppiAgent_Action" />
@@ -369,6 +371,7 @@
                   <input type="text" maxlength="5" formControlName="AgentNumberFppIndivisual" name="text" class="form-control mb-2"
                     style="width: 100%;" placeholder="Primary Agent Number"
                     onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                    
                 </div>
                 <div class="col-md-3">
                   <span class="label label-default">Agent SubCount</span>
@@ -388,6 +391,9 @@
                   <input type="text" formControlName="AgentNameFppIndivisual" class="form-control mb-2 "
                     style="width: 100%;" placeholder="Agent Name"
                     onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
+                    <div *ngIf="commissionSplitErr || commissionSplitErrFppi">
+                      <h6 style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</h6>
+                    </div>
                 </div>
               </div>
 
@@ -461,9 +467,7 @@
 
             <app-accident [lookupValue]="selectedState" #child2 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
-                <div *ngIf="commissionSplitErr || commissionSplitErrAcc">
-                  <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
-                </div>
+               
                 <div class="radio-button" style="display: inline-block;padding-left: 5px;"
                   *ngFor="let item of radioButtonArr">
                   <div><input type="radio" value={{item.value}} formControlName="accAgent_Action" />
@@ -476,6 +480,7 @@
                     <input type="text" maxlength="5" formControlName="AgentNumberaccident" name="text" class="form-control mb-2"
                       style="width: 100%;" placeholder="Primary Agent Number"
                       onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                     
                   </div>
                   <div class="col-md-3">
                     <span class="label label-default">Agent SubCount</span>
@@ -495,6 +500,9 @@
                     <input type="text" formControlName="AgentNameaccident" class="form-control mb-2 "
                       style="width: 100%;" placeholder="Agent Name"
                       onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
+                      <div *ngIf="commissionSplitErr || commissionSplitErrAcc">
+                        <h6 style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</h6>
+                      </div>
                   </div>
                 </div>
 
@@ -571,9 +579,7 @@
           <div class="card-body">
             <app-hospital-indemnity [lookupValue]="selectedState" #child3 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
-                <div *ngIf="commissionSplitErr || commissionSplitErrHos">
-                  <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
-                </div>
+              
                 <div class="radio-button" style="display: inline-block;padding-left: 5px;"
                   *ngFor="let item of radioButtonArr">
                   <div><input type="radio" value={{item.value}} formControlName="hospAgent_Action" />
@@ -605,6 +611,9 @@
                     <input type="text" formControlName="AgentNameHospitalIndemnity" class="form-control mb-2 "
                       style="width: 100%;" placeholder="Agent Name"
                       onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
+                      <div *ngIf="commissionSplitErr || commissionSplitErrHos">
+                        <h6 style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</h6>
+                      </div>
                   </div>
                 </div>
 
@@ -681,9 +690,7 @@
           <div class="card-body">
             <app-employer-paid-ci [lookupValue]="selectedState" #child4 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
-                <div *ngIf="commissionSplitErr || commissionSplitErrEmpCI">
-                  <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
-                </div>
+              
                 <div class="radio-button" style="display: inline-block;padding-left: 5px;"
                   *ngFor="let item of radioButtonArr">
                   <div><input type="radio" value={{item.value}} formControlName="empCIAgent_Action" />
@@ -716,6 +723,9 @@
                     <input type="text" formControlName="AgentNameempPaidci" class="form-control mb-2 "
                       style="width: 100%;" placeholder="Agent Name"
                       onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
+                      <div *ngIf="commissionSplitErr || commissionSplitErrEmpCI">
+                        <h6 style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</h6>
+                      </div>
                   </div>
                 </div>
 
@@ -795,9 +805,7 @@
           <div class="card-body">
             <app-voluntary-ci [lookupValue]="selectedState" #child5 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
-                <div *ngIf="commissionSplitErr || commissionSplitErrVolCI">
-                  <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
-                </div>
+              
                 <div class="radio-button" style="display: inline-block;padding-left: 5px;"
                   *ngFor="let item of radioButtonArr">
                   <div><input type="radio" value={{item.value}} formControlName="volCIAgent_Action" />
@@ -829,6 +837,9 @@
                     <span class="label label-default">Agent Name</span>
                     <input type="text" formControlName="AgentNamevolCi" class="form-control mb-2 " style="width: 100%;"
                       placeholder="Agent Name" onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
+                      <div *ngIf="commissionSplitErr || commissionSplitErrVolCI">
+                        <h6 style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</h6>
+                      </div>
                   </div>
                 </div>
 
@@ -908,9 +919,7 @@
           <div class="card-body">
             <app-vol-group-life [lookupValue]="selectedState" #child6 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
-                <div *ngIf="commissionSplitErr || commissionSplitErrVolGpLf">
-                  <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
-                </div>
+               
                 <div class="radio-button" style="display: inline-block;padding-left: 5px;"
                   *ngFor="let item of radioButtonArr">
                   <div><input type="radio" value={{item.value}} formControlName="volGrpLfAgent_Action" />
@@ -943,6 +952,9 @@
                     <input type="text" formControlName="AgentNameVolGrpLife" class="form-control mb-2 "
                       style="width: 100%;" placeholder="Agent Name"
                       onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
+                      <div *ngIf="commissionSplitErr || commissionSplitErrVolGpLf">
+                        <h6 style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</h6>
+                      </div>
                   </div>
                 </div>
 
@@ -1022,9 +1034,7 @@
           <div class="card-body">
             <app-basic-group-life [lookupValue]="selectedState" #child7 [dateValue]="dateChange">
               <form class="agent-form" [formGroup]="agentformgrp">
-                <div *ngIf="commissionSplitErr || commissionSplitErrBGL">
-                  <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
-                </div>
+               
                 <div class="radio-button" style="display: inline-block;padding-left: 5px;"
                   *ngFor="let item of radioButtonArr">
                   <div><input type="radio" value={{item.value}} formControlName="basicGrpLfAgent_Action" />
@@ -1056,6 +1066,9 @@
                     <input type="text" formControlName="AgentNameBasicgrpLife" class="form-control mb-2 "
                       style="width: 100%;" placeholder="Agent Name"
                       onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
+                      <div *ngIf="commissionSplitErr || commissionSplitErrBGL">
+                        <h6 style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</h6>
+                      </div>
                   </div>
                 </div>
 
