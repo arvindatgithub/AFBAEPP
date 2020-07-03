@@ -17,7 +17,7 @@ import { VoluntaryCIComponent } from '../voluntary-ci/voluntary-ci.component';
 import { VolGroupLifeComponent } from '../vol-group-life/vol-group-life.component';
 import { BasicGroupLifeComponent } from '../basic-group-life/basic-group-life.component'
 import { GroupsearchService } from '../services/groupsearch.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-group-setup',
   templateUrl: './group-setup.component.html',
@@ -210,7 +210,7 @@ export class GroupSetupComponent implements OnInit {
   toggleFlag = true;
   editRAddFlag = false;
   
-  constructor(private eppcreategroupservice: EppCreateGrpSetupService, private _fb: FormBuilder,
+  constructor(private eppcreategroupservice: EppCreateGrpSetupService,private toastr: ToastrService, private _fb: FormBuilder,
     private snackBar: MatSnackBar, private lookupService: LookupService, private groupsearchService: GroupsearchService) {
   }
 
@@ -1013,7 +1013,7 @@ export class GroupSetupComponent implements OnInit {
   emp_waiver_of_premfpp:any;
   sp_quality_of_lifefpp:any;
   sp_waiver_of_premfpp:any;
-
+  
   onSubmit() {
     console.log("this.fppgComponent.fppgformgrp.value.FCfppgQolRiders",this.fppgComponent.fppgformgrp.value.FCfppgQolRiders)
     if (this.fppgComponent.fppgformgrp.value.FCfppgQolRiders) {
@@ -1516,10 +1516,13 @@ export class GroupSetupComponent implements OnInit {
         console.log("data", data);
       },
       (error:any) =>{
-        this.snackBar.open(error.error,"close",{
-            duration:2000,
+        this.toastr.error(error.error,'Error',{
+          timeOut:3000,
         });
-        window.scrollTo(0,0); 
+        // this.snackBar.open(error.error,"close",{
+        //     duration:2000,
+        // });
+        // window.scrollTo(0,0); 
       }
       );
     }
