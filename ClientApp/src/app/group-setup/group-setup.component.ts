@@ -204,9 +204,9 @@ export class GroupSetupComponent implements OnInit {
   occupationSelected = '';
   selectedState = '0';
   fieldsetDisabled;
-  addDisable = false;
-  editDisable = false;
-  cloneDisable = false;
+  addToggle = false;
+  editToggle = false;
+  cloneToggle = false;
   toggleFlag = true;
   editRAddFlag = false;
   
@@ -497,6 +497,9 @@ export class GroupSetupComponent implements OnInit {
   }
 
   onEdit() {
+    this.addToggle = false;
+    this.editToggle = true;
+    this.cloneToggle = false;
     let grpNbr = this.groupsearchService.getEditGrpNbr();
     this.editRAddFlag = true;
     this.toggleFlag = false;
@@ -505,6 +508,9 @@ export class GroupSetupComponent implements OnInit {
     this.eppcreategroupservice.setUserStatus('Edit');
   }
   onAdd() {
+    this.addToggle = true;
+    this.editToggle = false;
+    this.cloneToggle = false;
     this.editRAddFlag = true;
     this.toggleFlag = false;
     this.agentformgrp.enable();
@@ -512,7 +518,9 @@ export class GroupSetupComponent implements OnInit {
     this.eppcreategroupservice.setUserStatus('Add');
   }
   onClone() {
-    
+    this.addToggle = false;
+    this.editToggle = false;
+    this.cloneToggle = true;
   }
 
 

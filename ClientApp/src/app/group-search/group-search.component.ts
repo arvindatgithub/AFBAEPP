@@ -43,13 +43,16 @@ export class GroupSearchComponent implements OnInit {
   }
 
   GroupSearch() {
-    this.groups.forEach(grp => {
-      if (grp.grpNbr == this.searchBoxVal || grp.grpNm == this.searchBoxVal) {
-        this.existingGrp = grp;
-      }
-    });
-    this.groupSearchSection = false;
-    this.groupSearchResults = true;
+    if(this.groups !== null && this.groups !== undefined){
+      this.groups.forEach(grp => {
+        if (grp.grpNbr == this.searchBoxVal || grp.grpNm == this.searchBoxVal) {
+          this.existingGrp = grp;
+        }
+      });
+      this.groupSearchSection = false;
+      this.groupSearchResults = true;
+    }
+    
   }
 
   goToSetup(grpNbr) {

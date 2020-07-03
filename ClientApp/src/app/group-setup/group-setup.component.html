@@ -7,15 +7,15 @@
 <div class="container" *ngIf="isLoading && groupsData !== undefined">
   <div class="row">
     <div class="form-group col-md-3">
-      <button type="submit" class="btn btn-primary mt-4 mb-4" [disabled]="addDisable" (click)="onAdd()">New Add
+      <button type="submit" class="btn mt-4 mb-4 borderBlue" [style.background-color]="addToggle ? '#1b6ec2' : '#ffffff'" (click)="onAdd()">New Add
       </button>
     </div>
     <div class="form-group col-md-3">
-      <button type="submit" class="btn btn-primary mt-4 mb-4" [disabled]="editDisable" (click)="onEdit()">Edit Existing
+      <button type="submit" class="btn mt-4 mb-4 borderBlue" [style.background-color]="editToggle ? '#1b6ec2' : '#ffffff'" (click)="onEdit()">Edit Existing
       </button>
     </div>
     <div class="form-group col-md-3">
-      <button type="submit" class="btn btn-primary mt-4 mb-4 " [disabled]="cloneDisable" (click)="onClone()">Clone Group
+      <button type="submit" class="btn mt-4 mb-4 borderBlue" [style.background-color]="cloneToggle ? '#1b6ec2' : '#ffffff'" (click)="onClone()">Clone Group
       </button>
     </div>
     <div class="form-group col-md-3 mt-4 mb-4">
