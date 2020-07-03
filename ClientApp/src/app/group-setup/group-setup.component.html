@@ -67,7 +67,7 @@
           <span class="label label-default">Group Vendor<span aria-hidden="true" class="required">*</span></span>
           <input type="text" class="form-control" name=vendorname ngModel #vendorname="ngModel"
             [(ngModel)]="EnrolmentPatnerName" placeholder="Group Vendor Name" required
-            onkeyup="this.value=this.value.replace(/[^a-zA-Z]/,'')">
+            onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
           <div *ngIf="vendorname.touched">
             <small *ngIf="vendorname.errors?.required" style="color: red;">Vendor Name is required!</small>
           </div>
@@ -103,7 +103,7 @@
           <span class="label label-default">Account Manager Name<span aria-hidden="true" class="required">*</span></span>
           <input type="text" class="form-control" name="accountmanager" ngModel #accountmanager="ngModel"
             [(ngModel)]="ManegerName" placeholder="Account Manager Name" required
-            onkeyup="this.value=this.value.replace(/[^a-zA-Z]/,'')">
+            onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
           <div *ngIf="accountmanager.touched">
             <small *ngIf="accountmanager.errors?.required" style="color: red;">Account Manager Name is required!</small>
           </div>
@@ -165,7 +165,7 @@
           <span class="label label-default">Agent Name</span>
           <input type="text" formControlName="AgentName" [(ngModel)]="agent_name" class="form-control mb-2 "
             (change)="changeAgNm0($event.target.value)" style="width: 100%;" placeholder="Agent Name"
-            onkeyup="this.value=this.value.replace(/[^a-zA-Z]/,'')">
+            onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
         </div>
       </div>
 
@@ -279,7 +279,7 @@
                 <div class="col-md-3">
                   <span class="label label-default">Agent Name</span>
                   <input type="text" formControlName="AgentNamefppg" class="form-control mb-2 " style="width: 100%;"
-                    placeholder="Agent Name" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/,'')">
+                    placeholder="Agent Name" onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
                 </div>
               </div>
 
@@ -383,7 +383,7 @@
                   <span class="label label-default">Agent Name</span>
                   <input type="text" formControlName="AgentNameFppIndivisual" class="form-control mb-2 "
                     style="width: 100%;" placeholder="Agent Name"
-                    onkeyup="this.value=this.value.replace(/[^a-zA-Z]/,'')">
+                    onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
                 </div>
               </div>
 
@@ -490,7 +490,7 @@
                     <span class="label label-default">Agent Name</span>
                     <input type="text" formControlName="AgentNameaccident" class="form-control mb-2 "
                       style="width: 100%;" placeholder="Agent Name"
-                      onkeyup="this.value=this.value.replace(/[^a-zA-Z]/,'')">
+                      onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
                   </div>
                 </div>
 
@@ -600,7 +600,7 @@
                     <span class="label label-default">Agent Name</span>
                     <input type="text" formControlName="AgentNameHospitalIndemnity" class="form-control mb-2 "
                       style="width: 100%;" placeholder="Agent Name"
-                      onkeyup="this.value=this.value.replace(/[^a-zA-Z]/,'')">
+                      onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
                   </div>
                 </div>
 
@@ -711,7 +711,7 @@
                     <span class="label label-default">Agent Name</span>
                     <input type="text" formControlName="AgentNameempPaidci" class="form-control mb-2 "
                       style="width: 100%;" placeholder="Agent Name"
-                      onkeyup="this.value=this.value.replace(/[^a-zA-Z]/,'')">
+                      onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
                   </div>
                 </div>
 
@@ -824,7 +824,7 @@
                   <div class="col-md-3">
                     <span class="label label-default">Agent Name</span>
                     <input type="text" formControlName="AgentNamevolCi" class="form-control mb-2 " style="width: 100%;"
-                      placeholder="Agent Name" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/,'')">
+                      placeholder="Agent Name" onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
                   </div>
                 </div>
 
@@ -938,7 +938,7 @@
                     <span class="label label-default">Agent Name</span>
                     <input type="text" formControlName="AgentNameVolGrpLife" class="form-control mb-2 "
                       style="width: 100%;" placeholder="Agent Name"
-                      onkeyup="this.value=this.value.replace(/[^a-zA-Z]/,'')">
+                      onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
                   </div>
                 </div>
 
@@ -1051,7 +1051,7 @@
                     <span class="label label-default">Agent Name</span>
                     <input type="text" formControlName="AgentNameBasicgrpLife" class="form-control mb-2 "
                       style="width: 100%;" placeholder="Agent Name"
-                      onkeyup="this.value=this.value.replace(/[^a-zA-Z]/,'')">
+                      onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
                   </div>
                 </div>
 
