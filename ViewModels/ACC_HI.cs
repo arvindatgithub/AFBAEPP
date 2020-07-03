@@ -22,8 +22,26 @@ namespace AFBA.EPP.ViewModels
      
         public string owner_smkr_no_smkr { get; set; }
         public string sp_smkr_no_smkr { get; set; }
+        public string ch_fname_01 { get; set; }
+        public string ch_dob_01 { get; set; }
+        public string ch_gndr_01 { get; set; }
 
-       
+        public string sp_fname { get; set; }
+        public string sp_dob { get; set; }
+        public string sp_gndr { get; set; }
+
+
+        public string ch_fname_01_action { get; set; }
+        public string ch_dob_01_action { get; set; }
+        public string ch_gndr_01_action { get; set; }
+
+        public string sp_fname_action { get; set; }
+        public string sp_dob_action { get; set; }
+        public string sp_gndr_action { get; set; }
+
+
+
+
 
     }
 }
