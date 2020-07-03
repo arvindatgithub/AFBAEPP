@@ -34,7 +34,9 @@ export class AccidentComponent implements OnInit,OnChanges {
   {name: 'Off the Job Only', abbrev: 'off'},
   {name: 'both', abbrev: 'noupdate'}];
 
-  Rate =  [{no: '1', abb: '1'},
+  Rate =  [
+  {no: '0', abb: 'Select'},
+  {no: '1', abb: '1'},
   {no: '2', abb: '2'},
   {no: '3', abb: '3'}];
  // FCaccOnOff
@@ -44,6 +46,12 @@ export class AccidentComponent implements OnInit,OnChanges {
  on_off;
  rate_level;
  resetFlag = true;
+ ch_fname_01;
+  ch_dob_01;
+  ch_gndr_01;
+  sp_fname;
+  sp_dob;
+  sp_gndr;
 
   constructor(private lookupService: LookupService, private fb:FormBuilder, public datepipe: DatePipe,
     private groupsearchService: GroupsearchService, private eppservice:EppCreateGrpSetupService) {
@@ -86,6 +94,13 @@ export class AccidentComponent implements OnInit,OnChanges {
               } else {
                 this.rate_level = this.Rate[0].no;
               }
+              this.sp_fname = this.accidentData.acC_HI.sp_fname == 1 ? true : false;
+              this.sp_dob = this.accidentData.acC_HI.sp_dob == 1 ? true : false;
+              this.sp_gndr = this.accidentData.acC_HI.sp_gndr == 1 ? true : false;
+
+              this.ch_fname_01 = this.accidentData.acC_HI.ch_fname_01 == 1 ? true : false;
+              this.ch_dob_01 = this.accidentData.acC_HI.ch_dob_01 == 1 ? true : false;
+              this.ch_gndr_01 = this.accidentData.acC_HI.ch_gndr_01 == 1 ? true : false;
             }
   
             this.accformgrp = this.fb.group({
@@ -95,14 +110,15 @@ export class AccidentComponent implements OnInit,OnChanges {
               FCaccEffectiveDate_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.effctv_dt_action : this.radioButtonArr[1].value,Validators.required],
               FCaccOnOff: [(this.accidentData.isACC_HIActive) ? this.on_off : this.jobs[2].abbrev,Validators.required],
               FCaccOnOff_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.sp_smkr_no_smkr_action : this.radioButtonArr[1].value,Validators.required],
-              FCaccRateLevel: [(this.accidentData.isACC_HIActive) ? this.Rate[0].no : this.Rate[0].no,Validators.required],
+              FCaccRateLevel: [(this.accidentData.isACC_HIActive) ? this.rate_level : this.Rate[0].no,Validators.required],
               FCaccRateLevel_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.rate_lvl_action : this.radioButtonArr[1].value,Validators.required],
-              FcaccChildName: ["",Validators.required],
-              FcaccChildDOB: ["",Validators.required],
-              FcaccChildGender: ["",Validators.required],
-              FcaccChildName_Action: [this.radioButtonArr[1].value,Validators.required],
-              FcaccChildDOB_Action: [this.radioButtonArr[1].value,Validators.required],
-              FcaccChildGender_Action: [this.radioButtonArr[1].value,Validators.required],
+              FcaccChildName: [(this.accidentData.isACC_HIActive) ? this.ch_fname_01 : false,Validators.required],
+              FcaccChildDOB: [(this.accidentData.isACC_HIActive) ? this.ch_dob_01 : false,Validators.required],
+              FcaccChildGender: [(this.accidentData.isACC_HIActive) ? this.ch_gndr_01 : false,Validators.required],
+              FcaccSpouseName: [(this.accidentData.isACC_HIActive) ? this.sp_fname : false,Validators.required],
+              FcaccSpouseDOB: [(this.accidentData.isACC_HIActive) ? this.sp_dob : false,Validators.required],
+              FcaccSpouseGender: [(this.accidentData.isACC_HIActive) ? this.sp_gndr : false,Validators.required],
+             
             });
             if(this.groupsearchService.getFromSearchFlag()){
               this.accformgrp.disable();

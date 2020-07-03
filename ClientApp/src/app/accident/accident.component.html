@@ -52,7 +52,7 @@
         </span>
         <select class="form-control" formControlName="FCaccRateLevel">
            <!-- <option hidden disabled selected value> -- select Situs State -- </option> -->
-          <option *ngFor="let names of Rate" >
+          <option *ngFor="let names of Rate" value={{names.no}}>
             {{ names.no }} 
           </option>
         </select>
@@ -60,27 +60,31 @@
       
     </div>
 
-    <div class="row pb-2 " style="justify-content:space-evenly;padding-left: 13px;">
-      <div class="radio-button">
-        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FcaccChildName_Action" />
-          <label class="radio-label"> {{item.name}}</label></div>
-      </div>
+    <div class="row pb-2">
       <div class="col-2">
-        <input type="checkbox"  formControlName="FcaccChildName" [checked]=true> Child Name
+        <input type="checkbox"  formControlName="FcaccChildName" [checked]="ch_fname_01"> Child Name
       </div>
-      <div class="radio-button">
-        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FcaccChildDOB_Action" />
-          <label class="radio-label"> {{item.name}}</label></div>
-      </div>
+     
       <div class="col-3">
-        <input type="checkbox" formControlName="FcaccChildDOB" [checked]=true> Child Date of Birth
+        <input type="checkbox" formControlName="FcaccChildDOB" [checked]="ch_dob_01"> Child Date of Birth
       </div>
-      <div class="radio-button">
-        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FcaccChildGender_Action" />
-          <label class="radio-label"> {{item.name}}</label></div>
-      </div>
+      
       <div class="col-2">
-        <input type="checkbox" formControlName="FcaccChildGender" [checked]=true> Child Gender
+        <input type="checkbox" formControlName="FcaccChildGender" [checked]="ch_gndr_01"> Child Gender
+      </div>
+    </div>
+    <div class="row pb-2 ">
+      
+      <div class="col-2">
+        <input type="checkbox"  formControlName="FcaccSpouseName" [checked]="sp_fname"> Spouse Name
+      </div>
+     
+      <div class="col-3">
+        <input type="checkbox" formControlName="FcaccSpouseDOB"  [checked]="sp_dob"> Spouse Date of Birth
+      </div>
+      
+      <div class="col-2">
+        <input type="checkbox" formControlName="FcaccSpouseGender" [checked]="sp_gndr"> Spouse Gender
       </div>
     </div>
 

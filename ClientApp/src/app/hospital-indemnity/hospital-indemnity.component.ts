@@ -37,7 +37,18 @@ export class HospitalIndemnityComponent implements OnInit,OnChanges {
   hiDate;
   hiStatus;
   resetFlag = true;
-
+  Rate =  [
+  {no: '0', abb: 'Select'},
+  {no: '1', abb: '1'},
+  {no: '2', abb: '2'},
+  {no: '3', abb: '3'}];
+  ch_fname_01;
+  ch_dob_01;
+  ch_gndr_01;
+  sp_fname;
+  sp_dob;
+  sp_gndr;
+  
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe,
     private groupsearchService: GroupsearchService, private eppservice:EppCreateGrpSetupService) {
 
@@ -68,15 +79,29 @@ export class HospitalIndemnityComponent implements OnInit,OnChanges {
               } else {
                 this.hiStatus = this.lookupValue;
               }
+              this.sp_fname = this.hiData.hi.sp_fname == 1 ? true : false;
+              this.sp_dob = this.hiData.hi.sp_dob == 1 ? true : false;
+              this.sp_gndr = this.hiData.hi.sp_gndr == 1 ? true : false;
+
+              this.ch_fname_01 = this.hiData.hi.ch_fname_01 == 1 ? true : false;
+              this.ch_dob_01 = this.hiData.hi.ch_dob_01 == 1 ? true : false;
+              this.ch_gndr_01 = this.hiData.hi.ch_gndr_01 == 1 ? true : false;
             }
             
               this.hospformgrp = this.fb.group({
                 FChospEffectiveDate: [(this.hiData.isHIActive) ? this.hiDate : this.minDate,Validators.required],
                 FChospEffectiveDate_Action: [(this.hiData.isHIActive) ? this.hiData.hi.effctv_dt_action : this.radioButtonArr[1].value,Validators.required],
                 FChospSitusState: [(this.hiData.isHIActive) ? this.hiStatus : this.lookupValue,Validators.required],
-                FChospitalOnOff:  [(this.hiData.isHIActive) ? this.hiStatus : this.lookupValue,Validators.required],
                 FChospSitusState_Action: [(this.hiData.isHIActive) ? this.hiData.hi.grp_situs_state_action : this.radioButtonArr[1].value,Validators.required],
-                FChospitalOnOff_Action:[(this.hiData.isHIActive) ? this.hiData.hi.grp_situs_state_action : this.radioButtonArr[1].value,Validators.required],
+                FChospRateLevel:[(this.hiData.isHIActive)  ? this.hiData.hi.rate_lvl : this.Rate[0].no ,Validators.required],
+                FChospRateLevel_Action:[(this.hiData.isHIActive) ? this.hiData.hi.rate_lvl_action : this.radioButtonArr[1].value,Validators.required],
+                FchospChildName: [(this.hiData.isHIActive) ? this.ch_fname_01 : false,Validators.required],
+                FchospChildDOB: [(this.hiData.isHIActive) ? this.ch_dob_01 : false,Validators.required],
+                FchospChildGender :[(this.hiData.isHIActive) ? this.ch_gndr_01 : false,Validators.required],
+                FchospSpouseName :[(this.hiData.isHIActive) ? this.sp_fname : false,Validators.required],
+                FchospSpouseDOB :[(this.hiData.isHIActive) ? this.sp_dob : false,Validators.required],
+                FchospSpouseGender: [(this.hiData.isHIActive) ? this.sp_gndr : false,Validators.required],
+
               });
 
               if(this.groupsearchService.getFromSearchFlag()){

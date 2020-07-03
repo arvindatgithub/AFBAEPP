@@ -263,6 +263,24 @@ export class GroupSetupComponent implements OnInit {
         this.checkedToggleProductEmpPaidCI = this.isCheckedEmpPaidCi ? "Active" : "Inactive";
         this.isCheckedBasicGrpLife = this.groupsData.isBGLActive;
         this.checkedToggleProductBcsGrpLife = this.isCheckedBasicGrpLife ? "Active" : "Inactive";
+        if(this.groupsData.grpAgents !== "" && this.groupsData.grpAgents !== null){
+          this.agentNumber_0 = this.groupsData.grpAgents[0] ? this.groupsData.grpAgents[0].agntNbr : '';
+          this.agentSubCount_0 =  this.groupsData.grpAgents[0] ? this.groupsData.grpAgents[0].agntSubCnt : '';
+          this.agentCommissionSPlit_0 =  this.groupsData.grpAgents[0] ? this.groupsData.grpAgents[0].agntComsnSplt : '';
+          this.agent_name =  this.groupsData.grpAgents[0] ? this.groupsData.grpAgents[0].agntNm : '';
+
+          this.agentNumber_1 = this.groupsData.grpAgents[1] ? this.groupsData.grpAgents[1].agntNbr : '';
+          this.agentSubCount_1 =  this.groupsData.grpAgents[1] ? this.groupsData.grpAgents[1].agntSubCnt : '';
+          this.agentCommissionSPlit_1 =  this.groupsData.grpAgents[1] ? this.groupsData.grpAgents[1].agntComsnSplt : '';
+
+          this.agentNumber_2 = this.groupsData.grpAgents[2] ? this.groupsData.grpAgents[2].agntNbr : '';
+          this.agentSubCount_2 =  this.groupsData.grpAgents[2] ? this.groupsData.grpAgents[2].agntSubCnt : '';
+          this.agentCommissionSPlit_2 =  this.groupsData.grpAgents[2] ? this.groupsData.grpAgents[2].agntComsnSplt : '';
+
+          this.agentNumber_3 = this.groupsData.grpAgents[3] ? this.groupsData.grpAgents[3].agntNbr : '';
+          this.agentSubCount_3 =  this.groupsData.grpAgents[3] ? this.groupsData.grpAgents[3].agntSubCnt : '';
+          this.agentCommissionSPlit_3 =  this.groupsData.grpAgents[3] ? this.groupsData.grpAgents[3].agntComsnSplt : '';
+        }
         if(this.groupsData !== undefined){
           this.agentformgrp = this._fb.group({
             fppgAgent_Action: [(this.groupsData.isFPPGActive) ? this.groupsData.fppg.agnt_nm_action : this.radioButtonArr[1].value, Validators.required],
@@ -274,23 +292,23 @@ export class GroupSetupComponent implements OnInit {
             volGrpLfAgent_Action: [(this.groupsData.isVGLActive) ? this.groupsData.vgl.agnt_nm_action : this.radioButtonArr[1].value, Validators.required],
             basicGrpLfAgent_Action: [(this.groupsData.isBGLActive) ? this.groupsData.bgl.agnt_nm_action : this.radioButtonArr[1].value, Validators.required],
             //group
-            AgentNumber: ["", Validators.required],
-            AgentSubCount: ["", Validators.required],
-            CommissonSplit: ["", Validators.required],
-            AgentName: ["", Validators.required],
+            AgentNumber: [this.agentNumber_0, Validators.required],
+            AgentSubCount: [this.agentSubCount_0, Validators.required],
+            CommissonSplit: [this.agentCommissionSPlit_0, Validators.required],
+            AgentName: [this.agent_name, Validators.required],
       
-            AgentNumber1: ["", Validators.required],
-            AgentSubCount1: ["", Validators.required],
-            CommissonSplit1: ["", Validators.required],
+            AgentNumber1: [this.agentNumber_1, Validators.required],
+            AgentSubCount1: [this.agentSubCount_1, Validators.required],
+            CommissonSplit1: [this.agentCommissionSPlit_1, Validators.required],
       
       
-            AgentNumber2: ["", Validators.required],
-            AgentSubCount2: ["", Validators.required],
-            CommissonSplit2: ["", Validators.required],
+            AgentNumber2: [this.agentNumber_2, Validators.required],
+            AgentSubCount2: [this.agentSubCount_2, Validators.required],
+            CommissonSplit2: [this.agentCommissionSPlit_2, Validators.required],
       
-            AgentNumber3: ["", Validators.required],
-            AgentSubCount3: ["", Validators.required],
-            CommissonSplit3: ["", Validators.required],
+            AgentNumber3: [this.agentNumber_3, Validators.required],
+            AgentSubCount3: [this.agentSubCount_3, Validators.required],
+            CommissonSplit3: [this.agentCommissionSPlit_3, Validators.required],
             //Fppg
             AgentNumberfppg: [(this.groupsData.isFPPGActive) ? this.groupsData.fppg.agnt_cd_1 : "", Validators.required],
             AgentSubCountfppg: [(this.groupsData.isFPPGActive) ? this.groupsData.fppg.agntsub_1 : "", Validators.required],
@@ -1094,18 +1112,37 @@ export class GroupSetupComponent implements OnInit {
       "enrlmntPrtnrsId": 0,
       "enrlmntPrtnrsNm": this.EnrolmentPatnerName,
       "emlAddrss": this.EnrolEmailAddress,
-      "emailAddress": this.ManagerEmail,
       "grpAgents": groupAgents,
       "acctMgrNm": this.ManegerName,
+      "acctMgrEmailAddrs": this.ManagerEmail,
+      "emailAddress": this.ManagerEmail,
       "acctMgrCntctId": 0,
       "isFPPGActive": this.isCheckedFppg,
       "isHIActive": this.isCheckedHospital,
       "hi": {
-        "effctv_dt": (new Date(this.hospitalIndemnityComponent.hospformgrp.value.FChospEffectiveDate)).toISOString(),
-        "grp_situs_state": this.hospitalIndemnityComponent.hospformgrp.value.FChospSitusState,
-        "effctv_dt_action": this.hospitalIndemnityComponent.hospformgrp.value.FChospEffectiveDate_Action,
-        "grp_situs_state_action": this.hospitalIndemnityComponent.hospformgrp.value.FChospSitusState_Action,
-        
+        effctv_dt: (new Date(this.hospitalIndemnityComponent.hospformgrp.value.FChospEffectiveDate)).toISOString(),
+        grp_situs_state: this.hospitalIndemnityComponent.hospformgrp.value.FChospSitusState,
+        effctv_dt_action: this.hospitalIndemnityComponent.hospformgrp.value.FChospEffectiveDate_Action,
+        grp_situs_state_action: this.hospitalIndemnityComponent.hospformgrp.value.FChospSitusState_Action,
+
+        sp_fname: this.hospitalIndemnityComponent.hospformgrp.value.FchospSpouseName ? '1' : '0',
+        sp_dob: this.hospitalIndemnityComponent.hospformgrp.value.FchospSpouseDOB ? '1' : '0',
+        sp_gndr: this.hospitalIndemnityComponent.hospformgrp.value.FchospSpouseGender ? '1' : '0',
+
+        ch_fname_01: this.hospitalIndemnityComponent.hospformgrp.value.FchospChildName ? '1' : '0',
+        ch_dob_01: this.hospitalIndemnityComponent.hospformgrp.value.FchospChildDOB ? '1' : '0',
+        ch_gndr_01: this.hospitalIndemnityComponent.hospformgrp.value.FchospChildGender ? '1' : '0',
+
+        rate_lvl: this.hospitalIndemnityComponent.hospformgrp.value.FChospRateLevel,
+        rate_lvl_action: this.hospitalIndemnityComponent.hospformgrp.value.FChospRateLevel_Action,
+
+        ch_fname_01_action: "10001",
+        ch_dob_01_action: "10001",
+        ch_gndr_01_action: "10001",
+        sp_fname_action: "10001",
+        sp_dob_action: "10001",
+        sp_gndr_action: "10001",
+
         agnt_cd_1: this.agentformgrp.get('AgentNumberHospitalIndemnity').value,
         agnt_nm: this.agentformgrp.get('AgentNameHospitalIndemnity').value,
         agnt_comm_split_1: this.agentformgrp.get('CommissonSplitHospitalIndemnity').value,
@@ -1208,6 +1245,20 @@ export class GroupSetupComponent implements OnInit {
         "sp_smkr_no_smkr_action": this.accidentComponent.accformgrp.value.FCaccOnOff_Action,
         "owner_smkr_no_smkr": this.accidentComponent.accformgrp.value.FCaccOnOff,
         "sp_smkr_no_smkr": this.accidentComponent.accformgrp.value.FCaccOnOff,
+
+        sp_fname: this.accidentComponent.accformgrp.value.FcaccSpouseName ? '1' : '0',
+        sp_dob: this.accidentComponent.accformgrp.value.FcaccSpouseDOB ? '1' : '0',
+        sp_gndr: this.accidentComponent.accformgrp.value.FcaccSpouseGender ? '1' : '0',
+        ch_fname_01: this.accidentComponent.accformgrp.value.FcaccChildName ? '1' : '0',
+        ch_dob_01: this.accidentComponent.accformgrp.value.FcaccChildDOB ? '1' : '0',
+        ch_gndr_01: this.accidentComponent.accformgrp.value.FcaccChildGender ? '1' : '0',
+        ch_fname_01_action: "10001",
+        ch_dob_01_action: "10001",
+        ch_gndr_01_action: "10001",
+        sp_fname_action: "10001",
+        sp_dob_action: "10001",
+        sp_gndr_action: "10001",
+
         agnt_cd_1: this.agentformgrp.get('AgentNumberaccident').value,
         agnt_nm: this.agentformgrp.get('AgentNameaccident').value,
         agnt_comm_split_1: this.agentformgrp.get('CommissonSplitaccident').value,

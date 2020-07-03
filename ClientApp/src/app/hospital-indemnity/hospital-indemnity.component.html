@@ -31,33 +31,46 @@
     </div>
 
   </div>
+  <div class="row pb-2"  style="padding-left: 20px;">
+    <div class="radio-button">
+      <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FChospRateLevel_Action" />
+        <label class="radio-label"> {{item.name}}</label></div>
+    </div>
+    <div class="col-4 mb-2">
+      <span class="label"> Hospital Rate Level</span>
+      <select class="form-control" formControlName="FChospRateLevel">
+        <option *ngFor="let names of Rate" value={{names.no}}>
+          {{ names.abb }} 
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="row pb-2" style="padding-left: 6px;">
+    <div class="col-2">
+      <input type="checkbox"  formControlName="FchospChildName" [checked]="ch_fname_01"> Child Name
+    </div>
+   
+    <div class="col-3">
+      <input type="checkbox" formControlName="FchospChildDOB" [checked]="ch_dob_01"> Child Date of Birth
+    </div>
     
-    <!-- <div class="row pb-2"style="margin-left: 1px;">
-      <div class="radio-button"> 
-        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FChospitalOnOff_Action" />
-          <label class="radio-label"> {{item.name}}</label></div>
-      </div>
-      <div class="col-4">
-        <span class="label">On or Off the Job</span>
-        <select  class="form-control" formControlName="FChospitalOnOff">
-          <option *ngFor="let job of jobs" value={{job.abbrev}}> 
-            {{ job.name }}
-          </option>
-        </select>
-      </div>
-     
-    </div> -->
-      
-  
-  <div class="mt-4">
-
-    <ng-content></ng-content>
-    <!-- <div class="mt-4">
-      <mat-checkbox class="margin" [(ngModel)]="name">Child Name</mat-checkbox>
-      <mat-checkbox class="margin" [(ngModel)]="dob">Child Date of Birth </mat-checkbox>
-      <mat-checkbox class="margin" [(ngModel)]="gender">Child Gender</mat-checkbox>
-    </div> -->
-
+    <div class="col-2">
+      <input type="checkbox" formControlName="FchospChildGender" [checked]="ch_gndr_01"> Child Gender
+    </div>
+  </div>
+  <div class="row pb-2 " style="padding-left: 6px;">
+    
+    <div class="col-2">
+      <input type="checkbox"  formControlName="FchospSpouseName" [checked]="sp_fname"> Spouse Name
+    </div>
+   
+    <div class="col-3">
+      <input type="checkbox" formControlName="FchospSpouseDOB" [checked]="sp_dob"> Spouse Date of Birth
+    </div>
+    
+    <div class="col-2">
+      <input type="checkbox" formControlName="FchospSpouseGender" [checked]="sp_gndr"> Spouse Gender
+    </div>
   </div>
   <div class="mt-4">
     <ng-content></ng-content>
