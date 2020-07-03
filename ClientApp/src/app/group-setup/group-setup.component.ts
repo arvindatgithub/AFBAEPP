@@ -215,7 +215,7 @@ export class GroupSetupComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+   
     let existingSelectedGrpNbr: any;
     this.groupsearchService.castGroupNumber.subscribe(data => {
       existingSelectedGrpNbr = data; 
@@ -458,10 +458,14 @@ export class GroupSetupComponent implements OnInit {
         }else{
           this.fieldsetDisabled = false;
           this.editRAddFlag = false;
-          this.agentformgrp.enable();
+         // this.agentformgrp.enable();
         }
         
       });
+      console.log(' flag flag '+this.groupsearchService.getFromSearchFlag());
+      if(!this.groupsearchService.getFromSearchFlag()){
+        this.onAdd();
+      }
     });
     
     this.lookupService.getLookupsData().subscribe((data: any) => {

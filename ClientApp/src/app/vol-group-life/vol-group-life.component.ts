@@ -87,7 +87,13 @@ export class VolGroupLifeComponent implements OnInit,OnChanges {
               // FCVolGrpLfCaseToken_Action: [this.radioButtonArr[1].value,Validators.required],
               // FCVolGrpLfCaseToken: ["",Validators.required],
             });
-            this.volGrpLfformgrp.disable();
+
+            if(this.groupsearchService.getFromSearchFlag()){
+              this.volGrpLfformgrp.disable();
+            }else{
+              this.volGrpLfformgrp.enable();
+              this.resetFlag = false;
+            }
           }
         });
       });

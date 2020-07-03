@@ -47,7 +47,6 @@ export class FPPIndividualComponent implements OnInit, OnChanges {
           this.resetFlag = true;
         }
       });
-
       let existingSelectedGrpNbr: any;
       this.groupsearchService.castGroupNumber.subscribe(data => {
         existingSelectedGrpNbr = data; 
@@ -91,11 +90,20 @@ export class FPPIndividualComponent implements OnInit, OnChanges {
               FCfppiChildPlanCode:[(this.fppiData.isFPPIActive) ? this.fppiData.fppi.ch_plan_cd : "", Validators.required],
         
             });
-            this.fppiformgrp.disable();
+            
+            if(this.groupsearchService.getFromSearchFlag()){
+              this.fppiformgrp.disable();
+            }else {
+              this.fppiformgrp.enable();
+              this.resetFlag = false;
+            }
+            
   
           }
         });
+        
       });
+      
 
       
    } 

@@ -12,6 +12,7 @@ export class GroupsearchService {
   private groupNumber = new BehaviorSubject<string>('');
   castGroupNumber = this.groupNumber.asObservable();
   editGrpNbr :any;
+  fromSearchFlag = false;
 
   getGroupsData() {
     const GroupsDataUrl = environment.apiurl + 'GroupSetup/GetGroupsData';
@@ -30,4 +31,12 @@ export class GroupsearchService {
  getEditGrpNbr(){
    return this.editGrpNbr;
  }
+
+ setFromSearchFlag(flag) {
+   this.fromSearchFlag = flag;
+ }
+ getFromSearchFlag() {
+  return this.fromSearchFlag;
+}
+
 }

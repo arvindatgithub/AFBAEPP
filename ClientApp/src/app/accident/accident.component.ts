@@ -104,9 +104,12 @@ export class AccidentComponent implements OnInit,OnChanges {
               FcaccChildDOB_Action: [this.radioButtonArr[1].value,Validators.required],
               FcaccChildGender_Action: [this.radioButtonArr[1].value,Validators.required],
             });
-           
-            this.accformgrp.disable();
-            
+            if(this.groupsearchService.getFromSearchFlag()){
+              this.accformgrp.disable();
+            } else{
+              this.accformgrp.enable();
+              this.resetFlag = false;
+            }
           }
           });
       });

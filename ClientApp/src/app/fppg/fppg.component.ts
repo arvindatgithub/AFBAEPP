@@ -42,14 +42,15 @@ export class FPPGComponent implements OnInit, OnChanges {
   fppgDate;
   fppgSitus;
   resetFlag = true;
+  status;
 
   constructor(private lookupService: LookupService, 
     private fb:FormBuilder, private eppservice:EppCreateGrpSetupService,
     public datepipe: DatePipe, private groupsearchService: GroupsearchService) { 
       
       this.eppservice.castAddEditClone.subscribe(data => {
-        let status = data;
-        if(status == 'Edit' || status == 'Add'){
+        this.status = data;
+        if(this.status == 'Edit' || this.status == 'Add'){
           this.fppgformgrp.enable();
           this.resetFlag = false;
         } else {
@@ -100,8 +101,12 @@ export class FPPGComponent implements OnInit, OnChanges {
               FCfppgQolRiders_Action: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.emp_quality_of_life_action : this.radioButtonArr[1].value, Validators.required],
               FCfppgWaiver_Action: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.emp_waiver_of_prem_action : this.radioButtonArr[1].value, Validators.required],
             });
-            this.fppgformgrp.disable();
-  
+            if(this.groupsearchService.getFromSearchFlag()){
+              this.fppgformgrp.disable();
+            }else{
+              this.fppgformgrp.enable();
+              this.resetFlag = false;
+            }
           }
         });
       });

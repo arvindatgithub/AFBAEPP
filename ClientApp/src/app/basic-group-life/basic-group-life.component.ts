@@ -76,8 +76,13 @@ export class BasicGroupLifeComponent implements OnInit,OnChanges {
               SpouseFaceAmount: [(this.bglData.isBGLActive) ? this.bglData.bgl.sp_face_amt_mon_bnft : "",Validators.required],
               ChildFaceAmount: [(this.bglData.isBGLActive) ? this.bglData.bgl.ch_face_amt_mon_bnft_01 : "",Validators.required],
             });
-            this.basicGrpLfformgrp.disable();
-  
+
+            if(this.groupsearchService.getFromSearchFlag()){
+              this.basicGrpLfformgrp.disable();
+            }else{
+              this.basicGrpLfformgrp.enable();
+              this.resetFlag = false;
+            }
           }
           
           });
