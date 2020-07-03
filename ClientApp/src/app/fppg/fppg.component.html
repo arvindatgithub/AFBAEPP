@@ -44,7 +44,8 @@
         <span class="label label-default">Employee GI Amount Max</span>
 
         <input type="text" formControlName="FCfppgEmpGIAmtMax" class="form-control mb-2 " style="width: 100%;"
-          placeholder="Employee GI Amount Max">
+          placeholder="Employee GI Amount Max" required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
 
 
@@ -53,12 +54,14 @@
         <span class="label label-default">Employee QI Amount Max</span>
 
         <input type="text" formControlName="FCfppgEmpQIAmtMax" class="form-control mb-2 " style="width: 100%;"
-          placeholder="Employee QI Amount Max">
+          placeholder="Employee QI Amount Max" required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
       <div class="col-3">
         <span class="label label-default">Employee SI Max Amount</span>
         <input type="text" class="form-control mb-2" formControlName="FCfppgEmpAmtMax" style="width: 100%;"
-          placeholder="Employee Max Amount">
+          placeholder="Employee Max Amount" required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
 
     </div>
@@ -73,17 +76,20 @@
 
         <input type="text" formControlName="FCfppgSpouseGIAmtMax" class="form-control mb-2 " style="width: 100%;"
           placeholder="Spouse GI Amount Max
-           ">
+           "required
+           onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
       <div class="col-3">
         <span class="label label-default">Spouse QI Amount Max</span>
         <input type="text" formControlName="FCfppgSpouseQIAmtMax" class="form-control mb-2 " style="width: 100%;"
-          placeholder="Spouse QI Amount Max">
+          placeholder="Spouse QI Amount Max"required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
       <div class="col-3">
         <span class="label label-default">Spouse Max Amount</span>
         <input type="text" formControlName="FCfppgSpouseMaxAmt" class="form-control mb-2 " style="width: 100%;"
-          placeholder="Spouse Max Amount">
+          placeholder="Spouse Max Amount"required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
 
     </div>
@@ -95,7 +101,7 @@
       <div class="col-3">
         <span class="label label-default">Employee Plan code </span>
         <input type="text" formControlName="FCfppgEmpPlanCode" class="form-control mb-2 " style="width: 100%;"
-          placeholder="Employee Plan code ">
+          placeholder="Employee Plan code">
       </div>
 
       <div class="col-3">

@@ -45,19 +45,22 @@
         <span class="label label-default">Employee GI Amount Max</span>
 
         <input type="text" class="form-control mb-2 " formControlName="FCVolCIEmpGIAmtMax" style="width: 100%;"
-          placeholder="Employee GI Amount Max">
+          placeholder="Employee GI Amount Max"required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
 
       <div class="col-3">
         <span class="label label-default">Employee QI Amount Max</span>
 
         <input type="text" class="form-control mb-2 " formControlName="FCVolCIEmpQIAmtMax" style="width: 100%;"
-          placeholder="Employee QI Amount Max">
+          placeholder="Employee QI Amount Max"required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
       <div class="col-3">
         <span class="label label-default">Employee Max Amount</span>
         <input type="text" class="form-control mb-2 " formControlName="FCVolCIEmpAmtMax" style="width: 100%;"
-          placeholder="Employee Max Amount">
+          placeholder="Employee Max Amount"required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
     </div>
     <div class="row mt-2" style="margin-top: 10px;justify-content:space-evenly;margin-right: 7%;">
@@ -70,17 +73,20 @@
 
         <input type="text" class="form-control mb-2 " formControlName="FCVolCISpouseGIAmtMax" style="width: 100%;"
           placeholder="Spouse GI Amount Max
-              ">
+              "required
+              onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
       <div class="col-3">
         <span class="label label-default">Spouse QI Amount Max</span>
         <input type="text" class="form-control mb-2 " formControlName="FCVolCISpouseQIAmtMax" style="width: 100%;"
-          placeholder="Spouse QI Amount Max">
+          placeholder="Spouse QI Amount Max"required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
       <div class="col-3">
         <span class="label label-default">Spouse Max Amount</span>
         <input type="text" class="form-control mb-2 " formControlName="FCVolCISpouseAmtMax" style="width: 100%;"
-          placeholder="Spouse Max Amount">
+          placeholder="Spouse Max Amount"required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
 
     </div>
@@ -178,7 +184,7 @@
           <div class="col" style="margin-left: -16px;">
           </div>
           <div class="col" style="justify-content:flex-start;margin-right: 170px;margin-top: 24px;">
-            <mat-checkbox class="margin" formControlName="FCVolCISpouseNTB" [(ngModel)]="indeterminate"
+            <mat-checkbox class="margin" formControlName="FCVolCISpouseNTB" [(ngModel)]="checked1"
               name="SpouseNTB">Spouse NTB</mat-checkbox>
           </div>
         </div>
@@ -193,7 +199,7 @@
           <div class="col" style="margin-left: -147px;">
           </div>
           <div class="col" style="margin-top: 24px;">
-            <mat-checkbox class="margin" formControlName="FCVolCISpouseTB" [(ngModel)]="indeterminate" name="SpouseNTB">
+            <mat-checkbox class="margin" formControlName="FCVolCISpouseTB" [(ngModel)]="indeterminate1" name="SpouseNTB">
               Spouse TB</mat-checkbox>
           </div>
         </div>

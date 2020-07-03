@@ -24,6 +24,10 @@ export class HospitalIndemnityComponent implements OnInit,OnChanges {
   disabled = false;
   public minDate = new Date().toISOString().slice(0,10);
   latest_datehospitalindemnity;
+  jobs =  [{name: 'On the Job Only', abbrev: 'on'},
+  {name: 'Off the Job Only', abbrev: 'off'},
+  {name: 'both', abbrev: 'noupdate'}];
+
   radioButtonArr=[
     {value:'10002',name:'Always Override'},
     {value:'10001',name:'Update if Blank'},
@@ -70,7 +74,9 @@ export class HospitalIndemnityComponent implements OnInit,OnChanges {
                 FChospEffectiveDate: [(this.hiData.isHIActive) ? this.hiDate : this.minDate,Validators.required],
                 FChospEffectiveDate_Action: [(this.hiData.isHIActive) ? this.hiData.hi.effctv_dt_action : this.radioButtonArr[1].value,Validators.required],
                 FChospSitusState: [(this.hiData.isHIActive) ? this.hiStatus : this.lookupValue,Validators.required],
+                FChospitalOnOff:  [(this.hiData.isHIActive) ? this.hiStatus : this.lookupValue,Validators.required],
                 FChospSitusState_Action: [(this.hiData.isHIActive) ? this.hiData.hi.grp_situs_state_action : this.radioButtonArr[1].value,Validators.required],
+                FChospitalOnOff_Action:[(this.hiData.isHIActive) ? this.hiData.hi.grp_situs_state_action : this.radioButtonArr[1].value,Validators.required],
               });
             
             this.hospformgrp.disable();

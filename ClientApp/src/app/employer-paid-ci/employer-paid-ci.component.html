@@ -42,7 +42,8 @@
 
       <span class="label label-default">Spouse Standard Face
         Amount</span>
-      <input type="text" class="form-control mb-2 " formControlName="FCempCISpouseFcAmt" style="width: 100%;" placeholder="Spouse Standard Face Amount">
+      <input type="text" class="form-control mb-2 " formControlName="FCempCISpouseFcAmt" style="width: 100%;" placeholder="Spouse Standard Face Amount"required
+      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
     </div>
 
     <div class="radio-button">
@@ -53,7 +54,8 @@
       <span class="label label-default">Employee Standard Face
         Amount</span>
 
-      <input type="text" class="form-control mb-2 " style="width: 100%;" formControlName="FCempCIEmpFcAmt" placeholder="Employee Standard Face Amount">
+      <input type="text" class="form-control mb-2 " style="width: 100%;" formControlName="FCempCIEmpFcAmt" placeholder="Employee Standard Face Amount"required
+      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
     </div>
 
     <!-- <div class="radio-button">

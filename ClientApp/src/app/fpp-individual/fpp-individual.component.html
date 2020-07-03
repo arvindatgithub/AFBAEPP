@@ -36,7 +36,8 @@
 
           <span class="label label-default">Employee GI Amount Max</span>
 
-          <input type="text" class="form-control mb-2" formControlName="FCfppiEmpGIAmtMax" style="width: 100%;" placeholder="Employee GI Amount Max">
+          <input type="text" class="form-control mb-2" formControlName="FCfppiEmpGIAmtMax" style="width: 100%;" placeholder="Employee GI Amount Max"required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
 
 
@@ -44,11 +45,13 @@
         <div class="col-3">
           <span class="label label-default">Employee QI Amount Max</span>
 
-          <input type="text" class="form-control mb-2" formControlName="FCfppiEmpQIAmtMax" style="width: 100%;" placeholder="Employee QI Amount Max">
+          <input type="text" class="form-control mb-2" formControlName="FCfppiEmpQIAmtMax" style="width: 100%;" placeholder="Employee QI Amount Max"required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
         <div class="col-3">
           <span class="label label-default">Employee Max Amount</span>
-          <input type="text" class="form-control mb-2" formControlName="FCfppiEmpAmtMax" style="width: 100%;" placeholder="Employee Max Amount">
+          <input type="text" class="form-control mb-2" formControlName="FCfppiEmpAmtMax" style="width: 100%;" placeholder="Employee Max Amount"required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
       
       </div>
@@ -62,15 +65,18 @@
           <span class="label label-default">Spouse GI Amount Max</span>
 
           <input type="text" class="form-control mb-2 " formControlName="FCfppiSpouseGIAmtMax" style="width: 100%;" placeholder="Spouse GI Amount Max
-            ">
+            "required
+            onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
         <div class="col-3">
           <span class="label label-default">Spouse QI Amount Max</span>
-          <input type="text" class="form-control mb-2 " formControlName="FCfppiSpouseQIAmtMax" style="width: 100%;" placeholder="Spouse QI Amount Max">
+          <input type="text" class="form-control mb-2 " formControlName="FCfppiSpouseQIAmtMax" style="width: 100%;" placeholder="Spouse QI Amount Max"required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
         <div class="col-3">
           <span class="label label-default">Spouse Max Amount</span>
-          <input type="text" class="form-control mb-2 " formControlName="FCfppiSpouseMaxAmt" style="width: 100%;" placeholder="Spouse Max Amount">
+          <input type="text" class="form-control mb-2 " formControlName="FCfppiSpouseMaxAmt" style="width: 100%;" placeholder="Spouse Max Amount"required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
 
       </div>

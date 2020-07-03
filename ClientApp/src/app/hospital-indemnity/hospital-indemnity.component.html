@@ -29,10 +29,26 @@
     <div class="mt-4">
       <button class="btn btn-primary" [disabled]="true" type="submit" (click) = "hospitalindemnity()">Reset Form </button>
     </div>
+
   </div>
-
-
-
+    
+    <div class="row pb-2"style="margin-left: 1px;">
+      <div class="radio-button"> 
+        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FChospitalOnOff_Action" />
+          <label class="radio-label"> {{item.name}}</label></div>
+      </div>
+      <div class="col-4">
+        <span class="label">On or Off the Job</span>
+        <select  class="form-control" formControlName="FChospitalOnOff">
+          <option *ngFor="let job of jobs" value={{job.abbrev}}> 
+            {{ job.name }}
+          </option>
+        </select>
+      </div>
+     
+    </div>
+      
+  
   <div class="mt-4">
 
     <ng-content></ng-content>

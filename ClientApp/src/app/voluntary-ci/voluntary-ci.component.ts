@@ -20,6 +20,8 @@ export class VoluntaryCIComponent implements OnInit,OnChanges {
   lookUpDataSitusStates: any = [];
   checked = false;
   indeterminate = false;
+  checked1 = false;
+  indeterminate2 = false;
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
   public minDate = new Date().toISOString().slice(0,10);
