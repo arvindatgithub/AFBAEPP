@@ -50,9 +50,9 @@
         <span class="label">
           Accident Rate Level
         </span>
-        <select  class="form-control" formControlName="FCaccRateLevel">
-          
-          <option *ngFor="let names of Rate" [ngValue]="names.abb">
+        <select class="form-control" formControlName="FCaccRateLevel">
+           <!-- <option hidden disabled selected value> -- select Situs State -- </option> -->
+          <option *ngFor="let names of Rate" >
             {{ names.no }} 
           </option>
         </select>

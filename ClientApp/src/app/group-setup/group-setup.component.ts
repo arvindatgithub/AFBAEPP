@@ -491,7 +491,7 @@ export class GroupSetupComponent implements OnInit {
     
     this.groupSetupFG = this._fb.group({
       fcEffDate: ["", Validators.required],
-      FCOccControl: ["", Validators.required]
+      // FCOccControl: ["", Validators.required]
     })
 
     this.groupSetupOCC = this._fb.group({

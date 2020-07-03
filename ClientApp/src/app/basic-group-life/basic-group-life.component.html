@@ -42,7 +42,8 @@
       <div class="col-3">
         <span class="label label-default">Employee Face Amount</span>
         <input type="text" class="form-control mb-2 " formControlName="FCbasicEmpFcAmt" style="width: 100%;"
-          placeholder="Employee Face Amount">
+          placeholder="Employee Face Amount"required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
       <!-- <div class="radio-button">
         <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
@@ -56,12 +57,14 @@
       <div class="col-3">
         <span class="label label-default">Spouse Face Amount</span>
         <input type="text" class="form-control mb-2 " formControlName="SpouseFaceAmount" style="width: 100%;"
-          placeholder="Spouse Face Amount">
+          placeholder="Spouse Face Amount"required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
       <div class="col-3">
         <span class="label label-default">Child Face Amount</span>
         <input type="text" class="form-control mb-2 " formControlName="ChildFaceAmount" style="width: 100%;"
-          placeholder="Child Face Amount">
+          placeholder="Child Face Amount"required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
 
     </div>

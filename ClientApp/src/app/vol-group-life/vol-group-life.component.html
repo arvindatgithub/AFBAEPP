@@ -42,11 +42,13 @@
 
         <span class="label label-default">Employee GI Amount Max</span>
 
-        <input type="text" class="form-control mb-2 " formControlName="FCVolGrpLfEmpGIAmtMax" style="width: 100%;" placeholder="Employee GI Amount Max">
+        <input type="text" class="form-control mb-2 " formControlName="FCVolGrpLfEmpGIAmtMax" style="width: 100%;" placeholder="Employee GI Amount Max"required
+        onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
       <div class="col-3">
         <span class="label label-default">Employee Max Amount</span>
-        <input type="text"  formControlName="FCVolGrpLfEmpAmtMax" class="form-control mb-2 " style="width: 100%;" placeholder="Employee Max Amount">
+        <input type="text"  formControlName="FCVolGrpLfEmpAmtMax" class="form-control mb-2 " style="width: 100%;" placeholder="Employee Max Amount"required
+        onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
 
       <div class="col-3 mb-2">
@@ -69,12 +71,14 @@
         <span class="label label-default">Spouse GI Amount Max</span>
 
         <input type="text"  formControlName="FCVolGrpLfSpouseGIAmtMax" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse GI Amount Max
-              ">
+              "required
+              onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
      
       <div class="col-3" style="justify-content:space-evenly;">
         <span class="label label-default">Spouse Max Amount</span>
-        <input type="text"  formControlName="FCVolGrpLfSpouseMaxAmt" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse Max Amount">
+        <input type="text"  formControlName="FCVolGrpLfSpouseMaxAmt" class="form-control mb-2 " style="width: 100%;" placeholder="Spouse Max Amount"required
+        onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
 
     </div>
