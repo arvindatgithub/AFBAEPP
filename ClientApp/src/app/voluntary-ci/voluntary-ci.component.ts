@@ -81,7 +81,11 @@ export class VoluntaryCIComponent implements OnInit,OnChanges {
               FCVolCIEmpNTB_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.owner_smkr_no_smkr_action : this.radioButtonArr[1].value,Validators.required],
               FCVolCIEmpTB_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.owner_smkr_no_smkr_action : this.radioButtonArr[1].value,Validators.required],
               FCVolCIEmpTB: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.owner_smkr_no_smkr : "",Validators.required],
-             
+
+              FCVolCIChildAmtMax_Action:[(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.childamtmax_action : this.radioButtonArr[1].value,Validators.required],
+              FCVolCIChildGIAmtMax:[(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.child_gi_amt_max : "",Validators.required],
+              FCVolCIChildAmtMax:[(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.child_amt_max : "",Validators.required],
+
               FCVolCISpouseNTB: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.sp_smkr_no_smkr : "",Validators.required],
               FCVolCISpouseNTB_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.sp_smkr_no_smkr_action : this.radioButtonArr[1].value,Validators.required],
               FCVolCISpouseTB_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.sp_smkr_no_smkr_action : this.radioButtonArr[1].value,Validators.required],
