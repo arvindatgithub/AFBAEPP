@@ -57,78 +57,6 @@ export class AccidentComponent implements OnInit,OnChanges {
   constructor(private lookupService: LookupService, private fb:FormBuilder, public datepipe: DatePipe,
     private groupsearchService: GroupsearchService, private eppservice:EppCreateGrpSetupService) {
 
-      // this.eppservice.castAddEditClone.subscribe(data => {
-      //   let status = data;
-      //   if(status == 'Edit' || status == 'Add'){
-      //     this.accformgrp.enable();
-      //     this.resetFlag = false;
-      //   } else {
-      //     this.resetFlag = true;
-      //   }
-      // });
-
-      let existingSelectedGrpNbr: any;
-      this.groupsearchService.castGroupNumber.subscribe(data => {
-        existingSelectedGrpNbr = data; 
-        console.log("Accident "+ existingSelectedGrpNbr); 
-        
-          this.accidentData = JSON.parse(localStorage.getItem('GroupNumApiData'));
-          if(this.accidentData !== undefined){
-            if(this.accidentData.isACC_HIActive){
-              this.accidentDate = this.datepipe.transform(this.accidentData.acC_HI.effctv_dt, 'yyyy-MM-dd');
-              if(this.accidentData.acC_HI.grp_situs_state !== null){
-                this.accidentSitus = this.accidentData.acC_HI.grp_situs_state;
-              } else {
-                this.accidentSitus = this.lookupValue;
-              }
-              if(this.accidentData.acC_HI.sp_smkr_no_smkr !== null){
-                this.on_off = this.accidentData.acC_HI.sp_smkr_no_smkr;
-              } else {
-                this.on_off = this.jobs[2].abbrev;
-              }
-              if(this.accidentData.acC_HI.rate_lvl !== null){
-                this.rate_level = this.accidentData.acC_HI.rate_lvl;
-              } else {
-                this.rate_level = this.Rate[0].no;
-              }
-              this.sp_fname = this.accidentData.acC_HI.sp_fname == 1 ? true : false;
-              this.sp_dob = this.accidentData.acC_HI.sp_dob == 1 ? true : false;
-              this.sp_gndr = this.accidentData.acC_HI.sp_gndr == 1 ? true : false;
-
-              this.ch_fname_01 = this.accidentData.acC_HI.ch_fname_01 == 1 ? true : false;
-              this.ch_dob_01 = this.accidentData.acC_HI.ch_dob_01 == 1 ? true : false;
-              this.ch_gndr_01 = this.accidentData.acC_HI.ch_gndr_01 == 1 ? true : false;
-            }
-  
-            this.accformgrp = this.fb.group({
-              FCaccSitusState_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.grp_situs_state_action : this.radioButtonArr[1].value,Validators.required],
-              FCaccSitusState: [(this.accidentData.isACC_HIActive) ? this.accidentSitus : this.lookupValue,Validators.required],
-              FCaccEffectiveDate: [(this.accidentData.isACC_HIActive) ? this.accidentDate : this.minDate,Validators.required],
-              FCaccEffectiveDate_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.effctv_dt_action : this.radioButtonArr[1].value,Validators.required],
-              FCaccOnOff: [(this.accidentData.isACC_HIActive) ? this.on_off : this.jobs[2].abbrev,Validators.required],
-              FCaccOnOff_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.sp_smkr_no_smkr_action : this.radioButtonArr[1].value,Validators.required],
-              FCaccRateLevel: [(this.accidentData.isACC_HIActive) ? this.rate_level : this.Rate[0].no,Validators.required],
-              FCaccRateLevel_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.rate_lvl_action : this.radioButtonArr[1].value,Validators.required],
-              FcaccChildName: [(this.accidentData.isACC_HIActive) ? this.ch_fname_01 : false,Validators.required],
-              FcaccChildDOB: [(this.accidentData.isACC_HIActive) ? this.ch_dob_01 : false,Validators.required],
-              FcaccChildGender: [(this.accidentData.isACC_HIActive) ? this.ch_gndr_01 : false,Validators.required],
-              FcaccSpouseName: [(this.accidentData.isACC_HIActive) ? this.sp_fname : false,Validators.required],
-              FcaccSpouseDOB: [(this.accidentData.isACC_HIActive) ? this.sp_dob : false,Validators.required],
-              FcaccSpouseGender: [(this.accidentData.isACC_HIActive) ? this.sp_gndr : false,Validators.required],
-             
-            });
-            this.status = this.eppservice.getUserStatus();
-
-            if(this.groupsearchService.getFromSearchFlag() && this.status == ''){
-              this.accformgrp.disable();
-              this.resetFlag = true;
-            } else{
-              this.accformgrp.enable();
-              this.resetFlag = false;
-            }
-          }
-         
-      });
 
       
      }
@@ -138,21 +66,78 @@ export class AccidentComponent implements OnInit,OnChanges {
     return this.accformgrp.get('FCaccSitusState');
   }
   ngOnChanges(){
+    
+
+    let existingSelectedGrpNbr: any;
+    this.groupsearchService.castGroupNumber.subscribe(data => {
+      existingSelectedGrpNbr = data; 
+      console.log("Accident "+ existingSelectedGrpNbr); 
+      
+        this.accidentData = JSON.parse(localStorage.getItem('GroupNumApiData'));
+        if(this.accidentData !== undefined){
+          if(this.accidentData.isACC_HIActive){
+            this.accidentDate = this.datepipe.transform(this.accidentData.acC_HI.effctv_dt, 'yyyy-MM-dd');
+            if(this.accidentData.acC_HI.grp_situs_state !== null){
+              this.accidentSitus = this.accidentData.acC_HI.grp_situs_state;
+            } else {
+              this.accidentSitus = this.lookupValue;
+            }
+            if(this.accidentData.acC_HI.sp_smkr_no_smkr !== null){
+              this.on_off = this.accidentData.acC_HI.sp_smkr_no_smkr;
+            } else {
+              this.on_off = this.jobs[2].abbrev;
+            }
+            if(this.accidentData.acC_HI.rate_lvl !== null){
+              this.rate_level = this.accidentData.acC_HI.rate_lvl;
+            } else {
+              this.rate_level = this.Rate[0].no;
+            }
+            this.sp_fname = this.accidentData.acC_HI.sp_fname == 1 ? true : false;
+            this.sp_dob = this.accidentData.acC_HI.sp_dob == 1 ? true : false;
+            this.sp_gndr = this.accidentData.acC_HI.sp_gndr == 1 ? true : false;
+
+            this.ch_fname_01 = this.accidentData.acC_HI.ch_fname_01 == 1 ? true : false;
+            this.ch_dob_01 = this.accidentData.acC_HI.ch_dob_01 == 1 ? true : false;
+            this.ch_gndr_01 = this.accidentData.acC_HI.ch_gndr_01 == 1 ? true : false;
+          }
+
+          this.accformgrp = this.fb.group({
+            FCaccSitusState_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.grp_situs_state_action : this.radioButtonArr[1].value,Validators.required],
+            FCaccSitusState: [(this.accidentData.isACC_HIActive) ? this.accidentSitus : this.lookupValue,Validators.required],
+            FCaccEffectiveDate: [(this.accidentData.isACC_HIActive) ? this.accidentDate : this.minDate,Validators.required],
+            FCaccEffectiveDate_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.effctv_dt_action : this.radioButtonArr[1].value,Validators.required],
+            FCaccOnOff: [(this.accidentData.isACC_HIActive) ? this.on_off : this.jobs[2].abbrev,Validators.required],
+            FCaccOnOff_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.sp_smkr_no_smkr_action : this.radioButtonArr[1].value,Validators.required],
+            FCaccRateLevel: [(this.accidentData.isACC_HIActive) ? this.rate_level : this.Rate[0].no,Validators.required],
+            FCaccRateLevel_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.rate_lvl_action : this.radioButtonArr[1].value,Validators.required],
+            FcaccChildName: [(this.accidentData.isACC_HIActive) ? this.ch_fname_01 : false,Validators.required],
+            FcaccChildDOB: [(this.accidentData.isACC_HIActive) ? this.ch_dob_01 : false,Validators.required],
+            FcaccChildGender: [(this.accidentData.isACC_HIActive) ? this.ch_gndr_01 : false,Validators.required],
+            FcaccSpouseName: [(this.accidentData.isACC_HIActive) ? this.sp_fname : false,Validators.required],
+            FcaccSpouseDOB: [(this.accidentData.isACC_HIActive) ? this.sp_dob : false,Validators.required],
+            FcaccSpouseGender: [(this.accidentData.isACC_HIActive) ? this.sp_gndr : false,Validators.required],
+           
+          });
+          this.status = this.eppservice.getUserStatus();
+
+          if(this.groupsearchService.getFromSearchFlag() && this.status == ''){
+            this.accformgrp.disable();
+            this.resetFlag = true;
+          } else{
+            this.accformgrp.enable();
+            this.resetFlag = false;
+          }
+        }
+       
+    });
    
     this.latest_dateaccident = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
   }
 
 
   ngOnInit() {
-    this.lookupService.getLookupsData()
-    .subscribe((data: any) => {
-      this.isLoading = true;
-      console.log("data", data);
-      this.lookUpDataSitusStates = data.situsState;
-      // this.myForm.setValue(this.lookUpDataSitusStates[0].state);
-       this.latest_dateaccident = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
-    }); 
-   
+    this.lookUpDataSitusStates = JSON.parse(localStorage.getItem('lookUpSitusApiData'));
+ 
   }
   resetAcc(){
     this.accformgrp.reset({

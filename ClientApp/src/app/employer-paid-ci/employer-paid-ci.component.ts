@@ -39,16 +39,15 @@ export class EmployerPaidCIComponent implements OnInit ,OnChanges{
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe,
     private groupsearchService: GroupsearchService, private eppservice:EppCreateGrpSetupService) {
 
-      // this.eppservice.castAddEditClone.subscribe(data => {
-      //   let status = data;
-      //   if(status == 'Edit' || status == 'Add'){
-      //     this.empCIformgrp.enable();
-      //     this.resetFlag = false;
-      //   } else {
-      //     this.resetFlag = true;
-      //   }
-      // });
+   }
 
+ 
+  get myForm() {
+    return this.empCIformgrp.get('FCempCISitusState');
+  }
+
+  ngOnChanges(){
+    
     let existingSelectedGrpNbr: any;
     this.groupsearchService.castGroupNumber.subscribe(data => {
       existingSelectedGrpNbr = data; 
@@ -101,14 +100,6 @@ export class EmployerPaidCIComponent implements OnInit ,OnChanges{
     });
 
     
-   }
-
- 
-  get myForm() {
-    return this.empCIformgrp.get('FCempCISitusState');
-  }
-
-  ngOnChanges(){
     
     this.latest_dateemppaisci = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
    // this.myForm.setValue(this.lookupValue);
@@ -116,15 +107,7 @@ export class EmployerPaidCIComponent implements OnInit ,OnChanges{
   }
   
   ngOnInit() {
-    this.lookupService.getLookupsData()
-    .subscribe((data: any) => {
-      this.isLoading = true;
-      console.log("data", data);
-      this.lookUpDataSitusStates = data.situsState;
-      // this.myForm.setValue(this.lookUpDataSitusStates[0].state);
-    });
-
-   
+    this.lookUpDataSitusStates = JSON.parse(localStorage.getItem('lookUpSitusApiData'));
    
   }
 
