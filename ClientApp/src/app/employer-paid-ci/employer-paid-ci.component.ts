@@ -34,31 +34,29 @@ export class EmployerPaidCIComponent implements OnInit ,OnChanges{
   empCiDate;
   empCiStatus;
   resetFlag = true;
+  status;
 
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe,
     private groupsearchService: GroupsearchService, private eppservice:EppCreateGrpSetupService) {
 
-      this.eppservice.castAddEditClone.subscribe(data => {
-        let status = data;
-        if(status == 'Edit' || status == 'Add'){
-          this.empCIformgrp.enable();
-          this.resetFlag = false;
-        } else {
-          this.resetFlag = true;
-        }
-      });
+      // this.eppservice.castAddEditClone.subscribe(data => {
+      //   let status = data;
+      //   if(status == 'Edit' || status == 'Add'){
+      //     this.empCIformgrp.enable();
+      //     this.resetFlag = false;
+      //   } else {
+      //     this.resetFlag = true;
+      //   }
+      // });
 
     let existingSelectedGrpNbr: any;
     this.groupsearchService.castGroupNumber.subscribe(data => {
       existingSelectedGrpNbr = data; 
       console.log("EMP-CI "+ existingSelectedGrpNbr); 
-      this.eppservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
-        this.empCiData = data;
-        
-        console.log('acc'+ JSON.stringify(data));
-        
-        //this.minDate = this.datepipe.transform(this.groupsfppgData.fppg.effctv_dt, 'yyyy-MM-dd');
-        if(this.empCiData !== undefined){
+     
+      this.empCiData = JSON.parse(localStorage.getItem('GroupNumApiData'));
+      
+      if(this.empCiData !== undefined){
           if(this.empCiData.isER_CIActive){
             this.empCiDate = this.datepipe.transform(this.empCiData.eR_CI.effctv_dt, 'yyyy-MM-dd');
             if(this.empCiData.eR_CI.grp_situs_state !== null){
@@ -87,9 +85,10 @@ export class EmployerPaidCIComponent implements OnInit ,OnChanges{
             FCempCIChdFcAmt_Action: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.ch_plan_cd_action : this.radioButtonArr[1].value,Validators.required],
             FCempCISpouseFcAmt_Action:[(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.sp_plan_cd_action : this.radioButtonArr[1].value, Validators.required]
           });
-
-          if(this.groupsearchService.getFromSearchFlag()){
+          this.status = this.eppservice.getUserStatus();
+          if(this.groupsearchService.getFromSearchFlag() && this.status == ''){
             this.empCIformgrp.disable();
+            this.resetFlag = true;
           }else{
             this.empCIformgrp.enable();
             this.resetFlag = false;
@@ -98,7 +97,7 @@ export class EmployerPaidCIComponent implements OnInit ,OnChanges{
          
           
         }
-        });
+        
     });
 
     

@@ -33,59 +33,61 @@ export class BasicGroupLifeComponent implements OnInit,OnChanges {
    bglDate;
    bglStatus;
    resetFlag = true;
+   status;
 
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe,
     private groupsearchService: GroupsearchService, private eppservice:EppCreateGrpSetupService) {
 
 
-      this.eppservice.castAddEditClone.subscribe(data => {
-        let status = data;
-        if(status == 'Edit' || status == 'Add'){
-          this.basicGrpLfformgrp.enable();
-          this.resetFlag = false;
-        } else {
-          this.resetFlag = true;
-        }
-      });
+      // this.eppservice.castAddEditClone.subscribe(data => {
+      //   let status = data;
+      //   if(status == 'Edit' || status == 'Add'){
+      //     this.basicGrpLfformgrp.enable();
+      //     this.resetFlag = false;
+      //   } else {
+      //     this.resetFlag = true;
+      //   }
+      // });
 
       let existingSelectedGrpNbr: any;
       this.groupsearchService.castGroupNumber.subscribe(data => {
         existingSelectedGrpNbr = data; 
         console.log("BGL "+ existingSelectedGrpNbr); 
-        this.eppservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
-          this.bglData = data;
-          console.log('bgl'+ JSON.stringify(this.bglData));
-          if(this.bglData !== undefined){
-  
-            if(this.bglData.isBGLActive){
-              this.bglDate = this.datepipe.transform(this.bglData.bgl.effctv_dt, 'yyyy-MM-dd');
-              if(this.bglData.bgl.grp_situs_state !== null){
-                this.bglStatus = this.bglData.bgl.grp_situs_state;
-              } else {
-                this.bglStatus = this.lookupValue;
-              }
-            }
-  
-            this.basicGrpLfformgrp = this.fb.group({
-              FCbasicEffectiveDate_Action: [(this.bglData.isBGLActive) ? this.bglData.bgl.effctv_dt_action : this.radioButtonArr[1].value,Validators.required],
-              FCbasicEffectiveDate: [(this.bglData.isBGLActive) ? this.bglDate : this.minDate,Validators.required],
-              FCbasicSitusState_Action: [(this.bglData.isBGLActive) ? this.bglData.bgl.grp_situs_state_action : this.radioButtonArr[1].value,Validators.required],
-              FCbasicSitusState: [(this.bglData.isBGLActive) ? this.bglStatus : this.lookupValue,Validators.required],
-              FCbasicEmpFcAmt_Action: [(this.bglData.isBGLActive) ? this.bglData.bgl.emp_face_amt_mon_bnft_action : this.radioButtonArr[1].value,Validators.required],
-              FCbasicEmpFcAmt: [(this.bglData.isBGLActive) ? this.bglData.bgl.emp_face_amt_mon_bnft : "",Validators.required],
-              SpouseFaceAmount: [(this.bglData.isBGLActive) ? this.bglData.bgl.sp_face_amt_mon_bnft : "",Validators.required],
-              ChildFaceAmount: [(this.bglData.isBGLActive) ? this.bglData.bgl.ch_face_amt_mon_bnft_01 : "",Validators.required],
-            });
 
-            if(this.groupsearchService.getFromSearchFlag()){
-              this.basicGrpLfformgrp.disable();
-            }else{
-              this.basicGrpLfformgrp.enable();
-              this.resetFlag = false;
+        this.bglData = JSON.parse(localStorage.getItem('GroupNumApiData'));
+
+        if(this.bglData !== undefined){
+
+          if(this.bglData.isBGLActive){
+            this.bglDate = this.datepipe.transform(this.bglData.bgl.effctv_dt, 'yyyy-MM-dd');
+            if(this.bglData.bgl.grp_situs_state !== null){
+              this.bglStatus = this.bglData.bgl.grp_situs_state;
+            } else {
+              this.bglStatus = this.lookupValue;
             }
           }
-          
+
+          this.basicGrpLfformgrp = this.fb.group({
+            FCbasicEffectiveDate_Action: [(this.bglData.isBGLActive) ? this.bglData.bgl.effctv_dt_action : this.radioButtonArr[1].value,Validators.required],
+            FCbasicEffectiveDate: [(this.bglData.isBGLActive) ? this.bglDate : this.minDate,Validators.required],
+            FCbasicSitusState_Action: [(this.bglData.isBGLActive) ? this.bglData.bgl.grp_situs_state_action : this.radioButtonArr[1].value,Validators.required],
+            FCbasicSitusState: [(this.bglData.isBGLActive) ? this.bglStatus : this.lookupValue,Validators.required],
+            FCbasicEmpFcAmt_Action: [(this.bglData.isBGLActive) ? this.bglData.bgl.emp_face_amt_mon_bnft_action : this.radioButtonArr[1].value,Validators.required],
+            FCbasicEmpFcAmt: [(this.bglData.isBGLActive) ? this.bglData.bgl.emp_face_amt_mon_bnft : "",Validators.required],
+            SpouseFaceAmount: [(this.bglData.isBGLActive) ? this.bglData.bgl.sp_face_amt_mon_bnft : "",Validators.required],
+            ChildFaceAmount: [(this.bglData.isBGLActive) ? this.bglData.bgl.ch_face_amt_mon_bnft_01 : "",Validators.required],
           });
+
+          this.status = this.eppservice.getUserStatus();
+          if(this.groupsearchService.getFromSearchFlag() && this.status==''){
+            this.basicGrpLfformgrp.disable();
+            this.resetFlag = true;
+          }else{
+            this.basicGrpLfformgrp.enable();
+            this.resetFlag = false;
+          }
+        }
+        
       });
 
       
