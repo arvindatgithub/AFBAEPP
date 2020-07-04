@@ -48,9 +48,8 @@ namespace AFBA.EPP
             });
 
             services.AddEntityFrameworkNpgsql().AddDbContext<EppAppDbContext>(opt =>
-                opt.UseNpgsql(Configuration.GetConnectionString("PostgreSqlConection"))
-                
-                
+                opt.UseNpgsql(Configuration.GetConnectionString("PostgreSqlConection"),
+                providerOptions => providerOptions.EnableRetryOnFailure())                           
                 );
 
 
