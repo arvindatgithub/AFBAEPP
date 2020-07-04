@@ -34,73 +34,74 @@ export class FPPIndividualComponent implements OnInit, OnChanges {
   fppiDate;
   fppiSitus;
   resetFlag = true;
+  status;
 
   constructor(private lookupService: LookupService, private fb:FormBuilder, public datepipe: DatePipe,
     private groupsearchService: GroupsearchService, private eppservice:EppCreateGrpSetupService) {
 
-      this.eppservice.castAddEditClone.subscribe(data => {
-        let status = data;
-        if(status == 'Edit' || status == 'Add'){
-          this.fppiformgrp.enable();
-          this.resetFlag = false;
-        } else {
-          this.resetFlag = true;
-        }
-      });
+      // this.eppservice.castAddEditClone.subscribe(data => {
+      //   let status = data;
+      //   if(status == 'Edit' || status == 'Add'){
+      //     this.fppiformgrp.enable();
+      //     this.resetFlag = false;
+      //   } else {
+      //     this.resetFlag = true;
+      //   }
+      // });
       let existingSelectedGrpNbr: any;
       this.groupsearchService.castGroupNumber.subscribe(data => {
         existingSelectedGrpNbr = data; 
         console.log("FPPI "+ existingSelectedGrpNbr); 
-        this.eppservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
-          this.fppiData = data;
-          console.log('FPPI'+ JSON.stringify(this.fppiData));
-          if(this.fppiData !== undefined){
-  
-            if(this.fppiData.isFPPIActive){
-              this.fppiDate = this.datepipe.transform(this.fppiData.fppi.effctv_dt, 'yyyy-MM-dd');
-            }
-            this.fppiformgrp = this.fb.group({
-              FCfppiEffectiveDate: [(this.fppiData.isFPPIActive) ? this.fppiDate : this.minDate,Validators.required],
-              FCfppiEffectiveDate_Action: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.effctv_dt_action :this.radioButtonArr[1].value,Validators.required],
-              FCfppiAgentSign: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.agnt_sig_txt_1 : "",Validators.required],
-              FCfppiAgentSign_Action: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.agnt_sig_txt_1_action : this.radioButtonArr[1].value,Validators.required],
-              FCfppiEmpGIAmtMax: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.emp_gi_max_amt : "",Validators.required],
-              FCfppiEmpAmtMax_Action: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.emp_max_amt_action : this.radioButtonArr[1].value,Validators.required],
-              FCfppiEmpQIAmtMax: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.emp_qi_max_amt : "",Validators.required],
-              FCfppiEmpAmtMax: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.emp_max_amt : "",Validators.required],
-              FCfppiSpouseGIAmtMax: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.sp_gi_max_amt : "",Validators.required],
-              FCfppiSpouseQIAmtMax: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.sp_qi_max_amt : "",Validators.required],
-              FCfppiSpouseMaxAmt: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.sp_max_amt : "",Validators.required],
-              FCfppiSpouseAmtMax_Action: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.sp_max_amt_action : this.radioButtonArr[1].value,Validators.required],
-              //FCfppiOpenEnrollGI: ["",Validators.required],
-              //FCfppiOpenEnrollGI_Action: [this.radioButtonArr[1].value,Validators.required],
-              FCfppiPlanCodeManualEntry_Action: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.emp_plan_cd_action : this.radioButtonArr[1].value,Validators.required],
-              //FCfppiPlanCodeManualEntry: ["",Validators.required],
-              FCfppiUserToken: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.user_token : "",Validators.required],
-              FCfppiUserToken_Action: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.user_token_action : this.radioButtonArr[1].value,Validators.required],
-              FCfppiCaseToken: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.case_token : "",Validators.required],
-              FCfppiCaseToken_Action: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.case_token_action : this.radioButtonArr[1].value,Validators.required],
-              FCfppiQolRiders: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.emp_quality_of_life : "",Validators.required],
-              FCfppiQolRiders_Action: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.emp_quality_of_life_action : this.radioButtonArr[1].value,Validators.required],
-              FCfppiWaiver_Action: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.emp_waiver_of_prem_action : this.radioButtonArr[1].value,Validators.required],
-              FCfppiWaiver: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.emp_waiver_of_prem : "",Validators.required],
-            
-              FCfppiempPlanCode: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.emp_plan_cd : "" ,Validators.required],
-              FCfppiSpousePlanCode:[(this.fppiData.isFPPIActive) ? this.fppiData.fppi.sp_plan_cd : "", Validators.required],
-              FCfppiChildPlanCode:[(this.fppiData.isFPPIActive) ? this.fppiData.fppi.ch_plan_cd : "", Validators.required],
+
+        this.fppiData = JSON.parse(localStorage.getItem('GroupNumApiData'));
         
-            });
-            
-            if(this.groupsearchService.getFromSearchFlag()){
-              this.fppiformgrp.disable();
-            }else {
-              this.fppiformgrp.enable();
-              this.resetFlag = false;
-            }
-            
-  
+        if(this.fppiData !== undefined){
+
+          if(this.fppiData.isFPPIActive){
+            this.fppiDate = this.datepipe.transform(this.fppiData.fppi.effctv_dt, 'yyyy-MM-dd');
           }
-        });
+          this.fppiformgrp = this.fb.group({
+            FCfppiEffectiveDate: [(this.fppiData.isFPPIActive) ? this.fppiDate : this.minDate,Validators.required],
+            FCfppiEffectiveDate_Action: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.effctv_dt_action :this.radioButtonArr[1].value,Validators.required],
+            FCfppiAgentSign: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.agnt_sig_txt_1 : "",Validators.required],
+            FCfppiAgentSign_Action: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.agnt_sig_txt_1_action : this.radioButtonArr[1].value,Validators.required],
+            FCfppiEmpGIAmtMax: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.emp_gi_max_amt : "",Validators.required],
+            FCfppiEmpAmtMax_Action: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.emp_max_amt_action : this.radioButtonArr[1].value,Validators.required],
+            FCfppiEmpQIAmtMax: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.emp_qi_max_amt : "",Validators.required],
+            FCfppiEmpAmtMax: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.emp_max_amt : "",Validators.required],
+            FCfppiSpouseGIAmtMax: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.sp_gi_max_amt : "",Validators.required],
+            FCfppiSpouseQIAmtMax: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.sp_qi_max_amt : "",Validators.required],
+            FCfppiSpouseMaxAmt: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.sp_max_amt : "",Validators.required],
+            FCfppiSpouseAmtMax_Action: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.sp_max_amt_action : this.radioButtonArr[1].value,Validators.required],
+            //FCfppiOpenEnrollGI: ["",Validators.required],
+            //FCfppiOpenEnrollGI_Action: [this.radioButtonArr[1].value,Validators.required],
+            FCfppiPlanCodeManualEntry_Action: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.emp_plan_cd_action : this.radioButtonArr[1].value,Validators.required],
+            //FCfppiPlanCodeManualEntry: ["",Validators.required],
+            FCfppiUserToken: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.user_token : "",Validators.required],
+            FCfppiUserToken_Action: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.user_token_action : this.radioButtonArr[1].value,Validators.required],
+            FCfppiCaseToken: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.case_token : "",Validators.required],
+            FCfppiCaseToken_Action: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.case_token_action : this.radioButtonArr[1].value,Validators.required],
+            FCfppiQolRiders: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.emp_quality_of_life : "",Validators.required],
+            FCfppiQolRiders_Action: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.emp_quality_of_life_action : this.radioButtonArr[1].value,Validators.required],
+            FCfppiWaiver_Action: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.emp_waiver_of_prem_action : this.radioButtonArr[1].value,Validators.required],
+            FCfppiWaiver: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.emp_waiver_of_prem : "",Validators.required],
+          
+            FCfppiempPlanCode: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.emp_plan_cd : "" ,Validators.required],
+            FCfppiSpousePlanCode:[(this.fppiData.isFPPIActive) ? this.fppiData.fppi.sp_plan_cd : "", Validators.required],
+            FCfppiChildPlanCode:[(this.fppiData.isFPPIActive) ? this.fppiData.fppi.ch_plan_cd : "", Validators.required],
+      
+          });
+          this.status = this.eppservice.getUserStatus();
+          if(this.groupsearchService.getFromSearchFlag() && this.status == ''){
+            this.fppiformgrp.disable();
+            this.resetFlag = true;
+          }else {
+            this.fppiformgrp.enable();
+            this.resetFlag = false;
+          }
+          
+
+        }
         
       });
       

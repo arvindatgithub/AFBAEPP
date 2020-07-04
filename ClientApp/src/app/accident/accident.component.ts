@@ -52,30 +52,27 @@ export class AccidentComponent implements OnInit,OnChanges {
   sp_fname;
   sp_dob;
   sp_gndr;
+  status;
 
   constructor(private lookupService: LookupService, private fb:FormBuilder, public datepipe: DatePipe,
     private groupsearchService: GroupsearchService, private eppservice:EppCreateGrpSetupService) {
 
-      this.eppservice.castAddEditClone.subscribe(data => {
-        let status = data;
-        if(status == 'Edit' || status == 'Add'){
-          this.accformgrp.enable();
-          this.resetFlag = false;
-        } else {
-          this.resetFlag = true;
-        }
-      });
+      // this.eppservice.castAddEditClone.subscribe(data => {
+      //   let status = data;
+      //   if(status == 'Edit' || status == 'Add'){
+      //     this.accformgrp.enable();
+      //     this.resetFlag = false;
+      //   } else {
+      //     this.resetFlag = true;
+      //   }
+      // });
 
       let existingSelectedGrpNbr: any;
       this.groupsearchService.castGroupNumber.subscribe(data => {
         existingSelectedGrpNbr = data; 
         console.log("Accident "+ existingSelectedGrpNbr); 
-        this.eppservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
-          this.accidentData = data;
-          
-          console.log('acc'+ JSON.stringify(data));
-          
-          //this.minDate = this.datepipe.transform(this.groupsfppgData.fppg.effctv_dt, 'yyyy-MM-dd');
+        
+          this.accidentData = JSON.parse(localStorage.getItem('GroupNumApiData'));
           if(this.accidentData !== undefined){
             if(this.accidentData.isACC_HIActive){
               this.accidentDate = this.datepipe.transform(this.accidentData.acC_HI.effctv_dt, 'yyyy-MM-dd');
@@ -120,14 +117,17 @@ export class AccidentComponent implements OnInit,OnChanges {
               FcaccSpouseGender: [(this.accidentData.isACC_HIActive) ? this.sp_gndr : false,Validators.required],
              
             });
-            if(this.groupsearchService.getFromSearchFlag()){
+            this.status = this.eppservice.getUserStatus();
+
+            if(this.groupsearchService.getFromSearchFlag() && this.status == ''){
               this.accformgrp.disable();
+              this.resetFlag = true;
             } else{
               this.accformgrp.enable();
               this.resetFlag = false;
             }
           }
-          });
+         
       });
 
       

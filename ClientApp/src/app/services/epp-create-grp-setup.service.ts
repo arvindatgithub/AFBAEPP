@@ -13,8 +13,9 @@ export class EppCreateGrpSetupService {
   constructor(private http: HttpClient) { 
     this.myEppData = this.eppData.asObservable();
   }
-  private addEditClone = new BehaviorSubject<string>('');
-  castAddEditClone = this.addEditClone.asObservable();
+  // private addEditClone = new BehaviorSubject<string>('');
+  // castAddEditClone = this.addEditClone.asObservable();
+  setStatus = '';
 
   getGroupNbrEppData(grpNbr){
     const eppCreateURL = environment.apiurl + 'GroupSetup/grpNbr/' + grpNbr;
@@ -35,7 +36,10 @@ export class EppCreateGrpSetupService {
   }
 
   setUserStatus(value){
-    this.addEditClone.next(value);
+    this.setStatus = value;
+ }
+ getUserStatus(){
+   return this.setStatus;
  }
 }
 

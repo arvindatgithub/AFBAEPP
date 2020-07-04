@@ -225,6 +225,7 @@ export class GroupSetupComponent implements OnInit {
       this.eppcreategroupservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
         console.log('Groups Data on load from db'+ JSON.stringify(data));
         this.groupsData = data;
+
         //Setting Initial Values for Group Section
         this.groupNumber = this.groupsData.grpNbr;
         this.groupName = this.groupsData.grpNm;
@@ -478,6 +479,13 @@ export class GroupSetupComponent implements OnInit {
           this.editRAddFlag = false;
          // this.agentformgrp.enable();
         }
+        let key = 'GroupNumApiData';
+        if (localStorage.getItem("GroupNumApiData") !== null) {
+          localStorage.clear();
+        }
+        localStorage.setItem(key, JSON.stringify(this.groupsData));
+
+
         
       });
       console.log(' flag flag '+this.groupsearchService.getFromSearchFlag());
@@ -526,8 +534,8 @@ export class GroupSetupComponent implements OnInit {
     this.editRAddFlag = true;
     this.toggleFlag = false;
     this.agentformgrp.enable();
-    this.groupsearchService.existingGrpNbrSelected(grpNbr);
     this.eppcreategroupservice.setUserStatus('Edit');
+    this.groupsearchService.existingGrpNbrSelected(grpNbr);
   }
   onAdd() {
     this.addToggle = true;
@@ -536,8 +544,8 @@ export class GroupSetupComponent implements OnInit {
     this.editRAddFlag = true;
     this.toggleFlag = false;
     this.agentformgrp.enable();
-    this.groupsearchService.existingGrpNbrSelected('');
     this.eppcreategroupservice.setUserStatus('Add');
+    this.groupsearchService.existingGrpNbrSelected('');
   }
   onClone() {
     this.addToggle = false;
