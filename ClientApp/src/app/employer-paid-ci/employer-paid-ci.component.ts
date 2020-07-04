@@ -77,9 +77,9 @@ export class EmployerPaidCIComponent implements OnInit ,OnChanges{
           
             FCempCIPlanCode_Action: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.emp_plan_cd_action : this.radioButtonArr[1].value,Validators.required],
         
-            FCempCIEMPPlanCode: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.emp_plan_cd :"",Validators.required],
-            FCempCISpouseFcAmt: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.sp_plan_cd : "",Validators.required],
-            FCempCIChdFcAmt: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.ch_plan_cd : "",Validators.required],
+            FCempCIEMPPlanCode: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.emp_ProductCode :"",Validators.required],
+            FCempCISpouseFcAmt: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.sp_ProductCode : "",Validators.required],
+            FCempCIChdFcAmt: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.ch_ProductCode : "",Validators.required],
             
             FCempCIChdFcAmt_Action: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.ch_plan_cd_action : this.radioButtonArr[1].value,Validators.required],
             FCempCISpouseFcAmt_Action:[(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.sp_plan_cd_action : this.radioButtonArr[1].value, Validators.required]

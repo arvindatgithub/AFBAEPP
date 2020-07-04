@@ -86,9 +86,9 @@ export class FPPIndividualComponent implements OnInit, OnChanges {
             FCfppiWaiver_Action: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.emp_waiver_of_prem_action : this.radioButtonArr[1].value,Validators.required],
             FCfppiWaiver: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.emp_waiver_of_prem : "",Validators.required],
           
-            FCfppiempPlanCode: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.emp_plan_cd : "" ,Validators.required],
-            FCfppiSpousePlanCode:[(this.fppiData.isFPPIActive) ? this.fppiData.fppi.sp_plan_cd : "", Validators.required],
-            FCfppiChildPlanCode:[(this.fppiData.isFPPIActive) ? this.fppiData.fppi.ch_plan_cd : "", Validators.required],
+            FCfppiempPlanCode: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.emp_ProductCode : "" ,Validators.required],
+            FCfppiSpousePlanCode:[(this.fppiData.isFPPIActive) ? this.fppiData.fppi.sp_ProductCode : "", Validators.required],
+            FCfppiChildPlanCode:[(this.fppiData.isFPPIActive) ? this.fppiData.fppi.ch_ProductCode : "", Validators.required],
       
           });
           this.status = this.eppservice.getUserStatus();

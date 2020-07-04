@@ -87,9 +87,9 @@ ngOnChanges(simpleChange:SimpleChanges){
         FCfppgSpouseMaxAmt: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.sp_max_amt : "",Validators.required],
         //FCfppgOpenEnrollGI: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg. : "",Validators.required],
         
-        FCfppgEmpPlanCode: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.emp_plan_cd : "", Validators.required],
-        FCfppgSpousePlanCode: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.sp_plan_cd :"", Validators.required],
-        FCfppgChildPlanCode: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.ch_plan_cd : "", Validators.required],
+        FCfppgEmpPlanCode: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.emp_ProductCode : "", Validators.required],
+        FCfppgSpousePlanCode: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.sp_ProductCode :"", Validators.required],
+        FCfppgChildPlanCode: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.ch_ProductCode : "", Validators.required],
         
         FCfppgQolRiders: [(this.fppgData.isFPPGActive) ?  this.fppgData.fppg.emp_quality_of_life: "",Validators.required],
         FCfppgWaiver:[(this.fppgData.isFPPGActive) ?  this.fppgData.fppg.emp_waiver_of_prem: "",Validators.required],
