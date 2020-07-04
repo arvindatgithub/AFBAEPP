@@ -22,7 +22,7 @@ namespace AFBA.EPP.ViewModels
         public  List<EppAgentsViewModel>  GrpAgents{ get; set; }
         public string AcctMgrNm { get; set; }
         public string AcctMgrEmailAddrs { get; set; }
-        public string EmailAddress { get; set; }
+        //public string EmailAddress { get; set; }
 
         public string user_token { get; set; }
         public string case_token { get; set; }
