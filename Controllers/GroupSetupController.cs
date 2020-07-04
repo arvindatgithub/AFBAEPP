@@ -47,7 +47,9 @@ namespace AFBA.EPP.Controllers
         [HttpPut]
         public IActionResult EditEppGrpSetup(GroupSetupModel groupSetupModel)
         {
-           var grpMstdata= _unitofWork.GroupMasterRepository.Find(x => x.GrpId == groupSetupModel.GrpId).Result.FirstOrDefault();
+            var grpId = long.Parse(groupSetupModel.GrpId);
+
+           var grpMstdata= _unitofWork.GroupMasterRepository.Find(x => x.GrpId == grpId).Result.FirstOrDefault();
             if (grpMstdata!=null) return BadRequest("Incorrect group id");
 
             if (!string.IsNullOrEmpty(groupSetupModel.EmlAddrss))
@@ -56,7 +58,7 @@ namespace AFBA.EPP.Controllers
                 var enrlmntPrtnr = _unitofWork.eppEnrlmntPrtnrsRepository.GetEnrlmntPrtnrId(groupSetupModel.EmlAddrss);
                 if (enrlmntPrtnr != null)
                 {
-                    groupSetupModel.EnrlmntPrtnrsId = enrlmntPrtnr.EnrlmntPrtnrsId;
+                    groupSetupModel.EnrlmntPrtnrsId = enrlmntPrtnr.EnrlmntPrtnrsId.ToString();
                 }
                 else
                 {
@@ -75,20 +77,20 @@ namespace AFBA.EPP.Controllers
             grpMstdata.GrpNbr = groupSetupModel.GrpNbr;
             grpMstdata.GrpNm = groupSetupModel.GrpNm;
             grpMstdata.ActvFlg = groupSetupModel.ActvFlg;
-            grpMstdata.EnrlmntPrtnrsId = groupSetupModel.EnrlmntPrtnrsId;
+            grpMstdata.EnrlmntPrtnrsId =long.Parse( groupSetupModel.EnrlmntPrtnrsId);
             grpMstdata.AcctMgrNm = groupSetupModel.AcctMgrNm;
             grpMstdata.AcctMgrEmailAddrs = groupSetupModel.AcctMgrEmailAddrs;
             grpMstdata.GrpEfftvDt = groupSetupModel.GrpEfftvDt;
             grpMstdata.GrpSitusSt = groupSetupModel.GrpSitusSt;
 
-            grpMstdata.GrpPymnId = groupSetupModel.GrpPymn;
-            grpMstdata.OccClass = groupSetupModel.OccClass;
+            grpMstdata.GrpPymnId =long.Parse( groupSetupModel.GrpPymn);
+            grpMstdata.OccClass = long.Parse(groupSetupModel.OccClass);
             grpMstdata.CrtdBy = CrtdBy;
             // update group Master
 
             _unitofWork.GroupMasterRepository.Update(grpMstdata);
 
-            UpdateAgent(groupSetupModel.GrpAgents,  groupSetupModel.GrpId);
+            UpdateAgent(groupSetupModel.GrpAgents, grpId);
 
             // add  update enrollment partner
             if (!string.IsNullOrEmpty(groupSetupModel.EmlAddrss))
@@ -97,14 +99,14 @@ namespace AFBA.EPP.Controllers
                 var enrlmntPrtnr = _unitofWork.eppEnrlmntPrtnrsRepository.GetEnrlmntPrtnrId(groupSetupModel.EmlAddrss);
                 if (enrlmntPrtnr != null)
                 {
-                    groupSetupModel.EnrlmntPrtnrsId = enrlmntPrtnr.EnrlmntPrtnrsId;
+                    groupSetupModel.EnrlmntPrtnrsId = enrlmntPrtnr.EnrlmntPrtnrsId.ToString();
                 }
                 else
                 {
-                    groupSetupModel.EnrlmntPrtnrsId = Helper.GetRandomNumber();
+                    groupSetupModel.EnrlmntPrtnrsId = Helper.GetRandomNumber().ToString();
                     _unitofWork.eppEnrlmntPrtnrsRepository.Add(new EppEnrlmntPrtnrs
                     {
-                        EnrlmntPrtnrsId = groupSetupModel.EnrlmntPrtnrsId,
+                        EnrlmntPrtnrsId = long.Parse( groupSetupModel.EnrlmntPrtnrsId),
                         CrtdBy = CrtdBy,
                         EmlAddrss = groupSetupModel.EmlAddrss,
                         EnrlmntPrtnrsNm = groupSetupModel.EnrlmntPrtnrsNm
@@ -115,7 +117,7 @@ namespace AFBA.EPP.Controllers
             }
              // goup product for existing products
 
-            var Grpprdcts = _unitofWork.eppGrpprdctRepository.Find(x => x.GrpId == groupSetupModel.GrpId).Result;
+            var Grpprdcts = _unitofWork.eppGrpprdctRepository.Find(x => x.GrpId == grpId).Result;
              foreach(var prod in Grpprdcts)
             {
                
@@ -204,6 +206,7 @@ namespace AFBA.EPP.Controllers
         {
             try
             {
+                long enrlmntPrtnrsId=0;
                 var grpprdct = _unitofWork.GroupMasterRepository.Find(x => x.GrpNbr == groupSetupModel.GrpNbr || x.GrpNm == groupSetupModel.GrpNm).Result;
                 if (grpprdct.Count != 0) return BadRequest(" Group name or number already exist");
 
@@ -213,14 +216,16 @@ namespace AFBA.EPP.Controllers
                     var enrlmntPrtnr = _unitofWork.eppEnrlmntPrtnrsRepository.GetEnrlmntPrtnrId(groupSetupModel.EmlAddrss);
                     if (enrlmntPrtnr != null)
                     {
-                        groupSetupModel.EnrlmntPrtnrsId = enrlmntPrtnr.EnrlmntPrtnrsId;
+                        enrlmntPrtnrsId = enrlmntPrtnr.EnrlmntPrtnrsId;
+                        groupSetupModel.EnrlmntPrtnrsId = enrlmntPrtnrsId.ToString();
                     }
                     else
                     {
-                        groupSetupModel.EnrlmntPrtnrsId = Helper.GetRandomNumber();
+                        enrlmntPrtnrsId = Helper.GetRandomNumber();
+                        groupSetupModel.EnrlmntPrtnrsId = enrlmntPrtnrsId.ToString();
                         _unitofWork.eppEnrlmntPrtnrsRepository.Add(new EppEnrlmntPrtnrs
                         {
-                            EnrlmntPrtnrsId = groupSetupModel.EnrlmntPrtnrsId,
+                            EnrlmntPrtnrsId = long.Parse(groupSetupModel.EnrlmntPrtnrsId),
                             CrtdBy = "",
                             EmlAddrss = groupSetupModel.EmlAddrss,
                             EnrlmntPrtnrsNm = groupSetupModel.EnrlmntPrtnrsNm
@@ -237,13 +242,13 @@ namespace AFBA.EPP.Controllers
                     GrpNbr = groupSetupModel.GrpNbr,
                     GrpNm = groupSetupModel.GrpNm,
                     ActvFlg = 'Y',
-                    EnrlmntPrtnrsId = groupSetupModel.EnrlmntPrtnrsId,
+                    EnrlmntPrtnrsId = enrlmntPrtnrsId,
                     AcctMgrNm = groupSetupModel.AcctMgrNm,
                     AcctMgrEmailAddrs = groupSetupModel.AcctMgrEmailAddrs,
                     GrpEfftvDt = groupSetupModel.GrpEfftvDt,
                     GrpSitusSt = groupSetupModel.GrpSitusSt,
-                    GrpPymnId = groupSetupModel.GrpPymn,
-                    OccClass = groupSetupModel.OccClass,
+                    GrpPymnId =long.Parse(groupSetupModel.GrpPymn),
+                    OccClass = long.Parse(groupSetupModel.OccClass),
                     CaseTkn = groupSetupModel.case_token,
                     UsrTkn= groupSetupModel.user_token,
                     GrpId = grpId,
@@ -861,20 +866,20 @@ namespace AFBA.EPP.Controllers
 
 
                 GroupSetupModel groupSetupModel = new GroupSetupModel();
-                if ( string.IsNullOrEmpty(grpNbr))
-                {
-                    groupSetupModel.GrpEfftvDt = DateTime.UtcNow;
-                }
+                //if ( string.IsNullOrEmpty(grpNbr))
+                //{
+                //    groupSetupModel.GrpEfftvDt = DateTime.UtcNow;
+                //}
 
                 var GrpMaster = _unitofWork.GroupMasterRepository.SingleOrDefault(x => x.GrpNbr == grpNbr).Result;
                 if (GrpMaster != null)
                 {
 
-                    groupSetupModel.GrpId = GrpMaster.GrpId;
+                    groupSetupModel.GrpId = GrpMaster.GrpId.ToString();
                     groupSetupModel.GrpNbr = GrpMaster.GrpNbr;
                     groupSetupModel.GrpNm = GrpMaster.GrpNm;
                     groupSetupModel.ActvFlg = GrpMaster.ActvFlg;
-                    groupSetupModel.EnrlmntPrtnrsId = GrpMaster.EnrlmntPrtnrsId;
+                    groupSetupModel.EnrlmntPrtnrsId = GrpMaster.EnrlmntPrtnrsId.ToString();
                     var enrlPartner = _unitofWork.eppEnrlmntPrtnrsRepository.SingleOrDefault(x => x.EnrlmntPrtnrsId == GrpMaster.EnrlmntPrtnrsId).Result;
                     if (enrlPartner != null)
                     {
@@ -885,11 +890,11 @@ namespace AFBA.EPP.Controllers
                     groupSetupModel.AcctMgrEmailAddrs = GrpMaster.AcctMgrEmailAddrs;
 
                     groupSetupModel.GrpEfftvDt = GrpMaster.GrpEfftvDt;
-                    groupSetupModel.GrpPymn = GrpMaster.GrpPymnId;
+                    groupSetupModel.GrpPymn = GrpMaster.GrpPymnId.ToString();
                     groupSetupModel.GrpSitusSt = GrpMaster.GrpSitusSt;
                     groupSetupModel.user_token = GrpMaster.UsrTkn;
-                    groupSetupModel.case_token = GrpMaster.UsrTkn;
-                    groupSetupModel.OccClass = GrpMaster.OccClass;
+                    groupSetupModel.case_token = GrpMaster.CaseTkn;
+                    groupSetupModel.OccClass = GrpMaster.OccClass.ToString();
 
 
                     // Load Agent 
@@ -897,7 +902,7 @@ namespace AFBA.EPP.Controllers
 
 
                     // Load Product Master
-                    var Grpprdcts = _unitofWork.eppGrpprdctRepository.Find(x => x.GrpId == groupSetupModel.GrpId).Result;
+                    var Grpprdcts = _unitofWork.eppGrpprdctRepository.Find(x => x.GrpId == GrpMaster.GrpId).Result;
                     foreach (var prod in Grpprdcts)
                     {
                         
