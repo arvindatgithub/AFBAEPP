@@ -84,11 +84,8 @@ export class GroupSetupComponent implements OnInit {
   paymentModes: any;
   sum = 0;
   isDisabled = false;
-  occClass: any = [
-    {
-      occupation: 'Select',
-      id: ''
-    },
+  occClass: any[] = [
+    
     {
     occupation: 1,
     id: 1
@@ -209,6 +206,8 @@ export class GroupSetupComponent implements OnInit {
   cloneToggle = false;
   toggleFlag = true;
   editRAddFlag = false;
+  status;
+  fromSearchFlag;
   
   constructor(private eppcreategroupservice: EppCreateGrpSetupService,private toastr: ToastrService, private _fb: FormBuilder,
     private snackBar: MatSnackBar, private lookupService: LookupService, private groupsearchService: GroupsearchService) {
@@ -229,7 +228,7 @@ export class GroupSetupComponent implements OnInit {
         //Setting Initial Values for Group Section
         this.groupNumber = this.groupsData.grpNbr;
         this.groupName = this.groupsData.grpNm;
-        this.minDate = this.groupsData.grpEfftvDt.slice(0, 10);
+        this.minDate = this.groupsData.grpEfftvDt.slice(0, 10) == '0001-01-01' ? '': this.groupsData.grpEfftvDt.slice(0, 10);
         this.grpPymn = this.groupsData.grpPymn !== 0 ? this.groupsData.grpPymn : '10007';
         this.EnrolmentPatnerName = this.groupsData.enrlmntPrtnrsNm;
         this.EnrolEmailAddress = this.groupsData.emlAddrss;
@@ -237,10 +236,10 @@ export class GroupSetupComponent implements OnInit {
         if(this.groupsData.occClass !== null){
           this.occupationSelected = this.groupsData.occClass;
         }else{
-          this.occupationSelected = '';
+          this.occupationSelected = '1';
         }
         this.ManegerName = this.groupsData.acctMgrNm;
-        this.ManagerEmail = this.groupsData.emailAddress;
+        this.ManagerEmail = this.groupsData.AcctMgrEmailAddrs;
         //this.selected.id = this.groupsData.grpSitusSt;
         
         if(this.groupsData.grpSitusSt !== null){
@@ -500,7 +499,13 @@ export class GroupSetupComponent implements OnInit {
       if(this.lookUpDataSitusStates.length==0){
         this.lookUpDataSitusStates = (data.situsState);
         this.grpSitusState = this.lookUpDataSitusStates[0].state;
-      }
+        let key = 'lookUpSitusApiData';
+        if (localStorage.getItem("lookUpSitusApiData") !== null) {
+          localStorage.clear();
+        }
+        localStorage.setItem(key, JSON.stringify(this.lookUpDataSitusStates));
+
+        }
     });
   
   this.lookupService.getPaymentMode().subscribe((data: any) => {
@@ -524,6 +529,9 @@ export class GroupSetupComponent implements OnInit {
       
       FCOccControl: ["", Validators.required]
     })
+    this.status = this.eppcreategroupservice.getUserStatus();
+    this.fromSearchFlag = this.groupsearchService.getFromSearchFlag();
+
   }
 
   onEdit() {
@@ -535,6 +543,7 @@ export class GroupSetupComponent implements OnInit {
     this.toggleFlag = false;
     this.agentformgrp.enable();
     this.eppcreategroupservice.setUserStatus('Edit');
+    this.status = this.eppcreategroupservice.getUserStatus();
     this.groupsearchService.existingGrpNbrSelected(grpNbr);
   }
   onAdd() {
@@ -545,6 +554,7 @@ export class GroupSetupComponent implements OnInit {
     this.toggleFlag = false;
     this.agentformgrp.enable();
     this.eppcreategroupservice.setUserStatus('Add');
+    this.status = this.eppcreategroupservice.getUserStatus();
     this.groupsearchService.existingGrpNbrSelected('');
   }
   onClone() {
@@ -1123,7 +1133,7 @@ export class GroupSetupComponent implements OnInit {
       "grpAgents": groupAgents,
       "acctMgrNm": this.ManegerName,
       "acctMgrEmailAddrs": this.ManagerEmail,
-      "emailAddress": this.ManagerEmail,
+      "emailAddress": this.ManagerEmail || "",
       "acctMgrCntctId": 0,
       "isFPPGActive": this.isCheckedFppg,
       "isHIActive": this.isCheckedHospital,
@@ -1371,6 +1381,15 @@ export class GroupSetupComponent implements OnInit {
         "sp_qi_max_amt_action": this.VolCiComponent.volCIformgrp.value.FCVolCISpouseAmtMax_Action,
         "emp_max_amt_action": this.VolCiComponent.volCIformgrp.value.FCVolCIEmpGIAmtMax_Action,
         "sp_max_amt_action": this.VolCiComponent.volCIformgrp.value.FCVolCISpouseAmtMax_Action,
+      
+"ch_gi_max_amt": this.VolCiComponent.volCIformgrp.value.FCVolCIChildAmtMax_Action,
+​
+"ch_max_amt": this.VolCiComponent.volCIformgrp.value.FCVolCIChildAmtMax,
+​
+"ch_gi_max_amt_action": this.VolCiComponent.volCIformgrp.value.FCVolCIChildGIAmtMax,
+​
+"ch_max_amt_action": this.VolCiComponent.volCIformgrp.value.FCVolCIChildAmtMax_Action,
+
         agnt_cd_1: this.agentformgrp.get('AgentNumbervolCi').value,
         agnt_nm: this.agentformgrp.get('AgentNamevolCi').value,
         agnt_comm_split_1: this.agentformgrp.get('CommissonSplitvolCi').value,

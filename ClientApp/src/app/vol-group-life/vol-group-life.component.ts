@@ -38,90 +38,68 @@ export class VolGroupLifeComponent implements OnInit,OnChanges {
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe,
     private groupsearchService: GroupsearchService, private eppservice:EppCreateGrpSetupService) {
 
-      // this.eppservice.castAddEditClone.subscribe(data => {
-      //   let status = data;
-      //   if(status == 'Edit' || status == 'Add'){
-      //     this.volGrpLfformgrp.enable();
-      //     this.resetFlag = false;
-      //   } else {
-      //     this.resetFlag = true;
-      //   }
-      // });
-
-    let existingSelectedGrpNbr: any;
-      this.groupsearchService.castGroupNumber.subscribe(data => {
-        existingSelectedGrpNbr = data; 
-        console.log("VGL "+ existingSelectedGrpNbr); 
-        
-        this.volGrpData = JSON.parse(localStorage.getItem('GroupNumApiData'));
-
-        if(this.volGrpData !== undefined){
-
-          if(this.volGrpData.isVGLActive){
-            this.volGrpDate = this.datepipe.transform(this.volGrpData.vgl.effctv_dt, 'yyyy-MM-dd');
-            if(this.volGrpData.vgl.grp_situs_state !== null){
-              this.volGrpSitus = this.volGrpData.vgl.grp_situs_state;
-            } else {
-              this.volGrpSitus = this.lookupValue;
-            }
-          }
-          this.volGrpLfformgrp = this.fb.group({
-            FCVolGrpLfEffectiveDate: [(this.volGrpData.isVGLActive) ? this.volGrpDate : this.minDate,Validators.required],
-            FCVolGrpLfEffectiveDate_Action: [(this.volGrpData.isVGLActive) ? this.volGrpData.vgl.effctv_dt_action : this.radioButtonArr[1].value,Validators.required],
-            FCVolGrpLfSitusState_Action: [(this.volGrpData.isVGLActive) ? this.volGrpData.vgl.grp_situs_state_action : this.radioButtonArr[1].value,Validators.required],
-            FCVolGrpLfSitusState: [(this.volGrpData.isVGLActive) ? this.volGrpSitus : this.lookupValue,Validators.required],
-            FCVolGrpLfEmpAmtMax_Action: [(this.volGrpData.isVGLActive) ? this.volGrpData.vgl.emp_max_amt_action : this.radioButtonArr[1].value,Validators.required],
-            FCVolGrpLfEmpGIAmtMax: [(this.volGrpData.isVGLActive) ? this.volGrpData.vgl.emp_gi_max_amt : "",Validators.required],
-            FCVolGrpLfEmpAmtMax: [(this.volGrpData.isVGLActive) ? this.volGrpData.vgl.emp_max_amt : "",Validators.required],
-            FCVolGrpLfSpouseAmtMax_Action: [(this.volGrpData.isVGLActive) ? this.volGrpData.vgl.sp_max_amt_action : this.radioButtonArr[1].value,Validators.required],
-            FCVolGrpLfSpouseGIAmtMax: [(this.volGrpData.isVGLActive) ? this.volGrpData.vgl.sp_gi_max_amt : "",Validators.required],
-            FCVolGrpLfSpouseMaxAmt: [(this.volGrpData.isVGLActive) ? this.volGrpData.vgl.sp_max_amt : "",Validators.required],
-            // FCVolGrpLfOpenEnrollGI_Action: [(this.volGrpData.isVGLActive) ? this.volGrpData.vgl: this.radioButtonArr[1].value,Validators.required],
-            // FCVolGrpLfOpenEnrollGI: ["",Validators.required],
-            // FCVolGrpLfPlanCodeManualEntry_Action: [this.radioButtonArr[1].value,Validators.required],
-            // // FCVolGrpLfPlanCodeManualEntry: ["",Validators.required],
-            // FCVolGrpLfEmployeePlanCode: ["",Validators.required],
-            // FCVolGrpLfSpousePlanCode: ["",Validators.required],
-            // FCVolGrpLfChildPlanCode: ["",Validators.required],
-            // FCVolGrpLfUserToken_Action: [this.radioButtonArr[1].value,Validators.required],
-            // FCVolGrpLfUserToken: ["",Validators.required],
-            // FCVolGrpLfCaseToken_Action: [this.radioButtonArr[1].value,Validators.required],
-            // FCVolGrpLfCaseToken: ["",Validators.required],
-          });
-          this.status = this.eppservice.getUserStatus();
-          if(this.groupsearchService.getFromSearchFlag() && this.status == ''){
-            this.volGrpLfformgrp.disable();
-            this.resetFlag = true;
-          }else{
-            this.volGrpLfformgrp.enable();
-            this.resetFlag = false;
-          }
-        }
-      
-      });
-
-      
+     
 
   }
-  // get myForm() {
-  //   return this.volGrpLfformgrp.get('FCVolGrpLfSitusState');
-  // }
   ngOnChanges(){
    
+    let existingSelectedGrpNbr: any;
+    this.groupsearchService.castGroupNumber.subscribe(data => {
+      existingSelectedGrpNbr = data; 
+      console.log("VGL "+ existingSelectedGrpNbr); 
+      
+      this.volGrpData = JSON.parse(localStorage.getItem('GroupNumApiData'));
+
+      if(this.volGrpData !== undefined){
+
+        if(this.volGrpData.isVGLActive){
+          this.volGrpDate = this.datepipe.transform(this.volGrpData.vgl.effctv_dt, 'yyyy-MM-dd');
+          if(this.volGrpData.vgl.grp_situs_state !== null){
+            this.volGrpSitus = this.volGrpData.vgl.grp_situs_state;
+          } else {
+            this.volGrpSitus = this.lookupValue;
+          }
+        }
+        this.volGrpLfformgrp = this.fb.group({
+          FCVolGrpLfEffectiveDate: [(this.volGrpData.isVGLActive) ? this.volGrpDate : this.minDate,Validators.required],
+          FCVolGrpLfEffectiveDate_Action: [(this.volGrpData.isVGLActive) ? this.volGrpData.vgl.effctv_dt_action : this.radioButtonArr[1].value,Validators.required],
+          FCVolGrpLfSitusState_Action: [(this.volGrpData.isVGLActive) ? this.volGrpData.vgl.grp_situs_state_action : this.radioButtonArr[1].value,Validators.required],
+          FCVolGrpLfSitusState: [(this.volGrpData.isVGLActive) ? this.volGrpSitus : this.lookupValue,Validators.required],
+          FCVolGrpLfEmpAmtMax_Action: [(this.volGrpData.isVGLActive) ? this.volGrpData.vgl.emp_max_amt_action : this.radioButtonArr[1].value,Validators.required],
+          FCVolGrpLfEmpGIAmtMax: [(this.volGrpData.isVGLActive) ? this.volGrpData.vgl.emp_gi_max_amt : "",Validators.required],
+          FCVolGrpLfEmpAmtMax: [(this.volGrpData.isVGLActive) ? this.volGrpData.vgl.emp_max_amt : "",Validators.required],
+          FCVolGrpLfSpouseAmtMax_Action: [(this.volGrpData.isVGLActive) ? this.volGrpData.vgl.sp_max_amt_action : this.radioButtonArr[1].value,Validators.required],
+          FCVolGrpLfSpouseGIAmtMax: [(this.volGrpData.isVGLActive) ? this.volGrpData.vgl.sp_gi_max_amt : "",Validators.required],
+          FCVolGrpLfSpouseMaxAmt: [(this.volGrpData.isVGLActive) ? this.volGrpData.vgl.sp_max_amt : "",Validators.required],
+          // FCVolGrpLfOpenEnrollGI_Action: [(this.volGrpData.isVGLActive) ? this.volGrpData.vgl: this.radioButtonArr[1].value,Validators.required],
+          // FCVolGrpLfOpenEnrollGI: ["",Validators.required],
+          // FCVolGrpLfPlanCodeManualEntry_Action: [this.radioButtonArr[1].value,Validators.required],
+          // // FCVolGrpLfPlanCodeManualEntry: ["",Validators.required],
+          // FCVolGrpLfEmployeePlanCode: ["",Validators.required],
+          // FCVolGrpLfSpousePlanCode: ["",Validators.required],
+          // FCVolGrpLfChildPlanCode: ["",Validators.required],
+          // FCVolGrpLfUserToken_Action: [this.radioButtonArr[1].value,Validators.required],
+          // FCVolGrpLfUserToken: ["",Validators.required],
+          // FCVolGrpLfCaseToken_Action: [this.radioButtonArr[1].value,Validators.required],
+          // FCVolGrpLfCaseToken: ["",Validators.required],
+        });
+        this.status = this.eppservice.getUserStatus();
+        if(this.groupsearchService.getFromSearchFlag() && this.status == ''){
+          this.volGrpLfformgrp.disable();
+          this.resetFlag = true;
+        }else{
+          this.volGrpLfformgrp.enable();
+          this.resetFlag = false;
+        }
+      }
+    
+    });
+
     this.latest_datevolgrplife = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
-   // this.myForm.setValue(this.lookupValue);
   }
 
   ngOnInit() {
-    this.lookupService.getLookupsData()
-    .subscribe((data: any) => {
-      this.isLoading = true;
-      console.log("data", data);
-      this.lookUpDataSitusStates = data.situsState;
-      // this.myForm.setValue(this.lookUpDataSitusStates[0].state);
-     
-    });
-     
+    this.lookUpDataSitusStates = JSON.parse(localStorage.getItem('lookUpSitusApiData'));
   }
 
   volgrplife(){

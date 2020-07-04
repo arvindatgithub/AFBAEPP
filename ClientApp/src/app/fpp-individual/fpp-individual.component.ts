@@ -116,15 +116,7 @@ export class FPPIndividualComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.lookupService.getLookupsData()
-    .subscribe((data: any) => {
-      this.isLoading = true;
-      console.log("data", data);
-      this.lookUpDataSitusStates = (data.situsState);
-    });
-
-   
-    //this.fppiformgrp.controls['FCfppSitusState'].setValue(this.lookUpDataSitusStates[0].state, {onlySelf:true});
+    this.lookUpDataSitusStates = JSON.parse(localStorage.getItem('lookUpSitusApiData'));
   }
  
   onItemChange(value){
