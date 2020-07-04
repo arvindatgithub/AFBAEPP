@@ -1100,7 +1100,7 @@ export class GroupSetupComponent implements OnInit {
 
     let body = {
 
-      "grpId": 0,
+      "grpId": "0",
       "grpNbr": this.groupNumber,
       "grpNm": this.groupName,
       "grpEfftvDt": (new Date(this.groupSetupFG.get('fcEffDate').value)).toISOString(),
@@ -1109,7 +1109,7 @@ export class GroupSetupComponent implements OnInit {
       "actvFlg": this.isChecked.toString(),
       "occClass": parseInt(this.groupSetupOCC.get('FCOccControl').value),
       "grpPymn": parseInt(this.grpPymn),
-      "enrlmntPrtnrsId": 0,
+      "enrlmntPrtnrsId": "",
       "enrlmntPrtnrsNm": this.EnrolmentPatnerName,
       "emlAddrss": this.EnrolEmailAddress,
       "grpAgents": groupAgents,

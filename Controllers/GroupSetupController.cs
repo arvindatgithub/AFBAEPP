@@ -83,8 +83,8 @@ namespace AFBA.EPP.Controllers
             grpMstdata.GrpEfftvDt = groupSetupModel.GrpEfftvDt;
             grpMstdata.GrpSitusSt = groupSetupModel.GrpSitusSt;
 
-            grpMstdata.GrpPymnId =long.Parse( groupSetupModel.GrpPymn);
-            grpMstdata.OccClass = long.Parse(groupSetupModel.OccClass);
+            grpMstdata.GrpPymnId = groupSetupModel.GrpPymn;
+            grpMstdata.OccClass = groupSetupModel.OccClass;
             grpMstdata.CrtdBy = CrtdBy;
             // update group Master
 
@@ -247,8 +247,8 @@ namespace AFBA.EPP.Controllers
                     AcctMgrEmailAddrs = groupSetupModel.AcctMgrEmailAddrs,
                     GrpEfftvDt = groupSetupModel.GrpEfftvDt,
                     GrpSitusSt = groupSetupModel.GrpSitusSt,
-                    GrpPymnId =long.Parse(groupSetupModel.GrpPymn),
-                    OccClass = long.Parse(groupSetupModel.OccClass),
+                    GrpPymnId =groupSetupModel.GrpPymn,
+                    OccClass = groupSetupModel.OccClass,
                     CaseTkn = groupSetupModel.case_token,
                     UsrTkn= groupSetupModel.user_token,
                     GrpId = grpId,
@@ -865,11 +865,12 @@ namespace AFBA.EPP.Controllers
             {
 
 
-                GroupSetupModel groupSetupModel = new GroupSetupModel();
-                //if ( string.IsNullOrEmpty(grpNbr))
-                //{
-                //    groupSetupModel.GrpEfftvDt = DateTime.UtcNow;
-                //}
+                    GroupSetupModel groupSetupModel = new GroupSetupModel();
+                    if (string.IsNullOrEmpty(grpNbr))
+                    {
+                        groupSetupModel.GrpPymn = 10007;
+                        return Ok(groupSetupModel);
+                    }
 
                 var GrpMaster = _unitofWork.GroupMasterRepository.SingleOrDefault(x => x.GrpNbr == grpNbr).Result;
                 if (GrpMaster != null)
@@ -890,11 +891,11 @@ namespace AFBA.EPP.Controllers
                     groupSetupModel.AcctMgrEmailAddrs = GrpMaster.AcctMgrEmailAddrs;
 
                     groupSetupModel.GrpEfftvDt = GrpMaster.GrpEfftvDt;
-                    groupSetupModel.GrpPymn = GrpMaster.GrpPymnId.ToString();
+                    groupSetupModel.GrpPymn = GrpMaster.GrpPymnId;
                     groupSetupModel.GrpSitusSt = GrpMaster.GrpSitusSt;
                     groupSetupModel.user_token = GrpMaster.UsrTkn;
                     groupSetupModel.case_token = GrpMaster.CaseTkn;
-                    groupSetupModel.OccClass = GrpMaster.OccClass.ToString();
+                    groupSetupModel.OccClass = GrpMaster.OccClass;
 
 
                     // Load Agent 

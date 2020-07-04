@@ -14,8 +14,8 @@ namespace AFBA.EPP.ViewModels
         public DateTime GrpEfftvDt { get; set; }
         public string GrpSitusSt { get; set; }
         public char? ActvFlg { get; set; }
-        public string OccClass { get; set; }
-        public string GrpPymn { get; set; }
+        public long? OccClass { get; set; }
+        public long GrpPymn { get; set; }
         public string EnrlmntPrtnrsId { get; set; }
         public string EnrlmntPrtnrsNm { get; set; }
         public string EmlAddrss { get; set; }
