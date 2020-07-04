@@ -84,11 +84,8 @@ export class GroupSetupComponent implements OnInit {
   paymentModes: any;
   sum = 0;
   isDisabled = false;
-  occClass: any = [
-    {
-      occupation: 'Select',
-      id: ''
-    },
+  occClass: any[] = [
+    
     {
     occupation: 1,
     id: 1
@@ -1123,7 +1120,7 @@ export class GroupSetupComponent implements OnInit {
       "grpAgents": groupAgents,
       "acctMgrNm": this.ManegerName,
       "acctMgrEmailAddrs": this.ManagerEmail,
-      "emailAddress": this.ManagerEmail,
+      "emailAddress": this.ManagerEmail || "",
       "acctMgrCntctId": 0,
       "isFPPGActive": this.isCheckedFppg,
       "isHIActive": this.isCheckedHospital,
@@ -1371,6 +1368,15 @@ export class GroupSetupComponent implements OnInit {
         "sp_qi_max_amt_action": this.VolCiComponent.volCIformgrp.value.FCVolCISpouseAmtMax_Action,
         "emp_max_amt_action": this.VolCiComponent.volCIformgrp.value.FCVolCIEmpGIAmtMax_Action,
         "sp_max_amt_action": this.VolCiComponent.volCIformgrp.value.FCVolCISpouseAmtMax_Action,
+      
+"ch_gi_max_amt": this.VolCiComponent.volCIformgrp.value.FCVolCIChildAmtMax_Action,
+​
+"ch_max_amt": this.VolCiComponent.volCIformgrp.value.FCVolCIChildAmtMax,
+​
+"ch_gi_max_amt_action": this.VolCiComponent.volCIformgrp.value.FCVolCIChildGIAmtMax,
+​
+"ch_max_amt_action": this.VolCiComponent.volCIformgrp.value.FCVolCIChildAmtMax_Action,
+
         agnt_cd_1: this.agentformgrp.get('AgentNumbervolCi').value,
         agnt_nm: this.agentformgrp.get('AgentNamevolCi').value,
         agnt_comm_split_1: this.agentformgrp.get('CommissonSplitvolCi').value,

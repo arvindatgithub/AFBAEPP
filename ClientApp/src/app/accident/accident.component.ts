@@ -32,10 +32,10 @@ export class AccidentComponent implements OnInit,OnChanges {
   ]
   jobs =  [{name: 'On the Job Only', abbrev: 'on'},
   {name: 'Off the Job Only', abbrev: 'off'},
-  {name: 'both', abbrev: 'noupdate'}];
+  {name: 'Both – Required on File', abbrev: 'noupdate'}];
 
   Rate =  [
-  {no: '0', abb: 'Select'},
+  {no: 'Select', abb: 'Select'},
   {no: '1', abb: '1'},
   {no: '2', abb: '2'},
   {no: '3', abb: '3'}];
