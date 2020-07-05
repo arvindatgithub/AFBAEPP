@@ -208,7 +208,7 @@ export class GroupSetupComponent implements OnInit {
   addToggle = false;
   editToggle = false;
   cloneToggle = false;
-  toggleFlag = true;
+  toggleFlag ;
   editRAddFlag = false;
   status;
   fromSearchFlag;
@@ -549,7 +549,7 @@ export class GroupSetupComponent implements OnInit {
     this.cloneToggle = false;
     let grpNbr = this.groupsearchService.getEditGrpNbr();
     this.editRAddFlag = true;
-    this.toggleFlag = false;
+    //this.toggleFlag = false;
    // this.agentformgrp.enable();
     this.eppcreategroupservice.setUserStatus('Edit');
     this.status = this.eppcreategroupservice.getUserStatus();
@@ -560,7 +560,7 @@ export class GroupSetupComponent implements OnInit {
     this.editToggle = false;
     this.cloneToggle = false;
     this.editRAddFlag = true;
-    this.toggleFlag = false;
+    //this.toggleFlag = false;
    // this.agentformgrp.enable();
     this.eppcreategroupservice.setUserStatus('Add');
     this.status = this.eppcreategroupservice.getUserStatus();
