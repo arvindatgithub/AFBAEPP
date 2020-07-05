@@ -67,7 +67,7 @@ export class AccidentComponent implements OnInit,OnChanges {
   }
   ngOnChanges(){  
     this.accidentSitus = this.lookupValue;
-    this.accformgrp.patchValue({FCaccSitusState : this.accidentSitus});
+    //this.accformgrp.patchValue({FCaccSitusState : this.accidentSitus});
     this.latest_dateaccident = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
   }
 

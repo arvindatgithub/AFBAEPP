@@ -43,7 +43,7 @@ export class VolGroupLifeComponent implements OnInit,OnChanges {
   ngOnChanges(){
    
     this.volGrpSitus = this.lookupValue;
-    this.volGrpLfformgrp.patchValue({FCVolGrpLfSitusState : this.volGrpSitus});
+    //this.volGrpLfformgrp.patchValue({FCVolGrpLfSitusState : this.volGrpSitus});
     this.latest_datevolgrplife = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
   }
 

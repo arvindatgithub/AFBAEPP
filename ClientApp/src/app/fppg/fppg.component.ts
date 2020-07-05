@@ -48,32 +48,7 @@ export class FPPGComponent implements OnInit, OnChanges {
     private fb:FormBuilder, private eppservice:EppCreateGrpSetupService,
     public datepipe: DatePipe, private groupsearchService: GroupsearchService) { 
       
-     
-    
-  }
-
- 
-  
-  // get myForm() {
-  //   return this.fppgformgrp.get('FCfppgSitusState');
-  // }
-
-ngOnChanges(simpleChange:SimpleChanges){
-  this.fppgSitus = this.lookupValue;
-  console.log("simpleChange",simpleChange);
-  
-  
-  this.latest_date = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
-  this.fppgformgrp.patchValue({FCfppgSitusState : this.fppgSitus});
-  this.lookupValue = simpleChange.lookupValue.currentValue;
- // this.myForm.setValue(this.lookupValue);
-  
-}
-
-  ngOnInit() {
-    
-    this.lookUpDataSitusStates = JSON.parse(localStorage.getItem('lookUpSitusApiData'));
-    let existingSelectedGrpNbr: any;
+      let existingSelectedGrpNbr: any;
     this.groupsearchService.castGroupNumber.subscribe(data => {
       existingSelectedGrpNbr = data; 
       console.log("FPPG "+ existingSelectedGrpNbr); 
@@ -127,6 +102,31 @@ ngOnChanges(simpleChange:SimpleChanges){
         }
       }
     });
+    
+  }
+
+ 
+  
+  // get myForm() {
+  //   return this.fppgformgrp.get('FCfppgSitusState');
+  // }
+
+ngOnChanges(simpleChange:SimpleChanges){
+  this.fppgSitus = this.lookupValue;
+  console.log("simpleChange",simpleChange);
+  
+  
+  this.latest_date = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+  //this.fppgformgrp.patchValue({FCfppgSitusState : this.fppgSitus});
+  this.lookupValue = simpleChange.lookupValue.currentValue;
+ // this.myForm.setValue(this.lookupValue);
+  
+}
+
+  ngOnInit() {
+    
+    this.lookUpDataSitusStates = JSON.parse(localStorage.getItem('lookUpSitusApiData'));
+   
   }
 
   onQolChecked(event:any){

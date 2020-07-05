@@ -57,7 +57,7 @@ export class HospitalIndemnityComponent implements OnInit,OnChanges {
   
   ngOnChanges(){
     this.hiStatus = this.lookupValue;
-    this.hospformgrp.patchValue({FChospSitusState : this.hiStatus});
+    //this.hospformgrp.patchValue({FChospSitusState : this.hiStatus});
     this.latest_datehospitalindemnity = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
   
   }

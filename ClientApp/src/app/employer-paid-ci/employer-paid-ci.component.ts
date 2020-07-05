@@ -50,7 +50,7 @@ export class EmployerPaidCIComponent implements OnInit ,OnChanges{
 
   ngOnChanges(){
     this.empCiStatus = this.lookupValue;
-    this.empCIformgrp.patchValue({FCempCISitusState : this.empCiStatus});
+    //this.empCIformgrp.patchValue({FCempCISitusState : this.empCiStatus});
     this.latest_dateemppaisci = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
    // this.myForm.setValue(this.lookupValue);
    

@@ -267,7 +267,7 @@ export class GroupSetupComponent implements OnInit {
         this.checkedToggleProductEmpPaidCI = this.isCheckedEmpPaidCi ? "Active" : "Inactive";
         this.isCheckedBasicGrpLife = this.groupsData.isBGLActive;
         this.checkedToggleProductBcsGrpLife = this.isCheckedBasicGrpLife ? "Active" : "Inactive";
-        if (this.groupsData.grpAgents !== "" && this.groupsData.grpAgents !== null) {
+        if (this.groupsData.grpAgents !== "" && this.groupsData.grpAgents !== null && this.groupsData.grpAgents.length>0) {
           this.agentId_0=this.groupsData.grpAgents[0].agentId;
           this.agentNumber_0 = this.groupsData.grpAgents[0] ? this.groupsData.grpAgents[0].agntNbr : '';
           this.agentSubCount_0 =  this.groupsData.grpAgents[0] ? this.groupsData.grpAgents[0].agntSubCnt : '';

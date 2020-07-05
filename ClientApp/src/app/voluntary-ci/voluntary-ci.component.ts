@@ -46,7 +46,7 @@ export class VoluntaryCIComponent implements OnInit,OnChanges {
  
 ngOnChanges(){
   this.volCiSitus = this.lookupValue;
-  this.volCIformgrp.patchValue({FCVolCISitusState : this.volCiSitus});
+  //this.volCIformgrp.patchValue({FCVolCISitusState : this.volCiSitus});
   this.latest_datevolci = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
 }
 

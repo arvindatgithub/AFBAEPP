@@ -48,7 +48,7 @@ export class BasicGroupLifeComponent implements OnInit,OnChanges {
   ngOnChanges(){
     
     this.bglStatus = this.lookupValue;
-    this.basicGrpLfformgrp.patchValue({FCbasicSitusState : this.bglStatus});
+    //this.basicGrpLfformgrp.patchValue({FCbasicSitusState : this.bglStatus});
     this.latest_datebasicgrplife = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
    // this.myForm.setValue(this.lookupValue);
   }
