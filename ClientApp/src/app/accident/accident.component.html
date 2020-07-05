@@ -19,7 +19,7 @@
         <span class="label label-default">Situs State</span>
         <select class="form-control"  formControlName="FCaccSitusState">
           <!-- <option hidden disabled selected value> -- select Situs State -- </option> -->
-          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates"  [selected]="lookUpDataSitusState.id == lookupValue" 
+          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates" [selected]="lookUpDataSitusState.id==accidentSitus"
           value={{lookUpDataSitusState.id}}>
             {{lookUpDataSitusState.state}}</option>
         </select>

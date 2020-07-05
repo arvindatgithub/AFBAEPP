@@ -38,7 +38,9 @@ export class EmployerPaidCIComponent implements OnInit ,OnChanges{
 
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe,
     private groupsearchService: GroupsearchService, private eppservice:EppCreateGrpSetupService) {
-
+ 
+      this.empCiStatus = this.lookupValue;
+  
    }
 
  
@@ -47,7 +49,15 @@ export class EmployerPaidCIComponent implements OnInit ,OnChanges{
   }
 
   ngOnChanges(){
-    
+    this.empCiStatus = this.lookupValue;
+    this.empCIformgrp.patchValue({FCempCISitusState : this.empCiStatus});
+    this.latest_dateemppaisci = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+   // this.myForm.setValue(this.lookupValue);
+   
+  }
+  
+  ngOnInit() {
+    this.lookUpDataSitusStates = JSON.parse(localStorage.getItem('lookUpSitusApiData'));
     let existingSelectedGrpNbr: any;
     this.groupsearchService.castGroupNumber.subscribe(data => {
       existingSelectedGrpNbr = data; 
@@ -70,7 +80,7 @@ export class EmployerPaidCIComponent implements OnInit ,OnChanges{
             FCempCIEffectiveDate: [(this.empCiData.isER_CIActive) ? this.empCiDate : this.minDate,Validators.required],
             FCempCIEffectiveDate_Action: [(this.empCiData.isER_CIActive) ? this.empCiData.eR_CI.effctv_dt_action : this.radioButtonArr[1].value,Validators.required],
             FCempCISitusState_Action: [(this.empCiData.isER_CIActive) ? this.empCiData.eR_CI.grp_situs_state_action : this.radioButtonArr[1].value,Validators.required],
-            FCempCISitusState: [(this.empCiData.isER_CIActive) ? this.empCiStatus : this.lookupValue,Validators.required],
+            FCempCISitusState: [(this.empCiData.isER_CIActive) ? this.empCiStatus : this.empCiStatus,Validators.required],
            
             FCempCIEmpFcAmt: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.emp_face_amt_mon_bnft : "",Validators.required],
             FCempCIEmpFcAmt_Action: [(this.empCiData.isER_CIActive) ?  this.empCiData.eR_CI.emp_face_amt_mon_bnft_action : this.radioButtonArr[1].value,Validators.required],
@@ -98,16 +108,6 @@ export class EmployerPaidCIComponent implements OnInit ,OnChanges{
         }
         
     });
-
-    
-    
-    this.latest_dateemppaisci = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
-   // this.myForm.setValue(this.lookupValue);
-   
-  }
-  
-  ngOnInit() {
-    this.lookUpDataSitusStates = JSON.parse(localStorage.getItem('lookUpSitusApiData'));
    
   }
 

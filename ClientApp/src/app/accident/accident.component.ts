@@ -57,7 +57,7 @@ export class AccidentComponent implements OnInit,OnChanges {
   constructor(private lookupService: LookupService, private fb:FormBuilder, public datepipe: DatePipe,
     private groupsearchService: GroupsearchService, private eppservice:EppCreateGrpSetupService) {
 
-
+      this.accidentSitus = this.lookupValue;
       
      }
 
@@ -65,9 +65,16 @@ export class AccidentComponent implements OnInit,OnChanges {
   get myForm() {
     return this.accformgrp.get('FCaccSitusState');
   }
-  ngOnChanges(){
-    
+  ngOnChanges(){  
+    this.accidentSitus = this.lookupValue;
+    this.accformgrp.patchValue({FCaccSitusState : this.accidentSitus});
+    this.latest_dateaccident = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+  }
 
+
+  ngOnInit() {
+    this.lookUpDataSitusStates = JSON.parse(localStorage.getItem('lookUpSitusApiData'));
+    console.log('look u p avv' + this.lookupValue);
     let existingSelectedGrpNbr: any;
     this.groupsearchService.castGroupNumber.subscribe(data => {
       existingSelectedGrpNbr = data; 
@@ -103,7 +110,7 @@ export class AccidentComponent implements OnInit,OnChanges {
 
           this.accformgrp = this.fb.group({
             FCaccSitusState_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.grp_situs_state_action : this.radioButtonArr[1].value,Validators.required],
-            FCaccSitusState: [(this.accidentData.isACC_HIActive) ? this.accidentSitus : this.lookupValue,Validators.required],
+            FCaccSitusState: [(this.accidentData.isACC_HIActive) ? this.accidentSitus : this.accidentSitus,Validators.required],
             FCaccEffectiveDate: [(this.accidentData.isACC_HIActive) ? this.accidentDate : this.minDate,Validators.required],
             FCaccEffectiveDate_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.effctv_dt_action : this.radioButtonArr[1].value,Validators.required],
             FCaccOnOff: [(this.accidentData.isACC_HIActive) ? this.on_off : this.jobs[2].abbrev,Validators.required],
@@ -130,13 +137,6 @@ export class AccidentComponent implements OnInit,OnChanges {
         }
        
     });
-   
-    this.latest_dateaccident = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
-  }
-
-
-  ngOnInit() {
-    this.lookUpDataSitusStates = JSON.parse(localStorage.getItem('lookUpSitusApiData'));
  
   }
   resetAcc(){
