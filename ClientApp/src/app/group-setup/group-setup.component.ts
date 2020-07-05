@@ -166,6 +166,10 @@ export class GroupSetupComponent implements OnInit {
   eppData: any;
   eppgetwhole: any;
   agentformgrp: FormGroup;
+  agentId_0: string = "";
+  agentId_1: string = "";
+  agentId_2: string = "";
+  agentId_3: string = "";
   agentNumber_0: any = "";
   agentNumber_1: any = "";
   agentNumber_2: any = "";
@@ -263,20 +267,24 @@ export class GroupSetupComponent implements OnInit {
         this.checkedToggleProductEmpPaidCI = this.isCheckedEmpPaidCi ? "Active" : "Inactive";
         this.isCheckedBasicGrpLife = this.groupsData.isBGLActive;
         this.checkedToggleProductBcsGrpLife = this.isCheckedBasicGrpLife ? "Active" : "Inactive";
-        if(this.groupsData.grpAgents !== "" && this.groupsData.grpAgents !== null){
+        if (this.groupsData.grpAgents !== "" && this.groupsData.grpAgents !== null) {
+          this.agentId_0=this.groupsData.grpAgents[0].agentId;
           this.agentNumber_0 = this.groupsData.grpAgents[0] ? this.groupsData.grpAgents[0].agntNbr : '';
           this.agentSubCount_0 =  this.groupsData.grpAgents[0] ? this.groupsData.grpAgents[0].agntSubCnt : '';
           this.agentCommissionSPlit_0 =  this.groupsData.grpAgents[0] ? this.groupsData.grpAgents[0].agntComsnSplt : '';
           this.agent_name =  this.groupsData.grpAgents[0] ? this.groupsData.grpAgents[0].agntNm : '';
 
+          this.agentId_1 = this.groupsData.grpAgents[1].agentId;
           this.agentNumber_1 = this.groupsData.grpAgents[1] ? this.groupsData.grpAgents[1].agntNbr : '';
           this.agentSubCount_1 =  this.groupsData.grpAgents[1] ? this.groupsData.grpAgents[1].agntSubCnt : '';
           this.agentCommissionSPlit_1 =  this.groupsData.grpAgents[1] ? this.groupsData.grpAgents[1].agntComsnSplt : '';
 
+          this.agentId_2 = this.groupsData.grpAgents[2].agentId;
           this.agentNumber_2 = this.groupsData.grpAgents[2] ? this.groupsData.grpAgents[2].agntNbr : '';
           this.agentSubCount_2 =  this.groupsData.grpAgents[2] ? this.groupsData.grpAgents[2].agntSubCnt : '';
           this.agentCommissionSPlit_2 =  this.groupsData.grpAgents[2] ? this.groupsData.grpAgents[2].agntComsnSplt : '';
 
+          this.agentId_3 = this.groupsData.grpAgents[3].agentId;
           this.agentNumber_3 = this.groupsData.grpAgents[3] ? this.groupsData.grpAgents[3].agntNbr : '';
           this.agentSubCount_3 =  this.groupsData.grpAgents[3] ? this.groupsData.grpAgents[3].agntSubCnt : '';
           this.agentCommissionSPlit_3 =  this.groupsData.grpAgents[3] ? this.groupsData.grpAgents[3].agntComsnSplt : '';
@@ -1072,7 +1080,7 @@ export class GroupSetupComponent implements OnInit {
 
     let groupAgents= [];
     let agent1 = {
-      agentId: "",
+      agentId: this.agentId_0,
       agntNbr: this.agentNumber_0,
       agntNm: this.agent_name,
       agntSubCnt: this.agentSubCount_0,
@@ -1080,7 +1088,7 @@ export class GroupSetupComponent implements OnInit {
       grpId: ""
     }
     let agent2 = {
-      agentId: "",
+      agentId: this.agentId_1,
       agntNbr: this.agentNumber_1,
       agntNm: "",
       agntSubCnt: this.agentSubCount_1,
@@ -1088,7 +1096,7 @@ export class GroupSetupComponent implements OnInit {
       grpId: ""
     }
     let agent3 = {
-      agentId: "",
+      agentId: this.agentId_2,
       agntNbr: this.agentNumber_2,
       agntNm: "",
       agntSubCnt: this.agentSubCount_2,
@@ -1096,7 +1104,7 @@ export class GroupSetupComponent implements OnInit {
       grpId: ""
     }
     let agent4 = {
-      agentId: "",
+      agentId: this.agentId_3,
       agntNbr: this.agentNumber_3,
       agntNm: "",
       agntSubCnt: this.agentSubCount_3,
