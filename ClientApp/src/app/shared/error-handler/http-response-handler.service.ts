@@ -63,13 +63,13 @@ export class HttpResponseHandlerService {
   }
 
   private handleUnauthorized(responseBody: any): void {
-    this.notificationsService.info('Info', 'Access not allowed. Please login.');
-    this.router.navigate(['/login']);
+    // this.notificationsService.info('Info', 'Access not allowed. Please login.');
+    // this.router.navigate(['/login']);
   }
 
   private handleForbidden(): void {
-    this.notificationsService.error('error', 'Access forbidden. Please provide correct credentials');
-    this.router.navigate(['/login']);
+    // this.notificationsService.error('error', 'Access forbidden. Please provide correct credentials');
+    // this.router.navigate(['/login']);
   }
 
   private handleNotFound(responseBody: any): void {
