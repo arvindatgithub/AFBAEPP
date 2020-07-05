@@ -97,7 +97,7 @@ import { SharedModule } from './shared/shared.module';
     MatSelectModule,
     ReactiveFormsModule,
     FormsModule,
-    SharedModule,
+    //SharedModule,
     MatCardModule,
     MatDividerModule,
     MatTableModule,
