@@ -9,6 +9,7 @@ import { EppAcion } from './services/model/epp-acion';
 })
 export class AppComponent {
   title = 'app';
+  isLoading = 'false';
 
   public datasource: any;
   //private subscriptionResults = new Subscription();
