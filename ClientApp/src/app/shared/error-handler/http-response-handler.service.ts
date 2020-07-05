@@ -25,13 +25,13 @@ export class HttpResponseHandlerService {
         this.handleBadRequest(response);
         break;
 
-      case 401:
-        this.handleUnauthorized(response);
-        break;
+      //case 401:
+      //  this.handleUnauthorized(response);
+      //  break;
 
-      case 403:
-        this.handleForbidden();
-        break;
+      //case 403:
+      //  this.handleForbidden();
+      //  break;
 
       case 404:
         this.handleNotFound(response);
@@ -63,13 +63,13 @@ export class HttpResponseHandlerService {
   }
 
   private handleUnauthorized(responseBody: any): void {
-    this.notificationsService.info('Info', 'Access not allowed. Please login.');
-    this.router.navigate(['/login']);
+    //this.notificationsService.info('Info', 'Access not allowed. Please login.');
+    //this.router.navigate(['/login']);
   }
 
   private handleForbidden(): void {
-    this.notificationsService.error('error', 'Access forbidden. Please provide correct credentials');
-    this.router.navigate(['/login']);
+    //this.notificationsService.error('error', 'Access forbidden. Please provide correct credentials');
+    //this.router.navigate(['/login']);
   }
 
   private handleNotFound(responseBody: any): void {

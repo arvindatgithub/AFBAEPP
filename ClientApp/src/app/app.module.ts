@@ -51,8 +51,8 @@ import { VolGroupLifeQuestionsComponent } from './vol-group-life-questions/vol-g
 import { VoluntaryCiQuestionsComponent } from './voluntary-ci-questions/voluntary-ci-questions.component';
 import { DatePipe } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
-import { ErrorInterceptor } from './shared/error-handler/error-interceptor';
-import { SharedModule } from './shared/shared.module';
+//import { ErrorInterceptor } from './shared/error-handler/error-interceptor';
+//import { SharedModule } from './shared/shared.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -127,13 +127,7 @@ import { SharedModule } from './shared/shared.module';
       { path: 'radio-button', component: RadioButtonComponent}           
     ])
   ],
-  providers: [DatePipe,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ErrorInterceptor,
-      multi: true
-    },
-  ],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

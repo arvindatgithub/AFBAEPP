@@ -24,23 +24,23 @@ Observable<HttpEvent<any>> {
               this.notificationsService.info('Info', 'Bad Request. Please provide correct data');
               break;
             case 401:
-              this.notificationsService.info('Info', 'Access not allowed. Please login.');
-              this.router.navigate(['/login']);
+              //this.notificationsService.info('Info', 'Access not allowed. Please login.');
+              //this.router.navigate(['/login']);
               break;
             case 403:
-              this.notificationsService.error('error', 'Access forbidden. Please provide correct credentials');
-              this.router.navigate(['/login']);
-              break;
+              //this.notificationsService.error('error', 'Access forbidden. Please provide correct credentials');
+              //this.router.navigate(['/login']);
+              //break;
             case 404:
                 this.notificationsService.error('error', 'An error occurred. Please contact your administrator');
                 break;
             case 500:
-              this.notificationsService.error('Error', 'Access forbidden. Please provide correct credentials');
-              this.router.navigate(['/login']);
+              //this.notificationsService.error('Error', 'Access forbidden. Please provide correct credentials');
+              //this.router.navigate(['/login']);
               break;
             case 0:
-              this.notificationsService.error('Error', 'An error occurred. Please contact your administrator');
-              break;
+              //this.notificationsService.error('Error', 'An error occurred. Please contact your administrator');
+              //break;
             default:
               break;
             }
