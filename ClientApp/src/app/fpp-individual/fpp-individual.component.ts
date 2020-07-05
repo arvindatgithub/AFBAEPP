@@ -96,10 +96,10 @@ export class FPPIndividualComponent implements OnInit, OnChanges {
         });
         this.status = this.eppservice.getUserStatus();
         if(this.groupsearchService.getFromSearchFlag() && this.status == ''){
-          this.fppiformgrp.disable();
+         // this.fppiformgrp.disable();
           this.resetFlag = true;
         }else {
-          this.fppiformgrp.enable();
+          //this.fppiformgrp.enable();
           this.resetFlag = false;
         }
         
