@@ -22,7 +22,7 @@ export class HospitalIndemnityComponent implements OnInit,OnChanges {
   gender = false;
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
-  public minDate = new Date().toISOString().slice(0,10);
+  public minDate
   latest_datehospitalindemnity;
   jobs =  [{name: 'On the Job Only', abbrev: 'on'},
   {name: 'Off the Job Only', abbrev: 'off'},

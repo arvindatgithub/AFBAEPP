@@ -208,7 +208,7 @@ export class GroupSetupComponent implements OnInit {
   addToggle = false;
   editToggle = false;
   cloneToggle = false;
-  toggleFlag = true;
+  toggleFlag ;
   editRAddFlag = false;
   status;
   fromSearchFlag;
@@ -268,23 +268,24 @@ export class GroupSetupComponent implements OnInit {
         this.isCheckedBasicGrpLife = this.groupsData.isBGLActive;
         this.checkedToggleProductBcsGrpLife = this.isCheckedBasicGrpLife ? "Active" : "Inactive";
         if (this.groupsData.grpAgents !== "" && this.groupsData.grpAgents !== null && this.groupsData.grpAgents.length>0) {
-          this.agentId_0=this.groupsData.grpAgents[0].agentId;
+         
+          this.agentId_0=this.groupsData.grpAgents[0] ? this.groupsData.grpAgents[0].agentId : '';
           this.agentNumber_0 = this.groupsData.grpAgents[0] ? this.groupsData.grpAgents[0].agntNbr : '';
           this.agentSubCount_0 =  this.groupsData.grpAgents[0] ? this.groupsData.grpAgents[0].agntSubCnt : '';
           this.agentCommissionSPlit_0 =  this.groupsData.grpAgents[0] ? this.groupsData.grpAgents[0].agntComsnSplt : '';
           this.agent_name =  this.groupsData.grpAgents[0] ? this.groupsData.grpAgents[0].agntNm : '';
 
-          this.agentId_1 = this.groupsData.grpAgents[1].agentId ? this.groupsData.grpAgents[1].agentId:'' ;
+          this.agentId_1 = this.groupsData.grpAgents[1] ? this.groupsData.grpAgents[1].agentId:'' ;
           this.agentNumber_1 = this.groupsData.grpAgents[1] ? this.groupsData.grpAgents[1].agntNbr : '';
           this.agentSubCount_1 =  this.groupsData.grpAgents[1] ? this.groupsData.grpAgents[1].agntSubCnt : '';
           this.agentCommissionSPlit_1 =  this.groupsData.grpAgents[1] ? this.groupsData.grpAgents[1].agntComsnSplt : '';
 
-          this.agentId_2 = this.groupsData.grpAgents[2].agentId ? this.groupsData.grpAgents[2].agentId:'';
+          this.agentId_2 = this.groupsData.grpAgents[2] ? this.groupsData.grpAgents[2].agentId:'';
           this.agentNumber_2 = this.groupsData.grpAgents[2] ? this.groupsData.grpAgents[2].agntNbr : '';
           this.agentSubCount_2 =  this.groupsData.grpAgents[2] ? this.groupsData.grpAgents[2].agntSubCnt : '';
           this.agentCommissionSPlit_2 =  this.groupsData.grpAgents[2] ? this.groupsData.grpAgents[2].agntComsnSplt : '';
 
-          this.agentId_3 = this.groupsData.grpAgents[3].agentId ? this.groupsData.grpAgents[3].agentId: '';
+          this.agentId_3 = this.groupsData.grpAgents[3] ? this.groupsData.grpAgents[3].agentId: '';
           this.agentNumber_3 = this.groupsData.grpAgents[3] ? this.groupsData.grpAgents[3].agntNbr : '';
           this.agentSubCount_3 =  this.groupsData.grpAgents[3] ? this.groupsData.grpAgents[3].agntSubCnt : '';
           this.agentCommissionSPlit_3 =  this.groupsData.grpAgents[3] ? this.groupsData.grpAgents[3].agntComsnSplt : '';
@@ -548,7 +549,7 @@ export class GroupSetupComponent implements OnInit {
     this.cloneToggle = false;
     let grpNbr = this.groupsearchService.getEditGrpNbr();
     this.editRAddFlag = true;
-    this.toggleFlag = false;
+    //this.toggleFlag = false;
    // this.agentformgrp.enable();
     this.eppcreategroupservice.setUserStatus('Edit');
     this.status = this.eppcreategroupservice.getUserStatus();
@@ -559,7 +560,7 @@ export class GroupSetupComponent implements OnInit {
     this.editToggle = false;
     this.cloneToggle = false;
     this.editRAddFlag = true;
-    this.toggleFlag = false;
+    //this.toggleFlag = false;
    // this.agentformgrp.enable();
     this.eppcreategroupservice.setUserStatus('Add');
     this.status = this.eppcreategroupservice.getUserStatus();
