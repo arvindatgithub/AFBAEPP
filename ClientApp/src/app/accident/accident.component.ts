@@ -128,10 +128,10 @@ export class AccidentComponent implements OnInit,OnChanges {
           this.status = this.eppservice.getUserStatus();
 
           if(this.groupsearchService.getFromSearchFlag() && this.status == ''){
-            this.accformgrp.disable();
+           // this.accformgrp.disable();
             this.resetFlag = true;
           } else{
-            this.accformgrp.enable();
+           // this.accformgrp.enable();
             this.resetFlag = false;
           }
         }

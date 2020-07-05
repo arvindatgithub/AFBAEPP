@@ -96,10 +96,10 @@ export class EmployerPaidCIComponent implements OnInit ,OnChanges{
           });
           this.status = this.eppservice.getUserStatus();
           if(this.groupsearchService.getFromSearchFlag() && this.status == ''){
-            this.empCIformgrp.disable();
+           // this.empCIformgrp.disable();
             this.resetFlag = true;
           }else{
-            this.empCIformgrp.enable();
+            //this.empCIformgrp.enable();
             this.resetFlag = false;
           }
           

@@ -94,10 +94,10 @@ export class FPPGComponent implements OnInit, OnChanges {
   
         this.status = this.eppservice.getUserStatus();
         if(this.groupsearchService.getFromSearchFlag() && this.status == ''){
-          this.fppgformgrp.disable();
+         // this.fppgformgrp.disable();
           this.resetFlag = true;
         }else{
-          this.fppgformgrp.enable();
+          //this.fppgformgrp.enable();
           this.resetFlag = false;
         }
       }

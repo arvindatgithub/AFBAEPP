@@ -85,10 +85,10 @@ export class BasicGroupLifeComponent implements OnInit,OnChanges {
   
           this.status = this.eppservice.getUserStatus();
           if(this.groupsearchService.getFromSearchFlag() && this.status==''){
-            this.basicGrpLfformgrp.disable();
+           // this.basicGrpLfformgrp.disable();
             this.resetFlag = true;
           }else{
-            this.basicGrpLfformgrp.enable();
+            //this.basicGrpLfformgrp.enable();
             this.resetFlag = false;
           }
         }

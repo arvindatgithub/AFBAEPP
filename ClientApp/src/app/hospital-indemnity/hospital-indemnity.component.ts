@@ -104,11 +104,11 @@ export class HospitalIndemnityComponent implements OnInit,OnChanges {
 
           });
 
-          this.hospformgrp.enable();
+         // this.hospformgrp.enable();
           this.resetFlag = false;
           this.status = this.eppservice.getUserStatus();
           if(this.groupsearchService.getFromSearchFlag() && this.status == ''){
-            this.hospformgrp.disable();
+         //   this.hospformgrp.disable();
             this.resetFlag = true;
           }
             

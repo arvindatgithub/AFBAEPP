@@ -106,10 +106,10 @@ ngOnChanges(){
         this.status = this.eppservice.getUserStatus();
   
         if(this.groupsearchService.getFromSearchFlag() && this.status == ''){
-          this.volCIformgrp.disable();
+         // this.volCIformgrp.disable();
           this.resetFlag = true;
         }else{
-          this.volCIformgrp.enable();
+          //this.volCIformgrp.enable();
           this.resetFlag = false;
         }
       }

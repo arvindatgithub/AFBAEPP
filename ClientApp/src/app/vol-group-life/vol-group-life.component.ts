@@ -91,10 +91,10 @@ export class VolGroupLifeComponent implements OnInit,OnChanges {
         });
         this.status = this.eppservice.getUserStatus();
         if(this.groupsearchService.getFromSearchFlag() && this.status == ''){
-          this.volGrpLfformgrp.disable();
+         // this.volGrpLfformgrp.disable();
           this.resetFlag = true;
         }else{
-          this.volGrpLfformgrp.enable();
+          //this.volGrpLfformgrp.enable();
           this.resetFlag = false;
         }
       }

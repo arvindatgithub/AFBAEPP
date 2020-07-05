@@ -479,10 +479,10 @@ export class GroupSetupComponent implements OnInit {
           });
         }
         if(!this.editRAddFlag){
-          this.agentformgrp.disable();
+          //this.agentformgrp.disable();
           this.fieldsetDisabled = true;
         }else{
-          this.fieldsetDisabled = false;
+         // this.fieldsetDisabled = false;
           this.editRAddFlag = false;
          // this.agentformgrp.enable();
         }
@@ -549,7 +549,7 @@ export class GroupSetupComponent implements OnInit {
     let grpNbr = this.groupsearchService.getEditGrpNbr();
     this.editRAddFlag = true;
     this.toggleFlag = false;
-    this.agentformgrp.enable();
+   // this.agentformgrp.enable();
     this.eppcreategroupservice.setUserStatus('Edit');
     this.status = this.eppcreategroupservice.getUserStatus();
     this.groupsearchService.existingGrpNbrSelected(grpNbr);
@@ -560,7 +560,7 @@ export class GroupSetupComponent implements OnInit {
     this.cloneToggle = false;
     this.editRAddFlag = true;
     this.toggleFlag = false;
-    this.agentformgrp.enable();
+   // this.agentformgrp.enable();
     this.eppcreategroupservice.setUserStatus('Add');
     this.status = this.eppcreategroupservice.getUserStatus();
     this.groupsearchService.existingGrpNbrSelected('');
