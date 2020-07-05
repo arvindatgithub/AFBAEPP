@@ -32,9 +32,9 @@ namespace AFBA.EPP.ViewModels
         public string emp_quality_of_life_action { get; set; }
         public string sp_quality_of_life_action { get; set; }
 
-        public string sp_plan_cd { get; set; }
-        public string emp_plan_cd { get; set; }
-        public string ch_plan_cd { get; set; }
+        public string sp_plan_cd { get; set; } = string.Empty;
+        public string emp_plan_cd { get; set; } =   string.Empty;
+        public string ch_plan_cd { get; set; } = string.Empty;
 
 
         public string emp_plan_cd_action { get; set; }

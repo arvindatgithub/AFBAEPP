@@ -11,7 +11,7 @@ namespace AFBA.EPP.ViewModels
 
         
         public string effctv_dt { get; set; }
-        public string grp_situs_state { get; set; }
+        //public string grp_situs_state { get; set; }
 
      
 
@@ -32,7 +32,7 @@ namespace AFBA.EPP.ViewModels
         //public string user_token { get; set; }
         //public string case_token { get; set; }
         public string effctv_dt_action { get; set; }
-        public string grp_situs_state_action { get; set; }
+        //public string grp_situs_state_action { get; set; }
         public string agnt_sig_txt_1 { get; set; }
 
         public string agnt_sig_txt_1_action { get; set; }

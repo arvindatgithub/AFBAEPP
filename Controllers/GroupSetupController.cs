@@ -634,9 +634,9 @@ namespace AFBA.EPP.Controllers
                     if (string.IsNullOrEmpty(grpNbr))
                     {
 
-                    grpNbr = "-1";
-                        //groupSetupModel.GrpPymn = 10007;
-                        //return Ok(groupSetupModel);
+                    // grpNbr = "-1";
+                    groupSetupModel.GrpPymn = 10007;
+                    return Ok(groupSetupModel);
                 }
 
                 var GrpMaster = _unitofWork.GroupMasterRepository.SingleOrDefault(x => x.GrpNbr == grpNbr).Result;
