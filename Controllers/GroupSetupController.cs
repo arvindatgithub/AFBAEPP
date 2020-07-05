@@ -625,7 +625,7 @@ namespace AFBA.EPP.Controllers
         [Route("grpNbr/{grpNbr?}")]
         [HttpGet]
         public IActionResult EppGetGrpSetup( string grpNbr)
-        {
+       {
             try
             {
 
@@ -633,9 +633,11 @@ namespace AFBA.EPP.Controllers
                     GroupSetupModel groupSetupModel = new GroupSetupModel();
                     if (string.IsNullOrEmpty(grpNbr))
                     {
-                        groupSetupModel.GrpPymn = 10007;
-                        return Ok(groupSetupModel);
-                    }
+
+                    grpNbr = "-1";
+                        //groupSetupModel.GrpPymn = 10007;
+                        //return Ok(groupSetupModel);
+                }
 
                 var GrpMaster = _unitofWork.GroupMasterRepository.SingleOrDefault(x => x.GrpNbr == grpNbr).Result;
                 if (GrpMaster != null)

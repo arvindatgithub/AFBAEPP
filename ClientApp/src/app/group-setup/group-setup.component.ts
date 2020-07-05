@@ -274,17 +274,17 @@ export class GroupSetupComponent implements OnInit {
           this.agentCommissionSPlit_0 =  this.groupsData.grpAgents[0] ? this.groupsData.grpAgents[0].agntComsnSplt : '';
           this.agent_name =  this.groupsData.grpAgents[0] ? this.groupsData.grpAgents[0].agntNm : '';
 
-          this.agentId_1 = this.groupsData.grpAgents[1].agentId;
+          this.agentId_1 = this.groupsData.grpAgents[1].agentId ? this.groupsData.grpAgents[1].agentId:'' ;
           this.agentNumber_1 = this.groupsData.grpAgents[1] ? this.groupsData.grpAgents[1].agntNbr : '';
           this.agentSubCount_1 =  this.groupsData.grpAgents[1] ? this.groupsData.grpAgents[1].agntSubCnt : '';
           this.agentCommissionSPlit_1 =  this.groupsData.grpAgents[1] ? this.groupsData.grpAgents[1].agntComsnSplt : '';
 
-          this.agentId_2 = this.groupsData.grpAgents[2].agentId;
+          this.agentId_2 = this.groupsData.grpAgents[2].agentId ? this.groupsData.grpAgents[2].agentId:'';
           this.agentNumber_2 = this.groupsData.grpAgents[2] ? this.groupsData.grpAgents[2].agntNbr : '';
           this.agentSubCount_2 =  this.groupsData.grpAgents[2] ? this.groupsData.grpAgents[2].agntSubCnt : '';
           this.agentCommissionSPlit_2 =  this.groupsData.grpAgents[2] ? this.groupsData.grpAgents[2].agntComsnSplt : '';
 
-          this.agentId_3 = this.groupsData.grpAgents[3].agentId;
+          this.agentId_3 = this.groupsData.grpAgents[3].agentId ? this.groupsData.grpAgents[3].agentId: '';
           this.agentNumber_3 = this.groupsData.grpAgents[3] ? this.groupsData.grpAgents[3].agntNbr : '';
           this.agentSubCount_3 =  this.groupsData.grpAgents[3] ? this.groupsData.grpAgents[3].agntSubCnt : '';
           this.agentCommissionSPlit_3 =  this.groupsData.grpAgents[3] ? this.groupsData.grpAgents[3].agntComsnSplt : '';
