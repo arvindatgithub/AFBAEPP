@@ -22,7 +22,7 @@ export class FPPIndividualComponent implements OnInit, OnChanges {
   indeterminate = false;
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
-  public minDate = new Date().toISOString().slice(0,10);
+  public minDate
   situsState:any;
   latest_datefpp;
   radioButtonArr=[

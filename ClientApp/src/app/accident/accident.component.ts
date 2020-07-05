@@ -23,7 +23,7 @@ export class AccidentComponent implements OnInit,OnChanges {
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
   latest_dateaccident;
-  public minDate = new Date().toISOString().slice(0,10);
+  public minDate
   latest_date;
   radioButtonArr=[
     {value:'10002',name:'Always Override'},

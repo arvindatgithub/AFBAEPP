@@ -23,7 +23,8 @@ export class BasicGroupLifeComponent implements OnInit,OnChanges {
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
   latest_datebasicgrplife
-  public minDate = new Date().toISOString().slice(0,10);
+  public minDate
+  // = new Date().toISOString().slice(0,10);
   radioButtonArr=[
     {value:'10002',name:'Always Override'},
     {value:'10001',name:'Update if Blank'},

@@ -22,7 +22,7 @@ export class VolGroupLifeComponent implements OnInit,OnChanges {
   indeterminate = false;
   labelPosition: 'before' | 'after' = 'after';
   disabled = false;
-  public minDate = new Date().toISOString().slice(0,10);
+  public minDate
   latest_datevolgrplife;
   radioButtonArr=[
     {value:'10002',name:'Always Override'},
