@@ -37,12 +37,18 @@ export class VolGroupLifeComponent implements OnInit,OnChanges {
 
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe,
     private groupsearchService: GroupsearchService, private eppservice:EppCreateGrpSetupService) {
-
-     
+      this.volGrpSitus = this.lookupValue;
 
   }
   ngOnChanges(){
    
+    this.volGrpSitus = this.lookupValue;
+    this.volGrpLfformgrp.patchValue({FCVolGrpLfSitusState : this.volGrpSitus});
+    this.latest_datevolgrplife = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+  }
+
+  ngOnInit() {
+    this.lookUpDataSitusStates = JSON.parse(localStorage.getItem('lookUpSitusApiData'));
     let existingSelectedGrpNbr: any;
     this.groupsearchService.castGroupNumber.subscribe(data => {
       existingSelectedGrpNbr = data; 
@@ -64,7 +70,7 @@ export class VolGroupLifeComponent implements OnInit,OnChanges {
           FCVolGrpLfEffectiveDate: [(this.volGrpData.isVGLActive) ? this.volGrpDate : this.minDate,Validators.required],
           FCVolGrpLfEffectiveDate_Action: [(this.volGrpData.isVGLActive) ? this.volGrpData.vgl.effctv_dt_action : this.radioButtonArr[1].value,Validators.required],
           FCVolGrpLfSitusState_Action: [(this.volGrpData.isVGLActive) ? this.volGrpData.vgl.grp_situs_state_action : this.radioButtonArr[1].value,Validators.required],
-          FCVolGrpLfSitusState: [(this.volGrpData.isVGLActive) ? this.volGrpSitus : this.lookupValue,Validators.required],
+          FCVolGrpLfSitusState: [(this.volGrpData.isVGLActive) ? this.volGrpSitus : this.volGrpSitus,Validators.required],
           FCVolGrpLfEmpAmtMax_Action: [(this.volGrpData.isVGLActive) ? this.volGrpData.vgl.emp_max_amt_action : this.radioButtonArr[1].value,Validators.required],
           FCVolGrpLfEmpGIAmtMax: [(this.volGrpData.isVGLActive) ? this.volGrpData.vgl.emp_gi_max_amt : "",Validators.required],
           FCVolGrpLfEmpAmtMax: [(this.volGrpData.isVGLActive) ? this.volGrpData.vgl.emp_max_amt : "",Validators.required],
@@ -95,11 +101,7 @@ export class VolGroupLifeComponent implements OnInit,OnChanges {
     
     });
 
-    this.latest_datevolgrplife = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
-  }
-
-  ngOnInit() {
-    this.lookUpDataSitusStates = JSON.parse(localStorage.getItem('lookUpSitusApiData'));
+   
   }
 
   volgrplife(){

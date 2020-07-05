@@ -52,12 +52,18 @@ export class HospitalIndemnityComponent implements OnInit,OnChanges {
   
   constructor(private lookupService: LookupService, private fb:FormBuilder,public datepipe: DatePipe,
     private groupsearchService: GroupsearchService, private eppservice:EppCreateGrpSetupService) {
-
-
+      this.hiStatus = this.lookupValue;
     }
   
   ngOnChanges(){
-    
+    this.hiStatus = this.lookupValue;
+    this.hospformgrp.patchValue({FChospSitusState : this.hiStatus});
+    this.latest_datehospitalindemnity = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
+  
+  }
+
+  ngOnInit() {
+    this.lookUpDataSitusStates = JSON.parse(localStorage.getItem('lookUpSitusApiData'));
     let existingSelectedGrpNbr: any;
     this.groupsearchService.castGroupNumber.subscribe(data => {
       existingSelectedGrpNbr = data; 
@@ -85,7 +91,7 @@ export class HospitalIndemnityComponent implements OnInit,OnChanges {
           this.hospformgrp = this.fb.group({
             FChospEffectiveDate: [(this.hiData.isHIActive) ? this.hiDate : this.minDate,Validators.required],
             FChospEffectiveDate_Action: [(this.hiData.isHIActive) ? this.hiData.hi.effctv_dt_action : this.radioButtonArr[1].value,Validators.required],
-            FChospSitusState: [(this.hiData.isHIActive) ? this.hiStatus : this.lookupValue,Validators.required],
+            FChospSitusState: [(this.hiData.isHIActive) ? this.hiStatus : this.hiStatus,Validators.required],
             FChospSitusState_Action: [(this.hiData.isHIActive) ? this.hiData.hi.grp_situs_state_action : this.radioButtonArr[1].value,Validators.required],
             FChospRateLevel:[(this.hiData.isHIActive)  ? this.hiData.hi.rate_lvl : this.Rate[0].no ,Validators.required],
             FChospRateLevel_Action:[(this.hiData.isHIActive) ? this.hiData.hi.rate_lvl_action : this.radioButtonArr[1].value,Validators.required],
@@ -109,15 +115,6 @@ export class HospitalIndemnityComponent implements OnInit,OnChanges {
       }
       
     });
-
-   
-   
-    this.latest_datehospitalindemnity = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
-  
-  }
-
-  ngOnInit() {
-    this.lookUpDataSitusStates = JSON.parse(localStorage.getItem('lookUpSitusApiData'));
   
 }
 hospitalindemnity(){
