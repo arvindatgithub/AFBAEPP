@@ -567,6 +567,13 @@ export class GroupSetupComponent implements OnInit {
     this.addToggle = false;
     this.editToggle = false;
     this.cloneToggle = true;
+    
+    this.editServiceCall = false;
+    this.groupNumber = '';
+    this.groupName = '';
+    this.minDate ='';
+
+
   }
 
 
