@@ -57,15 +57,11 @@ export class GroupSearchComponent implements OnInit {
 
   goToSetup(grpNbr) {
     console.log('Existing Group Number-- go to set up screen '+ grpNbr);
-    this.groupSearchService.existingGrpNbrSelected(grpNbr);
+    
     this.groupSearchService.setFromSearchFlag(true);
     this.groupSearchService.setEditGrpNbr(grpNbr);
-    this.router.navigate(['/group-setup']);
+    this.router.navigate(['/group-setup',grpNbr]);
 
-    // this.groupSearchService.getGroupNbrEppData(grpNbr).subscribe((data) => {
-    //   console.log('Group number epp data ' + JSON.stringify(data));
-      
-    // });
   }
 
   goToSearch() {
