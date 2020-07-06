@@ -25,7 +25,7 @@ namespace AFBA.EPP.Repositories
         public IEppAttributeRepository eppAttributeRepository => new EppAttributeRepository(_dbContext);
         public IEppEnrlmntPrtnrsRepository eppEnrlmntPrtnrsRepository => new EppEnrlmntPrtnrsRepository(_dbContext);
 
-        public IEppAcctMgrCntctsRepository eppAcctMgrCntctsRepository =>  new EppAcctMgrCntctsRepository(_dbContext);
+  //      public IEppAcctMgrCntctsRepository eppAcctMgrCntctsRepository =>  new EppAcctMgrCntctsRepository(_dbContext);
 
         public IEppGrpprdctRepository eppGrpprdctRepository =>  new EppGrpprdctRepositry(_dbContext);
 
@@ -38,6 +38,8 @@ namespace AFBA.EPP.Repositories
         public IEppErrorMessageRepository eppErrorMessageRepository =>  new EppErrorMessageRepository(_dbContext);
 
         public IEppErrorDtlRepository eppErrorDtlRepository =>  new EppErrorDtlRepository(_dbContext);
+
+        public IEppAgentRepository eppAgentRepository => new EppAgentRepository(_dbContext);
 
         public async Task<int> Complete()
         {

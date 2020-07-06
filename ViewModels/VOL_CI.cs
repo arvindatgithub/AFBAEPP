@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AFBA.EPP.ViewModels
 {
-    public class VOL_CI:CommonViewModel
+    public class VOL_CI:ProductBase
     {
 
        
@@ -15,7 +15,7 @@ namespace AFBA.EPP.ViewModels
         
         public string emp_gi_max_amt { get; set; }
         public string sp_gi_max_amt { get; set; }
-        //public string ch_gi_max_amt { get; set; }
+        public string ch_gi_max_amt { get; set; }
 
 
 
@@ -25,7 +25,11 @@ namespace AFBA.EPP.ViewModels
 
         public string emp_max_amt { get; set; }
         public string sp_max_amt { get; set; }
-        //public string ch_max_amt { get; set; }
+        public string ch_max_amt { get; set; }
+
+
+        public string ch_gi_max_amt_action { get; set; }
+        public string ch_max_amt_action { get; set; }
 
 
         public string emp_ProductCode { get; set; }

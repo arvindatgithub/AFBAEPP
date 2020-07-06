@@ -23,12 +23,12 @@ namespace AFBA.EPP.Repositories
             var result = _dbContext.EppPrdctattrbt.Where(x => x.GrpprdctId == GrpprdctId).Select(x =>
              new EppAttrFieldViewModel
              {
-                 PrdctAttrbtId = x.PrdctAttrbtId,
-                 AttrId = x.AttrId,
+                 PrdctAttrbtId = x.PrdctAttrbtId.ToString(),
+                 AttrId = x.AttrId.ToString(),
                  DbAttrNm = x.Attr.DbAttrNm,
-                 ClmnOrdr = x.ClmnOrdr,
+                 ClmnOrdr = x.ClmnOrdr.ToString(),
                  DisplyAttrNm = x.Attr.DisplyAttrNm,
-                 GrpprdctId = x.GrpprdctId,
+                 GrpprdctId = x.GrpprdctId.ToString(),
                  RqdFlg = x.RqdFlg == 'N' ? false : true
              }).OrderBy( x=> x.ClmnOrdr);
 
@@ -41,9 +41,9 @@ namespace AFBA.EPP.Repositories
             var result = _dbContext.EppPrdctattrbt.Where(x => x.GrpprdctId == GrpprdctId).Select(x =>
              new EppAttrFieldViewModel
              {
-                  AttrId = x.AttrId,
+                  AttrId =  x.AttrId.ToString(),
                  DbAttrNm = x.Attr.DbAttrNm,
-                 ClmnOrdr = x.ClmnOrdr,
+                 ClmnOrdr =  x.ClmnOrdr.ToString(),
                  DisplyAttrNm = x.Attr.DisplyAttrNm,
                  RqdFlg = x.RqdFlg == 'N' ? false : true
              }).OrderBy(x => x.ClmnOrdr);

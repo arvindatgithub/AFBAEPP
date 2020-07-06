@@ -38,7 +38,7 @@ namespace AFBA.EPP.ViewModels
             get
             {
                 return new List<SitusState>
-                {
+                {   new SitusState{ Id="0", State="---Select---"},
                     new SitusState{ Id="AL", State="AL"},
                     new SitusState{ Id="AK", State="AK"},
                     new SitusState{ Id="AZ", State="AZ"},

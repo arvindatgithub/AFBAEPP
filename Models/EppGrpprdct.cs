@@ -7,7 +7,6 @@ namespace AFBA.EPP.Models
     {
         public EppGrpprdct()
         {
-            EppAcctMgrCntcts = new HashSet<EppAcctMgrCntcts>();
             EppBulkRefTbl = new HashSet<EppBulkRefTbl>();
             EppPrdctattrbt = new HashSet<EppPrdctattrbt>();
         }
@@ -22,7 +21,6 @@ namespace AFBA.EPP.Models
 
         public virtual EppGrpmstr Grp { get; set; }
         public virtual EppProduct Product { get; set; }
-        public virtual ICollection<EppAcctMgrCntcts> EppAcctMgrCntcts { get; set; }
         public virtual ICollection<EppBulkRefTbl> EppBulkRefTbl { get; set; }
         public virtual ICollection<EppPrdctattrbt> EppPrdctattrbt { get; set; }
     }

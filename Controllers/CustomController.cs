@@ -43,24 +43,7 @@ namespace AFBA.EPP.Controllers
         }
 
 
-        //[Route("getBulkQuestionsAttr/groupNbr/{groupNbr}/productId/{productId}")]
-        //[HttpGet]
         
-        //public IActionResult GetSavedQueAttr(string groupNbr, string productId)
-        //{
-        //    var questionDataAttr = _unitofWork.eppBulkRefTblRepository.GetEppQuestionAtrr(groupNbr, long.Parse(productId));
-        //    return Ok(questionDataAttr);
-        //}
-
-        //[Route("GetGroupQuestionAtrr/groupNbr/{groupNbr}")]
-        //[HttpGet]
-
-        //public IActionResult GetGroupQuestionAtrr(string groupNbr)
-        //{
-        //    var questionDataAttr = _unitofWork.eppBulkRefTblRepository.GetGroupQuestionAtrr(groupNbr);
-        //    return Ok(questionDataAttr);
-        //}
-
         [Route("[action]")]
         [HttpPost]
         public IActionResult UpdateQuestionAttrs(GroupBlkQuestionAttrbs  groupBlkQuestionAttrbs)
@@ -131,7 +114,7 @@ namespace AFBA.EPP.Controllers
                 var eppPrdctattrbt = _unitofWork.eppPrdctattrbtRepository.ClonedEppPrdctattrbts(grpprdct.GrpprdctId);
                  foreach (var item in eppPrdctattrbt)
                 {
-                    var data = _unitofWork.eppAttributeRepository.Get(item.AttrId).Result;
+                    var data = _unitofWork.eppAttributeRepository.Get(long.Parse(item.AttrId)).Result;
                     if (data != null)
                     {
                         lstEppTemplateViewModel.SelectedList.Add(new EppAttrFieldViewModel
@@ -175,8 +158,8 @@ namespace AFBA.EPP.Controllers
                     AvailableList = new List<EppAttrFieldViewModel>(),
                     SelectedList = new List<EppAttrFieldViewModel>()
                 };
-                lstEppTemplateViewModel.isEdit = true;
-              
+                lstEppTemplateViewModel.isEdit = false;
+
                 lstEppTemplateViewModel.AvailableList = Helper.EppGetAvailableFields(_unitofWork).ToList();
                 IList<EppAttrFieldViewModel> eppAttrFields = new List<EppAttrFieldViewModel>();
                 if (grpprdct != null)
@@ -190,7 +173,7 @@ namespace AFBA.EPP.Controllers
                    
                     foreach (var item in eppPrdctattrbt)
                     {
-                        var data = _unitofWork.eppAttributeRepository.Get(item.AttrId).Result;
+                        var data = _unitofWork.eppAttributeRepository.Get(long.Parse(item.AttrId)).Result;
                         if (data != null)
                         {
                             lstEppTemplateViewModel.SelectedList.Add(new EppAttrFieldViewModel
@@ -247,11 +230,11 @@ namespace AFBA.EPP.Controllers
 
                         EppPrdctattrbts.Add(new EppPrdctattrbt
                         {
-                            AttrId = item.AttrId,
+                            AttrId = long.Parse(item.AttrId),
                             GrpprdctId = grpprdctId,
-                            ClmnOrdr = item.ClmnOrdr,
+                            ClmnOrdr = long.Parse(item.ClmnOrdr),
                             RqdFlg = item.RqdFlg == true ? 'Y' : 'N',
-                            PrdctAttrbtId = item.PrdctAttrbtId,
+                            PrdctAttrbtId = long.Parse(item.PrdctAttrbtId),
                             CrtdBy = "",
                         });
 
@@ -337,7 +320,7 @@ namespace AFBA.EPP.Controllers
                                 PrdctAttrbtId= prdctAttrbtId,
                                 AttrId = data.AttrId,
                                 GrpprdctId = grpprdct.GrpprdctId,
-                                ClmnOrdr = item.ClmnOrdr,
+                                ClmnOrdr = long.Parse(item.ClmnOrdr),
                                 RqdFlg = item.RqdFlg == true ? 'Y' : 'N',
                                 CrtdBy = "",
                             });

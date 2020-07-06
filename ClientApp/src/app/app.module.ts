@@ -50,7 +50,9 @@ import { FppiQuestionsComponent } from './fppi-questions/fppi-questions.componen
 import { VolGroupLifeQuestionsComponent } from './vol-group-life-questions/vol-group-life-questions.component';
 import { VoluntaryCiQuestionsComponent } from './voluntary-ci-questions/voluntary-ci-questions.component';
 import { DatePipe } from '@angular/common';
-
+import { ToastrModule } from 'ngx-toastr';
+//import { ErrorInterceptor } from './shared/error-handler/error-interceptor';
+import { SharedModule } from './shared/shared.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,6 +83,7 @@ import { DatePipe } from '@angular/common';
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    ToastrModule.forRoot(),
     HttpClientModule, 
     MatExpansionModule,
     MatSnackBarModule,
@@ -94,6 +97,7 @@ import { DatePipe } from '@angular/common';
     MatSelectModule,
     ReactiveFormsModule,
     FormsModule,
+    SharedModule,
     MatCardModule,
     MatDividerModule,
     MatTableModule,
@@ -109,6 +113,7 @@ import { DatePipe } from '@angular/common';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'group-search', component: GroupSearchComponent },
       { path: 'group-setup', component: GroupSetupComponent},
+      { path: 'group-setup/:grpNbr', component: GroupSetupComponent},
       { path: 'accident', component: AccidentComponent},
       { path: 'basic-group-life', component: BasicGroupLifeComponent},
       { path: 'employer-paid-ci', component: EmployerPaidCIComponent},

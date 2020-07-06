@@ -17,6 +17,7 @@ namespace AFBA.EPP.Repositories.Interfaces
 
         void Remove(TEntity entity);
         void RemoveRange(IEnumerable<TEntity> entities);
-        public void Update(TEntity entity);
+        void Update(TEntity entity);
+        void UpdateRange(IEnumerable<TEntity> entities);
     }
 }

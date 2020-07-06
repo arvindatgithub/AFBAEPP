@@ -1,5 +1,5 @@
 
-<div class="container" style="width: 100%;">
+<div class="container" style="width: 100%;" *ngIf="empCiData !== undefined">
   <form [formGroup]="empCIformgrp">
   <div class="row" style="justify-content:space-evenly;margin-right: 7%;"> 
     <div class="radio-button">
@@ -8,8 +8,8 @@
     </div>
     <div class="col-3">
       <span class="label label-default">EMP Paid CI Effective Date</span>
-      <input type="date" [value]="latest_dateemppaisci" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
-      formControlName="FCempCIEffectiveDate" [(ngModel)]="latest_dateemppaisci" placeholder="Group Effective Date">
+      <input type="date" class="form-control mb-2 " style="width: 100%;"
+      formControlName="FCempCIEffectiveDate" placeholder="Group Effective Date">
 
     </div>
     <div class="radio-button">
@@ -18,16 +18,17 @@
     </div>
     <div class="col-3">
       <span class="label label-default">Situs State</span>
-      <select class="form-control" [value]="lookupValue" formControlName="FCempCISitusState">
-        <!-- <option value="0" selected="selected">{{ lookupValue }}</option> -->
-        <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
+      <select class="form-control" formControlName="FCempCISitusState">
+        <!-- <option hidden disabled selected value> -- select Situs State -- </option> -->
+        <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates" [selected]="lookUpDataSitusState.id==empCiStatus"
+         value={{lookUpDataSitusState.id}}>
           {{lookUpDataSitusState.state}}</option>
 
       </select>
 
     </div>
     <div class="mt-4">
-      <button class="btn btn-primary" (click) = "resetEmpCi()"type="submit">Reset Form </button>
+      <button class="btn btn-primary" [disabled]=resetFlag (click) = "resetEmpCi()"type="submit">Reset Form </button>
     </div>
   </div>
 
@@ -40,8 +41,9 @@
     <div class="col-4">
 
       <span class="label label-default">Spouse Standard Face
-        Amount</span>
-      <input type="text" class="form-control mb-2 " formControlName="FCempCISpouseFcAmt" style="width: 100%;" placeholder="Spouse Standard Face Amount">
+        Amount($)</span>
+      <input type="text" class="form-control mb-2 " formControlName="FCempCISpouseFcAmt" style="width: 100%;" placeholder="Spouse Standard Face Amount"required
+      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
     </div>
 
     <div class="radio-button">
@@ -50,9 +52,10 @@
     </div>
     <div class="col-4">
       <span class="label label-default">Employee Standard Face
-        Amount</span>
+        Amount($)</span>
 
-      <input type="text" class="form-control mb-2 " style="width: 100%;" formControlName="FCempCIEmpFcAmt" placeholder="Employee Standard Face Amount">
+      <input type="text" class="form-control mb-2 " style="width: 100%;" formControlName="FCempCIEmpFcAmt" placeholder="Employee Standard Face Amount"required
+      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
     </div>
 
     <!-- <div class="radio-button">

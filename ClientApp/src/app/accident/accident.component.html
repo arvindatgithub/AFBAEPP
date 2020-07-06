@@ -1,4 +1,4 @@
-<div class="container" style="width: 100%;">
+<div class="container" style="width: 100%;" *ngIf="accidentData !== undefined">
   <form [formGroup]="accformgrp">
     <div class="row pb-2 " style="justify-content:space-evenly;margin-right: 7%;">
       <div class="radio-button">
@@ -7,7 +7,7 @@
       </div>
       <div class="col-3">
         <span class="label label-default">Accident Effective Date</span>   
-        <input type="date"  [min]="minDate" formControlName="FCaccEffectiveDate" [(ngModel)]="minDate" class="form-control mb-2 " style="width: 100%;"
+        <input type="date" formControlName="FCaccEffectiveDate" class="form-control mb-2 " style="width: 100%;"
           placeholder="Group Effective Date">  
   
       </div>
@@ -17,14 +17,15 @@
       </div>
       <div class="col-3">
         <span class="label label-default">Situs State</span>
-        <select class="form-control" [value]="lookupValue"  formControlName="FCaccSitusState">
-          <!-- <option value="0" selected="selected">{{ lookupValue }}</option> -->
-          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
+        <select class="form-control"  formControlName="FCaccSitusState">
+          <!-- <option hidden disabled selected value> -- select Situs State -- </option> -->
+          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates" [selected]="lookUpDataSitusState.id==accidentSitus"
+          value={{lookUpDataSitusState.id}}>
             {{lookUpDataSitusState.state}}</option>
         </select>
       </div>              
       <div class="mt-4">
-        <button class="btn btn-primary" (click)= "resetAcc()"type="submit">Reset Form </button>
+        <button class="btn btn-primary" [disabled]=resetFlag (click)= "resetAcc()"type="submit">Reset Form </button>
       </div>
     </div>
     <div class="row pb-2 " style="justify-content:space-evenly;">
@@ -33,18 +34,12 @@
           <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-4">
-        <span class="label">On or Off the Job</span>
+        <span class="label">24 Hour or Off the Job </span>
         <select  class="form-control" formControlName="FCaccOnOff">
-          <option *ngFor="let job of jobs" [ngValue]="job.abbrev"> 
+          <option *ngFor="let job of jobs" value={{job.abbrev}}> 
             {{ job.name }}
           </option>
         </select>
-        <!-- <select class="form-control" formControlName="FCaccOnOff">
-          <option selected>On and off the job</option>
-          <option> Off the job only</option>
-          <option>Both</option>
-        </select> -->
-      
       </div>
       <div class="radio-button">
         <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCaccRateLevel_Action" />
@@ -55,14 +50,44 @@
         <span class="label">
           Accident Rate Level
         </span>
-        <select  class="form-control" formControlName="FCaccRateLevel" >
-          <option *ngFor="let names of Rate" [value]="names.abb">
-            {{ names.no }}
+        <select class="form-control" formControlName="FCaccRateLevel">
+           <!-- <option hidden disabled selected value> -- select Situs State -- </option> -->
+          <option *ngFor="let names of Rate" value={{names.no}}>
+            {{ names.no }} 
           </option>
         </select>
       </div>
       
     </div>
+
+    <div class="row pb-2">
+      <div class="col-2">
+        <input type="checkbox"  formControlName="FcaccChildName" [checked]="ch_fname_01"> Child Name
+      </div>
+     
+      <div class="col-3">
+        <input type="checkbox" formControlName="FcaccChildDOB" [checked]="ch_dob_01"> Child Date of Birth
+      </div>
+      
+      <div class="col-2">
+        <input type="checkbox" formControlName="FcaccChildGender" [checked]="ch_gndr_01"> Child Gender
+      </div>
+    </div>
+    <div class="row pb-2 ">
+      
+      <div class="col-2">
+        <input type="checkbox"  formControlName="FcaccSpouseName" [checked]="sp_fname"> Spouse Name
+      </div>
+     
+      <div class="col-3">
+        <input type="checkbox" formControlName="FcaccSpouseDOB"  [checked]="sp_dob"> Spouse Date of Birth
+      </div>
+      
+      <div class="col-2">
+        <input type="checkbox" formControlName="FcaccSpouseGender" [checked]="sp_gndr"> Spouse Gender
+      </div>
+    </div>
+
     <div class="mt-4">
       <ng-content></ng-content>
      </div>

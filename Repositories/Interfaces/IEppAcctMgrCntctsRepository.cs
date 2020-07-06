@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AFBA.EPP.Repositories.Interfaces
 {
-   public interface IEppAcctMgrCntctsRepository:IRepository<EppAcctMgrCntcts>
-    {
-        public EppAcctMgrCntcts GetEppAcctMgrId(string EmailAddress);
+   //public interface IEppAcctMgrCntctsRepository:IRepository<EppAcctMgrCntcts>
+   // {
+   //     public EppAcctMgrCntcts GetEppAcctMgrId(string EmailAddress);
 
-    }
+   // }
 }

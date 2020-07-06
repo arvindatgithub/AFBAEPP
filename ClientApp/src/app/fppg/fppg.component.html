@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="fppgData !== undefined">
 
 
   <form [formGroup]="fppgformgrp">
@@ -10,7 +10,7 @@
 
       <div class="col-3">
         <span class="label label-default">FPPG Effective Date</span> 
-        <input type="date" formControlName="FCfppgEffectiveDate" [(ngModel)] ="minDate" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
+        <input type="date" formControlName="FCfppgEffectiveDate" class="form-control mb-2 " style="width: 100%;"
           placeholder="Group Effective Date">
       </div>
       <div class="radio-button">
@@ -19,16 +19,16 @@
       </div>
       <div class="col-3">
         <span class="label label-default">Situs State</span>
-        <select class="form-control" formControlName="FCfppgSitusState" [value]="lookupValue">
-          <!-- <option value="0" selected="selected">{{ lookupValue }}</option> -->
-          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
+        <select class="form-control" formControlName="FCfppgSitusState">
+          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates"  value={{lookUpDataSitusState.id}} [selected]="lookUpDataSitusState.id==fppgSitus"
+          >
             {{lookUpDataSitusState.state}}</option>
 
         </select>
 
       </div>
       <div class="mt-4" style="justify-content:space-evenly;">
-        <button class="btn btn-primary" type="submit" (click)="restForm()">Reset Form </button>
+        <button class="btn btn-primary" [disabled] = resetFlag type="submit" (click)="restForm()">Reset Form </button>
       </div>
     </div>
 
@@ -41,24 +41,27 @@
       </div>
       <div class="col-3">
 
-        <span class="label label-default">Employee GI Amount Max</span>
+        <span class="label label-default">Employee GI Amount Max($)</span>
 
         <input type="text" formControlName="FCfppgEmpGIAmtMax" class="form-control mb-2 " style="width: 100%;"
-          placeholder="Employee GI Amount Max">
+          placeholder="Employee GI Amount Max" required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
 
 
 
       <div class="col-3">
-        <span class="label label-default">Employee QI Amount Max</span>
+        <span class="label label-default">Employee QI Amount Max($)</span>
 
         <input type="text" formControlName="FCfppgEmpQIAmtMax" class="form-control mb-2 " style="width: 100%;"
-          placeholder="Employee QI Amount Max">
+          placeholder="Employee QI Amount Max" required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
       <div class="col-3">
-        <span class="label label-default">Employee SI Max Amount</span>
+        <span class="label label-default">Employee SI Max Amount($)</span>
         <input type="text" class="form-control mb-2" formControlName="FCfppgEmpAmtMax" style="width: 100%;"
-          placeholder="Employee Max Amount">
+          placeholder="Employee Max Amount" required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
 
     </div>
@@ -69,21 +72,24 @@
           <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-3">
-        <span class="label label-default">Spouse GI Amount Max</span>
+        <span class="label label-default">Spouse GI Amount Max($)</span>
 
         <input type="text" formControlName="FCfppgSpouseGIAmtMax" class="form-control mb-2 " style="width: 100%;"
           placeholder="Spouse GI Amount Max
-           ">
+           "required
+           onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
       <div class="col-3">
-        <span class="label label-default">Spouse QI Amount Max</span>
+        <span class="label label-default">Spouse QI Amount Max($)</span>
         <input type="text" formControlName="FCfppgSpouseQIAmtMax" class="form-control mb-2 " style="width: 100%;"
-          placeholder="Spouse QI Amount Max">
+          placeholder="Spouse QI Amount Max"required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
       <div class="col-3">
-        <span class="label label-default">Spouse Max Amount</span>
+        <span class="label label-default">Spouse Max Amount($)</span>
         <input type="text" formControlName="FCfppgSpouseMaxAmt" class="form-control mb-2 " style="width: 100%;"
-          placeholder="Spouse Max Amount">
+          placeholder="Spouse Max Amount"required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
 
     </div>
@@ -95,7 +101,7 @@
       <div class="col-3">
         <span class="label label-default">Employee Plan code </span>
         <input type="text" formControlName="FCfppgEmpPlanCode" class="form-control mb-2 " style="width: 100%;"
-          placeholder="Employee Plan code ">
+          placeholder="Employee Plan code">
       </div>
 
       <div class="col-3">

@@ -15,8 +15,8 @@ namespace AFBA.EPP.Models
         {
         }
 
-        public virtual DbSet<EppAcctMgrCntcts> EppAcctMgrCntcts { get; set; }
         public virtual DbSet<EppAction> EppAction { get; set; }
+        public virtual DbSet<EppAgents> EppAgents { get; set; }
         public virtual DbSet<EppAttribute> EppAttribute { get; set; }
         public virtual DbSet<EppBulkRefTbl> EppBulkRefTbl { get; set; }
         public virtual DbSet<EppDate> EppDate { get; set; }
@@ -54,51 +54,6 @@ namespace AFBA.EPP.Models
         {
             modelBuilder.HasPostgresExtension("pg_stat_statements");
 
-            modelBuilder.Entity<EppAcctMgrCntcts>(entity =>
-            {
-                entity.HasKey(e => e.AcctMgrCntctId)
-                    .HasName("PK27");
-
-                entity.ToTable("EPP_ACCT_MGR_CNTCTS");
-
-                entity.Property(e => e.AcctMgrCntctId)
-                    .HasColumnName("acct_mgr_cntct_id")
-                    .ValueGeneratedNever();
-
-                entity.Property(e => e.AcctMgrNm)
-                    .HasColumnName("acct_mgr_nm")
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.CrdtBy)
-                    .IsRequired()
-                    .HasColumnName("crdt_by")
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.CrdtDt)
-                    .HasColumnName("crdt_dt")
-                    .HasColumnType("date");
-
-                entity.Property(e => e.EmailAddress)
-                    .HasColumnName("email_address")
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.GrpprdctId).HasColumnName("grpprdct_id");
-
-                entity.Property(e => e.LstUpdtBy)
-                    .HasColumnName("lst_updt_by")
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.LstUpdtDt)
-                    .HasColumnName("lst_updt_dt")
-                    .HasColumnType("date");
-
-                entity.HasOne(d => d.Grpprdct)
-                    .WithMany(p => p.EppAcctMgrCntcts)
-                    .HasForeignKey(d => d.GrpprdctId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefEPP_GRPPRDCT37");
-            });
-
             modelBuilder.Entity<EppAction>(entity =>
             {
                 entity.HasKey(e => e.ActionId)
@@ -130,6 +85,58 @@ namespace AFBA.EPP.Models
                 entity.Property(e => e.Name)
                     .HasColumnName("name")
                     .HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<EppAgents>(entity =>
+            {
+                entity.HasKey(e => e.AgentId);
+
+                entity.ToTable("EPP_AGENTS");
+
+                entity.Property(e => e.AgentId)
+                    .HasColumnName("agent_id")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.AgntComsnSplt)
+                    .HasColumnName("agnt_comsn_splt")
+                    .HasColumnType("numeric(3,0)");
+
+                entity.Property(e => e.AgntNbr)
+                    .HasColumnName("agnt_nbr")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.AgntNm)
+                    .HasColumnName("agnt_nm")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.AgntSubCnt)
+                    .HasColumnName("agnt_sub_cnt")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.CrtdBy)
+                    .IsRequired()
+                    .HasColumnName("crtd_by")
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.CrtdDt)
+                    .HasColumnName("crtd_dt")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.GrpId).HasColumnName("grp_id");
+
+                entity.Property(e => e.LstUpdtBy)
+                    .HasColumnName("lst_updt_by")
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.LstUpdtDt)
+                    .HasColumnName("lst_updt_dt")
+                    .HasColumnType("date");
+
+                entity.HasOne(d => d.Grp)
+                    .WithMany(p => p.EppAgents)
+                    .HasForeignKey(d => d.GrpId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("RefEPP_AGENTS37");
             });
 
             modelBuilder.Entity<EppAttribute>(entity =>
@@ -516,7 +523,19 @@ namespace AFBA.EPP.Models
                     .HasColumnName("grp_id")
                     .ValueGeneratedNever();
 
+                entity.Property(e => e.AcctMgrEmailAddrs)
+                    .HasColumnName("acct_mgr_email_addrs")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.AcctMgrNm)
+                    .HasColumnName("acct_mgr_nm")
+                    .HasMaxLength(100);
+
                 entity.Property(e => e.ActvFlg).HasColumnName("actv_flg");
+
+                entity.Property(e => e.CaseTkn)
+                    .HasColumnName("case_tkn")
+                    .HasMaxLength(100);
 
                 entity.Property(e => e.CrtdBy)
                     .IsRequired()
@@ -556,6 +575,10 @@ namespace AFBA.EPP.Models
                     .HasColumnType("date");
 
                 entity.Property(e => e.OccClass).HasColumnName("occ_class");
+
+                entity.Property(e => e.UsrTkn)
+                    .HasColumnName("usr_tkn")
+                    .HasMaxLength(100);
 
                 entity.HasOne(d => d.EnrlmntPrtnrs)
                     .WithMany(p => p.EppGrpmstr)
@@ -6630,6 +6653,14 @@ namespace AFBA.EPP.Models
 
                 entity.Property(e => e.CrtdDt)
                     .HasColumnName("crtd_dt")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.EffEndDt)
+                    .HasColumnName("eff_end_dt")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.EffStartDt)
+                    .HasColumnName("eff_start_dt")
                     .HasColumnType("date");
 
                 entity.Property(e => e.FunctionId).HasColumnName("function_id");

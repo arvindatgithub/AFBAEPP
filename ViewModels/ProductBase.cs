@@ -5,24 +5,24 @@ using System.Threading.Tasks;
 
 namespace AFBA.EPP.ViewModels
 {
-    public class CommonViewModel
+    public abstract class ProductBase
     {
 
        
         public string agnt_cd_1 { get; set; }
         public string agnt_nm { get; set; }
-        public string agnt_comm_split_1 { get; set; }
+        public string agnt_comm_split_1 { get; set; } = string.Empty;
         public string agntsub_1 { get; set; }
         public string agnt_cd_2 { get; set; }
-        public string agnt_comm_split_2 { get; set; }
+        public string agnt_comm_split_2 { get; set; } =  string.Empty;
         public string agntsub_2 { get; set; }
 
         public string agnt_cd_3 { get; set; }
-        public string agnt_comm_split_3 { get; set; }
+        public string agnt_comm_split_3 { get; set; } = string.Empty;
         public string agntsub_3 { get; set; }
 
         public string agnt_cd_4 { get; set; }
-        public string agnt_comm_split_4 { get; set; }
+        public string agnt_comm_split_4 { get; set; } =  string.Empty;
         public string agntsub_4 { get; set; }
 
 

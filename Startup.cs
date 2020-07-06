@@ -48,7 +48,9 @@ namespace AFBA.EPP
             });
 
             services.AddEntityFrameworkNpgsql().AddDbContext<EppAppDbContext>(opt =>
-                opt.UseNpgsql(Configuration.GetConnectionString("PostgreSqlConection")));
+                opt.UseNpgsql(Configuration.GetConnectionString("PostgreSqlConection"),
+                providerOptions => providerOptions.EnableRetryOnFailure())                           
+                );
 
 
             // Register the Swagger generator, defining 1 or more Swagger documents

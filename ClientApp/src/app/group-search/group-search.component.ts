@@ -43,24 +43,25 @@ export class GroupSearchComponent implements OnInit {
   }
 
   GroupSearch() {
-    this.groups.forEach(grp => {
-      if (grp.grpNbr == this.searchBoxVal || grp.grpNm == this.searchBoxVal) {
-        this.existingGrp = grp;
-      }
-    });
-    this.groupSearchSection = false;
-    this.groupSearchResults = true;
+    if(this.groups !== null && this.groups !== undefined){
+      this.groups.forEach(grp => {
+        if (grp.grpNbr == this.searchBoxVal || grp.grpNm == this.searchBoxVal) {
+          this.existingGrp = grp;
+        }
+      });
+      this.groupSearchSection = false;
+      this.groupSearchResults = true;
+    }
+    
   }
 
   goToSetup(grpNbr) {
     console.log('Existing Group Number-- go to set up screen '+ grpNbr);
-    this.groupSearchService.existingGrpNbrSelected(grpNbr);
-    this.router.navigate(['/group-setup']);
+    
+    this.groupSearchService.setFromSearchFlag(true);
+    this.groupSearchService.setEditGrpNbr(grpNbr);
+    this.router.navigate(['/group-setup',grpNbr]);
 
-    // this.groupSearchService.getGroupNbrEppData(grpNbr).subscribe((data) => {
-    //   console.log('Group number epp data ' + JSON.stringify(data));
-      
-    // });
   }
 
   goToSearch() {

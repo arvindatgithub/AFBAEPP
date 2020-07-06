@@ -139,7 +139,7 @@ namespace AFBA.EPP.Helpers
             {
                 eppAttrFieldViewModels.Add(new EppAttrFieldViewModel
                 {
-                    AttrId=data.AttrId,
+                    AttrId=data.AttrId.ToString(),
                     DbAttrNm= data.DbAttrNm,
                     DisplyAttrNm= data.DisplyAttrNm,
                     RqdFlg = false,

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="fppiData !== undefined">
 
   <form [formGroup]="fppiformgrp">
    
@@ -9,7 +9,7 @@
         </div>
         <div class="col-3">
           <span class="label label-default">FPPI Effective Date</span>
-          <input type="date" formControlName = "FCfppiEffectiveDate" [(ngModel)]="minDate" [min]="minDate" class="form-control mb-2 " style="width: 100%;"
+          <input type="date" formControlName = "FCfppiEffectiveDate" class="form-control mb-2 " style="width: 100%;"
             placeholder="Group Effective Date">
 
         </div>
@@ -22,7 +22,7 @@
           <input type="text" class="form-control mb-2" formControlName = "FCfppiAgentSign" style="width: 100%;" placeholder="Agent Signature">
         </div>
         <div class="mt-4">
-          <button class="btn btn-primary" (click) ="resetfpp()" type="submit">Reset Form </button>
+          <button class="btn btn-primary" [disabled]=resetFlag (click) ="resetfpp()" type="submit">Reset Form </button>
         </div>
       </div>
   
@@ -34,21 +34,24 @@
         </div>
         <div class="col-3">
 
-          <span class="label label-default">Employee GI Amount Max</span>
+          <span class="label label-default">Employee GI Amount Max($)</span>
 
-          <input type="text" class="form-control mb-2" formControlName="FCfppiEmpGIAmtMax" style="width: 100%;" placeholder="Employee GI Amount Max">
+          <input type="text" class="form-control mb-2" formControlName="FCfppiEmpGIAmtMax" style="width: 100%;" placeholder="Employee GI Amount Max"required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
 
 
 
         <div class="col-3">
-          <span class="label label-default">Employee QI Amount Max</span>
+          <span class="label label-default">Employee QI Amount Max($)</span>
 
-          <input type="text" class="form-control mb-2" formControlName="FCfppiEmpQIAmtMax" style="width: 100%;" placeholder="Employee QI Amount Max">
+          <input type="text" class="form-control mb-2" formControlName="FCfppiEmpQIAmtMax" style="width: 100%;" placeholder="Employee QI Amount Max"required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
         <div class="col-3">
-          <span class="label label-default">Employee Max Amount</span>
-          <input type="text" class="form-control mb-2" formControlName="FCfppiEmpAmtMax" style="width: 100%;" placeholder="Employee Max Amount">
+          <span class="label label-default">Employee Max Amount($)</span>
+          <input type="text" class="form-control mb-2" formControlName="FCfppiEmpAmtMax" style="width: 100%;" placeholder="Employee Max Amount"required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
       
       </div>
@@ -59,18 +62,21 @@
             <label class="radio-label"> {{item.name}}</label></div>
         </div>
         <div class="col-3">
-          <span class="label label-default">Spouse GI Amount Max</span>
+          <span class="label label-default">Spouse GI Amount Max($)</span>
 
           <input type="text" class="form-control mb-2 " formControlName="FCfppiSpouseGIAmtMax" style="width: 100%;" placeholder="Spouse GI Amount Max
-            ">
+            "required
+            onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
         <div class="col-3">
-          <span class="label label-default">Spouse QI Amount Max</span>
-          <input type="text" class="form-control mb-2 " formControlName="FCfppiSpouseQIAmtMax" style="width: 100%;" placeholder="Spouse QI Amount Max">
+          <span class="label label-default">Spouse QI Amount Max($)</span>
+          <input type="text" class="form-control mb-2 " formControlName="FCfppiSpouseQIAmtMax" style="width: 100%;" placeholder="Spouse QI Amount Max"required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
         <div class="col-3">
-          <span class="label label-default">Spouse Max Amount</span>
-          <input type="text" class="form-control mb-2 " formControlName="FCfppiSpouseMaxAmt" style="width: 100%;" placeholder="Spouse Max Amount">
+          <span class="label label-default">Spouse Max Amount($)</span>
+          <input type="text" class="form-control mb-2 " formControlName="FCfppiSpouseMaxAmt" style="width: 100%;" placeholder="Spouse Max Amount"required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
 
       </div>

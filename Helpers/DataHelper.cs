@@ -11,7 +11,7 @@ namespace AFBA.EPP.Helpers
     public static class DataHelper
     {
 
-        public static PlanCodeViewModel UpdatePlanCode(PlanCodeViewModel planCodeViewModel, IUnitofWork _unitofWork)
+           public static PlanCodeViewModel UpdatePlanCode(PlanCodeViewModel planCodeViewModel, IUnitofWork _unitofWork)
         {
             var result= _unitofWork.eppProductCodesRepository.Find(x => x.ProductCode == planCodeViewModel.ProductCode && x.ProductId== planCodeViewModel.ProductId).Result.FirstOrDefault();
             if (result == null)
@@ -29,9 +29,14 @@ namespace AFBA.EPP.Helpers
             }
             else
             {
-                planCodeViewModel.ProductId = result.ProductId;
+                planCodeViewModel.ProdctCdId = result.ProdctCdId;
             }
             return planCodeViewModel;
          }
+
+         
     }
+
+
+    
 }

@@ -1,34 +1,45 @@
-<div class="container">
+<div class="container" *ngIf="bglData !== undefined">
   <form [formGroup]="basicGrpLfformgrp">
     <div class="row mb-4" style="justify-content:space-evenly;margin-right: 7%;">
       <div class="radio-button">
-        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCbasicEffectiveDate_Action" />
-          <label class="radio-label"> {{item.name}}</label></div>
+        <div *ngFor="let item of radioButtonArr">
+          <input type="radio" value={{item.value}} formControlName="FCbasicEffectiveDate_Action" />
+          <label class="radio-label"> {{item.name}}</label>
+        </div>
       </div>
-    
+
+      <!--<div class="col-3">
+    <span class="label label-default">BGL Effective Date</span>
+    <input type="date" [(ngModel)] ="minDate" formControlName="FCbasicEffectiveDate" [min]="minDate"
+      class="form-control mb-2 " style="width: 100%;" placeholder="Group Effective Date">
+
+  </div>-->
       <div class="col-3">
         <span class="label label-default">BGL Effective Date</span>
-        <input type="date" [(ngModel)] ="minDate" formControlName="FCbasicEffectiveDate" [min]="minDate"
-          class="form-control mb-2 " style="width: 100%;" placeholder="Group Effective Date">
-
+        <input type="date" formControlName="FCbasicEffectiveDate"
+               class="form-control mb-2 " style="width: 100%;" placeholder="Group Effective Date">
       </div>
-      
+
       <div class="radio-button">
-        <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCbasicSitusState_Action" />
-          <label class="radio-label"> {{item.name}}</label></div>
+        <div *ngFor="let item of radioButtonArr">
+          <input type="radio" value={{item.value}} formControlName="FCbasicSitusState_Action" />
+          <label class="radio-label"> {{item.name}}</label>
+        </div>
       </div>
       <div class="col-3">
         <span class="label label-default">Situs State</span>
-        <select class="form-control" [value]="lookupValue" formControlName="FCbasicSitusState">
-          <!-- <option value="0" selected="selected">{{ lookupValue }}</option> -->
-          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates">
-            {{lookUpDataSitusState.state}}</option>
+        <select class="form-control" formControlName="FCbasicSitusState">
+          <!-- <option hidden disabled selected value> -- select Situs State -- </option> -->
+          <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates" [selected]="lookUpDataSitusState.id==bglStatus"
+                  value={{lookUpDataSitusState.id}}>
+            {{lookUpDataSitusState.state}}
+          </option>
 
         </select>
 
       </div>
       <div class="mt-4">
-        <button class="btn btn-primary" type="submit" (click)= "resetfpp()">Reset Form </button>
+        <button class="btn btn-primary" [disabled]=resetFlag type="submit" (click)="resetfpp()">Reset Form </button>
       </div>
     </div>
 
@@ -39,9 +50,10 @@
           <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-3">
-        <span class="label label-default">Employee Face Amount</span>
+        <span class="label label-default">Employee Face Amount($)</span>
         <input type="text" class="form-control mb-2 " formControlName="FCbasicEmpFcAmt" style="width: 100%;"
-          placeholder="Employee Face Amount">
+          placeholder="Employee Face Amount"required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
       <!-- <div class="radio-button">
         <div><input id="gender" type="radio" (change)="onItemChange($event.target.value)" value="Always Override"
@@ -53,14 +65,16 @@
           <label class="radio-label">Validate</label></div>
       </div> -->
       <div class="col-3">
-        <span class="label label-default">Spouse Face Amount</span>
+        <span class="label label-default">Spouse Face Amount($)</span>
         <input type="text" class="form-control mb-2 " formControlName="SpouseFaceAmount" style="width: 100%;"
-          placeholder="Spouse Face Amount">
+          placeholder="Spouse Face Amount"required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
       <div class="col-3">
-        <span class="label label-default">Child Face Amount</span>
+        <span class="label label-default">Child Face Amount($)</span>
         <input type="text" class="form-control mb-2 " formControlName="ChildFaceAmount" style="width: 100%;"
-          placeholder="Child Face Amount">
+          placeholder="Child Face Amount"required
+          onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
 
     </div>

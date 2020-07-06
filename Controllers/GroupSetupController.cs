@@ -20,17 +20,17 @@ namespace AFBA.EPP.Controllers
     public class GroupSetupController : ControllerBase
     {
         IUnitofWork _unitofWork;
+        string CrtdBy = "";
+        DateTime CreatedDate = DateTime.UtcNow;
         private readonly ILogger<GroupSetupController> _logger;
         public GroupSetupController(ILogger<GroupSetupController> logger, IUnitofWork unitofWork)
         {
             _logger = logger;
             _unitofWork = unitofWork;
         }
-
-//        If QOL is selected, then enter the 3 digit code 070 given unless the enrollee is over age 66 then make blank
-//If WOP is selected, then enter the 3 digit code 020 given unless the enrollee is over age 56 then make blank
-
-
+        
+        
+        
         [Route("[action]")]
         [HttpGet]
         public IEnumerable<GroupSearchViewModel> GetGroupsData()
@@ -47,50 +47,348 @@ namespace AFBA.EPP.Controllers
         [HttpPut]
         public IActionResult EditEppGrpSetup(GroupSetupModel groupSetupModel)
         {
-           var grpMstdata= _unitofWork.GroupMasterRepository.Find(x => x.GrpId == groupSetupModel.GrpId).Result.FirstOrDefault();
-            if (grpMstdata!=null) return BadRequest("Incorrect group id");
-
-            if (!string.IsNullOrEmpty(groupSetupModel.EmlAddrss))
+            try
             {
-                // get partner id 
-                var enrlmntPrtnr = _unitofWork.eppEnrlmntPrtnrsRepository.GetEnrlmntPrtnrId(groupSetupModel.EmlAddrss);
-                if (enrlmntPrtnr != null)
+                var grpId = long.Parse(groupSetupModel.GrpId);
+
+                var grpMstdata = _unitofWork.GroupMasterRepository.Find(x => x.GrpId == grpId).Result.FirstOrDefault();
+                if (grpMstdata == null) return BadRequest("Incorrect group id");
+
+                if (!string.IsNullOrEmpty(groupSetupModel.EmlAddrss))
                 {
-                    groupSetupModel.EnrlmntPrtnrsId = enrlmntPrtnr.EnrlmntPrtnrsId;
-                }
-                else
-                {
-                    _unitofWork.eppEnrlmntPrtnrsRepository.Add(new EppEnrlmntPrtnrs
+                    // get partner id 
+                    var enrlmntPrtnr = _unitofWork.eppEnrlmntPrtnrsRepository.GetEnrlmntPrtnrId(groupSetupModel.EmlAddrss);
+                    if (enrlmntPrtnr != null)
                     {
-                        EnrlmntPrtnrsId = Helper.GetRandomNumber(),
-                        CrtdBy = "",
-                        EmlAddrss = groupSetupModel.EmlAddrss,
-                        EnrlmntPrtnrsNm = groupSetupModel.EnrlmntPrtnrsNm
+                        groupSetupModel.EnrlmntPrtnrsId = enrlmntPrtnr.EnrlmntPrtnrsId.ToString();
+                    }
+                    else
+                    {
+                        _unitofWork.eppEnrlmntPrtnrsRepository.Add(new EppEnrlmntPrtnrs
+                        {
+                            EnrlmntPrtnrsId = Helper.GetRandomNumber(),
+                            CrtdBy = "",
+                            EmlAddrss = groupSetupModel.EmlAddrss,
+                            EnrlmntPrtnrsNm = groupSetupModel.EnrlmntPrtnrsNm
 
-                    });
+                        });
+                    }
+
                 }
 
+                grpMstdata.GrpNbr = groupSetupModel.GrpNbr;
+                grpMstdata.GrpNm = groupSetupModel.GrpNm;
+                grpMstdata.ActvFlg = groupSetupModel.ActvFlg;
+                grpMstdata.EnrlmntPrtnrsId = long.Parse(groupSetupModel.EnrlmntPrtnrsId);
+                grpMstdata.AcctMgrNm = groupSetupModel.AcctMgrNm;
+                grpMstdata.AcctMgrEmailAddrs = groupSetupModel.AcctMgrEmailAddrs;
+                grpMstdata.GrpEfftvDt = groupSetupModel.GrpEfftvDt;
+                grpMstdata.GrpSitusSt = groupSetupModel.GrpSitusSt;
+
+                grpMstdata.GrpPymnId = groupSetupModel.GrpPymn;
+                grpMstdata.OccClass = groupSetupModel.OccClass;
+                grpMstdata.CrtdBy = CrtdBy;
+                // update group Master
+
+                _unitofWork.GroupMasterRepository.Update(grpMstdata);
+
+                UpdateAgent(groupSetupModel.GrpAgents, grpId);
+
+                // add  update enrollment partner
+                if (!string.IsNullOrEmpty(groupSetupModel.EmlAddrss))
+                {
+                    // get partner id 
+                    var enrlmntPrtnr = _unitofWork.eppEnrlmntPrtnrsRepository.GetEnrlmntPrtnrId(groupSetupModel.EmlAddrss);
+                    if (enrlmntPrtnr != null)
+                    {
+                        groupSetupModel.EnrlmntPrtnrsId = enrlmntPrtnr.EnrlmntPrtnrsId.ToString();
+                    }
+                    else
+                    {
+                        groupSetupModel.EnrlmntPrtnrsId = Helper.GetRandomNumber().ToString();
+                        _unitofWork.eppEnrlmntPrtnrsRepository.Add(new EppEnrlmntPrtnrs
+                        {
+                            EnrlmntPrtnrsId = long.Parse(groupSetupModel.EnrlmntPrtnrsId),
+                            CrtdBy = CrtdBy,
+                            EmlAddrss = groupSetupModel.EmlAddrss,
+                            EnrlmntPrtnrsNm = groupSetupModel.EnrlmntPrtnrsNm
+
+                        });
+                    }
+
+                }
+                // goup product for existing products
+
+                var Grpprdcts = _unitofWork.eppGrpprdctRepository.Find(x => x.GrpId == grpId).Result;
+
+                // For Edit
+                foreach (var prod in Grpprdcts)
+                {
+
+                    var prodData = _unitofWork.EppProductRepository.SingleOrDefault(x => x.ProductId == prod.ProductId).Result;
+                    switch (prodData.ProductNm)
+                    {
+                        case "FPPG":
+                            {
+                                var prdid = Helper.GetProductIdbyName(prodData.ProductNm, _unitofWork);
+                                // add Product code
+                                if (!string.IsNullOrEmpty(groupSetupModel.FPPG.emp_ProductCode))
+                                {
+                                    PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                                    {
+                                        ProductCode = groupSetupModel.FPPG.emp_ProductCode,
+                                        ProductId = prdid
+
+                                    };
+                                    groupSetupModel.FPPG.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                                }
+
+                                if (!string.IsNullOrEmpty(groupSetupModel.FPPG.sp_ProductCode))
+                                {
+                                    PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                                    {
+                                        ProductCode = groupSetupModel.FPPG.sp_ProductCode,
+                                        ProductId = prdid
+
+                                    };
+                                    groupSetupModel.FPPG.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                                }
+
+                                if (!string.IsNullOrEmpty(groupSetupModel.FPPG.ch_ProductCode))
+                                {
+                                    PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                                    {
+                                        ProductCode = groupSetupModel.FPPG.ch_ProductCode,
+                                        ProductId = prdid
+
+                                    };
+                                    groupSetupModel.FPPG.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                                }
+                                UpdateBulkRefTable(groupSetupModel.FPPG, prod.GrpprdctId);
+                                groupSetupModel.isFPPGActive = false;
+
+                                break;
+                            }
+                        case "ACC_HI":
+                            {
+
+                                UpdateBulkRefTable(groupSetupModel.ACC_HI, prod.GrpprdctId);
+                                groupSetupModel.isACC_HIActive = false;
+                                break;
+                            }
+                        case "ER_CI":
+                            {
+                                var prdid = Helper.GetProductIdbyName(prodData.ProductNm, _unitofWork);
+                                // add Product code
+                                if (!string.IsNullOrEmpty(groupSetupModel.ER_CI.emp_ProductCode))
+                                {
+                                    PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                                    {
+                                        ProductCode = groupSetupModel.ER_CI.emp_ProductCode,
+                                        ProductId = prdid
+
+                                    };
+                                    groupSetupModel.ER_CI.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                                }
+                                if (!string.IsNullOrEmpty(groupSetupModel.ER_CI.sp_ProductCode))
+                                {
+                                    PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                                    {
+                                        ProductCode = groupSetupModel.ER_CI.sp_ProductCode,
+                                        ProductId = prdid
+
+                                    };
+                                    groupSetupModel.ER_CI.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                                }
+                                if (!string.IsNullOrEmpty(groupSetupModel.ER_CI.ch_ProductCode))
+                                {
+                                    PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                                    {
+                                        ProductCode = groupSetupModel.ER_CI.ch_ProductCode,
+                                        ProductId = prdid
+
+                                    };
+                                    groupSetupModel.ER_CI.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                                }
+
+                                UpdateBulkRefTable(groupSetupModel.ER_CI, prod.GrpprdctId);
+                                groupSetupModel.isER_CIActive = false;
+                                break;
+                            }
+                        case "VOL_CI":
+                            {
+                                var prdid = Helper.GetProductIdbyName(prodData.ProductNm, _unitofWork);
+                                if (!string.IsNullOrEmpty(groupSetupModel.VOL_CI.emp_ProductCode))
+                                {
+                                    PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                                    {
+                                        ProductCode = groupSetupModel.VOL_CI.emp_ProductCode,
+                                        ProductId = prdid
+
+                                    };
+                                    groupSetupModel.VOL_CI.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                                }
+                                if (!string.IsNullOrEmpty(groupSetupModel.VOL_CI.sp_ProductCode))
+                                {
+                                    PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                                    {
+                                        ProductCode = groupSetupModel.VOL_CI.sp_ProductCode,
+                                        ProductId = prdid
+
+                                    };
+                                    groupSetupModel.VOL_CI.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                                }
+                                if (!string.IsNullOrEmpty(groupSetupModel.VOL_CI.ch_ProductCode))
+                                {
+                                    PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                                    {
+                                        ProductCode = groupSetupModel.VOL_CI.ch_ProductCode,
+                                        ProductId = prdid
+
+                                    };
+                                    groupSetupModel.VOL_CI.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                                }
+
+
+                                UpdateBulkRefTable(groupSetupModel.VOL_CI, prod.GrpprdctId);
+                                groupSetupModel.isVOL_CIActive = false;
+                                break;
+                            }
+                        case "VGL":
+                            {
+                                UpdateBulkRefTable(groupSetupModel.VGL, prod.GrpprdctId);
+                                groupSetupModel.isVGLActive = false;
+                                break;
+                            }
+                        case "BGL":
+                            {
+                                UpdateBulkRefTable(groupSetupModel.BGL, prod.GrpprdctId);
+                                groupSetupModel.isBGLActive = false;
+                                break;
+                            }
+                        case "FPPI":
+                            {
+                                var prdid = Helper.GetProductIdbyName(prodData.ProductNm, _unitofWork);
+                                if (!string.IsNullOrEmpty(groupSetupModel.FPPI.emp_ProductCode))
+                                {
+                                    PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                                    {
+                                        ProductCode = groupSetupModel.FPPI.emp_ProductCode,
+                                        ProductId = prdid
+
+                                    };
+                                    groupSetupModel.FPPI.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                                }
+                                if (!string.IsNullOrEmpty(groupSetupModel.FPPI.sp_ProductCode))
+                                {
+                                    PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                                    {
+                                        ProductCode = groupSetupModel.FPPI.sp_ProductCode,
+                                        ProductId = prdid
+
+                                    };
+                                    groupSetupModel.FPPI.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                                }
+                                if (!string.IsNullOrEmpty(groupSetupModel.FPPI.ch_ProductCode))
+                                {
+                                    PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                                    {
+                                        ProductCode = groupSetupModel.FPPI.ch_ProductCode,
+                                        ProductId = prdid
+
+                                    };
+                                    groupSetupModel.FPPI.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                                }
+
+                                UpdateBulkRefTable(groupSetupModel.FPPI, prod.GrpprdctId);
+                                groupSetupModel.isFPPIActive = false;
+                                break;
+                            }
+                        case "HI":
+                            {
+                                UpdateBulkRefTable(groupSetupModel.HI, prod.GrpprdctId);
+                                groupSetupModel.isHIActive = false;
+                                break;
+                            }
+                    }
+
+                }
+
+                // for  New Add
+                // Add BulkRef data
+                List<EppBulkRefTbl> bulkRefTbls = new List<EppBulkRefTbl>();
+                if (groupSetupModel.isFPPGActive)
+                {
+
+                    AddFPPG(groupSetupModel.FPPG, "FPPG", grpId, bulkRefTbls);
+                }
+                if (groupSetupModel.isACC_HIActive)
+                {
+                    AddACCHI(groupSetupModel.ACC_HI, "ACC_HI", grpId, bulkRefTbls);
+
+                }
+                if (groupSetupModel.isER_CIActive)
+                {
+                    AddER_CI(groupSetupModel.ER_CI, "ER_CI", grpId, bulkRefTbls);
+                }
+                if (groupSetupModel.isVOL_CIActive)
+                {
+                    AddVOL_CI(groupSetupModel.VOL_CI, "VOL_CI", grpId, bulkRefTbls);
+                }
+                if (groupSetupModel.isVGLActive)
+                {
+                    AddVGL(groupSetupModel.VGL, "VGL", grpId, bulkRefTbls);
+
+                }
+                if (groupSetupModel.isBGLActive)
+                {
+                    AddBGL(groupSetupModel.BGL, "BGL", grpId, bulkRefTbls);
+                }
+                if (groupSetupModel.isFPPIActive)
+                {
+                    AddFPPI(groupSetupModel.FPPI, "FPPI", grpId, bulkRefTbls);
+                }
+                if (groupSetupModel.isHIActive)
+                {
+                    AddHI(groupSetupModel.HI, "HI", grpId, bulkRefTbls);
+
+                }
+                if (bulkRefTbls.Count > 0)
+                _unitofWork.eppBulkRefTblRepository.AddRange(bulkRefTbls);
+                var id = _unitofWork.Complete().Result;
+                return Ok($"Group No. {groupSetupModel.GrpNbr} updated sucessfully!");
             }
-            var CrtdBy = "";
-            grpMstdata.GrpNbr = groupSetupModel.GrpNbr;
-            grpMstdata.GrpNm = groupSetupModel.GrpNm;
-            grpMstdata.ActvFlg = groupSetupModel.ActvFlg;
-            grpMstdata.EnrlmntPrtnrsId = groupSetupModel.EnrlmntPrtnrsId;
-            grpMstdata.GrpEfftvDt = groupSetupModel.GrpEfftvDt;
-            grpMstdata.GrpSitusSt = groupSetupModel.GrpSitusSt;
-            grpMstdata.GrpPymnId = groupSetupModel.GrpPymn;
-            grpMstdata.OccClass = groupSetupModel.OccClass;
-            grpMstdata.CrtdBy = CrtdBy;
-            
-                      
-            //grpMstdata.
-            //update the master data
-
-
-
-            return Ok();
-
+            catch( Exception ex)
+            {
+                throw ex;
+            }
         }
+
+
+        [NonAction]
+        private   void UpdateBulkRefTable<T>( T  productAttr, long GrpprdctId)
+        {
+            var blkDatas = _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == GrpprdctId).Result;
+            Type fppgType = productAttr.GetType();
+            foreach (var blk in blkDatas)
+            {
+                var eppAttrs = _unitofWork.eppAttributeRepository.SingleOrDefault(x => x.AttrId == blk.AttrId).Result;
+                if (!string.IsNullOrEmpty(eppAttrs.DbAttrNm))
+                {
+                    var actionPrpp = eppAttrs.DbAttrNm + "_action";
+                    blk.Value = fppgType.GetProperty(eppAttrs.DbAttrNm).GetValue(productAttr).ToString();
+
+                    var s = fppgType.GetProperty(actionPrpp).GetValue(productAttr).ToString();
+                    long lvalue = 0;
+                    long.TryParse(s, out lvalue);
+                    if (lvalue != 0)
+                        blk.ActionId = lvalue;
+                }
+            }
+            _unitofWork.eppBulkRefTblRepository.UpdateRange(blkDatas);
+        }
+
+       
 
         [Route("[action]")]
         [HttpPost]
@@ -98,6 +396,7 @@ namespace AFBA.EPP.Controllers
         {
             try
             {
+                long enrlmntPrtnrsId=0;
                 var grpprdct = _unitofWork.GroupMasterRepository.Find(x => x.GrpNbr == groupSetupModel.GrpNbr || x.GrpNm == groupSetupModel.GrpNm).Result;
                 if (grpprdct.Count != 0) return BadRequest(" Group name or number already exist");
 
@@ -107,14 +406,16 @@ namespace AFBA.EPP.Controllers
                     var enrlmntPrtnr = _unitofWork.eppEnrlmntPrtnrsRepository.GetEnrlmntPrtnrId(groupSetupModel.EmlAddrss);
                     if (enrlmntPrtnr != null)
                     {
-                        groupSetupModel.EnrlmntPrtnrsId = enrlmntPrtnr.EnrlmntPrtnrsId;
+                        enrlmntPrtnrsId = enrlmntPrtnr.EnrlmntPrtnrsId;
+                        groupSetupModel.EnrlmntPrtnrsId = enrlmntPrtnrsId.ToString();
                     }
                     else
                     {
-                        groupSetupModel.EnrlmntPrtnrsId = Helper.GetRandomNumber();
+                        enrlmntPrtnrsId = Helper.GetRandomNumber();
+                        groupSetupModel.EnrlmntPrtnrsId = enrlmntPrtnrsId.ToString();
                         _unitofWork.eppEnrlmntPrtnrsRepository.Add(new EppEnrlmntPrtnrs
                         {
-                            EnrlmntPrtnrsId = groupSetupModel.EnrlmntPrtnrsId,
+                            EnrlmntPrtnrsId = long.Parse(groupSetupModel.EnrlmntPrtnrsId),
                             CrtdBy = "",
                             EmlAddrss = groupSetupModel.EmlAddrss,
                             EnrlmntPrtnrsNm = groupSetupModel.EnrlmntPrtnrsNm
@@ -131,484 +432,379 @@ namespace AFBA.EPP.Controllers
                     GrpNbr = groupSetupModel.GrpNbr,
                     GrpNm = groupSetupModel.GrpNm,
                     ActvFlg = 'Y',
-                    EnrlmntPrtnrsId = groupSetupModel.EnrlmntPrtnrsId,
+                    EnrlmntPrtnrsId = enrlmntPrtnrsId,
+                    AcctMgrNm = groupSetupModel.AcctMgrNm,
+                    AcctMgrEmailAddrs = groupSetupModel.AcctMgrEmailAddrs,
                     GrpEfftvDt = groupSetupModel.GrpEfftvDt,
                     GrpSitusSt = groupSetupModel.GrpSitusSt,
-                    GrpPymnId = groupSetupModel.GrpPymn,
-                     OccClass = groupSetupModel.OccClass,
+                    GrpPymnId =groupSetupModel.GrpPymn,
+                    OccClass = groupSetupModel.OccClass,
+                    CaseTkn = groupSetupModel.case_token,
+                    UsrTkn= groupSetupModel.user_token,
                     GrpId = grpId,
-                    CrtdBy = CrtdBy
+                    CrtdBy = CrtdBy,
+                    CrtdDt = DateTime.UtcNow,
 
                 }
 
                 );
-
-                List<EppBulkRefTbl> bulkRefTbls = new List<EppBulkRefTbl>();
-            
+                // add Aggents 
+                UpdateAgent(groupSetupModel.GrpAgents,  grpId);  
+                
+                // Add BulkRef data
+                List<EppBulkRefTbl> bulkRefTbls = new List<EppBulkRefTbl>();            
                 if (groupSetupModel.isFPPGActive)
                 {
-                    var prdid = Helper.GetProductIdbyName("FPPG", _unitofWork);
-                    var grpprdId = Helper.GetRandomNumber();
 
-                    _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
-                    {
-                        GrpprdctId = grpprdId,
-                        GrpId = grpId,
-                        ProductId = prdid,
-                        CrtdBy = CrtdBy
-
-                    });
-
-
-                    // add Product code
-                    if (!string.IsNullOrEmpty(groupSetupModel.FPPG.emp_ProductCode))
-                    {
-                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
-                        {
-                            ProductCode = groupSetupModel.FPPG.emp_ProductCode,
-                            ProductId= prdid
-
-                        };
-                        groupSetupModel.FPPG.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
-                    }
-
-
-                    if (!string.IsNullOrEmpty(groupSetupModel.FPPG.sp_ProductCode))
-                    {
-                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
-                        {
-                            ProductCode = groupSetupModel.FPPG.sp_ProductCode,
-                            ProductId = prdid
-
-                        };
-                        groupSetupModel.FPPG.sp_plan_cd =DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
-                    }
-
-
-                    if (!string.IsNullOrEmpty(groupSetupModel.FPPG.ch_ProductCode))
-                    {
-                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
-                        {
-                            ProductCode = groupSetupModel.FPPG.ch_ProductCode,
-                            ProductId = prdid
-
-                        };
-                        groupSetupModel.FPPG.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
-                    }
-                   
-                    // add bulkupdate 
-                    var bulkAttrs = Helper.GetProperties(groupSetupModel.FPPG);
-                    AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
-                    if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
-                    {
-                        var rndNo = Helper.GetRandomNumber();
-                        _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
-                        {
-
-                            GrpprdctId = grpprdId,
-                            AcctMgrCntctId = rndNo,
-                            EmailAddress = groupSetupModel.EmailAddress,
-                            AcctMgrNm = groupSetupModel.AcctMgrNm,
-                            CrdtBy = CrtdBy,
-                        });
-                    }
-
+                    AddFPPG(groupSetupModel.FPPG, "FPPG", grpId, bulkRefTbls);
                 }
                 if (groupSetupModel.isACC_HIActive)
                 {
-                    var prdid = Helper.GetProductIdbyName("ACC_HI", _unitofWork);
-                    var grpprdId = Helper.GetRandomNumber();
-                    _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
-                    {
-                        GrpprdctId = grpprdId,
-                        GrpId = grpId,
-                        ProductId = prdid,
-                        CrtdBy = CrtdBy
-
-                    });
-                    var bulkAttrs = Helper.GetProperties(groupSetupModel.ACC_HI);
-                    AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
-
-                    if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
-                    {
-                        var rndNo = Helper.GetRandomNumber();
-                        _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
-                        {
-
-                            GrpprdctId = grpprdId,
-                            AcctMgrCntctId = rndNo,
-                            EmailAddress = groupSetupModel.EmailAddress,
-                            AcctMgrNm = groupSetupModel.AcctMgrNm,
-                            CrdtBy = CrtdBy,
-                        });
-                    }
-
+                    AddACCHI(groupSetupModel.ACC_HI, "ACC_HI", grpId, bulkRefTbls);
+                  
                 }
                 if (groupSetupModel.isER_CIActive)
                 {
-                    var prdid = Helper.GetProductIdbyName("ER_CI", _unitofWork);
-                    var grpprdId = Helper.GetRandomNumber();
-                    AddProductCodes(new ProductCodesViewModel
-                    {
-                        ProductCode = groupSetupModel.ER_CI.emp_ProductCode,
-                        ProductId = prdid
-                    });
-
-
-                    _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
-                    {
-                        GrpprdctId = grpprdId,
-                        GrpId = grpId,
-                        ProductId = prdid,
-                        CrtdBy = CrtdBy
-
-                    });
-
-                    // add Product code
-                    if (!string.IsNullOrEmpty(groupSetupModel.ER_CI.emp_ProductCode))
-                    {
-                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
-                        {
-                            ProductCode = groupSetupModel.ER_CI.emp_ProductCode,
-                            ProductId = prdid
-
-                        };
-                        groupSetupModel.ER_CI.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
-                    }
-
-
-                    if (!string.IsNullOrEmpty(groupSetupModel.ER_CI.sp_ProductCode))
-                    {
-                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
-                        {
-                            ProductCode = groupSetupModel.ER_CI.sp_ProductCode,
-                            ProductId = prdid
-
-                        };
-                        groupSetupModel.ER_CI.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
-                    }
-
-
-                    if (!string.IsNullOrEmpty(groupSetupModel.ER_CI.ch_ProductCode))
-                    {
-                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
-                        {
-                            ProductCode = groupSetupModel.ER_CI.ch_ProductCode,
-                            ProductId = prdid
-
-                        };
-                        groupSetupModel.ER_CI.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
-                    }
-
-                    var bulkAttrs = Helper.GetProperties(groupSetupModel.ER_CI);
-                    AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
-
-                    if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
-                    {
-                        var rndNo = Helper.GetRandomNumber();
-                        _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
-                        {
-
-                            GrpprdctId = grpprdId,
-                            AcctMgrCntctId = rndNo,
-                            EmailAddress = groupSetupModel.EmailAddress,
-                            AcctMgrNm = groupSetupModel.AcctMgrNm,
-                            CrdtBy = CrtdBy,
-                        });
-                    }
-
+                     AddER_CI(groupSetupModel.ER_CI, "ER_CI", grpId, bulkRefTbls);
                 }
                 if (groupSetupModel.isVOL_CIActive)
                 {
-                    var prdid = Helper.GetProductIdbyName("VOL_CI", _unitofWork);
-                    var grpprdId = Helper.GetRandomNumber();
-                    AddProductCodes(new ProductCodesViewModel
-                    {
-                        ProductCode = groupSetupModel.VOL_CI.emp_ProductCode,
-                        ProductId = prdid
-                    });
-                    _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
-                    {
-                        GrpprdctId = grpprdId,
-                        GrpId = grpId,
-                        ProductId = prdid,
-                        CrtdBy = CrtdBy
-
-                    });
-
-
-                    // add Product code
-                    if (!string.IsNullOrEmpty(groupSetupModel.VOL_CI.emp_ProductCode))
-                    {
-                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
-                        {
-                            ProductCode = groupSetupModel.VOL_CI.emp_ProductCode,
-                            ProductId = prdid
-
-                        };
-                        groupSetupModel.VOL_CI.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
-                    }
-
-
-                    if (!string.IsNullOrEmpty(groupSetupModel.VOL_CI.sp_ProductCode))
-                    {
-                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
-                        {
-                            ProductCode = groupSetupModel.VOL_CI.sp_ProductCode,
-                            ProductId = prdid
-
-                        };
-                        groupSetupModel.VOL_CI.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
-                    }
-
-
-                    if (!string.IsNullOrEmpty(groupSetupModel.VOL_CI.ch_ProductCode))
-                    {
-                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
-                        {
-                            ProductCode = groupSetupModel.VOL_CI.ch_ProductCode,
-                            ProductId = prdid
-
-                        };
-                        groupSetupModel.VOL_CI.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
-                    }
-
-                    var bulkAttrs = Helper.GetProperties(groupSetupModel.VOL_CI);
-                    AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
-
-                    if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
-                    {
-                        var rndNo = Helper.GetRandomNumber();
-                        _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
-                        {
-
-                            GrpprdctId = grpprdId,
-                            AcctMgrCntctId = rndNo,
-                            EmailAddress = groupSetupModel.EmailAddress,
-                            AcctMgrNm = groupSetupModel.AcctMgrNm,
-                            CrdtBy = CrtdBy,
-                        });
-                    }
-
+                    AddVOL_CI(groupSetupModel.VOL_CI, "VOL_CI", grpId, bulkRefTbls);
                 }
                 if (groupSetupModel.isVGLActive)
                 {
-                    var prdid = Helper.GetProductIdbyName("VGL", _unitofWork);
-                    var grpprdId = Helper.GetRandomNumber();
-                    _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
-                    {
-                        GrpprdctId = grpprdId,
-                        GrpId = grpId,
-                        ProductId = prdid,
-                        CrtdBy = CrtdBy
-
-                    });
-                    var bulkAttrs = Helper.GetProperties(groupSetupModel.VGL);
-                    AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
-
-                    if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
-                    {
-                        var rndNo = Helper.GetRandomNumber();
-                        _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
-                        {
-
-                            GrpprdctId = grpprdId,
-                            AcctMgrCntctId = rndNo,
-                            EmailAddress = groupSetupModel.EmailAddress,
-                            AcctMgrNm = groupSetupModel.AcctMgrNm,
-                            CrdtBy = CrtdBy,
-                        });
-                    }
-
+                    AddVGL(groupSetupModel.VGL, "VGL", grpId, bulkRefTbls);
+                    
                 }
                 if (groupSetupModel.isBGLActive)
                 {
-                    var prdid = Helper.GetProductIdbyName("BGL", _unitofWork);
-
-                    //AddProductCodes(new ProductCodesViewModel
-                    //{
-                    //    ProductCode = groupSetupModel.VOL_CI.emp_ProductCode,
-                    //    ProductId = prdid
-                    //});
-                    var grpprdId = Helper.GetRandomNumber();
-                    _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
-                    {
-
-                        GrpprdctId = grpprdId,
-                        GrpId = grpId,
-                        ProductId = prdid,
-                        CrtdBy = CrtdBy
-
-                    });
-                    var bulkAttrs = Helper.GetProperties(groupSetupModel.BGL);
-                    AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
-
-                    if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
-                    {
-                        var rndNo = Helper.GetRandomNumber();
-                        _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
-                        {
-                            GrpprdctId = grpprdId,
-                            AcctMgrCntctId = rndNo,
-                            EmailAddress = groupSetupModel.EmailAddress,
-                            AcctMgrNm = groupSetupModel.AcctMgrNm,
-                            CrdtBy = CrtdBy,
-
-                        });
-                    }
-
+                    AddBGL(groupSetupModel.BGL, "BGL", grpId, bulkRefTbls);
                 }
                 if (groupSetupModel.isFPPIActive)
                 {
-
-                    var prdid = Helper.GetProductIdbyName("FPPI", _unitofWork);
-                    var grpprdId = Helper.GetRandomNumber();
-                    _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
-                    {
-                        GrpprdctId = grpprdId,
-                        GrpId = grpId,
-                        ProductId = prdid,
-                        CrtdBy = CrtdBy
-
-                    });
-
-                    if (!string.IsNullOrEmpty(groupSetupModel.FPPI.emp_ProductCode))
-                    {
-                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
-                        {
-                            ProductCode = groupSetupModel.FPPI.emp_ProductCode,
-                            ProductId = prdid
-
-                        };
-                        groupSetupModel.FPPI.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
-                    }
-
-                    if (!string.IsNullOrEmpty(groupSetupModel.FPPI.sp_ProductCode))
-                    {
-                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
-                        {
-                            ProductCode = groupSetupModel.FPPI.sp_ProductCode,
-                            ProductId = prdid
-
-                        };
-                        groupSetupModel.FPPI.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
-                    }
-
-                    if (!string.IsNullOrEmpty(groupSetupModel.FPPI.ch_ProductCode))
-                    {
-                        PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
-                        {
-                            ProductCode = groupSetupModel.FPPI.ch_ProductCode,
-                            ProductId = prdid
-
-                        };
-                        groupSetupModel.FPPI.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
-                    }
-
-                    var bulkAttrs = Helper.GetProperties(groupSetupModel.FPPI);
-                    AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
-
-                    if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
-                    {
-                        var rndNo = Helper.GetRandomNumber();
-                        _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
-                        {
-                            GrpprdctId = grpprdId,
-                            AcctMgrCntctId = rndNo,
-                            EmailAddress = groupSetupModel.EmailAddress,
-                            AcctMgrNm = groupSetupModel.AcctMgrNm,
-                            CrdtBy = CrtdBy
-                        });
-                    }
-
+                    AddFPPI(groupSetupModel.FPPI, "FPPI", grpId, bulkRefTbls);                    
                 }
                 if (groupSetupModel.isHIActive)
                 {
-
-                    var prdid = Helper.GetProductIdbyName("HI", _unitofWork);
-                    var grpprdId = Helper.GetRandomNumber();
-                    _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
-                    {
-                        GrpprdctId = grpprdId,
-                        GrpId = grpId,
-                        ProductId = prdid,
-                        CrtdBy = CrtdBy
-
-                    });
-
-                  
-                    var bulkAttrs = Helper.GetProperties(groupSetupModel.HI);
-                    AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);
-
-                    if (!string.IsNullOrEmpty(groupSetupModel.EmailAddress))
-                    {
-                        var rndNo = Helper.GetRandomNumber();
-                        _unitofWork.eppAcctMgrCntctsRepository.Add(new EppAcctMgrCntcts
-                        {
-                            GrpprdctId = grpprdId,
-                            AcctMgrCntctId = rndNo,
-                            EmailAddress = groupSetupModel.EmailAddress,
-                            AcctMgrNm = groupSetupModel.AcctMgrNm,
-                            CrdtBy = CrtdBy
-                        });
-                    }
-
-
-
+                    AddHI(groupSetupModel.HI, "HI", grpId, bulkRefTbls);
+                    
                 }
                 if (bulkRefTbls.Count > 0)
                     _unitofWork.eppBulkRefTblRepository.AddRange(bulkRefTbls);
-
-
                 var id = _unitofWork.Complete().Result;
-                return Ok(id);
+                return Ok($"Group No. {groupSetupModel.GrpNbr} saved successfully.");
             }catch( Exception ex)
             {
                 throw ex;
             }
         }
 
+
+        [NonAction]
+        public  void AddFPPG(FPPG fppg, string productName, long grpId, List<EppBulkRefTbl> bulkRefTbls)
+        {
+            var prdid = Helper.GetProductIdbyName(productName, _unitofWork);
+            // add Product code
+            if (!string.IsNullOrEmpty(fppg.emp_ProductCode))
+            {
+                PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                {
+                    ProductCode = fppg.emp_ProductCode,
+                    ProductId = prdid
+
+                };
+                fppg.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+            }
+
+            if (!string.IsNullOrEmpty(fppg.sp_ProductCode))
+            {
+                PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                {
+                    ProductCode = fppg.sp_ProductCode,
+                    ProductId = prdid
+
+                };
+                fppg.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+            }
+
+            if (!string.IsNullOrEmpty(fppg.ch_ProductCode))
+            {
+                PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                {
+                    ProductCode = fppg.ch_ProductCode,
+                    ProductId = prdid
+
+                };
+                fppg.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+            }
+
+            AddGrpPrdBulkRef(fppg, bulkRefTbls, productName, grpId);           
+        
+        
+        }
+
+        [NonAction]
+        public void AddACCHI(ACC_HI acchi, string productName, long grpId, List<EppBulkRefTbl> bulkRefTbls)
+        {
+             AddGrpPrdBulkRef(acchi, bulkRefTbls, productName, grpId);
+
+        }
+
+        [NonAction]
+        public void AddER_CI(ER_CI  eR_CI, string productName, long grpId, List<EppBulkRefTbl> bulkRefTbls)
+        {
+            var prdid = Helper.GetProductIdbyName(productName, _unitofWork);
+            // add Product code
+            if (!string.IsNullOrEmpty(eR_CI.emp_ProductCode))
+            {
+                PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                {
+                    ProductCode = eR_CI.emp_ProductCode,
+                    ProductId = prdid
+
+                };
+                eR_CI.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+            }
+            if (!string.IsNullOrEmpty(eR_CI.sp_ProductCode))
+            {
+                PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                {
+                    ProductCode = eR_CI.sp_ProductCode,
+                    ProductId = prdid
+
+                };
+                eR_CI.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+            }
+            if (!string.IsNullOrEmpty(eR_CI.ch_ProductCode))
+            {
+                PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                {
+                    ProductCode = eR_CI.ch_ProductCode,
+                    ProductId = prdid
+
+                };
+                eR_CI.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+            }
+
+            AddGrpPrdBulkRef(eR_CI, bulkRefTbls, productName, grpId);
+        }
+
+        [NonAction]
+        public void AddVOL_CI(VOL_CI  vOL_CI, string productName, long grpId, List<EppBulkRefTbl> bulkRefTbls)
+        {
+            var prdid = Helper.GetProductIdbyName(productName, _unitofWork);
+            var grpprdId = Helper.GetRandomNumber();
+            //AddProductCodes(new ProductCodesViewModel
+            //{
+            //    ProductCode =vOL_CI.emp_ProductCode,
+            //    ProductId = prdid
+            //});
+            _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
+            {
+                GrpprdctId = grpprdId,
+                GrpId = grpId,
+                ProductId = prdid,
+                CrtdBy = CrtdBy
+
+            });
+            // add Product code
+            if (!string.IsNullOrEmpty(vOL_CI.emp_ProductCode))
+            {
+                PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                {
+                    ProductCode =vOL_CI.emp_ProductCode,
+                    ProductId = prdid
+
+                };
+               vOL_CI.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+            }
+            if (!string.IsNullOrEmpty(vOL_CI.sp_ProductCode))
+            {
+                PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                {
+                    ProductCode =vOL_CI.sp_ProductCode,
+                    ProductId = prdid
+
+                };
+               vOL_CI.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+            }
+            if (!string.IsNullOrEmpty(vOL_CI.ch_ProductCode))
+            {
+                PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                {
+                    ProductCode =vOL_CI.ch_ProductCode,
+                    ProductId = prdid
+
+                };
+               vOL_CI.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+            }
+
+            AddGrpPrdBulkRef(vOL_CI, bulkRefTbls, productName, grpId);
+
+        }
+
+        [NonAction]
+        public void AddVGL(VGL  vGL, string productName, long grpId, List<EppBulkRefTbl> bulkRefTbls)
+        {
+          
+            AddGrpPrdBulkRef(vGL, bulkRefTbls, productName, grpId);
+
+        }
+
+        [NonAction]
+        public void AddBGL(BGL bGL, string productName, long grpId, List<EppBulkRefTbl> bulkRefTbls)
+        {
+
+            AddGrpPrdBulkRef(bGL, bulkRefTbls, productName, grpId);
+
+        }
+        [NonAction]
+        public void AddFPPI(FPPI  fPPI, string productName, long grpId, List<EppBulkRefTbl> bulkRefTbls)
+        {
+            var prdid = Helper.GetProductIdbyName(productName, _unitofWork);
+            if (!string.IsNullOrEmpty(fPPI.emp_ProductCode))
+            {
+                PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                {
+                    ProductCode = fPPI.emp_ProductCode,
+                    ProductId = prdid
+
+                };
+                fPPI.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+            }
+            if (!string.IsNullOrEmpty(fPPI.sp_ProductCode))
+            {
+                PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                {
+                    ProductCode = fPPI.sp_ProductCode,
+                    ProductId = prdid
+
+                };
+                fPPI.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+            }
+            if (!string.IsNullOrEmpty(fPPI.ch_ProductCode))
+            {
+                PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                {
+                    ProductCode = fPPI.ch_ProductCode,
+                    ProductId = prdid
+
+                };
+                fPPI.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+            }
+
+            AddGrpPrdBulkRef(fPPI, bulkRefTbls, productName, grpId);
+
+        }
+        [NonAction]
+        public void AddHI(HI  hI, string productName, long grpId, List<EppBulkRefTbl> bulkRefTbls)
+        {
+
+            AddGrpPrdBulkRef(hI, bulkRefTbls, productName, grpId);
+
+        }
+
+        [NonAction]
+        public void AddGrpPrdBulkRef<T>( T  product, List<EppBulkRefTbl> bulkRefTbls, string ProductName, long grpId)
+        {
+                 var prdid = Helper.GetProductIdbyName(ProductName, _unitofWork);
+                var grpprdId = Helper.GetRandomNumber();
+
+                _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
+                {
+                    GrpprdctId = grpprdId,
+                    GrpId = grpId,
+                    ProductId = prdid,
+                    CrtdBy = CrtdBy,
+                    CrtdDt = CreatedDate
+                });
+
+                var bulkAttrs = Helper.GetProperties(product);
+                AddEppBulkRefTblData(bulkAttrs, bulkRefTbls, grpprdId);        
+
+
+        }
+
+
+        [NonAction]
+        private  void UpdateProductCode<T>( T product , PlanCodeViewModel planCodeViewModel)
+        {
+            var result = _unitofWork.eppProductCodesRepository.Find(x => x.ProductCode == planCodeViewModel.ProductCode && x.ProductId == planCodeViewModel.ProductId).Result.FirstOrDefault();
+            if (result == null)
+            {
+                planCodeViewModel.ProdctCdId = Helper.GetRandomNumber();
+                var data = new EppProductCodes
+                {
+                    ProdctCdId = planCodeViewModel.ProdctCdId,
+                    ProductCode = planCodeViewModel.ProductCode,
+                    ProductId = planCodeViewModel.ProductId,
+                    CrtdBy = CrtdBy,
+                    CrtdDt= CreatedDate
+                    
+                };
+                _unitofWork.eppProductCodesRepository.Add(data);
+
+            }
+            else
+            {
+                planCodeViewModel.ProductId = result.ProductId;
+            }
+           
+        }
+
+
         [Route("grpNbr/{grpNbr?}")]
         [HttpGet]
         public IActionResult EppGetGrpSetup( string grpNbr)
-        {
+       {
             try
             {
 
 
-                GroupSetupModel groupSetupModel = new GroupSetupModel();
+                    GroupSetupModel groupSetupModel = new GroupSetupModel();
+                    if (string.IsNullOrEmpty(grpNbr))
+                    {
+
+                    // grpNbr = "-1";
+                    groupSetupModel.GrpPymn = 10007;
+                    return Ok(groupSetupModel);
+                }
+
                 var GrpMaster = _unitofWork.GroupMasterRepository.SingleOrDefault(x => x.GrpNbr == grpNbr).Result;
                 if (GrpMaster != null)
                 {
 
-                    groupSetupModel.GrpId = GrpMaster.GrpId;
+                    groupSetupModel.GrpId = GrpMaster.GrpId.ToString();
                     groupSetupModel.GrpNbr = GrpMaster.GrpNbr;
                     groupSetupModel.GrpNm = GrpMaster.GrpNm;
                     groupSetupModel.ActvFlg = GrpMaster.ActvFlg;
-                    groupSetupModel.EnrlmntPrtnrsId = GrpMaster.EnrlmntPrtnrsId;
+                    groupSetupModel.EnrlmntPrtnrsId = GrpMaster.EnrlmntPrtnrsId.ToString();
                     var enrlPartner = _unitofWork.eppEnrlmntPrtnrsRepository.SingleOrDefault(x => x.EnrlmntPrtnrsId == GrpMaster.EnrlmntPrtnrsId).Result;
                     if (enrlPartner != null)
                     {
                         groupSetupModel.EmlAddrss = enrlPartner.EmlAddrss;
                         groupSetupModel.EnrlmntPrtnrsNm = enrlPartner.EnrlmntPrtnrsNm;
                     }
+                    groupSetupModel.AcctMgrNm = GrpMaster.AcctMgrNm;
+                    groupSetupModel.AcctMgrEmailAddrs = GrpMaster.AcctMgrEmailAddrs;
 
                     groupSetupModel.GrpEfftvDt = GrpMaster.GrpEfftvDt;
                     groupSetupModel.GrpPymn = GrpMaster.GrpPymnId;
                     groupSetupModel.GrpSitusSt = GrpMaster.GrpSitusSt;
-                 //   groupSetupModel.OccClass = GrpMaster.OccClass;
+                    groupSetupModel.user_token = GrpMaster.UsrTkn;
+                    groupSetupModel.case_token = GrpMaster.CaseTkn;
+                    groupSetupModel.OccClass = GrpMaster.OccClass;
+
+
+                    // Load Agent 
+                    groupSetupModel.GrpAgents= GetAgents(GrpMaster.GrpId);
+
 
                     // Load Product Master
-
-                    var Grpprdcts = _unitofWork.eppGrpprdctRepository.Find(x => x.GrpId == groupSetupModel.GrpId).Result;
+                    var Grpprdcts = _unitofWork.eppGrpprdctRepository.Find(x => x.GrpId == GrpMaster.GrpId).Result;
                     foreach (var prod in Grpprdcts)
                     {
-                        var venderData = _unitofWork.eppAcctMgrCntctsRepository.SingleOrDefault(x => x.GrpprdctId == prod.GrpprdctId).Result;
-                        if (venderData != null)
-                        {
-                            groupSetupModel.EmailAddress = venderData.EmailAddress;
-                            groupSetupModel.AcctMgrNm = venderData.AcctMgrNm;
-                        }
+                        
                         // load product  
 
                         var prodData = _unitofWork.EppProductRepository.SingleOrDefault(x => x.ProductId == prod.ProductId).Result;
@@ -617,219 +813,102 @@ namespace AFBA.EPP.Controllers
                             case "FPPG":
                                 {
                                     groupSetupModel.isFPPGActive = true;
-                                    LoadProductBulkRefData(prod.GrpprdctId);
-                                    var blkDatas = _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == prod.GrpprdctId).Result;
                                     groupSetupModel.FPPG = new FPPG();
-                                    Type typeInfo = groupSetupModel.FPPG.GetType();
-                                    PropertyInfo[] props = typeInfo.GetProperties();
-                                    foreach (var blk in blkDatas)
-                                    {
-                                        var eppAttrs = _unitofWork.eppAttributeRepository.SingleOrDefault(x => x.AttrId == blk.AttrId).Result;
-                                        var propName = props.Where(x => x.Name == eppAttrs.DbAttrNm).Select(x => new { x.Name, x.PropertyType }).FirstOrDefault();
-                                        if (propName != null)
-                                        {
-                                            typeInfo.GetProperty(propName.Name).SetValue(groupSetupModel.FPPG, Convert.ChangeType(blk.Value, propName.PropertyType), null);
+                                    GetProductValue(groupSetupModel.FPPG, prod.GrpprdctId);
 
-                                            var actionPropName = propName.Name + "_action";
-                                            var isActionAvail = props.Where(x => x.Name == actionPropName).Select(x => x.Name).FirstOrDefault();
-                                            if (isActionAvail != null)
-                                            {
-                                                typeInfo.GetProperty(actionPropName).SetValue(groupSetupModel.FPPG, Convert.ChangeType(blk.ActionId, propName.PropertyType), null);
-                                            }
-
-                                        }
-                                    }
+                                    if (!string.IsNullOrEmpty(groupSetupModel.FPPG.emp_plan_cd))
+                                       
+                                        groupSetupModel.FPPG.emp_ProductCode = GetProductCode(groupSetupModel.FPPG.emp_plan_cd);
+                                    if (!string.IsNullOrEmpty(groupSetupModel.FPPG.sp_plan_cd))
+                                        groupSetupModel.FPPG.sp_ProductCode = GetProductCode(groupSetupModel.FPPG.sp_plan_cd);
+                                    if (!string.IsNullOrEmpty(groupSetupModel.FPPG.ch_plan_cd))
+                                        groupSetupModel.FPPG.ch_ProductCode = GetProductCode(groupSetupModel.FPPG.ch_plan_cd);
                                     break;
                                 }
                             case "ACC_HI":
                                 {
                                     groupSetupModel.isACC_HIActive = true;
-                                    LoadProductBulkRefData(prod.GrpprdctId);
-                                    var blkDatas = _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == prod.GrpprdctId).Result;
                                     groupSetupModel.ACC_HI = new ACC_HI();
-                                    Type typeInfo = groupSetupModel.ACC_HI.GetType();
-                                    PropertyInfo[] props = typeInfo.GetProperties();
-                                    foreach (var blk in blkDatas)
-                                    {
-                                        var eppAttrs = _unitofWork.eppAttributeRepository.SingleOrDefault(x => x.AttrId == blk.AttrId).Result;
-                                        var propName = props.Where(x => x.Name == eppAttrs.DbAttrNm).Select(x => new { x.Name, x.PropertyType }).FirstOrDefault();
-                                        if (propName != null)
-                                        {
-                                            typeInfo.GetProperty(propName.Name).SetValue(groupSetupModel.ACC_HI, Convert.ChangeType(blk.Value, propName.PropertyType), null);
+                                    GetProductValue(groupSetupModel.ACC_HI, prod.GrpprdctId);
+                                     break;
+                                    
 
-                                            var actionPropName = propName.Name + "_action";
-                                            var isActionAvail = props.Where(x => x.Name == actionPropName).Select(x => x.Name).FirstOrDefault();
-                                            if (isActionAvail != null)
-                                            {
-                                                typeInfo.GetProperty(actionPropName).SetValue(groupSetupModel.ACC_HI, Convert.ChangeType(blk.ActionId, propName.PropertyType), null);
-                                            }
 
-                                        }
-                                    }
-                                    break;
+
                                 }
                             case "ER_CI":
                                 {
                                     groupSetupModel.isER_CIActive = true;
-                                    LoadProductBulkRefData(prod.GrpprdctId);
-                                    var blkDatas = _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == prod.GrpprdctId).Result;
                                     groupSetupModel.ER_CI = new ER_CI();
-                                    Type typeInfo = groupSetupModel.ER_CI.GetType();
-                                    PropertyInfo[] props = typeInfo.GetProperties();
-                                    foreach (var blk in blkDatas)
-                                    {
-                                        var eppAttrs = _unitofWork.eppAttributeRepository.SingleOrDefault(x => x.AttrId == blk.AttrId).Result;
-                                        var propName = props.Where(x => x.Name == eppAttrs.DbAttrNm).Select(x => new { x.Name, x.PropertyType }).FirstOrDefault();
-                                        if (propName != null)
-                                        {
-                                            typeInfo.GetProperty(propName.Name).SetValue(groupSetupModel.ER_CI, Convert.ChangeType(blk.Value, propName.PropertyType), null);
+                                    GetProductValue(groupSetupModel.ER_CI, prod.GrpprdctId);
 
-                                            var actionPropName = propName.Name + "_action";
-                                            var isActionAvail = props.Where(x => x.Name == actionPropName).Select(x => x.Name).FirstOrDefault();
-                                            if (isActionAvail != null)
-                                            {
-                                                typeInfo.GetProperty(actionPropName).SetValue(groupSetupModel.ER_CI, Convert.ChangeType(blk.ActionId, propName.PropertyType), null);
-                                            }
 
-                                        }
-                                    }
+                                    if (!string.IsNullOrEmpty(groupSetupModel.ER_CI.emp_plan_cd))
+                                        groupSetupModel.ER_CI.emp_ProductCode = GetProductCode(groupSetupModel.ER_CI.emp_plan_cd);
+                                    if (!string.IsNullOrEmpty(groupSetupModel.ER_CI.sp_plan_cd))
+                                        groupSetupModel.ER_CI.sp_ProductCode = GetProductCode(groupSetupModel.ER_CI.sp_plan_cd);
+                                    if (!string.IsNullOrEmpty(groupSetupModel.ER_CI.ch_plan_cd))
+                                        groupSetupModel.ER_CI.ch_ProductCode = GetProductCode(groupSetupModel.ER_CI.ch_plan_cd);
                                     break;
                                 }
                             case "VOL_CI":
                                 {
                                     groupSetupModel.isVOL_CIActive = true;
-                                    LoadProductBulkRefData(prod.GrpprdctId);
-                                    var blkDatas = _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == prod.GrpprdctId).Result;
                                     groupSetupModel.VOL_CI = new VOL_CI();
-                                    Type typeInfo = groupSetupModel.VOL_CI.GetType();
-                                    PropertyInfo[] props = typeInfo.GetProperties();
-                                    foreach (var blk in blkDatas)
-                                    {
-                                        var eppAttrs = _unitofWork.eppAttributeRepository.SingleOrDefault(x => x.AttrId == blk.AttrId).Result;
-                                        var propName = props.Where(x => x.Name == eppAttrs.DbAttrNm).Select(x => new { x.Name, x.PropertyType }).FirstOrDefault();
-                                        if (propName != null)
-                                        {
-                                            typeInfo.GetProperty(propName.Name).SetValue(groupSetupModel.VOL_CI, Convert.ChangeType(blk.Value, propName.PropertyType), null);
+                                    GetProductValue(groupSetupModel.VOL_CI, prod.GrpprdctId);
+                                   
+                                    if(!string.IsNullOrEmpty(groupSetupModel.VOL_CI.emp_plan_cd))
+                                    groupSetupModel.VOL_CI.emp_ProductCode = GetProductCode(groupSetupModel.VOL_CI.emp_plan_cd);
+                                    if (!string.IsNullOrEmpty(groupSetupModel.VOL_CI.sp_plan_cd))
+                                    groupSetupModel.VOL_CI.sp_ProductCode = GetProductCode(groupSetupModel.VOL_CI.sp_plan_cd);
+                                    if (!string.IsNullOrEmpty(groupSetupModel.VOL_CI.ch_plan_cd))
+                                        groupSetupModel.VOL_CI.ch_ProductCode = GetProductCode(groupSetupModel.VOL_CI.ch_plan_cd);
 
-                                            var actionPropName = propName.Name + "_action";
-                                            var isActionAvail = props.Where(x => x.Name == actionPropName).Select(x => x.Name).FirstOrDefault();
-                                            if (isActionAvail != null)
-                                            {
-                                                typeInfo.GetProperty(actionPropName).SetValue(groupSetupModel.VOL_CI, Convert.ChangeType(blk.ActionId, propName.PropertyType), null);
-                                            }
-
-                                        }
-                                    }
                                     break;
                                 }
                             case "VGL":
                                 {
                                     groupSetupModel.isVGLActive = true;
-                                    LoadProductBulkRefData(prod.GrpprdctId);
-                                    var blkDatas = _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == prod.GrpprdctId).Result;
                                     groupSetupModel.VGL = new VGL();
-                                    Type typeInfo = groupSetupModel.VGL.GetType();
-                                    PropertyInfo[] props = typeInfo.GetProperties();
-                                    foreach (var blk in blkDatas)
-                                    {
-                                        var eppAttrs = _unitofWork.eppAttributeRepository.SingleOrDefault(x => x.AttrId == blk.AttrId).Result;
-                                        var propName = props.Where(x => x.Name == eppAttrs.DbAttrNm).Select(x => new { x.Name, x.PropertyType }).FirstOrDefault();
-                                        if (propName != null)
-                                        {
-                                            typeInfo.GetProperty(propName.Name).SetValue(groupSetupModel.VGL, Convert.ChangeType(blk.Value, propName.PropertyType), null);
+                                    GetProductValue(groupSetupModel.VGL, prod.GrpprdctId);
 
-                                            var actionPropName = propName.Name + "_action";
-                                            var isActionAvail = props.Where(x => x.Name == actionPropName).Select(x => x.Name).FirstOrDefault();
-                                            if (isActionAvail != null)
-                                            {
-                                                typeInfo.GetProperty(actionPropName).SetValue(groupSetupModel.VGL, Convert.ChangeType(blk.ActionId, propName.PropertyType), null);
-                                            }
-
-                                        }
-                                    }
+                                  
                                     break;
                                 }
                             case "BGL":
                                 {
                                     groupSetupModel.isBGLActive = true;
-                                    LoadProductBulkRefData(prod.GrpprdctId);
-                                    var blkDatas = _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == prod.GrpprdctId).Result;
                                     groupSetupModel.BGL = new BGL();
-                                    Type typeInfo = groupSetupModel.BGL.GetType();
-                                    PropertyInfo[] props = typeInfo.GetProperties();
-                                    foreach (var blk in blkDatas)
-                                    {
-                                        var eppAttrs = _unitofWork.eppAttributeRepository.SingleOrDefault(x => x.AttrId == blk.AttrId).Result;
-                                        var propName = props.Where(x => x.Name == eppAttrs.DbAttrNm).Select(x => new { x.Name, x.PropertyType }).FirstOrDefault();
-                                        if (propName != null)
-                                        {
-                                            typeInfo.GetProperty(propName.Name).SetValue(groupSetupModel.BGL, Convert.ChangeType(blk.Value, propName.PropertyType), null);
-
-                                            var actionPropName = propName.Name + "_action";
-                                            var isActionAvail = props.Where(x => x.Name == actionPropName).Select(x => x.Name).FirstOrDefault();
-                                            if (isActionAvail != null)
-                                            {
-                                                typeInfo.GetProperty(actionPropName).SetValue(groupSetupModel.BGL, Convert.ChangeType(blk.ActionId, propName.PropertyType), null);
-                                            }
-
-                                        }
-                                    }
+                                    GetProductValue(groupSetupModel.BGL, prod.GrpprdctId);
+                                    
+                                    
                                     break;
                                 }
                             case "FPPI":
                                 {
 
                                     groupSetupModel.isFPPIActive = true;
-                                    LoadProductBulkRefData(prod.GrpprdctId);
-                                    var blkDatas = _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == prod.GrpprdctId).Result;
                                     groupSetupModel.FPPI = new FPPI();
-                                    Type typeInfo = groupSetupModel.FPPI.GetType();
-                                    PropertyInfo[] props = typeInfo.GetProperties();
-                                    foreach (var blk in blkDatas)
-                                    {
-                                        var eppAttrs = _unitofWork.eppAttributeRepository.SingleOrDefault(x => x.AttrId == blk.AttrId).Result;
-                                        var propName = props.Where(x => x.Name == eppAttrs.DbAttrNm).Select(x => new { x.Name, x.PropertyType }).FirstOrDefault();
-                                        if (propName != null)
-                                        {
-                                            typeInfo.GetProperty(propName.Name).SetValue(groupSetupModel.FPPI, Convert.ChangeType(blk.Value, propName.PropertyType), null);
+                                    GetProductValue(groupSetupModel.FPPI, prod.GrpprdctId);
 
-                                            var actionPropName = propName.Name + "_action";
-                                            var isActionAvail = props.Where(x => x.Name == actionPropName).Select(x => x.Name).FirstOrDefault();
-                                            if (isActionAvail != null)
-                                            {
-                                                typeInfo.GetProperty(actionPropName).SetValue(groupSetupModel.FPPI, Convert.ChangeType(blk.ActionId, propName.PropertyType), null);
-                                            }
+                                   
+                                    if(!string.IsNullOrEmpty(groupSetupModel.FPPI.emp_plan_cd))
+                                    groupSetupModel.FPPI.emp_ProductCode = GetProductCode(groupSetupModel.FPPI.emp_plan_cd);
+                                    if (!string.IsNullOrEmpty(groupSetupModel.FPPI.sp_plan_cd))
+                                     groupSetupModel.FPPI.sp_ProductCode = GetProductCode(groupSetupModel.FPPI.sp_plan_cd);
+                                    if (!string.IsNullOrEmpty(groupSetupModel.FPPI.ch_plan_cd))
+                                        groupSetupModel.FPPI.ch_ProductCode = GetProductCode(groupSetupModel.FPPI.ch_plan_cd);
 
-                                        }
-                                    }
                                     break;
                                 }
                             case "HI":
                                 {
 
                                     groupSetupModel.isHIActive = true;
-                                    LoadProductBulkRefData(prod.GrpprdctId);
-                                    var blkDatas = _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == prod.GrpprdctId).Result;
                                     groupSetupModel.HI = new HI();
-                                    Type typeInfo = groupSetupModel.HI.GetType();
-                                    PropertyInfo[] props = typeInfo.GetProperties();
-                                    foreach (var blk in blkDatas)
-                                    {
-                                        var eppAttrs = _unitofWork.eppAttributeRepository.SingleOrDefault(x => x.AttrId == blk.AttrId).Result;
-                                        var propName = props.Where(x => x.Name == eppAttrs.DbAttrNm).Select(x => new { x.Name, x.PropertyType }).FirstOrDefault();
-                                        if (propName != null)
-                                        {
-                                            typeInfo.GetProperty(propName.Name).SetValue(groupSetupModel.HI, Convert.ChangeType(blk.Value, propName.PropertyType), null);
+                                    GetProductValue(groupSetupModel.HI, prod.GrpprdctId);
 
-                                            var actionPropName = propName.Name + "_action";
-                                            var isActionAvail = props.Where(x => x.Name == actionPropName).Select(x => x.Name).FirstOrDefault();
-                                            if (isActionAvail != null)
-                                            {
-                                                typeInfo.GetProperty(actionPropName).SetValue(groupSetupModel.HI, Convert.ChangeType(blk.ActionId, propName.PropertyType), null);
-                                            }
-
-                                        }
-                                    }
+                                 
                                     break;
                                 }
 
@@ -849,7 +928,8 @@ namespace AFBA.EPP.Controllers
             }
         }
 
-        [NonAction]
+           
+       [NonAction]
         private void AddEppBulkRefTblData(List<ClsPropertyInfo> bulkAttrs, List<EppBulkRefTbl> bulkRefTbls, long grpPrdId)
         {
             foreach (var prop in bulkAttrs)
@@ -871,27 +951,55 @@ namespace AFBA.EPP.Controllers
                         eppBulkRefTbl.GrpprdctId = grpPrdId;
                         eppBulkRefTbl.AttrId = eppAttribute.AttrId;
                         eppBulkRefTbl.Value = prop.PropertyValue;
-                        eppBulkRefTbl.CrtdBy = "";
+                        eppBulkRefTbl.CrtdBy = CrtdBy;
+                        eppBulkRefTbl.CrtdDt = CreatedDate;
                         bulkRefTbls.Add(eppBulkRefTbl);
-                    }
-                    
+                    }                    
+                }             
+            }
+        }
 
+       
+
+        [NonAction]
+       private void GetProductValue<T>( T Product, long grpprdctId)
+        {
+            var blkDatas = _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == grpprdctId).Result;
+
+            Type typeInfo = Product.GetType();
+            PropertyInfo[] props = typeInfo.GetProperties();
+            foreach (var blk in blkDatas)
+            {
+                var eppAttrs = _unitofWork.eppAttributeRepository.SingleOrDefault(x => x.AttrId == blk.AttrId).Result;
+                var propName = props.Where(x => x.Name == eppAttrs.DbAttrNm).Select(x => new { x.Name, x.PropertyType }).FirstOrDefault();
+                if (propName != null)
+                {
+                    typeInfo.GetProperty(propName.Name).SetValue(Product, Convert.ChangeType(blk.Value, propName.PropertyType), null);
+
+                    var actionPropName = propName.Name + "_action";
+                    var isActionAvail = props.Where(x => x.Name == actionPropName).Select(x => x.Name).FirstOrDefault();
+                    if (isActionAvail != null)
+                    {
+                        typeInfo.GetProperty(actionPropName).SetValue(Product, Convert.ChangeType(blk.ActionId, propName.PropertyType), null);
+                    }
 
                 }
-              
             }
-
         }
-        
 
         [NonAction]
-        private void LoadProductBulkRefData(long GrpprdctId)
+        private string GetProductCode(string ProdctCdId)
         {
-           var blkData= _unitofWork.eppBulkRefTblRepository.Find(x => x.GrpprdctId == GrpprdctId).Result;
+            string productCode = "";
+            var result = _unitofWork.eppProductCodesRepository.Find(x => x.ProdctCdId == long.Parse( ProdctCdId)).Result.FirstOrDefault();
+            if (result != null)
+            {
+                productCode=result.ProductCode;
+            }
+          return  productCode;
         }
 
-
-        [NonAction]
+       [NonAction]
         private void AddProductCodes(ProductCodesViewModel productCodesView)
         {
             var isAvail=_unitofWork.eppProductCodesRepository.SingleOrDefault(x => x.ProductCode == productCodesView.ProductCode && x.ProductId == productCodesView.ProductId).Result;
@@ -908,5 +1016,70 @@ namespace AFBA.EPP.Controllers
 
 
         }
+
+
+
+        [NonAction]
+        private List<EppAgentsViewModel> GetAgents( long grpId)
+        {
+            List<EppAgentsViewModel> eppAgentsModels = new List<EppAgentsViewModel>();
+
+            var agents= _unitofWork.eppAgentRepository.Find(x => x.GrpId == grpId).Result;
+            foreach( var agent in agents)
+            {
+                eppAgentsModels.Add(new EppAgentsViewModel
+                {   AgentId = agent.AgentId.ToString(),
+                    AgntNbr = agent.AgntNbr,
+                    AgntComsnSplt = agent.AgntComsnSplt.ToString(),
+                    AgntNm = agent.AgntNm,
+                    AgntSubCnt = agent.AgntSubCnt,
+                    GrpId = agent.GrpId.ToString(),
+                });
+            }
+            
+            return eppAgentsModels;
+        }
+        [NonAction]
+        private  void UpdateAgent(List<EppAgentsViewModel> eppAgentsModels, long grpId)
+        {
+            foreach (var eppAgent in eppAgentsModels)
+            {
+                decimal agntComsnSplt = 0;
+                decimal.TryParse(eppAgent.AgntComsnSplt, out agntComsnSplt);
+                if (string.IsNullOrEmpty(eppAgent.AgentId)) eppAgent.AgentId = "0";
+
+                var data = _unitofWork.eppAgentRepository.Find(x => x.AgentId == long.Parse(eppAgent.AgentId)).Result.FirstOrDefault();
+                if (data != null)
+                {
+                    data.AgntNm = eppAgent.AgntNm;
+                    data.AgntNbr = eppAgent.AgntNbr;
+                    data.AgntSubCnt = eppAgent.AgntSubCnt;
+                    data.GrpId = grpId;
+                    data.AgntComsnSplt = agntComsnSplt;
+                    data.AgentId = long.Parse(eppAgent.AgentId);
+                    data.LstUpdtBy = CrtdBy;
+                    data.LstUpdtDt = DateTime.UtcNow;
+
+                    _unitofWork.eppAgentRepository.Update(data);
+                }
+                else
+                {
+                    data = new EppAgents();
+                   data.AgentId= Helper.GetRandomNumber();
+                    data.AgntNm = eppAgent.AgntNm;
+                    data.AgntNbr = eppAgent.AgntNbr;
+                    data.AgntSubCnt = eppAgent.AgntSubCnt;
+                    data.GrpId = grpId;
+                    data.AgntComsnSplt = agntComsnSplt;
+                    data.CrtdBy = CrtdBy;
+                    data.CrtdDt = DateTime.UtcNow;
+                    _unitofWork.eppAgentRepository.Add(data);
+                }
+
+            }
+        }
+
+
+  
     }
 }

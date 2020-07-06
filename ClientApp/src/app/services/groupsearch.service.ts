@@ -11,6 +11,8 @@ export class GroupsearchService {
   constructor(private http: HttpClient) { }
   private groupNumber = new BehaviorSubject<string>('');
   castGroupNumber = this.groupNumber.asObservable();
+  editGrpNbr :any;
+  fromSearchFlag = false;
 
   getGroupsData() {
     const GroupsDataUrl = environment.apiurl + 'GroupSetup/GetGroupsData';
@@ -23,4 +25,18 @@ export class GroupsearchService {
     this.groupNumber.next(value);
  }
   
+ setEditGrpNbr(Nbr){
+   this.editGrpNbr = Nbr;
+ }
+ getEditGrpNbr(){
+   return this.editGrpNbr;
+ }
+
+ setFromSearchFlag(flag) {
+   this.fromSearchFlag = flag;
+ }
+ getFromSearchFlag() {
+  return this.fromSearchFlag;
+}
+
 }
