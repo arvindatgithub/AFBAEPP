@@ -52,7 +52,7 @@ import { VoluntaryCiQuestionsComponent } from './voluntary-ci-questions/voluntar
 import { DatePipe } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 //import { ErrorInterceptor } from './shared/error-handler/error-interceptor';
-//import { SharedModule } from './shared/shared.module';
+import { SharedModule } from './shared/shared.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -97,7 +97,7 @@ import { ToastrModule } from 'ngx-toastr';
     MatSelectModule,
     ReactiveFormsModule,
     FormsModule,
-    //SharedModule,
+    SharedModule,
     MatCardModule,
     MatDividerModule,
     MatTableModule,
@@ -113,6 +113,7 @@ import { ToastrModule } from 'ngx-toastr';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'group-search', component: GroupSearchComponent },
       { path: 'group-setup', component: GroupSetupComponent},
+      { path: 'group-setup/:grpNbr', component: GroupSetupComponent},
       { path: 'accident', component: AccidentComponent},
       { path: 'basic-group-life', component: BasicGroupLifeComponent},
       { path: 'employer-paid-ci', component: EmployerPaidCIComponent},

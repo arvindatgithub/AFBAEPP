@@ -18,6 +18,7 @@ import { VolGroupLifeComponent } from '../vol-group-life/vol-group-life.componen
 import { BasicGroupLifeComponent } from '../basic-group-life/basic-group-life.component'
 import { GroupsearchService } from '../services/groupsearch.service';
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-group-setup',
   templateUrl: './group-setup.component.html',
@@ -212,20 +213,24 @@ export class GroupSetupComponent implements OnInit {
   editRAddFlag = false;
   status;
   fromSearchFlag;
+  sub : any;
+  grpNbr;
+  editServiceCall = false;
+
   
   constructor(private eppcreategroupservice: EppCreateGrpSetupService,private toastr: ToastrService, private _fb: FormBuilder,
-    private snackBar: MatSnackBar, private lookupService: LookupService, private groupsearchService: GroupsearchService) {
+    private snackBar: MatSnackBar, private lookupService: LookupService, private route: ActivatedRoute,
+    private groupsearchService: GroupsearchService) {
   }
 
   ngOnInit() {
+    this.sub = this.route.params.subscribe(params => {
+      this.grpNbr = params['grpNbr']; 
+   });
    
-    let existingSelectedGrpNbr: any;
-    this.groupsearchService.castGroupNumber.subscribe(data => {
-      existingSelectedGrpNbr = data; 
-      this.editExistGrpNbr = existingSelectedGrpNbr;
-      console.log("selected grp number from search "+ existingSelectedGrpNbr); 
+  
 
-      this.eppcreategroupservice.getGroupNbrEppData(existingSelectedGrpNbr).subscribe(data => {
+      this.eppcreategroupservice.getGroupNbrEppData(this.grpNbr).subscribe(data => {
         console.log('Groups Data on load from db'+ JSON.stringify(data));
         this.groupsData = data;
 
@@ -480,12 +485,9 @@ export class GroupSetupComponent implements OnInit {
           });
         }
         if(!this.editRAddFlag){
-          //this.agentformgrp.disable();
           this.fieldsetDisabled = true;
         }else{
-         // this.fieldsetDisabled = false;
           this.editRAddFlag = false;
-         // this.agentformgrp.enable();
         }
         let key = 'GroupNumApiData';
         if (localStorage.getItem("GroupNumApiData") !== null) {
@@ -500,7 +502,6 @@ export class GroupSetupComponent implements OnInit {
       if(!this.groupsearchService.getFromSearchFlag()){
         this.onAdd();
       }
-    });
     
     this.lookupService.getLookupsData().subscribe((data: any) => {
       this.isLoading = true;
@@ -549,22 +550,18 @@ export class GroupSetupComponent implements OnInit {
     this.cloneToggle = false;
     let grpNbr = this.groupsearchService.getEditGrpNbr();
     this.editRAddFlag = true;
-    //this.toggleFlag = false;
-   // this.agentformgrp.enable();
+    this.editServiceCall = true;
     this.eppcreategroupservice.setUserStatus('Edit');
     this.status = this.eppcreategroupservice.getUserStatus();
-    this.groupsearchService.existingGrpNbrSelected(grpNbr);
   }
   onAdd() {
     this.addToggle = true;
     this.editToggle = false;
     this.cloneToggle = false;
     this.editRAddFlag = true;
-    //this.toggleFlag = false;
-   // this.agentformgrp.enable();
+    this.editServiceCall = false;
     this.eppcreategroupservice.setUserStatus('Add');
     this.status = this.eppcreategroupservice.getUserStatus();
-    this.groupsearchService.existingGrpNbrSelected('');
   }
   onClone() {
     this.addToggle = false;
@@ -1202,7 +1199,6 @@ export class GroupSetupComponent implements OnInit {
         agntsub_4_action: this.agentformgrp.get('hospAgent_Action').value.toString(),
       },
       "fppg": {
-        "grp_nmbr": "",
         "effctv_dt": (new Date(this.fppgComponent.fppgformgrp.value.FCfppgEffectiveDate)).toISOString(),
         grp_situs_state: this.fppgComponent.fppgformgrp.value.FCfppgSitusState,
         emp_gi_max_amt: this.fppgComponent.fppgformgrp.value.FCfppgEmpGIAmtMax,
@@ -1321,7 +1317,6 @@ export class GroupSetupComponent implements OnInit {
       },
       "isER_CIActive": this.isCheckedEmpPaidCi,
       "eR_CI": {
-        "grp_nmbr": "",
         "effctv_dt": (new Date(this.empPaidCiComponent.empCIformgrp.value.FCempCIEffectiveDate)).toISOString(),
         "grp_situs_state": this.empPaidCiComponent.empCIformgrp.value.FCempCISitusState,
         "emp_face_amt_mon_bnft": this.empPaidCiComponent.empCIformgrp.value.FCempCIEmpFcAmt,
@@ -1372,7 +1367,6 @@ export class GroupSetupComponent implements OnInit {
       },
       "isVOL_CIActive": this.isCheckedVolutaryCi,
       "voL_CI": {
-        "grp_nmbr": "",
         "effctv_dt": (new Date(this.VolCiComponent.volCIformgrp.value.FCVolCIEffectiveDate)).toISOString(),
         "grp_situs_state": this.VolCiComponent.volCIformgrp.value.FCVolCISitusState,
         "emp_gi_max_amt": this.VolCiComponent.volCIformgrp.value.FCVolCIEmpGIAmtMax,
@@ -1443,7 +1437,6 @@ export class GroupSetupComponent implements OnInit {
       },
       "isVGLActive": this.isCheckedVolGrpLife,
       "vgl": {
-        "grp_nmbr": "",
         "effctv_dt": (new Date(this.VolgrpLifeComponent.volGrpLfformgrp.value.FCVolGrpLfEffectiveDate)).toISOString(),
         "grp_situs_state": this.VolgrpLifeComponent.volGrpLfformgrp.value.FCVolGrpLfSitusState,
         "emp_gi_max_amt": this.VolgrpLifeComponent.volGrpLfformgrp.value.FCVolGrpLfEmpGIAmtMax,
@@ -1491,7 +1484,6 @@ export class GroupSetupComponent implements OnInit {
       },
       "isBGLActive": this.isCheckedBasicGrpLife,
       "bgl": {
-        "grp_nmbr": "",
         "effctv_dt": (new Date(this.basicgrplifeComponent.basicGrpLfformgrp.value.FCbasicEffectiveDate)).toISOString(),
         "grp_situs_state": this.basicgrplifeComponent.basicGrpLfformgrp.value.FCbasicSitusState,
         "emp_face_amt_mon_bnft": this.basicgrplifeComponent.basicGrpLfformgrp.value.FCbasicEmpFcAmt,
@@ -1535,7 +1527,6 @@ export class GroupSetupComponent implements OnInit {
 
       "isFPPIActive": this.isCheckedFppInd,
       "fppi": {
-        "grp_nmbr": "",
         "effctv_dt": (new Date(this.fppComponent.fppiformgrp.value.FCfppiEffectiveDate)).toISOString(),
         "grp_situs_state": "",
         "emp_gi_max_amt": this.fppComponent.fppiformgrp.value.FCfppiEmpGIAmtMax,
@@ -1605,7 +1596,7 @@ export class GroupSetupComponent implements OnInit {
 
     }
 
-    if(this.editExistGrpNbr !== "" && this.editExistGrpNbr !== null && this.editExistGrpNbr !== undefined){
+    if(this.editServiceCall){
       body.grpId = this.groupsData.grpId;
       this.eppcreategroupservice.postEppEdit(body).subscribe(
         (data: any) => {
