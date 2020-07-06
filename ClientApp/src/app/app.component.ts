@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { LookupService } from './services/lookup.service';
 import { Subscription } from 'rxjs';
 import { EppAcion } from './services/model/epp-acion';
+import { EppCreateGrpSetupService } from './services/epp-create-grp-setup.service';
 
 @Component({
   selector: 'app-root',
@@ -16,10 +17,10 @@ export class AppComponent {
 
 
 
-  constructor(private lookupService: LookupService) {
- 
+  constructor(private lookupService: LookupService, private eppcreategroupservice: EppCreateGrpSetupService) {
+
     this.lookupService.getLookupsData().subscribe((data: any) => {
-         {
+      {
         this.lookUpDataSitusStates = (data.situsState);
         let key = 'lookUpSitusApiData';
         if (localStorage.getItem("lookUpSitusApiData") !== null) {
@@ -28,5 +29,18 @@ export class AppComponent {
         localStorage.setItem(key, JSON.stringify(this.lookUpDataSitusStates));
       }
     });
- }
+
+
+
+    this.eppcreategroupservice.getGroupNbrEppData('').subscribe(data => {
+
+      let groupsData = data;
+      let key = 'GroupNumApiData';
+      if (localStorage.getItem("GroupNumApiData") !== null) {
+        localStorage.clear();
+      }
+      localStorage.setItem(key, JSON.stringify(groupsData));
+
+    });
+  }
 }
