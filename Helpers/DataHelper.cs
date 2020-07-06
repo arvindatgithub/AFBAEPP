@@ -29,7 +29,7 @@ namespace AFBA.EPP.Helpers
             }
             else
             {
-                planCodeViewModel.ProductId = result.ProductId;
+                planCodeViewModel.ProdctCdId = result.ProdctCdId;
             }
             return planCodeViewModel;
          }
