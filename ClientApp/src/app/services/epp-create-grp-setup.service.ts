@@ -41,5 +41,12 @@ export class EppCreateGrpSetupService {
  getUserStatus(){
    return this.setStatus;
  }
+  private setChangeStatus = new BehaviorSubject<string>('');
+  castsetStatus = this.setChangeStatus.asObservable();
+
+  setChaStatus(value){
+    this.setChangeStatus.next(value);
+ }
+
 }
 

@@ -78,12 +78,16 @@ export class BasicGroupLifeComponent implements OnInit, OnChanges {
         ChildFaceAmount: [(this.bglData.isBGLActive) ? this.bglData.bgl.ch_face_amt_mon_bnft_01 : "", Validators.required],
       });
 
-      this.status = this.eppservice.getUserStatus();
-      if (this.groupsearchService.getFromSearchFlag() && this.status == '') {
-        this.resetFlag = true;
-      } else {
-        this.resetFlag = false;
-      }
+      this.eppservice.castsetStatus.subscribe((data) => {
+        this.status = data;
+        if (this.groupsearchService.getFromSearchFlag() && this.status == '') {
+          this.basicGrpLfformgrp.disable();
+          this.resetFlag = true;
+        } else {
+          this.basicGrpLfformgrp.enable();
+          this.resetFlag = false;
+        }
+      });
     }
 
 

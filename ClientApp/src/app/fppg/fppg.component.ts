@@ -105,12 +105,18 @@ export class FPPGComponent implements OnInit, OnChanges {
         FCfppgWaiver_Action: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.emp_waiver_of_prem_action : this.radioButtonArr[1].value, Validators.required],
       });
 
-      this.status = this.eppservice.getUserStatus();
-      if (this.groupsearchService.getFromSearchFlag() && this.status == '') {
-        this.resetFlag = true;
-      } else {
-        this.resetFlag = false;
-      }
+      //this.status = this.eppservice.getUserStatus();
+      this.eppservice.castsetStatus.subscribe((data) => {
+        this.status = data;
+        if (this.groupsearchService.getFromSearchFlag() && this.status == '') {
+          this.fppgformgrp.disable();
+          this.resetFlag = true;
+        } else {
+          this.fppgformgrp.enable();
+          this.resetFlag = false;
+        }
+      });
+      
     }
   }
 
