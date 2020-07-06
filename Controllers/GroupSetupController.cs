@@ -130,6 +130,40 @@ namespace AFBA.EPP.Controllers
                     {
                         case "FPPG":
                             {
+                                var prdid = Helper.GetProductIdbyName(prodData.ProductNm, _unitofWork);
+                                // add Product code
+                                if (!string.IsNullOrEmpty(groupSetupModel.FPPG.emp_ProductCode))
+                                {
+                                    PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                                    {
+                                        ProductCode = groupSetupModel.FPPG.emp_ProductCode,
+                                        ProductId = prdid
+
+                                    };
+                                    groupSetupModel.FPPG.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                                }
+
+                                if (!string.IsNullOrEmpty(groupSetupModel.FPPG.sp_ProductCode))
+                                {
+                                    PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                                    {
+                                        ProductCode = groupSetupModel.FPPG.sp_ProductCode,
+                                        ProductId = prdid
+
+                                    };
+                                    groupSetupModel.FPPG.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                                }
+
+                                if (!string.IsNullOrEmpty(groupSetupModel.FPPG.ch_ProductCode))
+                                {
+                                    PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                                    {
+                                        ProductCode = groupSetupModel.FPPG.ch_ProductCode,
+                                        ProductId = prdid
+
+                                    };
+                                    groupSetupModel.FPPG.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                                }
                                 UpdateBulkRefTable(groupSetupModel.FPPG, prod.GrpprdctId);
                                 groupSetupModel.isFPPGActive = false;
 
@@ -144,12 +178,78 @@ namespace AFBA.EPP.Controllers
                             }
                         case "ER_CI":
                             {
+                                var prdid = Helper.GetProductIdbyName(prodData.ProductNm, _unitofWork);
+                                // add Product code
+                                if (!string.IsNullOrEmpty(groupSetupModel.ER_CI.emp_ProductCode))
+                                {
+                                    PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                                    {
+                                        ProductCode = groupSetupModel.ER_CI.emp_ProductCode,
+                                        ProductId = prdid
+
+                                    };
+                                    groupSetupModel.ER_CI.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                                }
+                                if (!string.IsNullOrEmpty(groupSetupModel.ER_CI.sp_ProductCode))
+                                {
+                                    PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                                    {
+                                        ProductCode = groupSetupModel.ER_CI.sp_ProductCode,
+                                        ProductId = prdid
+
+                                    };
+                                    groupSetupModel.ER_CI.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                                }
+                                if (!string.IsNullOrEmpty(groupSetupModel.ER_CI.ch_ProductCode))
+                                {
+                                    PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                                    {
+                                        ProductCode = groupSetupModel.ER_CI.ch_ProductCode,
+                                        ProductId = prdid
+
+                                    };
+                                    groupSetupModel.ER_CI.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                                }
+
                                 UpdateBulkRefTable(groupSetupModel.ER_CI, prod.GrpprdctId);
                                 groupSetupModel.isER_CIActive = false;
                                 break;
                             }
                         case "VOL_CI":
                             {
+                                var prdid = Helper.GetProductIdbyName(prodData.ProductNm, _unitofWork);
+                                if (!string.IsNullOrEmpty(groupSetupModel.VOL_CI.emp_ProductCode))
+                                {
+                                    PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                                    {
+                                        ProductCode = groupSetupModel.VOL_CI.emp_ProductCode,
+                                        ProductId = prdid
+
+                                    };
+                                    groupSetupModel.VOL_CI.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                                }
+                                if (!string.IsNullOrEmpty(groupSetupModel.VOL_CI.sp_ProductCode))
+                                {
+                                    PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                                    {
+                                        ProductCode = groupSetupModel.VOL_CI.sp_ProductCode,
+                                        ProductId = prdid
+
+                                    };
+                                    groupSetupModel.VOL_CI.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                                }
+                                if (!string.IsNullOrEmpty(groupSetupModel.VOL_CI.ch_ProductCode))
+                                {
+                                    PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                                    {
+                                        ProductCode = groupSetupModel.VOL_CI.ch_ProductCode,
+                                        ProductId = prdid
+
+                                    };
+                                    groupSetupModel.VOL_CI.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                                }
+
+
                                 UpdateBulkRefTable(groupSetupModel.VOL_CI, prod.GrpprdctId);
                                 groupSetupModel.isVOL_CIActive = false;
                                 break;
@@ -168,6 +268,37 @@ namespace AFBA.EPP.Controllers
                             }
                         case "FPPI":
                             {
+                                var prdid = Helper.GetProductIdbyName(prodData.ProductNm, _unitofWork);
+                                if (!string.IsNullOrEmpty(groupSetupModel.FPPI.emp_ProductCode))
+                                {
+                                    PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                                    {
+                                        ProductCode = groupSetupModel.FPPI.emp_ProductCode,
+                                        ProductId = prdid
+
+                                    };
+                                    groupSetupModel.FPPI.emp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                                }
+                                if (!string.IsNullOrEmpty(groupSetupModel.FPPI.sp_ProductCode))
+                                {
+                                    PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                                    {
+                                        ProductCode = groupSetupModel.FPPI.sp_ProductCode,
+                                        ProductId = prdid
+
+                                    };
+                                    groupSetupModel.FPPI.sp_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                                }
+                                if (!string.IsNullOrEmpty(groupSetupModel.FPPI.ch_ProductCode))
+                                {
+                                    PlanCodeViewModel planCodeViewModel = new PlanCodeViewModel
+                                    {
+                                        ProductCode = groupSetupModel.FPPI.ch_ProductCode,
+                                        ProductId = prdid
+
+                                    };
+                                    groupSetupModel.FPPI.ch_plan_cd = DataHelper.UpdatePlanCode(planCodeViewModel, _unitofWork).ProdctCdId.ToString();
+                                }
 
                                 UpdateBulkRefTable(groupSetupModel.FPPI, prod.GrpprdctId);
                                 groupSetupModel.isFPPIActive = false;
@@ -463,11 +594,11 @@ namespace AFBA.EPP.Controllers
         {
             var prdid = Helper.GetProductIdbyName(productName, _unitofWork);
             var grpprdId = Helper.GetRandomNumber();
-            AddProductCodes(new ProductCodesViewModel
-            {
-                ProductCode =vOL_CI.emp_ProductCode,
-                ProductId = prdid
-            });
+            //AddProductCodes(new ProductCodesViewModel
+            //{
+            //    ProductCode =vOL_CI.emp_ProductCode,
+            //    ProductId = prdid
+            //});
             _unitofWork.eppGrpprdctRepository.Add(new EppGrpprdct
             {
                 GrpprdctId = grpprdId,
@@ -684,12 +815,14 @@ namespace AFBA.EPP.Controllers
                                     groupSetupModel.isFPPGActive = true;
                                     groupSetupModel.FPPG = new FPPG();
                                     GetProductValue(groupSetupModel.FPPG, prod.GrpprdctId);
-                                  
 
-                                    // load product code
-                                    groupSetupModel.FPPG.emp_ProductCode = GetProductCode(groupSetupModel.FPPG.emp_plan_cd);
-                                    groupSetupModel.FPPG.sp_ProductCode = GetProductCode(groupSetupModel.FPPG.sp_plan_cd);
-                                    groupSetupModel.FPPG.ch_ProductCode = GetProductCode(groupSetupModel.FPPG.sp_plan_cd);
+                                    if (!string.IsNullOrEmpty(groupSetupModel.FPPG.emp_plan_cd))
+                                       
+                                        groupSetupModel.FPPG.emp_ProductCode = GetProductCode(groupSetupModel.FPPG.emp_plan_cd);
+                                    if (!string.IsNullOrEmpty(groupSetupModel.FPPG.sp_plan_cd))
+                                        groupSetupModel.FPPG.sp_ProductCode = GetProductCode(groupSetupModel.FPPG.sp_plan_cd);
+                                    if (!string.IsNullOrEmpty(groupSetupModel.FPPG.ch_plan_cd))
+                                        groupSetupModel.FPPG.ch_ProductCode = GetProductCode(groupSetupModel.FPPG.ch_plan_cd);
                                     break;
                                 }
                             case "ACC_HI":
@@ -708,11 +841,14 @@ namespace AFBA.EPP.Controllers
                                     groupSetupModel.isER_CIActive = true;
                                     groupSetupModel.ER_CI = new ER_CI();
                                     GetProductValue(groupSetupModel.ER_CI, prod.GrpprdctId);
-                                   
 
-                                    groupSetupModel.ER_CI.emp_ProductCode = GetProductCode(groupSetupModel.ER_CI.emp_plan_cd);
-                                    groupSetupModel.ER_CI.sp_ProductCode = GetProductCode(groupSetupModel.ER_CI.sp_plan_cd);
-                                    groupSetupModel.ER_CI.ch_ProductCode = GetProductCode(groupSetupModel.ER_CI.sp_plan_cd);
+
+                                    if (!string.IsNullOrEmpty(groupSetupModel.ER_CI.emp_plan_cd))
+                                        groupSetupModel.ER_CI.emp_ProductCode = GetProductCode(groupSetupModel.ER_CI.emp_plan_cd);
+                                    if (!string.IsNullOrEmpty(groupSetupModel.ER_CI.sp_plan_cd))
+                                        groupSetupModel.ER_CI.sp_ProductCode = GetProductCode(groupSetupModel.ER_CI.sp_plan_cd);
+                                    if (!string.IsNullOrEmpty(groupSetupModel.ER_CI.ch_plan_cd))
+                                        groupSetupModel.ER_CI.ch_ProductCode = GetProductCode(groupSetupModel.ER_CI.ch_plan_cd);
                                     break;
                                 }
                             case "VOL_CI":
@@ -721,10 +857,12 @@ namespace AFBA.EPP.Controllers
                                     groupSetupModel.VOL_CI = new VOL_CI();
                                     GetProductValue(groupSetupModel.VOL_CI, prod.GrpprdctId);
                                    
-
+                                    if(!string.IsNullOrEmpty(groupSetupModel.VOL_CI.emp_plan_cd))
                                     groupSetupModel.VOL_CI.emp_ProductCode = GetProductCode(groupSetupModel.VOL_CI.emp_plan_cd);
+                                    if (!string.IsNullOrEmpty(groupSetupModel.VOL_CI.sp_plan_cd))
                                     groupSetupModel.VOL_CI.sp_ProductCode = GetProductCode(groupSetupModel.VOL_CI.sp_plan_cd);
-                                    groupSetupModel.VOL_CI.ch_ProductCode = GetProductCode(groupSetupModel.VOL_CI.sp_plan_cd);
+                                    if (!string.IsNullOrEmpty(groupSetupModel.VOL_CI.ch_plan_cd))
+                                        groupSetupModel.VOL_CI.ch_ProductCode = GetProductCode(groupSetupModel.VOL_CI.ch_plan_cd);
 
                                     break;
                                 }
@@ -754,10 +892,12 @@ namespace AFBA.EPP.Controllers
                                     GetProductValue(groupSetupModel.FPPI, prod.GrpprdctId);
 
                                    
-
+                                    if(!string.IsNullOrEmpty(groupSetupModel.FPPI.emp_plan_cd))
                                     groupSetupModel.FPPI.emp_ProductCode = GetProductCode(groupSetupModel.FPPI.emp_plan_cd);
-                                    groupSetupModel.FPPI.sp_ProductCode = GetProductCode(groupSetupModel.FPPI.sp_plan_cd);
-                                    groupSetupModel.FPPI.ch_ProductCode = GetProductCode(groupSetupModel.FPPI.sp_plan_cd);
+                                    if (!string.IsNullOrEmpty(groupSetupModel.FPPI.sp_plan_cd))
+                                     groupSetupModel.FPPI.sp_ProductCode = GetProductCode(groupSetupModel.FPPI.sp_plan_cd);
+                                    if (!string.IsNullOrEmpty(groupSetupModel.FPPI.ch_plan_cd))
+                                        groupSetupModel.FPPI.ch_ProductCode = GetProductCode(groupSetupModel.FPPI.ch_plan_cd);
 
                                     break;
                                 }
