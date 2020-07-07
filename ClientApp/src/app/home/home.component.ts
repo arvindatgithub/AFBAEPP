@@ -23,11 +23,11 @@ export class HomeComponent {
   }
 
   ManageErrorMsg() {
-    this.router.navigate(['/group-search']);
+    this.router.navigate(['/']);
   }
 
   ManageTemplate() {
-    this.router.navigate(['/custom-bulk-template']);
+    this.router.navigate(['/']);
   }
 
 }
