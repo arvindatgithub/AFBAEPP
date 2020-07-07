@@ -8,7 +8,7 @@
       </div>
       <div class="col-3">
         <span class="label label-default">Product Effective Date</span>
-        <input type="date" formControlName="FCVolGrpLfEffectiveDate" class="form-control mb-2" style="width: 100%;"
+        <input type="date" [value]="latest_datevolgrplife" formControlName="FCVolGrpLfEffectiveDate" class="form-control mb-2" style="width: 100%;"
           placeholder="Group Effective Date">
 
       </div>
@@ -40,13 +40,13 @@
       </div>
       <div class="col-3">
 
-        <span class="label label-default">Employee GI Amount Max($)</span>
+        <span class="label label-default">Emp GI Amount Max($)</span>
 
         <input type="text" class="form-control mb-2 " formControlName="FCVolGrpLfEmpGIAmtMax" style="width: 100%;" placeholder="Employee GI Amount Max"required
         onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
       <div class="col-3">
-        <span class="label label-default">Employee Max Amount($)</span>
+        <span class="label label-default">Emp Max Amount($)</span>
         <input type="text"  formControlName="FCVolGrpLfEmpAmtMax" class="form-control mb-2 " style="width: 100%;" placeholder="Employee Max Amount"required
         onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
