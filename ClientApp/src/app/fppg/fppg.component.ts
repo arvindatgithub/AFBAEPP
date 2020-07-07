@@ -48,6 +48,7 @@ export class FPPGComponent implements OnInit, OnChanges {
     private fb: FormBuilder, private eppservice: EppCreateGrpSetupService,
     public datepipe: DatePipe, private groupsearchService: GroupsearchService) {
     this.fppgSitus = this.lookupValue;
+   
   }
 
   ngOnChanges(simpleChange: SimpleChanges) {
@@ -55,8 +56,11 @@ export class FPPGComponent implements OnInit, OnChanges {
     this.fppgSitus = this.lookupValue;
     this.latest_date = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
     this.lookupValue = simpleChange.lookupValue.currentValue;
+  
   }
-
+  // get myForm() {
+  //   return this.fppgformgrp.get(['FCfppgEffectiveDate']);
+  // }
   ngOnInit() {
     this.lookUpDataSitusStates = JSON.parse(localStorage.getItem('lookUpSitusApiData'));
 
@@ -73,7 +77,7 @@ export class FPPGComponent implements OnInit, OnChanges {
         }
       }
       this.fppgformgrp = this.fb.group({
-        FCfppgEffectiveDate: [(this.fppgData.isFPPGActive) ? this.fppgDate : this.minDate, Validators.required],
+        FCfppgEffectiveDate: [(this.fppgData.isFPPGActive) ? this.fppgDate : this.latest_date, Validators.required],
         FCfppgSitusState: [(this.fppgData.isFPPGActive) ? this.fppgSitus : this.fppgSitus, Validators.required],
         FCfppgEmpAmtMax: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.emp_max_amt : "", Validators.required],
         FCfppgEmpGIAmtMax: [(this.fppgData.isFPPGActive) ? this.fppgData.fppg.emp_gi_max_amt : "", Validators.required],

@@ -18,7 +18,8 @@ import { VolGroupLifeComponent } from '../vol-group-life/vol-group-life.componen
 import { BasicGroupLifeComponent } from '../basic-group-life/basic-group-life.component'
 import { GroupsearchService } from '../services/groupsearch.service';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
+
 @Component({
   selector: 'app-group-setup',
   templateUrl: './group-setup.component.html',
@@ -218,7 +219,7 @@ export class GroupSetupComponent implements OnInit {
 
   
   constructor(private eppcreategroupservice: EppCreateGrpSetupService,private toastr: ToastrService, private _fb: FormBuilder,
-    private snackBar: MatSnackBar, private lookupService: LookupService, private route: ActivatedRoute,
+    private snackBar: MatSnackBar, private lookupService: LookupService, private route: ActivatedRoute,private router: Router,
     private groupsearchService: GroupsearchService) {
   }
 
@@ -1626,8 +1627,14 @@ export class GroupSetupComponent implements OnInit {
         (data: any) => {
         console.log("Edit Response data", data);
       },
-      (err) => {
-        console.log('edit group api'+ err.status);
+      (err:any) => {
+        if(err.status===200){
+          this.toastr.success(err.error.text,'Success',{
+              timeOut:3000,
+            });
+
+        }
+       
       }
       );
     } else {
@@ -1641,8 +1648,11 @@ export class GroupSetupComponent implements OnInit {
         if(error.status===200){
           this.toastr.success(error.error.text,'Success',{
               timeOut:3000,
+              
             });
+            this.router.navigate(['/group-search']);
         }
+        
         else if(error.status===400){
           this.toastr.error(error.error,'Error',{
             timeOut:3000,
