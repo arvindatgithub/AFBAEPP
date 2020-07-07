@@ -89,12 +89,17 @@ export class FPPIndividualComponent implements OnInit, OnChanges {
         FCfppiChildPlanCode: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.ch_ProductCode : "", Validators.required],
 
       });
-      this.status = this.eppservice.getUserStatus();
-      if (this.groupsearchService.getFromSearchFlag() && this.status == '') {
-        this.resetFlag = true;
-      } else {
-        this.resetFlag = false;
-      }
+
+      this.eppservice.castsetStatus.subscribe((data) => {
+        this.status = data;
+        if (this.groupsearchService.getFromSearchFlag() && this.status == '') {
+          this.fppiformgrp.disable();
+          this.resetFlag = true;
+        } else {
+          this.fppiformgrp.enable();
+          this.resetFlag = false;
+        }
+      });
 
 
     }

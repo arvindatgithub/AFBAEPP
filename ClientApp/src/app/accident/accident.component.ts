@@ -119,15 +119,19 @@ export class AccidentComponent implements OnInit, OnChanges {
         FcaccSpouseGender: [(this.accidentData.isACC_HIActive) ? this.sp_gndr : false, Validators.required],
 
       });
-      this.status = this.eppservice.getUserStatus();
+     // this.status = this.eppservice.getUserStatus();
 
+     this.eppservice.castsetStatus.subscribe((data) => {
+      this.status = data;
       if (this.groupsearchService.getFromSearchFlag() && this.status == '') {
+        this.accformgrp.disable();
         this.resetFlag = true;
       } else {
+        this.accformgrp.enable();
         this.resetFlag = false;
       }
-    }
-
+    });
+  }
 
   }
   resetAcc() {

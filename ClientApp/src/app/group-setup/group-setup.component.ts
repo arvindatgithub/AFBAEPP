@@ -205,12 +205,11 @@ export class GroupSetupComponent implements OnInit {
   editExistGrpNbr;
   occupationSelected = '';
   selectedState = '0';
-  fieldsetDisabled;
+  fieldsetDisabled = false;
   addToggle = false;
   editToggle = false;
   cloneToggle = false;
   toggleFlag ;
-  editRAddFlag = false;
   status;
   fromSearchFlag;
   sub : any;
@@ -228,7 +227,7 @@ export class GroupSetupComponent implements OnInit {
       this.grpNbr = params['grpNbr']; 
    });
    
-  
+   this.eppcreategroupservice.setChaStatus('');
 
       this.eppcreategroupservice.getGroupNbrEppData(this.grpNbr).subscribe(data => {
         console.log('Groups Data on load from db'+ JSON.stringify(data));
@@ -484,11 +483,19 @@ export class GroupSetupComponent implements OnInit {
       
           });
         }
-        if(!this.editRAddFlag){
-          this.fieldsetDisabled = true;
-        }else{
-          this.editRAddFlag = false;
-        }
+        this.eppcreategroupservice.castsetStatus.subscribe((data) => {
+          this.status = data;
+          if (this.groupsearchService.getFromSearchFlag() && this.status == '') {
+            this.fieldsetDisabled = true;
+            this.agentformgrp.disable();
+            this.toggleFlag = true;
+          } else {
+            this.fieldsetDisabled = false;
+            this.agentformgrp.enable();
+            this.toggleFlag = false;
+          }
+        });
+
         let key = 'GroupNumApiData';
         if (localStorage.getItem("GroupNumApiData") !== null) {
           localStorage.clear();
@@ -539,7 +546,7 @@ export class GroupSetupComponent implements OnInit {
       
       FCOccControl: ["", Validators.required]
     })
-    this.status = this.eppcreategroupservice.getUserStatus();
+   // this.status = this.eppcreategroupservice.getUserStatus();
     this.fromSearchFlag = this.groupsearchService.getFromSearchFlag();
 
   }
@@ -548,26 +555,35 @@ export class GroupSetupComponent implements OnInit {
     this.addToggle = false;
     this.editToggle = true;
     this.cloneToggle = false;
+    this.toggleFlag = false;
     let grpNbr = this.groupsearchService.getEditGrpNbr();
-    this.editRAddFlag = true;
+    this.fieldsetDisabled = false;
+    //this.agentformgrp.enable();
     this.editServiceCall = true;
-    this.eppcreategroupservice.setUserStatus('Edit');
+    this.eppcreategroupservice.setChaStatus('Edit');
+    //this.eppcreategroupservice.setUserStatus('Edit');
     this.status = this.eppcreategroupservice.getUserStatus();
   }
   onAdd() {
     this.addToggle = true;
     this.editToggle = false;
     this.cloneToggle = false;
-    this.editRAddFlag = true;
+    this.toggleFlag = false;
+    this.fieldsetDisabled = false;
+   // this.agentformgrp.enable();
     this.editServiceCall = false;
-    this.eppcreategroupservice.setUserStatus('Add');
+    this.eppcreategroupservice.setChaStatus('Edit');
+    //this.eppcreategroupservice.setUserStatus('Add');
     this.status = this.eppcreategroupservice.getUserStatus();
   }
   onClone() {
     this.addToggle = false;
     this.editToggle = false;
     this.cloneToggle = true;
-    
+    this.toggleFlag = false;
+    this.fieldsetDisabled = false;
+    this.eppcreategroupservice.setChaStatus('Clone');
+
     this.editServiceCall = false;
     this.groupNumber = '';
     this.groupName = '';

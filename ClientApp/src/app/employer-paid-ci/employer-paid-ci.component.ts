@@ -88,13 +88,17 @@ export class EmployerPaidCIComponent implements OnInit, OnChanges {
         FCempCIChdFcAmt_Action: [(this.empCiData.isER_CIActive) ? this.empCiData.eR_CI.ch_plan_cd_action : this.radioButtonArr[1].value, Validators.required],
         FCempCISpouseFcAmt_Action: [(this.empCiData.isER_CIActive) ? this.empCiData.eR_CI.sp_plan_cd_action : this.radioButtonArr[1].value, Validators.required]
       });
-      this.status = this.eppservice.getUserStatus();
-      if (this.groupsearchService.getFromSearchFlag() && this.status == '') {
-        this.resetFlag = true;
-      } else {
-        this.resetFlag = false;
-      }
-
+      
+      this.eppservice.castsetStatus.subscribe((data) => {
+        this.status = data;
+        if (this.groupsearchService.getFromSearchFlag() && this.status == '') {
+          this.empCIformgrp.disable();
+          this.resetFlag = true;
+        } else {
+          this.empCIformgrp.enable();
+          this.resetFlag = false;
+        }
+      });
 
 
     }

@@ -99,13 +99,16 @@ export class VoluntaryCIComponent implements OnInit, OnChanges {
         FCVolCISpouseTB: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.sp_smkr_no_smkr : "", Validators.required],
       });
 
-      this.status = this.eppservice.getUserStatus();
-
-      if (this.groupsearchService.getFromSearchFlag() && this.status == '') {
-        this.resetFlag = true;
-      } else {
-        this.resetFlag = false;
-      }
+      this.eppservice.castsetStatus.subscribe((data) => {
+        this.status = data;
+        if (this.groupsearchService.getFromSearchFlag() && this.status == '') {
+          this.volCIformgrp.disable();
+          this.resetFlag = true;
+        } else {
+          this.volCIformgrp.enable();
+          this.resetFlag = false;
+        }
+      });
     }
 
   }

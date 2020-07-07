@@ -52,7 +52,7 @@ export class VolGroupLifeComponent implements OnInit, OnChanges {
 
     this.volGrpData = JSON.parse(localStorage.getItem('GroupNumApiData'));
 
-    if (this.volGrpData !== undefined) {
+    if (this.volGrpData !== undefined ) {
 
       if (this.volGrpData.isVGLActive) {
         this.volGrpDate = this.datepipe.transform(this.volGrpData.vgl.effctv_dt, 'yyyy-MM-dd');
@@ -85,12 +85,18 @@ export class VolGroupLifeComponent implements OnInit, OnChanges {
         // FCVolGrpLfCaseToken_Action: [this.radioButtonArr[1].value,Validators.required],
         // FCVolGrpLfCaseToken: ["",Validators.required],
       });
-      this.status = this.eppservice.getUserStatus();
-      if (this.groupsearchService.getFromSearchFlag() && this.status == '') {
-        this.resetFlag = true;
-      } else {
-        this.resetFlag = false;
-      }
+      
+
+      this.eppservice.castsetStatus.subscribe((data) => {
+        this.status = data;
+        if (this.groupsearchService.getFromSearchFlag() && this.status == '') {
+          this.volGrpLfformgrp.disable();
+          this.resetFlag = true;
+        } else {
+          this.volGrpLfformgrp.enable();
+          this.resetFlag = false;
+        }
+      });
     }
 
 

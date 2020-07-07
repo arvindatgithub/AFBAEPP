@@ -99,12 +99,17 @@ export class HospitalIndemnityComponent implements OnInit, OnChanges {
         FchospSpouseGender: [(this.hiData.isHIActive) ? this.sp_gndr : false, Validators.required],
 
       });
-      this.resetFlag = false;
-      this.status = this.eppservice.getUserStatus();
-      if (this.groupsearchService.getFromSearchFlag() && this.status == '') {
-        this.resetFlag = true;
-      }
-
+     
+      this.eppservice.castsetStatus.subscribe((data) => {
+        this.status = data;
+        if (this.groupsearchService.getFromSearchFlag() && this.status == '') {
+          this.hospformgrp.disable();
+          this.resetFlag = true;
+        } else {
+          this.hospformgrp.enable();
+          this.resetFlag = false;
+        }
+      });
     }
 
   }
