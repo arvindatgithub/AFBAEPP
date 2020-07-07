@@ -22,14 +22,14 @@
 
   <!-- Group Section -->
 
-  <form  #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
     <fieldset [disabled]="fieldsetDisabled">
       <div class="row">
         <div class="form-group col-md-3">
           <span class="label label-default">Group Number<span aria-hidden="true" class="required">*</span></span>
           <input type="text" maxlength="5" name="gname" #gname="ngModel" class="form-control" [(ngModel)]="groupNumber"
-            style="width: 100%;" placeholder="Group Number Field" required
-            onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                 style="width: 100%;" placeholder="Group Number Field" required
+                 onkeyup="this.value=this.value.replace(/[^\d]/,'')">
           <div *ngIf="gname.invalid && (gname.dirty || gname.touched)">
             <small *ngIf="gname.errors.required" style="color: red;">Group Number is required!</small>
           </div>
@@ -37,7 +37,7 @@
         <div class="form-group col-md-3">
           <span class="label label-default">Group Name<span aria-hidden="true" class="required">*</span></span>
           <input type="text" class="form-control" name="grpname" ngModel #grpname="ngModel" [(ngModel)]="groupName"
-            style="width: 100%;" placeholder="Group Name Field" required>
+                 style="width: 100%;" placeholder="Group Name Field" required>
           <div *ngIf="grpname.touched">
             <small *ngIf="grpname.errors?.required" style="color: red;">Group Name is required!</small>
           </div>
@@ -45,15 +45,16 @@
         <div class="form-group col-md-3" [formGroup]="groupSetupFG">
           <span class="label label-default">Group effective date<span aria-hidden="true" class="required">*</span></span>
           <input type="date" formControlName="fcEffDate" name="effDate" class="form-control" [(ngModel)]="minDate"
-            style="width: 100%;" placeholder="Group Effective Date">
+                 style="width: 100%;" placeholder="Group Effective Date">
         </div>
         <div class="form-group col-md-3">
           <span class="label label-default">Group Payment Mode<span aria-hidden="true" class="required">*</span></span>
           <select class="select-dropdown" #paymentMode [(ngModel)]="grpPymn" name="paymentMode"
-            (change)="getLookupValuePaymentMode($event.target.value)">
+                  (change)="getLookupValuePaymentMode($event.target.value)">
             <!-- <option hidden disabled selected value> -- select a Payment Mode -- </option> -->
             <option *ngFor="let each of paymentModes" [selected]="each.grpPymn == '10007'" value="{{each.grpPymn}}">
-              {{each.grpPymntMdNm}}</option>
+              {{each.grpPymntMdNm}}
+            </option>
           </select>
         </div>
       </div>
@@ -62,8 +63,8 @@
         <div class="form-group col-md-3">
           <span class="label label-default">Group Vendor<span aria-hidden="true" class="required">*</span></span>
           <input type="text" class="form-control" name=vendorname ngModel #vendorname="ngModel"
-            [(ngModel)]="EnrolmentPatnerName" placeholder="Group Vendor Name" required
-            onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
+                 [(ngModel)]="EnrolmentPatnerName" placeholder="Group Vendor Name" required
+                 onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
           <div *ngIf="vendorname.touched">
             <small *ngIf="vendorname.errors?.required" style="color: red;">Vendor Name is required!</small>
           </div>
@@ -72,8 +73,8 @@
         <div class="form-group col-md-3">
           <span class="label label-default">Group Vendor Email<span aria-hidden="true" class="required">*</span></span>
           <input type="email" [(ngModel)]="EnrolEmailAddress" name="email" ngModel #email="ngModel"
-            pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$" required class="form-control"
-            placeholder=" Group Vendor Email">
+                 pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$" required class="form-control"
+                 placeholder=" Group Vendor Email">
           <div *ngIf="email.touched" name="email">
             <small *ngIf="email.errors?.required" style="color: red;">Email is a required field!</small>
             <small *ngIf="email.errors?.pattern" style="color: red;">This is not a valid Email!!!</small>
@@ -88,7 +89,8 @@
             <select class="select-dropdown" formControlName="FCOccControl" [(ngModel)]="occupationSelected">
               <!-- <option value="" selected disabled hidden>Select Occupation Class</option> -->
               <option *ngFor="let item of occClass" [value]="item.id" [selected]="occupationSelected == item.occupation">
-                {{item.occupation}}</option>
+                {{item.occupation}}
+              </option>
             </select>
           </div>
         </div>
@@ -98,8 +100,8 @@
         <div class=" col-md-3">
           <span class="label label-default">Account Manager Name<span aria-hidden="true" class="required">*</span></span>
           <input type="text" class="form-control" name="accountmanager" ngModel #accountmanager="ngModel"
-            [(ngModel)]="ManegerName" placeholder="Account Manager Name" required
-            onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
+                 [(ngModel)]="ManegerName" placeholder="Account Manager Name" required
+                 onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
           <div *ngIf="accountmanager.touched">
             <small *ngIf="accountmanager.errors?.required" style="color: red;">Account Manager Name is required!</small>
           </div>
@@ -107,8 +109,8 @@
         <div class="col-md-3">
           <span class="label label-default">Account Manager Email<span aria-hidden="true" class="required">*</span></span>
           <input type="email" name="Accountemail" ngModel #Accountemail="ngModel"
-            pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$" required class="form-control"
-            [(ngModel)]="ManagerEmail" placeholder="Account Manager Email">
+                 pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$" required class="form-control"
+                 [(ngModel)]="ManagerEmail" placeholder="Account Manager Email">
           <div *ngIf="Accountemail.touched">
             <small *ngIf="Accountemail.errors?.required" style="color: red;">Email is a required field!</small>
             <small *ngIf="Accountemail.errors?.pattern" style="color: red;">This is not a valid Email!!!</small>
@@ -117,1022 +119,1053 @@
         <div class="col-md-3">
           <span class="label label-default">Situs State<span aria-hidden="true" class="required">*</span></span>
           <select class="select-dropdown my-1" name="situsState" #situsState (change)="getLookupValueSitusState(situsState.value)"
-            [(ngModel)]="selectedState">
+                  [(ngModel)]="selectedState">
             <!-- <option hidden disabled selected value> -- select Situs State -- </option> -->
             <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates" value={{lookUpDataSitusState.id}}
-              [selected]="lookUpDataSitusState.id == selectedState">
+                    [selected]="lookUpDataSitusState.id == selectedState">
               {{ lookUpDataSitusState.state }}
             </option>
           </select>
         </div>
       </div>
-  </fieldset>
+    </fieldset>
 
-  <div>
+    <div>
 
-    <div class="agent-form" [formGroup]="agentformgrp">
-      <!-- <div *ngIf="commissionSplitErr">
+      <div class="agent-form" [formGroup]="agentformgrp">
+        <!-- <div *ngIf="commissionSplitErr">
         <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
       </div> -->
-      <!-- first-row -->
-      <div class="row" style="justify-content:space-evenly;">
-        <div class="col-md-3">
-          <span class="label label-default">Agent Number</span>
-          <input type="text"  maxlength="5" formControlName="AgentNumber" [(ngModel)]="agentNumber_0" name="text"
-            (change)="changeAgNum0($event.target.value)" class="form-control mb-2" style="width: 100%;"
-            placeholder="Primary Agent Number" onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-        </div>
-        <div class="col-md-3">
-          <span class="label label-default">Agent SubCount</span>
-          <input type="text" maxlength="3" formControlName="AgentSubCount" [(ngModel)]="agentSubCount_0" class="form-control mb-2"
-            (change)="changeAgSub0($event.target.value)" style="width: 100%;" placeholder="Agent SubCount"
-            onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-        </div>
-        <div class="col-md-3">
-          <span class="label label-default">Commisson Split %</span>
-          <input type="text" formControlName="CommissonSplit" [(ngModel)]="agentCommissionSPlit_0"
-            (change)="changeAgComSpl0($event.target.value)" class="form-control mb-2 " style="width: 100%;"
-            placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+        <!-- first-row -->
+        <div class="row" style="justify-content:space-evenly;">
+          <div class="col-md-3">
+            <span class="label label-default">Agent Number</span>
+            <input type="text" maxlength="5" formControlName="AgentNumber" [(ngModel)]="agentNumber_0" name="text"
+                   (change)="changeAgNum0($event.target.value)" class="form-control mb-2" style="width: 100%;"
+                   placeholder="Primary Agent Number" onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+          </div>
+          <div class="col-md-3">
+            <span class="label label-default">Agent SubCount</span>
+            <input type="text" maxlength="3" formControlName="AgentSubCount" [(ngModel)]="agentSubCount_0" class="form-control mb-2"
+                   (change)="changeAgSub0($event.target.value)" style="width: 100%;" placeholder="Agent SubCount"
+                   onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+          </div>
+          <div class="col-md-3">
+            <span class="label label-default">Commisson Split %</span>
+            <input type="text" formControlName="CommissonSplit" [(ngModel)]="agentCommissionSPlit_0"
+                   (change)="changeAgComSpl0($event.target.value)" class="form-control mb-2 " style="width: 100%;"
+                   placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
 
-        </div>
+          </div>
 
-        <div class="col-md-3">
-          <span class="label label-default">Agent Name</span>
-          <input type="text" formControlName="AgentName" [(ngModel)]="agent_name" class="form-control mb-2 "
-            (change)="changeAgNm0($event.target.value)" style="width: 100%;" placeholder="Agent Name"
-            onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
+          <div class="col-md-3">
+            <span class="label label-default">Agent Name</span>
+            <input type="text" formControlName="AgentName" [(ngModel)]="agent_name" class="form-control mb-2 "
+                   (change)="changeAgNm0($event.target.value)" style="width: 100%;" placeholder="Agent Name"
+                   onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
             <div *ngIf="commissionSplitErr">
-              <h6 style="color: #ff6363;" >Commission Split Value Cannot Be More Than 100</h6>
+              <h6 style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</h6>
             </div>
-        </div>
-      
-      </div>
-
-      <!-- second-row -->
-      <div class="row">
-        <div class="col-md-3">
-          <input type="text"  maxlength="5" formControlName="AgentNumber1" [(ngModel)]="agentNumber_1" class="form-control mb-2"
-            (change)="changeAgNum1($event.target.value)" style="width: 100%;" placeholder="Agent Number"
-            onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-        </div>
-        <div class="col-md-3">
-          <input type="text" maxlength="3" formControlName="AgentSubCount1" [(ngModel)]="agentSubCount_1" class="form-control mb-2"
-            (change)="changeAgSub1($event.target.value)" style="width: 100%;" placeholder="Agent SubCount"
-            onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-        </div>
-        <div class="col-md-3">
-          <input type="text" formControlName="CommissonSplit1" [(ngModel)]="agentCommissionSPlit_1"
-            (change)="changeAgComSpl1($event.target.value)" class="form-control mb-2 " style="width: 100%;"
-            placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+          </div>
 
         </div>
 
-      </div>
-      <!-- 3rd-row -->
-      <div class="row">
-        <div class="col-md-3">
-          <input type="text" maxlength="5" formControlName="AgentNumber2" [(ngModel)]="agentNumber_2" class="form-control mb-2"
-            (change)="changeAgNum2($event.target.value)" style="width: 100%;" placeholder="Agent Number"
-            onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-        </div>
-        <div class="col-md-3">
-          <input type="text" maxlength="3" formControlName="AgentSubCount2" [(ngModel)]="agentSubCount_2" class="form-control mb-2"
-            (change)="changeAgSub2($event.target.value)" style="width: 100%;" placeholder="Agent SubCount"
-            onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-        </div>
-        <div class="col-md-3">
-          <input type="text" formControlName="CommissonSplit2" [(ngModel)]="agentCommissionSPlit_2"
-            (change)="changeAgComSpl2($event.target.value)" class="form-control mb-2 " style="width: 100%;"
-            placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+        <!-- second-row -->
+        <div class="row">
+          <div class="col-md-3">
+            <input type="text" maxlength="5" formControlName="AgentNumber1" [(ngModel)]="agentNumber_1" class="form-control mb-2"
+                   (change)="changeAgNum1($event.target.value)" style="width: 100%;" placeholder="Agent Number"
+                   onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+          </div>
+          <div class="col-md-3">
+            <input type="text" maxlength="3" formControlName="AgentSubCount1" [(ngModel)]="agentSubCount_1" class="form-control mb-2"
+                   (change)="changeAgSub1($event.target.value)" style="width: 100%;" placeholder="Agent SubCount"
+                   onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+          </div>
+          <div class="col-md-3">
+            <input type="text" formControlName="CommissonSplit1" [(ngModel)]="agentCommissionSPlit_1"
+                   (change)="changeAgComSpl1($event.target.value)" class="form-control mb-2 " style="width: 100%;"
+                   placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+
+          </div>
 
         </div>
+        <!-- 3rd-row -->
+        <div class="row">
+          <div class="col-md-3">
+            <input type="text" maxlength="5" formControlName="AgentNumber2" [(ngModel)]="agentNumber_2" class="form-control mb-2"
+                   (change)="changeAgNum2($event.target.value)" style="width: 100%;" placeholder="Agent Number"
+                   onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+          </div>
+          <div class="col-md-3">
+            <input type="text" maxlength="3" formControlName="AgentSubCount2" [(ngModel)]="agentSubCount_2" class="form-control mb-2"
+                   (change)="changeAgSub2($event.target.value)" style="width: 100%;" placeholder="Agent SubCount"
+                   onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+          </div>
+          <div class="col-md-3">
+            <input type="text" formControlName="CommissonSplit2" [(ngModel)]="agentCommissionSPlit_2"
+                   (change)="changeAgComSpl2($event.target.value)" class="form-control mb-2 " style="width: 100%;"
+                   placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
 
-      </div>
-      <!-- 4th-row -->
-      <div class="row">
-        <div class="col-md-3">
-          <input type="text" maxlength="5" formControlName="AgentNumber3" [(ngModel)]="agentNumber_3" class="form-control mb-2"
-            (change)="changeAgNum3($event.target.value)" style="width: 100%;" placeholder="Agent Number"
-            onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-        </div>
-        <div class="col-md-3">
-          <input type="text" maxlength="3" formControlName="AgentSubCount3" [(ngModel)]="agentSubCount_3" class="form-control mb-2"
-            (change)="changeAgSub3($event.target.value)" style="width: 100%;" placeholder="Agent SubCount"
-            onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-        </div>
-        <div class="col-md-3">
-          <input type="text" formControlName="CommissonSplit3" [(ngModel)]="agentCommissionSPlit_3"
-            (change)="changeAgComSpl3($event.target.value)" class="form-control mb-2 " style="width: 100%;"
-            placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+          </div>
 
         </div>
+        <!-- 4th-row -->
+        <div class="row">
+          <div class="col-md-3">
+            <input type="text" maxlength="5" formControlName="AgentNumber3" [(ngModel)]="agentNumber_3" class="form-control mb-2"
+                   (change)="changeAgNum3($event.target.value)" style="width: 100%;" placeholder="Agent Number"
+                   onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+          </div>
+          <div class="col-md-3">
+            <input type="text" maxlength="3" formControlName="AgentSubCount3" [(ngModel)]="agentSubCount_3" class="form-control mb-2"
+                   (change)="changeAgSub3($event.target.value)" style="width: 100%;" placeholder="Agent SubCount"
+                   onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+          </div>
+          <div class="col-md-3">
+            <input type="text" formControlName="CommissonSplit3" [(ngModel)]="agentCommissionSPlit_3"
+                   (change)="changeAgComSpl3($event.target.value)" class="form-control mb-2 " style="width: 100%;"
+                   placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
 
+          </div>
+
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="container">
-    <div id="accordion" class="accordion">
-      <div class="card mt-2" style="cursor: pointer;">
-        <button type="button" style="border-width: 0px; text-align: left;" [disabled]="checkedToggleProductFppg==='Inactive'"  class="card-header collapsed mb-2"  data-toggle="collapse" href="#collapseOne">
-         
+    <div class="container">
+      <div id="accordion" class="accordion">
+        <div class="card mt-2" style="cursor: pointer;">
+          <button type="button" style="border-width: 0px; text-align: left;" [disabled]="checkedToggleProductFppg==='Inactive'" class="card-header collapsed mb-2" data-toggle="collapse" href="#collapseOne">
+
             FPPG
-       
-          <mat-slide-toggle style="float: right;" name="check" [(ngModel)]="isCheckedFppg" (change)="toggleChangeProductFppg($event)"
-            [color]="toggleActiveColor" [disabled]="toggleFlag">
-            {{checkedToggleProductFppg}}</mat-slide-toggle>
-        </button>
-        <div id="collapseOne" class="card-body collapse" data-parent="#accordion">
 
-          <app-fppg [lookupValue]="selectedState" #child0 [dateValue]="dateChange">
+            <mat-slide-toggle style="float: right;" name="check" [(ngModel)]="isCheckedFppg" (change)="toggleChangeProductFppg($event)"
+                              [color]="toggleActiveColor" [disabled]="toggleFlag">
+              {{checkedToggleProductFppg}}
+            </mat-slide-toggle>
+          </button>
+          <div id="collapseOne" class="card-body collapse" data-parent="#accordion">
 
-            <form class="agent-form" [formGroup]="agentformgrp">
-              <!-- <div *ngIf="commissionSplitErr || commissionSplitErrFppg">
+            <app-fppg [lookupValue]="selectedState" #child0 [dateValue]="dateChange">
+
+              <form class="agent-form" [formGroup]="agentformgrp">
+                <!-- <div *ngIf="commissionSplitErr || commissionSplitErrFppg">
                 <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
               </div> -->
-              <div class="radio-button" style="display: inline-block;padding-left: 5px;"
-                *ngFor="let item of radioButtonArr">
-                <div><input type="radio" value={{item.value}} formControlName="fppgAgent_Action" />
-                  <label class="radio-label"> {{item.name}}</label></div>
-              </div>
-              <!-- first-row -->
-              <div class="row" style="justify-content:space-evenly;">
-                <div class="col-md-3">
-                  <span class="label label-default">Agent Number</span>
-                  <input type="text" maxlength="5" formControlName="AgentNumberfppg" name="text" class="form-control mb-2"
-                    style="width: 100%;" placeholder="Primary Agent Number"
-                    onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-                   
+                <div class="radio-button" style="display: inline-block;padding-left: 5px;"
+                     *ngFor="let item of radioButtonArr">
+                  <div>
+                    <input type="radio" value={{item.value}} formControlName="fppgAgent_Action" />
+                    <label class="radio-label"> {{item.name}}</label>
+                  </div>
                 </div>
-                <div class="col-md-3">
-                  <span class="label label-default">Agent SubCount</span>
-                  <input type="text" maxlength="3" formControlName="AgentSubCountfppg" class="form-control mb-2" style="width: 100%;"
-                    placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                </div>
-                <div class="col-md-3">
-                  <span class="label label-default">Commisson Split %</span>
-                  <input type="text" formControlName="CommissonSplitfppg"
-                    (change)="commisioncheckFppg($event.target.value)" class="form-control mb-2 " style="width: 100%;"
-                    placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                </div>
+                <!-- first-row -->
+                <div class="row" style="justify-content:space-evenly;">
+                  <div class="col-md-3">
+                    <span class="label label-default">Agent Number</span>
+                    <input type="text" maxlength="5" formControlName="AgentNumberfppg" name="text" class="form-control mb-2"
+                           style="width: 100%;" placeholder="Primary Agent Number"
+                           onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
 
-                <div class="col-md-3">
-                  <span class="label label-default">Agent Name</span>
-                  <input type="text" formControlName="AgentNamefppg" class="form-control mb-2 " style="width: 100%;"
-                    placeholder="Agent Name" onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
+                  </div>
+                  <div class="col-md-3">
+                    <span class="label label-default">Agent SubCount</span>
+                    <input type="text" maxlength="3" formControlName="AgentSubCountfppg" class="form-control mb-2" style="width: 100%;"
+                           placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                  </div>
+                  <div class="col-md-3">
+                    <span class="label label-default">Commisson Split %</span>
+                    <input type="text" formControlName="CommissonSplitfppg"
+                           (change)="commisioncheckFppg($event.target.value)" class="form-control mb-2 " style="width: 100%;"
+                           placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                  </div>
+
+                  <div class="col-md-3">
+                    <span class="label label-default">Agent Name</span>
+                    <input type="text" formControlName="AgentNamefppg" class="form-control mb-2 " style="width: 100%;"
+                           placeholder="Agent Name" onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
                     <div *ngIf="commissionSplitErr || commissionSplitErrFppg">
-                      <h6 style="color: #ff6363;" >Commission Split Value Cannot Be More Than 100</h6>
+                      <h6 style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</h6>
                     </div>
-                </div>
-              </div>
-
-              <!-- second-row -->
-              <div class="row">
-                <div class="col-md-3">
-                  <input type="text" maxlength="5" formControlName="AgentNumber1fppg" class="form-control mb-2" style="width: 100%;"
-                    placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-                </div>
-                <div class="col-md-3">
-                  <input type="text" maxlength="3" formControlName="AgentSubCount1fppg" class="form-control mb-2" style="width: 100%;"
-                    placeholder="Agent SubCount " onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                </div>
-                <div class="col-md-3">
-                  <input type="text" formControlName="CommissonSplit1fppg"
-                    (change)="commisioncheckFppg($event.target.value)" class="form-control mb-2 " style="width: 100%;"
-                    placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                  </div>
                 </div>
 
-              </div>
-              <!-- 3rd-row -->
-              <div class="row">
-                <div class="col-md-3">
-                  <input type="text" maxlength="5" formControlName="AgentNumber2fppg" class="form-control mb-2" style="width: 100%;"
-                    placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-                </div>
-                <div class="col-md-3">
-                  <input type="text" maxlength="3" formControlName="AgentSubCount2fppg" class="form-control mb-2" style="width: 100%;"
-                    placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                </div>
-                <div class="col-md-3">
-                  <input type="text" formControlName="CommissonSplit2fppg"
-                    (change)="commisioncheckFppg($event.target.value)" class="form-control mb-2 " style="width: 100%;"
-                    placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                </div>
+                <!-- second-row -->
+                <div class="row">
+                  <div class="col-md-3">
+                    <input type="text" maxlength="5" formControlName="AgentNumber1fppg" class="form-control mb-2" style="width: 100%;"
+                           placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" maxlength="3" formControlName="AgentSubCount1fppg" class="form-control mb-2" style="width: 100%;"
+                           placeholder="Agent SubCount " onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="CommissonSplit1fppg"
+                           (change)="commisioncheckFppg($event.target.value)" class="form-control mb-2 " style="width: 100%;"
+                           placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                  </div>
 
-              </div>
-              <!-- 4th-row -->
-              <div class="row">
-                <div class="col-md-3">
-                  <input type="text" maxlength="5" formControlName="AgentNumber3fppg" class="form-control mb-2" style="width: 100%;"
-                    placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
                 </div>
-                <div class="col-md-3">
-                  <input type="text" maxlength="3" formControlName="AgentSubCount3fppg" class="form-control mb-2" style="width: 100%;"
-                    placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                </div>
-                <div class="col-md-3">
-                  <input type="text" formControlName="CommissonSplit3fppg"
-                    (change)="commisioncheckFppg($event.target.value)" class="form-control mb-2 " style="width: 100%;"
-                    placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                </div>
+                <!-- 3rd-row -->
+                <div class="row">
+                  <div class="col-md-3">
+                    <input type="text" maxlength="5" formControlName="AgentNumber2fppg" class="form-control mb-2" style="width: 100%;"
+                           placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" maxlength="3" formControlName="AgentSubCount2fppg" class="form-control mb-2" style="width: 100%;"
+                           placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="CommissonSplit2fppg"
+                           (change)="commisioncheckFppg($event.target.value)" class="form-control mb-2 " style="width: 100%;"
+                           placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                  </div>
 
-              </div>
-            </form>
+                </div>
+                <!-- 4th-row -->
+                <div class="row">
+                  <div class="col-md-3">
+                    <input type="text" maxlength="5" formControlName="AgentNumber3fppg" class="form-control mb-2" style="width: 100%;"
+                           placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" maxlength="3" formControlName="AgentSubCount3fppg" class="form-control mb-2" style="width: 100%;"
+                           placeholder="Agent SubCount" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="CommissonSplit3fppg"
+                           (change)="commisioncheckFppg($event.target.value)" class="form-control mb-2 " style="width: 100%;"
+                           placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                  </div>
 
-          </app-fppg>
-        </div>
-        <button type="button" style="border-width: 0px; text-align: left;" [disabled]="checkedToggleProductFppi==='Inactive'" class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                </div>
+              </form>
+
+            </app-fppg>
+          </div>
+          <button type="button" style="border-width: 0px; text-align: left;" [disabled]="checkedToggleProductFppi==='Inactive'" class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
             FPP Individual
-        
-          <mat-slide-toggle name="check2" style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedFppInd"
-            (change)="toggleChangeProductFppIndivisual($event)" [color]="toggleActiveColor"  [disabled]=toggleFlag>
-            {{checkedToggleProductFppi}}</mat-slide-toggle>
-        </button>
-        <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
 
-          <app-fpp-individual [lookupValue]="selectedState" #child1 [dateValue]="dateChange">
-            <form class="agent-form" [formGroup]="agentformgrp">
-            
-              <div class="radio-button" style="display: inline-block;padding-left: 5px;"
-                *ngFor="let item of radioButtonArr">
-                <div><input type="radio" value={{item.value}} formControlName="fppiAgent_Action" />
-                  <label class="radio-label"> {{item.name}}</label></div>
-              </div>
-              <!-- first-row -->
-              <div class="row" style="justify-content:space-evenly;">
-                <div class="col-md-3">
-                  <span class="label label-default">Agent Number</span>
-                  <input type="text" maxlength="5" formControlName="AgentNumberFppIndivisual" name="text" class="form-control mb-2"
-                    style="width: 100%;" placeholder="Primary Agent Number"
-                    onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-                    
-                </div>
-                <div class="col-md-3">
-                  <span class="label label-default">Agent SubCount</span>
-                  <input type="text" maxlength="3" formControlName="AgentSubCountFppIndivisual" class="form-control mb-2"
-                    style="width: 100%;" placeholder="Agent SubCount"
-                    onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                </div>
-                <div class="col-md-3">
-                  <span class="label label-default">Commisson Split %</span>
-                  <input type="text" formControlName="CommissonSplitFppIndivisual"
-                    (change)="commisioncheckFppi($event.target.value)" class="form-control mb-2 " style="width: 100%;"
-                    placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                </div>
+            <mat-slide-toggle name="check2" style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedFppInd"
+                              (change)="toggleChangeProductFppIndivisual($event)" [color]="toggleActiveColor" [disabled]=toggleFlag>
+              {{checkedToggleProductFppi}}
+            </mat-slide-toggle>
+          </button>
+          <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
 
-                <div class="col-md-3">
-                  <span class="label label-default">Agent Name</span>
-                  <input type="text" formControlName="AgentNameFppIndivisual" class="form-control mb-2 "
-                    style="width: 100%;" placeholder="Agent Name"
-                    onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
+            <app-fpp-individual [lookupValue]="selectedState" #child1 [dateValue]="dateChange">
+              <form class="agent-form" [formGroup]="agentformgrp">
+
+                <div class="radio-button" style="display: inline-block;padding-left: 5px;"
+                     *ngFor="let item of radioButtonArr">
+                  <div>
+                    <input type="radio" value={{item.value}} formControlName="fppiAgent_Action" />
+                    <label class="radio-label"> {{item.name}}</label>
+                  </div>
+                </div>
+                <!-- first-row -->
+                <div class="row" style="justify-content:space-evenly;">
+                  <div class="col-md-3">
+                    <span class="label label-default">Agent Number</span>
+                    <input type="text" maxlength="5" formControlName="AgentNumberFppIndivisual" name="text" class="form-control mb-2"
+                           style="width: 100%;" placeholder="Primary Agent Number"
+                           onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+
+                  </div>
+                  <div class="col-md-3">
+                    <span class="label label-default">Agent SubCount</span>
+                    <input type="text" maxlength="3" formControlName="AgentSubCountFppIndivisual" class="form-control mb-2"
+                           style="width: 100%;" placeholder="Agent SubCount"
+                           onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                  </div>
+                  <div class="col-md-3">
+                    <span class="label label-default">Commisson Split %</span>
+                    <input type="text" formControlName="CommissonSplitFppIndivisual"
+                           (change)="commisioncheckFppi($event.target.value)" class="form-control mb-2 " style="width: 100%;"
+                           placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                  </div>
+
+                  <div class="col-md-3">
+                    <span class="label label-default">Agent Name</span>
+                    <input type="text" formControlName="AgentNameFppIndivisual" class="form-control mb-2 "
+                           style="width: 100%;" placeholder="Agent Name"
+                           onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
                     <div *ngIf="commissionSplitErr || commissionSplitErrFppi">
                       <h6 style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</h6>
                     </div>
-                </div>
-              </div>
-
-              <!-- second-row -->
-              <div class="row">
-                <div class="col-md-3">
-                  <input type="text" maxlength="5" formControlName="AgentNumber1FppIndivisual" class="form-control mb-2"
-                    style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-                </div>
-                <div class="col-md-3">
-                  <input type="text" maxlength="3" formControlName="AgentSubCount1FppIndivisual" class="form-control mb-2"
-                    style="width: 100%;" placeholder="Agent SubCount"
-                    onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                </div>
-                <div class="col-md-3">
-                  <input type="text" formControlName="CommissonSplit1FppIndivisual"
-                    (change)="commisioncheckFppi($event.target.value)" class="form-control mb-2 " style="width: 100%;"
-                    placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                  </div>
                 </div>
 
-              </div>
-              <!-- 3rd-row -->
-              <div class="row">
-                <div class="col-md-3">
-                  <input type="text" maxlength="5" formControlName="AgentNumber2FppIndivisual" class="form-control mb-2"
-                    style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-                </div>
-                <div class="col-md-3">
-                  <input type="text" maxlength="3" formControlName="AgentSubCount2FppIndivisual" class="form-control mb-2"
-                    style="width: 100%;" placeholder="Agent SubCount"
-                    onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                </div>
-                <div class="col-md-3">
-                  <input type="text" formControlName="CommissonSplit2FppIndivisual"
-                    (change)="commisioncheckFppi($event.target.value)" class="form-control mb-2 " style="width: 100%;"
-                    placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                </div>
+                <!-- second-row -->
+                <div class="row">
+                  <div class="col-md-3">
+                    <input type="text" maxlength="5" formControlName="AgentNumber1FppIndivisual" class="form-control mb-2"
+                           style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" maxlength="3" formControlName="AgentSubCount1FppIndivisual" class="form-control mb-2"
+                           style="width: 100%;" placeholder="Agent SubCount"
+                           onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="CommissonSplit1FppIndivisual"
+                           (change)="commisioncheckFppi($event.target.value)" class="form-control mb-2 " style="width: 100%;"
+                           placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                  </div>
 
-              </div>
-              <!-- 4th-row -->
-              <div class="row">
-                <div class="col-md-3">
-                  <input type="text" maxlength="5" formControlName="AgentNumber3FppIndivisual" class="form-control mb-2"
-                    style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
                 </div>
-                <div class="col-md-3">
-                  <input type="text" maxlength="3" formControlName="AgentSubCount3FppIndivisual" class="form-control mb-2"
-                    style="width: 100%;" placeholder="Agent SubCount"
-                    onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                </div>
-                <div class="col-md-3">
-                  <input type="text" formControlName="CommissonSplit3FppIndivisual"
-                    (change)="commisioncheckFppi($event.target.value)" class="form-control mb-2 " style="width: 100%;"
-                    placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                </div>
+                <!-- 3rd-row -->
+                <div class="row">
+                  <div class="col-md-3">
+                    <input type="text" maxlength="5" formControlName="AgentNumber2FppIndivisual" class="form-control mb-2"
+                           style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" maxlength="3" formControlName="AgentSubCount2FppIndivisual" class="form-control mb-2"
+                           style="width: 100%;" placeholder="Agent SubCount"
+                           onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="CommissonSplit2FppIndivisual"
+                           (change)="commisioncheckFppi($event.target.value)" class="form-control mb-2 " style="width: 100%;"
+                           placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                  </div>
 
-              </div>
-            </form>
-          </app-fpp-individual>
-        </div>
-        <button type="button" style="border-width: 0px; text-align: left;" [disabled]="checkedToggleProductACCident==='Inactive'" class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-        
+                </div>
+                <!-- 4th-row -->
+                <div class="row">
+                  <div class="col-md-3">
+                    <input type="text" maxlength="5" formControlName="AgentNumber3FppIndivisual" class="form-control mb-2"
+                           style="width: 100%;" placeholder="Agent Number" onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" maxlength="3" formControlName="AgentSubCount3FppIndivisual" class="form-control mb-2"
+                           style="width: 100%;" placeholder="Agent SubCount"
+                           onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                  </div>
+                  <div class="col-md-3">
+                    <input type="text" formControlName="CommissonSplit3FppIndivisual"
+                           (change)="commisioncheckFppi($event.target.value)" class="form-control mb-2 " style="width: 100%;"
+                           placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                  </div>
+
+                </div>
+              </form>
+            </app-fpp-individual>
+          </div>
+          <button type="button" style="border-width: 0px; text-align: left;" [disabled]="checkedToggleProductACCident==='Inactive'" class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+
             Accident
-       
-          <mat-slide-toggle name="check3" style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedAccident"
-            (change)="toggleChangeProductAccident($event)" [color]="toggleActiveColor"  [disabled]=toggleFlag>
-            {{checkedToggleProductACCident}}</mat-slide-toggle>
-        </button>
-        <div id="collapseThree" class="collapse" data-parent="#accordion">
-          <div class="card-body">
 
-            <app-accident [lookupValue]="selectedState" #child2 [dateValue]="dateChange">
-              <form class="agent-form" [formGroup]="agentformgrp">
-               
-                <div class="radio-button" style="display: inline-block;padding-left: 5px;"
-                  *ngFor="let item of radioButtonArr">
-                  <div><input type="radio" value={{item.value}} formControlName="accAgent_Action" />
-                    <label class="radio-label"> {{item.name}}</label></div>
-                </div>
-                <!-- first-row -->
-                <div class="row" style="justify-content:space-evenly;">
-                  <div class="col-md-3">
-                    <span class="label label-default">Agent Number</span>
-                    <input type="text" maxlength="5" formControlName="AgentNumberaccident" name="text" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Primary Agent Number"
-                      onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-                     
-                  </div>
-                  <div class="col-md-3">
-                    <span class="label label-default">Agent SubCount</span>
-                    <input type="text" maxlength="3" formControlName="AgentSubCountaccident" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent SubCount"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <span class="label label-default">Commisson Split %</span>
-                    <input type="text" formControlName="CommissonSplitaccident"
-                      (change)="commisioncheckAcc($event.target.value)" class="form-control mb-2 " style="width: 100%;"
-                      placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
+            <mat-slide-toggle name="check3" style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedAccident"
+                              (change)="toggleChangeProductAccident($event)" [color]="toggleActiveColor" [disabled]=toggleFlag>
+              {{checkedToggleProductACCident}}
+            </mat-slide-toggle>
+          </button>
+          <div id="collapseThree" class="collapse" data-parent="#accordion">
+            <div class="card-body">
 
-                  <div class="col-md-3">
-                    <span class="label label-default">Agent Name</span>
-                    <input type="text" formControlName="AgentNameaccident" class="form-control mb-2 "
-                      style="width: 100%;" placeholder="Agent Name"
-                      onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
+              <app-accident [lookupValue]="selectedState" #child2 [dateValue]="dateChange">
+                <form class="agent-form" [formGroup]="agentformgrp">
+
+                  <div class="radio-button" style="display: inline-block;padding-left: 5px;"
+                       *ngFor="let item of radioButtonArr">
+                    <div>
+                      <input type="radio" value={{item.value}} formControlName="accAgent_Action" />
+                      <label class="radio-label"> {{item.name}}</label>
+                    </div>
+                  </div>
+                  <!-- first-row -->
+                  <div class="row" style="justify-content:space-evenly;">
+                    <div class="col-md-3">
+                      <span class="label label-default">Agent Number</span>
+                      <input type="text" maxlength="5" formControlName="AgentNumberaccident" name="text" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Primary Agent Number"
+                             onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+
+                    </div>
+                    <div class="col-md-3">
+                      <span class="label label-default">Agent SubCount</span>
+                      <input type="text" maxlength="3" formControlName="AgentSubCountaccident" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent SubCount"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <span class="label label-default">Commisson Split %</span>
+                      <input type="text" formControlName="CommissonSplitaccident"
+                             (change)="commisioncheckAcc($event.target.value)" class="form-control mb-2 " style="width: 100%;"
+                             placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+
+                    <div class="col-md-3">
+                      <span class="label label-default">Agent Name</span>
+                      <input type="text" formControlName="AgentNameaccident" class="form-control mb-2 "
+                             style="width: 100%;" placeholder="Agent Name"
+                             onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
                       <div *ngIf="commissionSplitErr || commissionSplitErrAcc">
                         <h6 style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</h6>
                       </div>
-                  </div>
-                </div>
-
-                <!-- second-row -->
-                <div class="row">
-                  <div class="col-md-3">
-                    <input type="text" maxlength="5" formControlName="AgentNumber1accident" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent Number"
-                      onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" maxlength="3" formControlName="AgentSubCount1accident" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent SubCount"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit1accident"
-                      (change)="commisioncheckAcc($event.target.value)" class="form-control mb-2 " style="width: 100%;"
-                      placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
                   </div>
 
-                </div>
-                <!-- 3rd-row -->
-                <div class="row">
-                  <div class="col-md-3">
-                    <input type="text" maxlength="5" formControlName="AgentNumber2accident" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent Number"
-                      onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" maxlength="3" formControlName="AgentSubCount2accident" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent SubCount"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit2accident"
-                      (change)="commisioncheckAcc($event.target.value)" class="form-control mb-2 " style="width: 100%;"
-                      placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
+                  <!-- second-row -->
+                  <div class="row">
+                    <div class="col-md-3">
+                      <input type="text" maxlength="5" formControlName="AgentNumber1accident" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent Number"
+                             onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" maxlength="3" formControlName="AgentSubCount1accident" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent SubCount"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" formControlName="CommissonSplit1accident"
+                             (change)="commisioncheckAcc($event.target.value)" class="form-control mb-2 " style="width: 100%;"
+                             placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
 
-                </div>
-                <!-- 4th-row -->
-                <div class="row">
-                  <div class="col-md-3">
-                    <input type="text" maxlength="5" formControlName="AgentNumber3accident" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent Number"
-                      onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
                   </div>
-                  <div class="col-md-3">
-                    <input type="text" maxlength="3" formControlName="AgentSubCount3accident" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent SubCount"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit3accident"
-                      (change)="commisioncheckAcc($event.target.value)" class="form-control mb-2 " style="width: 100%;"
-                      placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
+                  <!-- 3rd-row -->
+                  <div class="row">
+                    <div class="col-md-3">
+                      <input type="text" maxlength="5" formControlName="AgentNumber2accident" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent Number"
+                             onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" maxlength="3" formControlName="AgentSubCount2accident" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent SubCount"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" formControlName="CommissonSplit2accident"
+                             (change)="commisioncheckAcc($event.target.value)" class="form-control mb-2 " style="width: 100%;"
+                             placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
 
-                </div>
-              </form>
-            </app-accident>
+                  </div>
+                  <!-- 4th-row -->
+                  <div class="row">
+                    <div class="col-md-3">
+                      <input type="text" maxlength="5" formControlName="AgentNumber3accident" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent Number"
+                             onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" maxlength="3" formControlName="AgentSubCount3accident" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent SubCount"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" formControlName="CommissonSplit3accident"
+                             (change)="commisioncheckAcc($event.target.value)" class="form-control mb-2 " style="width: 100%;"
+                             placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+
+                  </div>
+                </form>
+              </app-accident>
+            </div>
           </div>
-        </div>
-        <button type="button" style="border-width: 0px; text-align: left;" [disabled]="checkedToggleProductHospitalIndemnity=='Inactive'" class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-       
-            Hospital Indemnity
-        
-          <mat-slide-toggle name="check4" style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedHospital"
-            (change)="toggleChangeProductHospitalIndemnity($event)" [color]="toggleActiveColor"  [disabled]=toggleFlag>
-            {{checkedToggleProductHospitalIndemnity}}</mat-slide-toggle>
-        </button>
-        <div id="collapseFour" class="collapse" data-parent="#accordion">
-          <div class="card-body">
-            <app-hospital-indemnity [lookupValue]="selectedState" #child3 [dateValue]="dateChange">
-              <form class="agent-form" [formGroup]="agentformgrp">
-              
-                <div class="radio-button" style="display: inline-block;padding-left: 5px;"
-                  *ngFor="let item of radioButtonArr">
-                  <div><input type="radio" value={{item.value}} formControlName="hospAgent_Action" />
-                    <label class="radio-label"> {{item.name}}</label></div>
-                </div>
-                <!-- first-row -->
-                <div class="row" style="justify-content:space-evenly;">
-                  <div class="col-md-3">
-                    <span class="label label-default">Agent Number</span>
-                    <input type="text" maxlength="5" formControlName="AgentNumberHospitalIndemnity" name="text"
-                      class="form-control mb-2" style="width: 100%;" placeholder="Primary Agent Number"
-                      onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <span class="label label-default">Agent SubCount</span>
-                    <input type="text" maxlength="3" formControlName="AgentSubCountHospitalIndemnity" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent SubCount"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <span class="label label-default">Commisson Split %</span>
-                    <input type="text" formControlName="CommissonSplitHospitalIndemnity"
-                      (change)="commisioncheckHos($event.target.value)" class="form-control mb-2 " style="width: 100%;"
-                      placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
+          <button type="button" style="border-width: 0px; text-align: left;" [disabled]="checkedToggleProductHospitalIndemnity=='Inactive'" class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
 
-                  <div class="col-md-3">
-                    <span class="label label-default">Agent Name</span>
-                    <input type="text" formControlName="AgentNameHospitalIndemnity" class="form-control mb-2 "
-                      style="width: 100%;" placeholder="Agent Name"
-                      onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
+            Hospital Indemnity
+
+            <mat-slide-toggle name="check4" style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedHospital"
+                              (change)="toggleChangeProductHospitalIndemnity($event)" [color]="toggleActiveColor" [disabled]=toggleFlag>
+              {{checkedToggleProductHospitalIndemnity}}
+            </mat-slide-toggle>
+          </button>
+          <div id="collapseFour" class="collapse" data-parent="#accordion">
+            <div class="card-body">
+              <app-hospital-indemnity [lookupValue]="selectedState" #child3 [dateValue]="dateChange">
+                <form class="agent-form" [formGroup]="agentformgrp">
+
+                  <div class="radio-button" style="display: inline-block;padding-left: 5px;"
+                       *ngFor="let item of radioButtonArr">
+                    <div>
+                      <input type="radio" value={{item.value}} formControlName="hospAgent_Action" />
+                      <label class="radio-label"> {{item.name}}</label>
+                    </div>
+                  </div>
+                  <!-- first-row -->
+                  <div class="row" style="justify-content:space-evenly;">
+                    <div class="col-md-3">
+                      <span class="label label-default">Agent Number</span>
+                      <input type="text" maxlength="5" formControlName="AgentNumberHospitalIndemnity" name="text"
+                             class="form-control mb-2" style="width: 100%;" placeholder="Primary Agent Number"
+                             onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <span class="label label-default">Agent SubCount</span>
+                      <input type="text" maxlength="3" formControlName="AgentSubCountHospitalIndemnity" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent SubCount"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <span class="label label-default">Commisson Split %</span>
+                      <input type="text" formControlName="CommissonSplitHospitalIndemnity"
+                             (change)="commisioncheckHos($event.target.value)" class="form-control mb-2 " style="width: 100%;"
+                             placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+
+                    <div class="col-md-3">
+                      <span class="label label-default">Agent Name</span>
+                      <input type="text" formControlName="AgentNameHospitalIndemnity" class="form-control mb-2 "
+                             style="width: 100%;" placeholder="Agent Name"
+                             onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
                       <div *ngIf="commissionSplitErr || commissionSplitErrHos">
                         <h6 style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</h6>
                       </div>
-                  </div>
-                </div>
-
-                <!-- second-row -->
-                <div class="row">
-                  <div class="col-md-3">
-                    <input type="text" maxlength="5" formControlName="AgentNumber1HospitalIndemnity" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent Number"
-                      onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" maxlength="3" formControlName="AgentSubCount1HospitalIndemnity" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent SubCount"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit1HospitalIndemnity"
-                      (change)="commisioncheckHos($event.target.value)" class="form-control mb-2 " style="width: 100%;"
-                      placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
                   </div>
 
-                </div>
-                <!-- 3rd-row -->
-                <div class="row">
-                  <div class="col-md-3">
-                    <input type="text" maxlength="5" formControlName="AgentNumber2HospitalIndemnity" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent Number"
-                      onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" maxlength="3" formControlName="AgentSubCount2HospitalIndemnity" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent SubCount"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit2HospitalIndemnity"
-                      (change)="commisioncheckHos($event.target.value)" class="form-control mb-2 " style="width: 100%;"
-                      placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
+                  <!-- second-row -->
+                  <div class="row">
+                    <div class="col-md-3">
+                      <input type="text" maxlength="5" formControlName="AgentNumber1HospitalIndemnity" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent Number"
+                             onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" maxlength="3" formControlName="AgentSubCount1HospitalIndemnity" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent SubCount"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" formControlName="CommissonSplit1HospitalIndemnity"
+                             (change)="commisioncheckHos($event.target.value)" class="form-control mb-2 " style="width: 100%;"
+                             placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
 
-                </div>
-                <!-- 4th-row -->
-                <div class="row">
-                  <div class="col-md-3">
-                    <input type="text" maxlength="5" formControlName="AgentNumber3HospitalIndemnity" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent Number"
-                      onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
                   </div>
-                  <div class="col-md-3">
-                    <input type="text" maxlength="3" formControlName="AgentSubCount3HospitalIndemnity" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent SubCount"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit3HospitalIndemnity"
-                      (change)="commisioncheckHos($event.target.value)" class="form-control mb-2 " style="width: 100%;"
-                      placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
+                  <!-- 3rd-row -->
+                  <div class="row">
+                    <div class="col-md-3">
+                      <input type="text" maxlength="5" formControlName="AgentNumber2HospitalIndemnity" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent Number"
+                             onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" maxlength="3" formControlName="AgentSubCount2HospitalIndemnity" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent SubCount"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" formControlName="CommissonSplit2HospitalIndemnity"
+                             (change)="commisioncheckHos($event.target.value)" class="form-control mb-2 " style="width: 100%;"
+                             placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
 
-                </div>
-              </form>
-            </app-hospital-indemnity>
+                  </div>
+                  <!-- 4th-row -->
+                  <div class="row">
+                    <div class="col-md-3">
+                      <input type="text" maxlength="5" formControlName="AgentNumber3HospitalIndemnity" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent Number"
+                             onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" maxlength="3" formControlName="AgentSubCount3HospitalIndemnity" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent SubCount"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" formControlName="CommissonSplit3HospitalIndemnity"
+                             (change)="commisioncheckHos($event.target.value)" class="form-control mb-2 " style="width: 100%;"
+                             placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+
+                  </div>
+                </form>
+              </app-hospital-indemnity>
+            </div>
           </div>
-        </div>
-        <button type="button"style="border-width: 0px; text-align: left;" [disabled]="checkedToggleProductEmpPaidCI==='Inactive'" class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
-         
-            Employer Paid CI
-        
-          <mat-slide-toggle name="check5" style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedEmpPaidCi"
-            (change)="toggleChangeProductEmpPaidCi($event)" [color]="toggleActiveColor"  [disabled]=toggleFlag>
-            {{checkedToggleProductEmpPaidCI}}</mat-slide-toggle>
-        </button>
-        <div id="collapseFive" class="collapse" data-parent="#accordion">
-          <div class="card-body">
-            <app-employer-paid-ci [lookupValue]="selectedState" #child4 [dateValue]="dateChange">
-              <form class="agent-form" [formGroup]="agentformgrp">
-              
-                <div class="radio-button" style="display: inline-block;padding-left: 5px;"
-                  *ngFor="let item of radioButtonArr">
-                  <div><input type="radio" value={{item.value}} formControlName="empCIAgent_Action" />
-                    <label class="radio-label"> {{item.name}}</label></div>
-                </div>
-                <!-- first-row -->
-                <div class="row" style="justify-content:space-evenly;">
-                  <div class="col-md-3">
-                    <span class="label label-default">Agent Number</span>
-                    <input type="text" maxlength="5" formControlName="AgentNumberempPaidci" name="text" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Primary Agent Number"
-                      onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <span class="label label-default">Agent SubCount</span>
-                    <input type="text" maxlength="3" formControlName="AgentSubCountempPaidci" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent SubCount"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <span class="label label-default">Commisson Split %</span>
-                    <input type="text" formControlName="CommissonSplitempPaidci"
-                      (change)="commisioncheckEmpCI($event.target.value)" class="form-control mb-2 "
-                      style="width: 100%;" placeholder="Commisson Split"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
+          <button type="button" style="border-width: 0px; text-align: left;" [disabled]="checkedToggleProductEmpPaidCI==='Inactive'" class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
 
-                  <div class="col-md-3">
-                    <span class="label label-default">Agent Name</span>
-                    <input type="text" formControlName="AgentNameempPaidci" class="form-control mb-2 "
-                      style="width: 100%;" placeholder="Agent Name"
-                      onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
+            Employer Paid CI
+
+            <mat-slide-toggle name="check5" style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedEmpPaidCi"
+                              (change)="toggleChangeProductEmpPaidCi($event)" [color]="toggleActiveColor" [disabled]=toggleFlag>
+              {{checkedToggleProductEmpPaidCI}}
+            </mat-slide-toggle>
+          </button>
+          <div id="collapseFive" class="collapse" data-parent="#accordion">
+            <div class="card-body">
+              <app-employer-paid-ci [lookupValue]="selectedState" #child4 [dateValue]="dateChange">
+                <form class="agent-form" [formGroup]="agentformgrp">
+
+                  <div class="radio-button" style="display: inline-block;padding-left: 5px;"
+                       *ngFor="let item of radioButtonArr">
+                    <div>
+                      <input type="radio" value={{item.value}} formControlName="empCIAgent_Action" />
+                      <label class="radio-label"> {{item.name}}</label>
+                    </div>
+                  </div>
+                  <!-- first-row -->
+                  <div class="row" style="justify-content:space-evenly;">
+                    <div class="col-md-3">
+                      <span class="label label-default">Agent Number</span>
+                      <input type="text" maxlength="5" formControlName="AgentNumberempPaidci" name="text" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Primary Agent Number"
+                             onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <span class="label label-default">Agent SubCount</span>
+                      <input type="text" maxlength="3" formControlName="AgentSubCountempPaidci" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent SubCount"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <span class="label label-default">Commisson Split %</span>
+                      <input type="text" formControlName="CommissonSplitempPaidci"
+                             (change)="commisioncheckEmpCI($event.target.value)" class="form-control mb-2 "
+                             style="width: 100%;" placeholder="Commisson Split"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+
+                    <div class="col-md-3">
+                      <span class="label label-default">Agent Name</span>
+                      <input type="text" formControlName="AgentNameempPaidci" class="form-control mb-2 "
+                             style="width: 100%;" placeholder="Agent Name"
+                             onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
                       <div *ngIf="commissionSplitErr || commissionSplitErrEmpCI">
                         <h6 style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</h6>
                       </div>
-                  </div>
-                </div>
-
-                <!-- second-row -->
-                <div class="row">
-                  <div class="col-md-3">
-                    <input type="text" maxlength="5" formControlName="AgentNumber1empPaidci" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent Number"
-                      onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" maxlength="3" formControlName="AgentSubCount1empPaidci" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent SubCount"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit1empPaidci"
-                      (change)="commisioncheckEmpCI($event.target.value)" class="form-control mb-2 "
-                      style="width: 100%;" placeholder="Commisson Split"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
                   </div>
 
-                </div>
-                <!-- 3rd-row -->
-                <div class="row">
-                  <div class="col-md-3">
-                    <input type="text" maxlength="5" formControlName="AgentNumber2empPaidci" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent Number"
-                      onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" maxlength="3" formControlName="AgentSubCount2empPaidci" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent SubCount"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit2empPaidci"
-                      (change)="commisioncheckEmpCI($event.target.value)" class="form-control mb-2 "
-                      style="width: 100%;" placeholder="Commisson Split"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
+                  <!-- second-row -->
+                  <div class="row">
+                    <div class="col-md-3">
+                      <input type="text" maxlength="5" formControlName="AgentNumber1empPaidci" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent Number"
+                             onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" maxlength="3" formControlName="AgentSubCount1empPaidci" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent SubCount"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" formControlName="CommissonSplit1empPaidci"
+                             (change)="commisioncheckEmpCI($event.target.value)" class="form-control mb-2 "
+                             style="width: 100%;" placeholder="Commisson Split"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
 
-                </div>
-                <!-- 4th-row -->
-                <div class="row">
-                  <div class="col-md-3">
-                    <input type="text" maxlength="5" formControlName="AgentNumber3empPaidci" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent Number"
-                      onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
                   </div>
-                  <div class="col-md-3">
-                    <input type="text" maxlength="3" formControlName="AgentSubCount3empPaidci" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent SubCount"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit3empPaidci"
-                      (change)="commisioncheckEmpCI($event.target.value)" class="form-control mb-2 "
-                      style="width: 100%;" placeholder="Commisson Split"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
+                  <!-- 3rd-row -->
+                  <div class="row">
+                    <div class="col-md-3">
+                      <input type="text" maxlength="5" formControlName="AgentNumber2empPaidci" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent Number"
+                             onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" maxlength="3" formControlName="AgentSubCount2empPaidci" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent SubCount"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" formControlName="CommissonSplit2empPaidci"
+                             (change)="commisioncheckEmpCI($event.target.value)" class="form-control mb-2 "
+                             style="width: 100%;" placeholder="Commisson Split"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
 
-                </div>
-              </form>
-            </app-employer-paid-ci>
+                  </div>
+                  <!-- 4th-row -->
+                  <div class="row">
+                    <div class="col-md-3">
+                      <input type="text" maxlength="5" formControlName="AgentNumber3empPaidci" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent Number"
+                             onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" maxlength="3" formControlName="AgentSubCount3empPaidci" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent SubCount"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" formControlName="CommissonSplit3empPaidci"
+                             (change)="commisioncheckEmpCI($event.target.value)" class="form-control mb-2 "
+                             style="width: 100%;" placeholder="Commisson Split"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+
+                  </div>
+                </form>
+              </app-employer-paid-ci>
+            </div>
           </div>
-        </div>
-        <button type="button" style="border-width: 0px; text-align: left;" [disabled]="checkedToggleProductVolCI==='Inactive'" class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
-         
-            Voluntary CI
-        
-          <mat-slide-toggle name="check6" style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedVolutaryCi"
-            (change)="toggleChangeProductVolCI($event)" [color]="toggleActiveColor"  [disabled]=toggleFlag>
-            {{checkedToggleProductVolCI}}</mat-slide-toggle>
-        </button>
-        <div id="collapseSix" class="collapse" data-parent="#accordion">
-          <div class="card-body">
-            <app-voluntary-ci [lookupValue]="selectedState" #child5 [dateValue]="dateChange">
-              <form class="agent-form" [formGroup]="agentformgrp">
-              
-                <div class="radio-button" style="display: inline-block;padding-left: 5px;"
-                  *ngFor="let item of radioButtonArr">
-                  <div><input type="radio" value={{item.value}} formControlName="volCIAgent_Action" />
-                    <label class="radio-label"> {{item.name}}</label></div>
-                </div>
-                <!-- first-row -->
-                <div class="row" style="justify-content:space-evenly;">
-                  <div class="col-md-3">
-                    <span class="label label-default">Agent Number</span>
-                    <input type="text" maxlength="5" formControlName="AgentNumbervolCi" name="text" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Primary Agent Number"
-                      onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <span class="label label-default">Agent SubCount</span>
-                    <input type="text" maxlength="3" formControlName="AgentSubCountvolCi" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent SubCount"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <span class="label label-default">Commisson Split %</span>
-                    <input type="text" formControlName="CommissonSplitvolCi"
-                      (change)="commisioncheckVolCI($event.target.value)" class="form-control mb-2 "
-                      style="width: 100%;" placeholder="Commisson Split"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
+          <button type="button" style="border-width: 0px; text-align: left;" [disabled]="checkedToggleProductVolCI==='Inactive'" class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
 
-                  <div class="col-md-3">
-                    <span class="label label-default">Agent Name</span>
-                    <input type="text" formControlName="AgentNamevolCi" class="form-control mb-2 " style="width: 100%;"
-                      placeholder="Agent Name" onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
+            Voluntary CI
+
+            <mat-slide-toggle name="check6" style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedVolutaryCi"
+                              (change)="toggleChangeProductVolCI($event)" [color]="toggleActiveColor" [disabled]=toggleFlag>
+              {{checkedToggleProductVolCI}}
+            </mat-slide-toggle>
+          </button>
+          <div id="collapseSix" class="collapse" data-parent="#accordion">
+            <div class="card-body">
+              <app-voluntary-ci [lookupValue]="selectedState" #child5 [dateValue]="dateChange">
+                <form class="agent-form" [formGroup]="agentformgrp">
+
+                  <div class="radio-button" style="display: inline-block;padding-left: 5px;"
+                       *ngFor="let item of radioButtonArr">
+                    <div>
+                      <input type="radio" value={{item.value}} formControlName="volCIAgent_Action" />
+                      <label class="radio-label"> {{item.name}}</label>
+                    </div>
+                  </div>
+                  <!-- first-row -->
+                  <div class="row" style="justify-content:space-evenly;">
+                    <div class="col-md-3">
+                      <span class="label label-default">Agent Number</span>
+                      <input type="text" maxlength="5" formControlName="AgentNumbervolCi" name="text" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Primary Agent Number"
+                             onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <span class="label label-default">Agent SubCount</span>
+                      <input type="text" maxlength="3" formControlName="AgentSubCountvolCi" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent SubCount"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <span class="label label-default">Commisson Split %</span>
+                      <input type="text" formControlName="CommissonSplitvolCi"
+                             (change)="commisioncheckVolCI($event.target.value)" class="form-control mb-2 "
+                             style="width: 100%;" placeholder="Commisson Split"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+
+                    <div class="col-md-3">
+                      <span class="label label-default">Agent Name</span>
+                      <input type="text" formControlName="AgentNamevolCi" class="form-control mb-2 " style="width: 100%;"
+                             placeholder="Agent Name" onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
                       <div *ngIf="commissionSplitErr || commissionSplitErrVolCI">
                         <h6 style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</h6>
                       </div>
-                  </div>
-                </div>
-
-                <!-- second-row -->
-                <div class="row">
-                  <div class="col-md-3">
-                    <input type="text" maxlength="5" formControlName="AgentNumber1volCi" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent Number"
-                      onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" maxlength="3" formControlName="AgentSubCount1volCi" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent SubCount"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit1volCi"
-                      (change)="commisioncheckVolCI($event.target.value)" class="form-control mb-2 "
-                      style="width: 100%;" placeholder="Commisson Split"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
                   </div>
 
-                </div>
-                <!-- 3rd-row -->
-                <div class="row">
-                  <div class="col-md-3">
-                    <input type="text" maxlength="5" formControlName="AgentNumber2volCi" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent Number"
-                      onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" maxlength="3" formControlName="AgentSubCount2volCi" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent SubCount"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit2volCi"
-                      (change)="commisioncheckVolCI($event.target.value)" class="form-control mb-2 "
-                      style="width: 100%;" placeholder="Commisson Split"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
+                  <!-- second-row -->
+                  <div class="row">
+                    <div class="col-md-3">
+                      <input type="text" maxlength="5" formControlName="AgentNumber1volCi" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent Number"
+                             onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" maxlength="3" formControlName="AgentSubCount1volCi" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent SubCount"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" formControlName="CommissonSplit1volCi"
+                             (change)="commisioncheckVolCI($event.target.value)" class="form-control mb-2 "
+                             style="width: 100%;" placeholder="Commisson Split"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
 
-                </div>
-                <!-- 4th-row -->
-                <div class="row">
-                  <div class="col-md-3">
-                    <input type="text" maxlength="5" formControlName="AgentNumber3volCi" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent Number"
-                      onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
                   </div>
-                  <div class="col-md-3">
-                    <input type="text" maxlength="3" formControlName="AgentSubCount3volCi" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent SubCount"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit3volCi"
-                      (change)="commisioncheckVolCI($event.target.value)" class="form-control mb-2 "
-                      style="width: 100%;" placeholder="Commisson Split"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
+                  <!-- 3rd-row -->
+                  <div class="row">
+                    <div class="col-md-3">
+                      <input type="text" maxlength="5" formControlName="AgentNumber2volCi" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent Number"
+                             onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" maxlength="3" formControlName="AgentSubCount2volCi" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent SubCount"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" formControlName="CommissonSplit2volCi"
+                             (change)="commisioncheckVolCI($event.target.value)" class="form-control mb-2 "
+                             style="width: 100%;" placeholder="Commisson Split"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
 
-                </div>
-              </form>
-            </app-voluntary-ci>
+                  </div>
+                  <!-- 4th-row -->
+                  <div class="row">
+                    <div class="col-md-3">
+                      <input type="text" maxlength="5" formControlName="AgentNumber3volCi" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent Number"
+                             onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" maxlength="3" formControlName="AgentSubCount3volCi" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent SubCount"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" formControlName="CommissonSplit3volCi"
+                             (change)="commisioncheckVolCI($event.target.value)" class="form-control mb-2 "
+                             style="width: 100%;" placeholder="Commisson Split"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+
+                  </div>
+                </form>
+              </app-voluntary-ci>
+            </div>
           </div>
-        </div>
-        <button type="button" style="border-width: 0px; text-align: left;" [disabled]="checkedToggleProductVolGrpCI==='Inactive'" class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
-         
-            Vol Group Life
-         
-          <mat-slide-toggle name="check7" style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedVolGrpLife"
-            (change)="toggleChangeProductVilGrpLife($event)" [color]="toggleActiveColor"  [disabled]=toggleFlag>
-            {{checkedToggleProductVolGrpCI}}</mat-slide-toggle>
-        </button>
-        <div id="collapseSeven" class="collapse" data-parent="#accordion">
-          <div class="card-body">
-            <app-vol-group-life [lookupValue]="selectedState" #child6 [dateValue]="dateChange">
-              <form class="agent-form" [formGroup]="agentformgrp">
-               
-                <div class="radio-button" style="display: inline-block;padding-left: 5px;"
-                  *ngFor="let item of radioButtonArr">
-                  <div><input type="radio" value={{item.value}} formControlName="volGrpLfAgent_Action" />
-                    <label class="radio-label"> {{item.name}}</label></div>
-                </div>
-                <!-- first-row -->
-                <div class="row" style="justify-content:space-evenly;">
-                  <div class="col-md-3">
-                    <span class="label label-default">Agent Number</span>
-                    <input type="text"  maxlength="5" formControlName="AgentNumberVolGrpLife" name="text" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Primary Agent Number"
-                      onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <span class="label label-default">Agent SubCount</span>
-                    <input type="text" maxlength="3" formControlName="AgentSubCountVolGrpLife" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent SubCount"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <span class="label label-default">Commisson Split %</span>
-                    <input type="text" formControlName="CommissonSplitVolGrpLife"
-                      (change)="commisioncheckVolGpLf($event.target.value)" class="form-control mb-2 "
-                      style="width: 100%;" placeholder="Commisson Split"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
+          <button type="button" style="border-width: 0px; text-align: left;" [disabled]="checkedToggleProductVolGrpCI==='Inactive'" class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
 
-                  <div class="col-md-3">
-                    <span class="label label-default">Agent Name</span>
-                    <input type="text" formControlName="AgentNameVolGrpLife" class="form-control mb-2 "
-                      style="width: 100%;" placeholder="Agent Name"
-                      onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
+            Vol Group Life
+
+            <mat-slide-toggle name="check7" style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedVolGrpLife"
+                              (change)="toggleChangeProductVilGrpLife($event)" [color]="toggleActiveColor" [disabled]=toggleFlag>
+              {{checkedToggleProductVolGrpCI}}
+            </mat-slide-toggle>
+          </button>
+          <div id="collapseSeven" class="collapse" data-parent="#accordion">
+            <div class="card-body">
+              <app-vol-group-life [lookupValue]="selectedState" #child6 [dateValue]="dateChange">
+                <form class="agent-form" [formGroup]="agentformgrp">
+
+                  <div class="radio-button" style="display: inline-block;padding-left: 5px;"
+                       *ngFor="let item of radioButtonArr">
+                    <div>
+                      <input type="radio" value={{item.value}} formControlName="volGrpLfAgent_Action" />
+                      <label class="radio-label"> {{item.name}}</label>
+                    </div>
+                  </div>
+                  <!-- first-row -->
+                  <div class="row" style="justify-content:space-evenly;">
+                    <div class="col-md-3">
+                      <span class="label label-default">Agent Number</span>
+                      <input type="text" maxlength="5" formControlName="AgentNumberVolGrpLife" name="text" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Primary Agent Number"
+                             onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <span class="label label-default">Agent SubCount</span>
+                      <input type="text" maxlength="3" formControlName="AgentSubCountVolGrpLife" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent SubCount"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <span class="label label-default">Commisson Split %</span>
+                      <input type="text" formControlName="CommissonSplitVolGrpLife"
+                             (change)="commisioncheckVolGpLf($event.target.value)" class="form-control mb-2 "
+                             style="width: 100%;" placeholder="Commisson Split"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+
+                    <div class="col-md-3">
+                      <span class="label label-default">Agent Name</span>
+                      <input type="text" formControlName="AgentNameVolGrpLife" class="form-control mb-2 "
+                             style="width: 100%;" placeholder="Agent Name"
+                             onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
                       <div *ngIf="commissionSplitErr || commissionSplitErrVolGpLf">
                         <h6 style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</h6>
                       </div>
-                  </div>
-                </div>
-
-                <!-- second-row -->
-                <div class="row">
-                  <div class="col-md-3">
-                    <input type="text" maxlength="5" formControlName="AgentNumber1VolGrpLife" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent Number"
-                      onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" maxlength="3" formControlName="AgentSubCount1VolGrpLife" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent SubCount"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit1VolGrpLife"
-                      (change)="commisioncheckVolGpLf($event.target.value)" class="form-control mb-2 "
-                      style="width: 100%;" placeholder="Commisson Split"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
                   </div>
 
-                </div>
-                <!-- 3rd-row -->
-                <div class="row">
-                  <div class="col-md-3">
-                    <input type="text" maxlength="5" formControlName="AgentNumber2VolGrpLife" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent Number"
-                      onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" maxlength="3" formControlName="AgentSubCount2VolGrpLife" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent SubCount"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit2VolGrpLife"
-                      (change)="commisioncheckVolGpLf($event.target.value)" class="form-control mb-2 "
-                      style="width: 100%;" placeholder="Commisson Split"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
+                  <!-- second-row -->
+                  <div class="row">
+                    <div class="col-md-3">
+                      <input type="text" maxlength="5" formControlName="AgentNumber1VolGrpLife" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent Number"
+                             onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" maxlength="3" formControlName="AgentSubCount1VolGrpLife" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent SubCount"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" formControlName="CommissonSplit1VolGrpLife"
+                             (change)="commisioncheckVolGpLf($event.target.value)" class="form-control mb-2 "
+                             style="width: 100%;" placeholder="Commisson Split"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
 
-                </div>
-                <!-- 4th-row -->
-                <div class="row">
-                  <div class="col-md-3">
-                    <input type="text" maxlength="5" formControlName="AgentNumber3VolGrpLife" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent Number"
-                      onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
                   </div>
-                  <div class="col-md-3">
-                    <input type="text" maxlength="3" formControlName="AgentSubCount3VolGrpLife" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent SubCount"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit3VolGrpLife"
-                      (change)="commisioncheckVolGpLf($event.target.value)" class="form-control mb-2 "
-                      style="width: 100%;" placeholder="Commisson Split"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
+                  <!-- 3rd-row -->
+                  <div class="row">
+                    <div class="col-md-3">
+                      <input type="text" maxlength="5" formControlName="AgentNumber2VolGrpLife" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent Number"
+                             onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" maxlength="3" formControlName="AgentSubCount2VolGrpLife" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent SubCount"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" formControlName="CommissonSplit2VolGrpLife"
+                             (change)="commisioncheckVolGpLf($event.target.value)" class="form-control mb-2 "
+                             style="width: 100%;" placeholder="Commisson Split"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
 
-                </div>
-              </form>
-            </app-vol-group-life>
+                  </div>
+                  <!-- 4th-row -->
+                  <div class="row">
+                    <div class="col-md-3">
+                      <input type="text" maxlength="5" formControlName="AgentNumber3VolGrpLife" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent Number"
+                             onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" maxlength="3" formControlName="AgentSubCount3VolGrpLife" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent SubCount"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" formControlName="CommissonSplit3VolGrpLife"
+                             (change)="commisioncheckVolGpLf($event.target.value)" class="form-control mb-2 "
+                             style="width: 100%;" placeholder="Commisson Split"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+
+                  </div>
+                </form>
+              </app-vol-group-life>
+            </div>
           </div>
-        </div>
-        <button type="button" style="border-width: 0px; text-align: left;" [disabled]="checkedToggleProductBcsGrpLife==='Inactive'" class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseEight">
-         
-            Basic Group Life
-       
-          <mat-slide-toggle name="check8" style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedBasicGrpLife"
-            (change)="toggleChangeProductBasicGrpLife($event)" [color]="toggleActiveColor"  [disabled]=toggleFlag>
-            {{checkedToggleProductBcsGrpLife}}</mat-slide-toggle>
-        </button>
-        <div id="collapseEight" class="collapse" data-parent="#accordion">
-          <div class="card-body">
-            <app-basic-group-life [lookupValue]="selectedState" #child7 [dateValue]="dateChange">
-              <form class="agent-form" [formGroup]="agentformgrp">
-               
-                <div class="radio-button" style="display: inline-block;padding-left: 5px;"
-                  *ngFor="let item of radioButtonArr">
-                  <div><input type="radio" value={{item.value}} formControlName="basicGrpLfAgent_Action" />
-                    <label class="radio-label"> {{item.name}}</label></div>
-                </div>
-                <!-- first-row -->
-                <div class="row" style="justify-content:space-evenly;">
-                  <div class="col-md-3">
-                    <span class="label label-default">Agent Number</span>
-                    <input type="text" maxlength="5" formControlName="AgentNumberBasicgrpLife" name="text" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Primary Agent Number"
-                      onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <span class="label label-default">Agent SubCount</span>
-                    <input type="text" maxlength="3" formControlName="AgentSubCountBasicgrpLife" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent SubCount"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <span class="label label-default">Commisson Split %</span>
-                    <input type="text" formControlName="CommissonSplitBasicgrpLife"
-                      (change)="commisioncheckBGL($event.target.value)" class="form-control mb-2 " style="width: 100%;"
-                      placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
+          <button type="button" style="border-width: 0px; text-align: left;" [disabled]="checkedToggleProductBcsGrpLife==='Inactive'" class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseEight">
 
-                  <div class="col-md-3">
-                    <span class="label label-default">Agent Name</span>
-                    <input type="text" formControlName="AgentNameBasicgrpLife" class="form-control mb-2 "
-                      style="width: 100%;" placeholder="Agent Name"
-                      onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
+            Basic Group Life
+
+            <mat-slide-toggle name="check8" style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedBasicGrpLife"
+                              (change)="toggleChangeProductBasicGrpLife($event)" [color]="toggleActiveColor" [disabled]=toggleFlag>
+              {{checkedToggleProductBcsGrpLife}}
+            </mat-slide-toggle>
+          </button>
+          <div id="collapseEight" class="collapse" data-parent="#accordion">
+            <div class="card-body">
+              <app-basic-group-life [lookupValue]="selectedState" #child7 [dateValue]="dateChange">
+                <form class="agent-form" [formGroup]="agentformgrp">
+
+                  <div class="radio-button" style="display: inline-block;padding-left: 5px;"
+                       *ngFor="let item of radioButtonArr">
+                    <div>
+                      <input type="radio" value={{item.value}} formControlName="basicGrpLfAgent_Action" />
+                      <label class="radio-label"> {{item.name}}</label>
+                    </div>
+                  </div>
+                  <!-- first-row -->
+                  <div class="row" style="justify-content:space-evenly;">
+                    <div class="col-md-3">
+                      <span class="label label-default">Agent Number</span>
+                      <input type="text" maxlength="5" formControlName="AgentNumberBasicgrpLife" name="text" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Primary Agent Number"
+                             onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <span class="label label-default">Agent SubCount</span>
+                      <input type="text" maxlength="3" formControlName="AgentSubCountBasicgrpLife" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent SubCount"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <span class="label label-default">Commisson Split %</span>
+                      <input type="text" formControlName="CommissonSplitBasicgrpLife"
+                             (change)="commisioncheckBGL($event.target.value)" class="form-control mb-2 " style="width: 100%;"
+                             placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+
+                    <div class="col-md-3">
+                      <span class="label label-default">Agent Name</span>
+                      <input type="text" formControlName="AgentNameBasicgrpLife" class="form-control mb-2 "
+                             style="width: 100%;" placeholder="Agent Name"
+                             onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
                       <div *ngIf="commissionSplitErr || commissionSplitErrBGL">
                         <h6 style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</h6>
                       </div>
-                  </div>
-                </div>
-
-                <!-- second-row -->
-                <div class="row">
-                  <div class="col-md-3">
-                    <input type="text" maxlength="5" formControlName="AgentNumber1BasicgrpLife" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent Number"
-                      onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" maxlength="3" formControlName="AgentSubCount1BasicgrpLife" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent SubCount"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit1BasicgrpLife"
-                      (change)="commisioncheckBGL($event.target.value)" class="form-control mb-2 " style="width: 100%;"
-                      placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
                   </div>
 
-                </div>
-                <!-- 3rd-row -->
-                <div class="row">
-                  <div class="col-md-3">
-                    <input type="text" maxlength="5" formControlName="AgentNumber2BasicgrpLife" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent Number"
-                      onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" maxlength="3" formControlName="AgentSubCount2BasicgrpLife" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent SubCount"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit2BasicgrpLife"
-                      (change)="commisioncheckBGL($event.target.value)" class="form-control mb-2 " style="width: 100%;"
-                      placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
+                  <!-- second-row -->
+                  <div class="row">
+                    <div class="col-md-3">
+                      <input type="text" maxlength="5" formControlName="AgentNumber1BasicgrpLife" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent Number"
+                             onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" maxlength="3" formControlName="AgentSubCount1BasicgrpLife" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent SubCount"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" formControlName="CommissonSplit1BasicgrpLife"
+                             (change)="commisioncheckBGL($event.target.value)" class="form-control mb-2 " style="width: 100%;"
+                             placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
 
-                </div>
-                <!-- 4th-row -->
-                <div class="row">
-                  <div class="col-md-3">
-                    <input type="text" maxlength="5" formControlName="AgentNumber3BasicgrpLife" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent Number"
-                      onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
                   </div>
-                  <div class="col-md-3">
-                    <input type="text" maxlength="3" formControlName="AgentSubCount3BasicgrpLife" class="form-control mb-2"
-                      style="width: 100%;" placeholder="Agent SubCount"
-                      onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" formControlName="CommissonSplit3BasicgrpLife"
-                      (change)="commisioncheckBGL($event.target.value)" class="form-control mb-2 " style="width: 100%;"
-                      placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-                  </div>
+                  <!-- 3rd-row -->
+                  <div class="row">
+                    <div class="col-md-3">
+                      <input type="text" maxlength="5" formControlName="AgentNumber2BasicgrpLife" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent Number"
+                             onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" maxlength="3" formControlName="AgentSubCount2BasicgrpLife" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent SubCount"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" formControlName="CommissonSplit2BasicgrpLife"
+                             (change)="commisioncheckBGL($event.target.value)" class="form-control mb-2 " style="width: 100%;"
+                             placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
 
-                </div>
-              </form>
-            </app-basic-group-life>
+                  </div>
+                  <!-- 4th-row -->
+                  <div class="row">
+                    <div class="col-md-3">
+                      <input type="text" maxlength="5" formControlName="AgentNumber3BasicgrpLife" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent Number"
+                             onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" maxlength="3" formControlName="AgentSubCount3BasicgrpLife" class="form-control mb-2"
+                             style="width: 100%;" placeholder="Agent SubCount"
+                             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" formControlName="CommissonSplit3BasicgrpLife"
+                             (change)="commisioncheckBGL($event.target.value)" class="form-control mb-2 " style="width: 100%;"
+                             placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
+                    </div>
+
+                  </div>
+                </form>
+              </app-basic-group-life>
+            </div>
           </div>
+
         </div>
 
       </div>
-
     </div>
-  </div>
-  <button type="submit" class="btn btn-success mt-4 mb-4" style="float: right;" [disabled]="fromSearchFlag && status ==''">Submit Group
-    Setup Information</button> 
+    <!--<button type="submit" class="btn btn-success mt-4 mb-4" style="float: right;" [disabled]="fromSearchFlag && status ==''">
+      Submit Group
+      Setup Information
+    </button>-->
+
+    <button type="submit" class="btn btn-success mt-4 mb-4" style="float: right;" [disabled]="bSubmitDisable">
+      Submit Group
+      Setup Information
+    </button>
   </form> 
 </div>

@@ -41,6 +41,7 @@ export class GroupSetupComponent implements OnInit {
   public selectedProducts: any = [];
   titleName: string = "";
   selectedOption = [];
+  bSubmitDisable : boolean= false;
   accident: string = "";
   isChecked = true;
   isCheckedFppg = false;
@@ -489,9 +490,11 @@ export class GroupSetupComponent implements OnInit {
             this.fieldsetDisabled = true;
             this.agentformgrp.disable();
             this.toggleFlag = true;
+            this.bSubmitDisable = true;
           } else {
             this.fieldsetDisabled = false;
             this.agentformgrp.enable();
+            this.bSubmitDisable = false;
             this.toggleFlag = false;
           }
         });
@@ -561,6 +564,7 @@ export class GroupSetupComponent implements OnInit {
     //this.agentformgrp.enable();
     this.editServiceCall = true;
     this.eppcreategroupservice.setChaStatus('Edit');
+    this.bSubmitDisable = false;
     //this.eppcreategroupservice.setUserStatus('Edit');
     this.status = this.eppcreategroupservice.getUserStatus();
   }
@@ -575,6 +579,7 @@ export class GroupSetupComponent implements OnInit {
     this.eppcreategroupservice.setChaStatus('Edit');
     //this.eppcreategroupservice.setUserStatus('Add');
     this.status = this.eppcreategroupservice.getUserStatus();
+    this.bSubmitDisable = false;
   }
   onClone() {
     this.addToggle = false;
@@ -588,7 +593,7 @@ export class GroupSetupComponent implements OnInit {
     this.groupNumber = '';
     this.groupName = '';
     this.minDate ='';
-
+    this.bSubmitDisable = false;
 
   }
 
