@@ -48,19 +48,13 @@ export class FPPGComponent implements OnInit, OnChanges {
     private fb: FormBuilder, private eppservice: EppCreateGrpSetupService,
     public datepipe: DatePipe, private groupsearchService: GroupsearchService) {
     this.fppgSitus = this.lookupValue;
-
-
-
   }
-
-
 
   ngOnChanges(simpleChange: SimpleChanges) {
     console.log("simpleChange", simpleChange);
     this.fppgSitus = this.lookupValue;
     this.latest_date = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
     this.lookupValue = simpleChange.lookupValue.currentValue;
-
   }
 
   ngOnInit() {
@@ -132,9 +126,9 @@ export class FPPGComponent implements OnInit, OnChanges {
     }
   }
 
-  onWaiverChecked(event: any) {
+  // onWaiverChecked(event: any) {
 
-  }
+  // }
 
 
   restForm() {

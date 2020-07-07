@@ -13,4 +13,21 @@ export class HomeComponent {
   Groupsetup() {
     this.router.navigate(['/group-search']);
   }
+
+  ManageBulk() {
+    this.router.navigate(['/custom-bulk-update']);
+  }
+
+  ManageUserAcess() {
+    this.router.navigate(['/group-setup']);
+  }
+
+  ManageErrorMsg() {
+    this.router.navigate(['/group-search']);
+  }
+
+  ManageTemplate() {
+    this.router.navigate(['/custom-bulk-template']);
+  }
+
 }

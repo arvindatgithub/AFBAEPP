@@ -9,3 +9,7 @@ mat-card {
 .mat-card-header .mat-card-title {
     margin-bottom: 0px; 
 }
+
+.card {
+margin-bottom: 10px;
+}

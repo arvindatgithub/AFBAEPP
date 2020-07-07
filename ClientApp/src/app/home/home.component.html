@@ -1,7 +1,28 @@
-<div>
-    <mat-card class="example-card">
+<div class="container">
+    <div class="row">
+        <div class="col">
+    <mat-card class="card">
         <mat-card-header style="color: #428bca;">
-            <mat-card-title>Groups</mat-card-title>
+            <mat-card-title>Manage Groups</mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+            <p>
+                Create Group, Associate with Vendors & account managers
+                Define override criteria at product level
+            </p>
+        </mat-card-content>
+        <mat-divider></mat-divider>
+        <mat-card-actions>
+            <button mat-button style="color:#fff;background-color: #428bca;" (click)="Groupsetup()">Manage Groups</button>
+        </mat-card-actions>
+    </mat-card>
+
+
+
+    <mat-card class="card">
+        <mat-card-header style="color: #428bca;">
+            <mat-card-title>Manage Custom Bulk Update</mat-card-title>
         </mat-card-header>
         <mat-divider></mat-divider>
         <mat-card-content>
@@ -13,7 +34,69 @@
         </mat-card-content>
         <mat-divider></mat-divider>
         <mat-card-actions>
-            <button mat-button style="color:#fff;background-color: #428bca;" (click)="Groupsetup()">Manage Groups</button>
+            <button mat-button style="color:#fff;background-color: #428bca;" (click)="ManageBulk()">Manage Custom Bulk Update</button>
         </mat-card-actions>
     </mat-card>
+
+
+
+
+    <mat-card class="card">
+        <mat-card-header style="color: #428bca;">
+            <mat-card-title>Manage Template</mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+            <p>
+                HTML5 is the next major revision of the HTML standard superseding
+                HTML 4.01, XHTML 1.0, and XHTML 1.1. HTML5 is a standard for
+                structuring and presenting content on the World Wide Web.
+            </p>
+        </mat-card-content>
+        <mat-divider></mat-divider>
+        <mat-card-actions>
+            <button mat-button style="color:#fff;background-color: #428bca;" (click)="ManageTemplate()">Manage Template</button>
+        </mat-card-actions>
+    </mat-card>
+
 </div>
+<div class="col">
+
+    <mat-card class="card">
+        <mat-card-header style="color: #428bca;">
+            <mat-card-title>Manage Error Message</mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+            <p>
+                View and update existing error messages. These error messages are used to communicate the errors in data with enrolment partners
+            </p>
+        </mat-card-content>
+        <mat-divider></mat-divider>
+        <mat-card-actions>
+            <button mat-button style="color:#fff;background-color: #428bca;" (click)="ManageErrorMsg()">Manage Error Message</button>
+        </mat-card-actions>
+    </mat-card>
+
+
+
+
+    <mat-card class="card">
+        <mat-card-header style="color: #428bca;">
+            <mat-card-title>Manage User Access</mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+            <p>
+                Assign users to role, functions and actions ( add/update/view)
+            </p>
+        </mat-card-content>
+        <mat-divider></mat-divider>
+        <mat-card-actions>
+            <button mat-button style="color:#fff;background-color: #428bca;" (click)="ManageUserAcess()">Manage User Access</button>
+        </mat-card-actions>
+    </mat-card>
+    </div>
+    </div>
+</div> 
+

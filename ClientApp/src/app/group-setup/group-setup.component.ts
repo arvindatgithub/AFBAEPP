@@ -1652,7 +1652,7 @@ export class GroupSetupComponent implements OnInit {
       );
       }
       else{
-        this.toastr.error('Please fill form!','Error',{
+        this.toastr.error('Please fill the required fields mark by the red asterisk!','Error',{
           timeOut:3000,
         });
       }
