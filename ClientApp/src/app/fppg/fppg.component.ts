@@ -55,7 +55,8 @@ export class FPPGComponent implements OnInit, OnChanges {
     console.log("simpleChange", simpleChange);
     this.fppgSitus = this.lookupValue;
     this.latest_date = this.datepipe.transform(this.dateValue, 'yyyy-MM-dd');
-    this.lookupValue = simpleChange.lookupValue.currentValue;
+    console.log("this.latest_date",this.latest_date);
+    // this.lookupValue = simpleChange.lookupValue.currentValue;
   
   }
   // get myForm() {

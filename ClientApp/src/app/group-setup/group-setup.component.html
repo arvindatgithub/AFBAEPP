@@ -44,7 +44,7 @@
         </div>
         <div class="form-group col-md-3" [formGroup]="groupSetupFG">
           <span class="label label-default">Group effective date<span aria-hidden="true" class="required">*</span></span>
-          <input type="date" formControlName="fcEffDate" name="effDate" class="form-control" [(ngModel)]="minDate"
+          <input type="date" formControlName="fcEffDate" (change)="onDateChange($event)" name="effDate" class="form-control" [(ngModel)]="minDate"
                  style="width: 100%;" placeholder="Group Effective Date">
         </div>
         <div class="form-group col-md-3">
