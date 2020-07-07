@@ -19,11 +19,11 @@ export class HomeComponent {
   }
 
   ManageUserAcess() {
-    this.router.navigate(['/group-setup']);
+    this.router.navigate(['/user-access']);
   }
 
   ManageErrorMsg() {
-    this.router.navigate(['/group-search']);
+    this.router.navigate(['/manage-error']);
   }
 
   ManageTemplate() {

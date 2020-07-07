@@ -53,6 +53,8 @@ import { DatePipe } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 //import { ErrorInterceptor } from './shared/error-handler/error-interceptor';
 import { SharedModule } from './shared/shared.module';
+import { ManageErrorComponent } from './manage-error/manage-error.component';
+import { UserAccessComponent } from './user-access/user-access.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,7 +81,9 @@ import { SharedModule } from './shared/shared.module';
     FppgQuestionsComponent,
     FppiQuestionsComponent,
     VolGroupLifeQuestionsComponent,
-    VoluntaryCiQuestionsComponent
+    VoluntaryCiQuestionsComponent,
+    ManageErrorComponent,
+    UserAccessComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -125,7 +129,9 @@ import { SharedModule } from './shared/shared.module';
       { path: 'radio-button', component: RadioButtonComponent},
       { path: 'custom-bulk-update', component: CustomBulkUpdateComponent},
       { path: 'custom-bulk-template', component: CustomBulkTemplateComponent},
-      { path: 'radio-button', component: RadioButtonComponent}           
+      { path: 'radio-button', component: RadioButtonComponent },
+      { path: 'manage-error', component: ManageErrorComponent },
+      { path: 'user-access', component: UserAccessComponent },
     ])
   ],
   providers: [DatePipe],
