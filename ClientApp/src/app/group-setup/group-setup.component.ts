@@ -1655,7 +1655,7 @@ export class GroupSetupComponent implements OnInit {
               timeOut:3000,
               
             });
-            this.router.navigate(['/group-search']);
+            this.router.navigate(['/group-setup', this.groupNumber]);
         }
         
         else if(error.status===400){
