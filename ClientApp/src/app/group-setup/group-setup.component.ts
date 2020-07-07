@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit, Input } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, FormControl, Validators, NgForm } from '@angular/forms';
 import { TooltipPosition } from '@angular/material/tooltip';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient } from '@angular/common/http';
@@ -1063,7 +1063,8 @@ export class GroupSetupComponent implements OnInit {
   sp_quality_of_lifefpp:any;
   sp_waiver_of_premfpp:any;
   
-  onSubmit() {
+  onSubmit(form:NgForm) {
+    console.log("form",form);
     console.log("this.fppgComponent.fppgformgrp.value.FCfppgQolRiders",this.fppgComponent.fppgformgrp.value.FCfppgQolRiders)
     if (this.fppgComponent.fppgformgrp.value.FCfppgQolRiders) {
       this.emp_quality_of_life = "070";
@@ -1134,7 +1135,7 @@ export class GroupSetupComponent implements OnInit {
       "grpId": "0",
       "grpNbr": this.groupNumber,
       "grpNm": this.groupName,
-      "grpEfftvDt": (new Date(this.groupSetupFG.get('fcEffDate').value)).toISOString(),
+      "grpEfftvDt": new Date(this.groupSetupFG.get('fcEffDate').value),
       "grpSitusSt": this.grpSitusState,
       // "actvFlg": "false",
       "actvFlg": this.isChecked.toString(),
@@ -1614,19 +1615,31 @@ export class GroupSetupComponent implements OnInit {
       }
       );
     } else {
-      this.eppcreategroupservice.PosteppCreate(body).subscribe((data: any) => {
-        console.log("data", data);
-      },
+      if(!form.invalid){
+        console.log("form.invalid",form.invalid);
+        this.eppcreategroupservice.PosteppCreate(body).subscribe((response: any) => {
+          console.log("response",response);
+        },
+    
       (error:any) =>{
-        this.toastr.error(error.error,'Error',{
-          timeOut:3000,
-        });
-        // this.snackBar.open(error.error,"close",{
-        //     duration:2000,
-        // });
-        // window.scrollTo(0,0); 
+        if(error.status===200){
+          this.toastr.success(error.error.text,'Success',{
+              timeOut:3000,
+            });
+        }
+        else if(error.status===400){
+          this.toastr.error(error.error,'Error',{
+            timeOut:3000,
+          }); 
+        }
       }
       );
+      }
+      else{
+        this.toastr.error('Please fill form!','Error',{
+          timeOut:3000,
+        });
+      }
     }
    
 

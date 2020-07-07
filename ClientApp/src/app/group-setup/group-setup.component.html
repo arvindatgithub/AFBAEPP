@@ -19,22 +19,22 @@
       </button>
     </div>
     <div class="form-group col-md-3 mt-4 mb-4">
-      <mat-slide-toggle [(ngModel)]="isChecked" (change)="toggleChange($event)" [color]="toggleActiveColor">
+      <mat-slide-toggle [(ngModel)]="isChecked" name="check9" (change)="toggleChange($event)" [color]="toggleActiveColor">
         {{checkedToggle}}</mat-slide-toggle>
     </div>
   </div>
 
   <!-- Group Section -->
 
-  <form>
+  <form  #f="ngForm" (ngSubmit)="onSubmit(f)">
       <div class="row">
         <div class="form-group col-md-3">
           <span class="label label-default">Group Number<span aria-hidden="true" class="required">*</span></span>
-          <input type="text" maxlength="5" name="name" #name="ngModel" class="form-control" [(ngModel)]="groupNumber"
+          <input type="text" maxlength="5" name="gname" #gname="ngModel" class="form-control" [(ngModel)]="groupNumber"
             style="width: 100%;" placeholder="Group Number Field" required
             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
-          <div *ngIf="name.invalid && (name.dirty || name.touched)">
-            <small *ngIf="name.errors.required" style="color: red;">Group Number is required!</small>
+          <div *ngIf="gname.invalid && (gname.dirty || gname.touched)">
+            <small *ngIf="gname.errors.required" style="color: red;">Group Number is required!</small>
           </div>
         </div>
         <div class="form-group col-md-3">
@@ -47,7 +47,7 @@
         </div>
         <div class="form-group col-md-3" [formGroup]="groupSetupFG">
           <span class="label label-default">Group effective date<span aria-hidden="true" class="required">*</span></span>
-          <input type="date" formControlName="fcEffDate" name="effDate"  class="form-control" [(ngModel)]="minDate"
+          <input type="date" formControlName="fcEffDate" name="effDate" class="form-control" [(ngModel)]="minDate"
             style="width: 100%;" placeholder="Group Effective Date">
         </div>
         <div class="form-group col-md-3">
@@ -129,11 +129,11 @@
           </select>
         </div>
       </div>
-  </form> 
+  
 
   <div>
 
-    <form class="agent-form" [formGroup]="agentformgrp">
+    <div class="agent-form" [formGroup]="agentformgrp">
       <!-- <div *ngIf="commissionSplitErr">
         <small style="color: #ff6363;">Commission Split Value Cannot Be More Than 100</small>
       </div> -->
@@ -231,17 +231,17 @@
         </div>
 
       </div>
-    </form>
+    </div>
   </div>
 
   <div class="container">
     <div id="accordion" class="accordion">
       <div class="card mt-2" style="cursor: pointer;">
-        <div class="card-header collapsed mb-2" data-toggle="collapse" href="#collapseOne">
+        <div class="card-header collapsed mb-2"  data-toggle="collapse" href="#collapseOne">
           <a class="card-title">
             FPPG
           </a>
-          <mat-slide-toggle style="float: right;" [(ngModel)]="isCheckedFppg" (change)="toggleChangeProductFppg($event)"
+          <mat-slide-toggle style="float: right;" name="check" [(ngModel)]="isCheckedFppg" (change)="toggleChangeProductFppg($event)"
             [color]="toggleActiveColor" [disabled]="toggleFlag">
             {{checkedToggleProductFppg}}</mat-slide-toggle>
         </div>
@@ -344,14 +344,13 @@
 
           </app-fppg>
         </div>
-        <div class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-          <a class="card-title">
+        <button type="button"  style="border-width: 0px; text-align: left;" [disabled]="checkedToggleProductFppi==='Inactive'" class="card-header collapsed mb-2" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
             FPP Individual
-          </a>
-          <mat-slide-toggle style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedFppInd"
+        
+          <mat-slide-toggle name="check2" style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedFppInd"
             (change)="toggleChangeProductFppIndivisual($event)" [color]="toggleActiveColor"  [disabled]=toggleFlag>
             {{checkedToggleProductFppi}}</mat-slide-toggle>
-        </div>
+        </button>
         <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
 
           <app-fpp-individual [lookupValue]="selectedState" #child1 [dateValue]="dateChange">
@@ -456,7 +455,7 @@
           <a class="card-title">
             Accident
           </a>
-          <mat-slide-toggle style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedAccident"
+          <mat-slide-toggle name="check3" style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedAccident"
             (change)="toggleChangeProductAccident($event)" [color]="toggleActiveColor"  [disabled]=toggleFlag>
             {{checkedToggleProductACCident}}</mat-slide-toggle>
         </div>
@@ -569,7 +568,7 @@
           <a class="card-title">
             Hospital Indemnity
           </a>
-          <mat-slide-toggle style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedHospital"
+          <mat-slide-toggle name="check4" style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedHospital"
             (change)="toggleChangeProductHospitalIndemnity($event)" [color]="toggleActiveColor"  [disabled]=toggleFlag>
             {{checkedToggleProductHospitalIndemnity}}</mat-slide-toggle>
         </div>
@@ -680,7 +679,7 @@
           <a class="card-title">
             Employer Paid CI
           </a>
-          <mat-slide-toggle style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedEmpPaidCi"
+          <mat-slide-toggle name="check5" style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedEmpPaidCi"
             (change)="toggleChangeProductEmpPaidCi($event)" [color]="toggleActiveColor"  [disabled]=toggleFlag>
             {{checkedToggleProductEmpPaidCI}}</mat-slide-toggle>
         </div>
@@ -795,7 +794,7 @@
           <a class="card-title">
             Voluntary CI
           </a>
-          <mat-slide-toggle style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedVolutaryCi"
+          <mat-slide-toggle name="check6" style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedVolutaryCi"
             (change)="toggleChangeProductVolCI($event)" [color]="toggleActiveColor"  [disabled]=toggleFlag>
             {{checkedToggleProductVolCI}}</mat-slide-toggle>
         </div>
@@ -909,7 +908,7 @@
           <a class="card-title">
             Vol Group Life
           </a>
-          <mat-slide-toggle style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedVolGrpLife"
+          <mat-slide-toggle name="check7" style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedVolGrpLife"
             (change)="toggleChangeProductVilGrpLife($event)" [color]="toggleActiveColor"  [disabled]=toggleFlag>
             {{checkedToggleProductVolGrpCI}}</mat-slide-toggle>
         </div>
@@ -1024,7 +1023,7 @@
           <a class="card-title">
             Basic Group Life
           </a>
-          <mat-slide-toggle style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedBasicGrpLife"
+          <mat-slide-toggle name="check8" style="float: right;" (click)="$event.stopPropagation()" [(ngModel)]="isCheckedBasicGrpLife"
             (change)="toggleChangeProductBasicGrpLife($event)" [color]="toggleActiveColor"  [disabled]=toggleFlag>
             {{checkedToggleProductBcsGrpLife}}</mat-slide-toggle>
         </div>
@@ -1136,6 +1135,7 @@
 
     </div>
   </div>
-  <button type="submit" class="btn btn-success mt-4 mb-4" style="float: right;" [disabled]="fromSearchFlag && status ==''" (click)="onSubmit()">Submit Group
+  <button type="submit" class="btn btn-success mt-4 mb-4" style="float: right;" [disabled]="fromSearchFlag && status ==''">Submit Group
     Setup Information</button> 
+  </form> 
 </div>
