@@ -87,7 +87,7 @@ export class VoluntaryCIComponent implements OnInit, OnChanges {
         FCVolCIPlanCodeManualEntry_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.emp_plan_cd_action : this.radioButtonArr[1].value, Validators.required],
         //FCVolCIOpenEnrollGI: ["",Validators.required],
         //FCVolCIOpenEnrollGI_Action: [this.radioButtonArr[1].value,Validators.required],
-        FCVolCIEmpNTB: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.owner_smkr_no_smkr : "", Validators.required],
+        //FCVolCIEmpNTB: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.owner_smkr_no_smkr : "", Validators.required],
         FCVolCIEmpNTB_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.owner_smkr_no_smkr_action : this.radioButtonArr[1].value, Validators.required],
         FCVolCIEmpTB_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.owner_smkr_no_smkr_action : this.radioButtonArr[1].value, Validators.required],
         FCVolCIEmpTB: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.owner_smkr_no_smkr : "", Validators.required],

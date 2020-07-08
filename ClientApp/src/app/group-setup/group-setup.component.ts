@@ -1429,10 +1429,11 @@ export class GroupSetupComponent implements OnInit {
         "emp_plan_cd": "",
         "ch_plan_cd": "",
 
-        // "owner_smkr_no_smkr": this.VolCiComponent.volCIformgrp.value.,
-        // "sp_smkr_no_smkr": this.VolCiComponent.volCIformgrp.value.,
-        // "owner_smkr_no_smkr_action": this.VolCiComponent.volCIformgrp.value.,
-        // "sp_smkr_no_smkr_action": this.VolCiComponent.volCIformgrp.value.,
+        "owner_smkr_no_smkr": this.VolCiComponent.volCIformgrp.value.FCVolCIEmpTB,
+        "sp_smkr_no_smkr": this.VolCiComponent.volCIformgrp.value.FCVolCIEmpTB,
+        "owner_smkr_no_smkr_action": this.VolCiComponent.volCIformgrp.value.FCVolCIEmpTB_Action,
+        "sp_smkr_no_smkr_action": this.VolCiComponent.volCIformgrp.value.FCVolCIEmpTB_Action,
+
         "emp_plan_cd_action": this.VolCiComponent.volCIformgrp.value.FCVolCIPlanCodeManualEntry_Action,
         "sp_plan_cd_action": this.VolCiComponent.volCIformgrp.value.FCVolCIPlanCodeManualEntry_Action,
         "ch_plan_cd_action": this.VolCiComponent.volCIformgrp.value.FCVolCIPlanCodeManualEntry_Action,
@@ -1642,7 +1643,7 @@ export class GroupSetupComponent implements OnInit {
 
     }
 
-    if(this.editServiceCall){
+    if(this.editServiceCall&&!form.invalid ){
     
       body.grpId = this.groupsData.grpId;
       this.eppcreategroupservice.postEppEdit(body).subscribe(

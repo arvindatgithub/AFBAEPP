@@ -99,5 +99,8 @@ padding-bottom: 60px;
       border: 1px solid #1861ac;
   }
   
+  input.ng-invalid.ng-touched{
+      border: 1px solid red;
+  }
 
 
