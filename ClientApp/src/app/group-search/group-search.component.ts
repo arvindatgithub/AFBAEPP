@@ -67,8 +67,6 @@ export class GroupSearchComponent implements OnInit {
     this.groupSearchResults = false;
   }
 
-<<<<<<< HEAD
-=======
   navigateGrpScreen(){
     this.router.navigate(['/group-setup']);
    
@@ -79,6 +77,5 @@ export class GroupSearchComponent implements OnInit {
   //   this.groups.filter = filterValue.trim().toLowerCase();
   //   console.log('filtered' +this.groups);
   // }
->>>>>>> new-harsh
 
 }
