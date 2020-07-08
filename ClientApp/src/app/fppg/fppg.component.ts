@@ -63,7 +63,7 @@ export class FPPGComponent implements OnInit, OnChanges {
   //   return this.fppgformgrp.get(['FCfppgEffectiveDate']);
   // }
   ngOnInit() {
-    debugger;
+    
     this.lookUpDataSitusStates = JSON.parse(localStorage.getItem('lookUpSitusApiData'));
     this.fppgData = JSON.parse(localStorage.getItem('GroupNumApiData'));
 
@@ -76,11 +76,11 @@ export class FPPGComponent implements OnInit, OnChanges {
         } else {
           this.fppgSitus = this.lookupValue;
         }
-      }else {
-        this.latest_date = this.datepipe.transform(this.fppgData.grpEfftvDt, 'yyyy-MM-dd')=='0001-01-01' ? 
-        '':this.datepipe.transform(this.fppgData.grpEfftvDt, 'yyyy-MM-dd');
+      // }else {
+      //   this.latest_date = this.datepipe.transform(this.fppgData.grpEfftvDt, 'yyyy-MM-dd')=='0001-01-01' ? 
+      //   '':this.datepipe.transform(this.fppgData.grpEfftvDt, 'yyyy-MM-dd');
+      // }
       }
-
       this.fppgformgrp = this.fb.group({
         FCfppgEffectiveDate: [(this.fppgData.isFPPGActive) ? this.fppgDate : this.latest_date, Validators.required],
         FCfppgSitusState: [(this.fppgData.isFPPGActive) ? this.fppgSitus : this.fppgSitus, Validators.required],

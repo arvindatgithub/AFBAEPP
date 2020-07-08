@@ -67,11 +67,11 @@ export class EmployerPaidCIComponent implements OnInit, OnChanges {
           this.empCiStatus = this.lookupValue;
         }
 
-      }else {
-        this.latest_dateemppaisci = this.datepipe.transform(this.empCiData.grpEfftvDt, 'yyyy-MM-dd')=='0001-01-01' ?
-         '':this.datepipe.transform(this.empCiData.grpEfftvDt, 'yyyy-MM-dd') ;;
+      // }else {
+      //   this.latest_dateemppaisci = this.datepipe.transform(this.empCiData.grpEfftvDt, 'yyyy-MM-dd')=='0001-01-01' ?
+      //    '':this.datepipe.transform(this.empCiData.grpEfftvDt, 'yyyy-MM-dd') ;;
+      // }
       }
-
       this.empCIformgrp = this.fb.group({
         FCempCIEffectiveDate: [(this.empCiData.isER_CIActive) ? this.empCiDate : this.latest_dateemppaisci, Validators.required],
         FCempCIEffectiveDate_Action: [(this.empCiData.isER_CIActive) ? this.empCiData.eR_CI.effctv_dt_action : this.radioButtonArr[1].value, Validators.required],

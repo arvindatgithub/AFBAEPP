@@ -82,11 +82,11 @@ export class HospitalIndemnityComponent implements OnInit, OnChanges {
         this.ch_fname_01 = this.hiData.hi.ch_fname_01 == 1 ? true : false;
         this.ch_dob_01 = this.hiData.hi.ch_dob_01 == 1 ? true : false;
         this.ch_gndr_01 = this.hiData.hi.ch_gndr_01 == 1 ? true : false;
-      }else {
-        this.latest_datehospitalindemnity = this.datepipe.transform(this.hiData.grpEfftvDt, 'yyyy-MM-dd')=='0001-01-01' ? 
-        '':this.datepipe.transform(this.hiData.grpEfftvDt, 'yyyy-MM-dd');
+      // }else {
+      //   this.latest_datehospitalindemnity = this.datepipe.transform(this.hiData.grpEfftvDt, 'yyyy-MM-dd')=='0001-01-01' ? 
+      //   '':this.datepipe.transform(this.hiData.grpEfftvDt, 'yyyy-MM-dd');
+      // }
       }
-
       this.hospformgrp = this.fb.group({
         FChospEffectiveDate: [(this.hiData.isHIActive) ? this.hiDate : this.latest_datehospitalindemnity, Validators.required],
         FChospEffectiveDate_Action: [(this.hiData.isHIActive) ? this.hiData.hi.effctv_dt_action : this.radioButtonArr[1].value, Validators.required],

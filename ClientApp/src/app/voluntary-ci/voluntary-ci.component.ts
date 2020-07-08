@@ -63,11 +63,11 @@ export class VoluntaryCIComponent implements OnInit, OnChanges {
         } else {
           this.volCiSitus = this.lookupValue;
         }
-      }else {
-        this.latest_datevolci = this.datepipe.transform(this.volCiData.grpEfftvDt, 'yyyy-MM-dd')=='0001-01-01' ? 
-        '':this.datepipe.transform(this.volCiData.grpEfftvDt, 'yyyy-MM-dd') ;
+      // }else {
+      //   this.latest_datevolci = this.datepipe.transform(this.volCiData.grpEfftvDt, 'yyyy-MM-dd')=='0001-01-01' ? 
+      //   '':this.datepipe.transform(this.volCiData.grpEfftvDt, 'yyyy-MM-dd') ;
+      // }
       }
-
       this.volCIformgrp = this.fb.group({
         FCVolCIEffectiveDate: [(this.volCiData.isVOL_CIActive) ? this.volCiDate : this.latest_datevolci, Validators.required],
         FCVolCIEffectiveDate_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.effctv_dt_action : this.radioButtonArr[1].value, Validators.required],

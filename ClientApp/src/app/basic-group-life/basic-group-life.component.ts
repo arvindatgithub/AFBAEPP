@@ -65,11 +65,11 @@ export class BasicGroupLifeComponent implements OnInit, OnChanges {
         } else {
           this.bglStatus = this.lookupValue;
         }
-      }else {
-        this.latest_datebasicgrplife = this.datepipe.transform(this.bglData.grpEfftvDt, 'yyyy-MM-dd')=='0001-01-01' ?
-         '':this.datepipe.transform(this.bglData.grpEfftvDt, 'yyyy-MM-dd') ;
+      // }else {
+      //   this.latest_datebasicgrplife = this.datepipe.transform(this.bglData.grpEfftvDt, 'yyyy-MM-dd')=='0001-01-01' ?
+      //    '':this.datepipe.transform(this.bglData.grpEfftvDt, 'yyyy-MM-dd') ;
+      // }
       }
-
       this.basicGrpLfformgrp = this.fb.group({
         FCbasicEffectiveDate_Action: [(this.bglData.isBGLActive) ? this.bglData.bgl.effctv_dt_action : this.radioButtonArr[1].value, Validators.required],
         FCbasicEffectiveDate: [(this.bglData.isBGLActive) ? this.bglDate : this.latest_datebasicgrplife, Validators.required],

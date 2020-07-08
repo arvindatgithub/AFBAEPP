@@ -1642,7 +1642,7 @@ export class GroupSetupComponent implements OnInit {
 
     }
 
-    if(this.editServiceCall|| !form.invalid){
+    if(this.editServiceCall){
     
       body.grpId = this.groupsData.grpId;
       this.eppcreategroupservice.postEppEdit(body).subscribe(

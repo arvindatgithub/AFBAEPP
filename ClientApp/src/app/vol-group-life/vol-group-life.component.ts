@@ -60,11 +60,11 @@ export class VolGroupLifeComponent implements OnInit, OnChanges {
         } else {
           this.volGrpSitus = this.lookupValue;
         }
-      }else {
-        this.latest_datevolgrplife = this.datepipe.transform(this.volGrpData.grpEfftvDt, 'yyyy-MM-dd')=='0001-01-01' ? 
-        '':this.datepipe.transform(this.volGrpData.grpEfftvDt, 'yyyy-MM-dd');
+      // }else {
+      //   this.latest_datevolgrplife = this.datepipe.transform(this.volGrpData.grpEfftvDt, 'yyyy-MM-dd')=='0001-01-01' ? 
+      //   '':this.datepipe.transform(this.volGrpData.grpEfftvDt, 'yyyy-MM-dd');
+      // }
       }
-
       this.volGrpLfformgrp = this.fb.group({
         FCVolGrpLfEffectiveDate: [(this.volGrpData.isVGLActive) ? this.volGrpDate : this.latest_datevolgrplife, Validators.required],
         FCVolGrpLfEffectiveDate_Action: [(this.volGrpData.isVGLActive) ? this.volGrpData.vgl.effctv_dt_action : this.radioButtonArr[1].value, Validators.required],
