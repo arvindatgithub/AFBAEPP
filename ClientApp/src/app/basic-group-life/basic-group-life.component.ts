@@ -43,9 +43,10 @@ export class BasicGroupLifeComponent implements OnInit, OnChanges {
 
 
 
-  get myForm() {
-    return this.basicGrpLfformgrp.get('FCbasicSitusState');
-  }
+  // get myForm() {
+  //   return this.basicGrpLfformgrp.get('FCbasicSitusState');
+  // }
+  
   ngOnChanges() {
 
     this.bglStatus = this.lookupValue;
@@ -105,8 +106,5 @@ export class BasicGroupLifeComponent implements OnInit, OnChanges {
       ChildFaceAmount: "",
     })
   }
-  onItemChange(value) {
-    console.log(" Value is : ", value);
-  }
-
+ 
 }

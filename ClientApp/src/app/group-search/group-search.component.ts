@@ -69,10 +69,5 @@ export class GroupSearchComponent implements OnInit {
     this.groupSearchResults = false;
   }
 
-  // applyFilter(event: Event) {
-  //   const filterValue = (event.target as HTMLInputElement).value;
-  //   this.groups.filter = filterValue.trim().toLowerCase();
-  //   console.log('filtered' +this.groups);
-  // }
 
 }
