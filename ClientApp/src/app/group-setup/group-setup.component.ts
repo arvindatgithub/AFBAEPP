@@ -620,7 +620,7 @@ export class GroupSetupComponent implements OnInit {
   let c= this.agentCommissionSPlit_2 !== undefined && this.agentCommissionSPlit_2 !== '' ?  parseInt(this.agentCommissionSPlit_2) : 0;
   let d= this.agentCommissionSPlit_3 !== undefined && this.agentCommissionSPlit_3 !== '' ? parseInt(this.agentCommissionSPlit_3) :0;
   let e = a+b+c+d;
-  if(e > 100){
+  if(e >= 100){
     this.commissionSplitErr = true;
   } else {
     this.commissionSplitErr = false;
