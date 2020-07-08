@@ -620,9 +620,11 @@ export class GroupSetupComponent implements OnInit {
   let c= this.agentCommissionSPlit_2 !== undefined && this.agentCommissionSPlit_2 !== '' ?  parseInt(this.agentCommissionSPlit_2) : 0;
   let d= this.agentCommissionSPlit_3 !== undefined && this.agentCommissionSPlit_3 !== '' ? parseInt(this.agentCommissionSPlit_3) :0;
   let e = a+b+c+d;
-  if(e >= 100){
+  if(e !== 100){
     this.commissionSplitErr = true;
-  } else {
+  } 
+
+  else {
     this.commissionSplitErr = false;
   }
  }
@@ -632,7 +634,7 @@ export class GroupSetupComponent implements OnInit {
   let c= this.agentformgrp.get('CommissonSplit2fppg').value !== undefined && this.agentformgrp.get('CommissonSplit2fppg').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit2fppg').value) : 0;
   let d= this.agentformgrp.get('CommissonSplit3fppg').value !== undefined && this.agentformgrp.get('CommissonSplit3fppg').value !== ''? parseInt(this.agentformgrp.get('CommissonSplit3fppg').value) : 0;
   let e = a+b+c+d;
-  if(e >= 100){
+  if(e !== 100){
     this.commissionSplitErrFppg = true;
   } else {
     this.commissionSplitErrFppg = false;
@@ -645,7 +647,7 @@ export class GroupSetupComponent implements OnInit {
   let c= this.agentformgrp.get('CommissonSplit2FppIndivisual').value !== undefined && this.agentformgrp.get('CommissonSplit2FppIndivisual').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit2FppIndivisual').value) : 0;
   let d= this.agentformgrp.get('CommissonSplit3FppIndivisual').value !== undefined && this.agentformgrp.get('CommissonSplit3FppIndivisual').value !== ''? parseInt(this.agentformgrp.get('CommissonSplit3FppIndivisual').value) : 0;
   let e = a+b+c+d;
-  if(e > 100){
+  if(e !== 100){
     this.commissionSplitErrFppi = true;
   } else {
     this.commissionSplitErrFppi = false;
@@ -658,7 +660,7 @@ export class GroupSetupComponent implements OnInit {
   let c= this.agentformgrp.get('CommissonSplit2accident').value !== undefined && this.agentformgrp.get('CommissonSplit2accident').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit2accident').value) : 0;
   let d= this.agentformgrp.get('CommissonSplit3accident').value !== undefined && this.agentformgrp.get('CommissonSplit3accident').value !== ''? parseInt(this.agentformgrp.get('CommissonSplit3accident').value) : 0;
   let e = a+b+c+d;
-  if(e > 100){
+  if(e !== 100){
     this.commissionSplitErrAcc = true;
   } else {
     this.commissionSplitErrAcc = false;
@@ -672,7 +674,7 @@ export class GroupSetupComponent implements OnInit {
   let c= this.agentformgrp.get('CommissonSplit2HospitalIndemnity').value !== undefined && this.agentformgrp.get('CommissonSplit2HospitalIndemnity').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit2HospitalIndemnity').value) : 0;
   let d= this.agentformgrp.get('CommissonSplit3HospitalIndemnity').value !== undefined && this.agentformgrp.get('CommissonSplit3HospitalIndemnity').value !== ''? parseInt(this.agentformgrp.get('CommissonSplit3HospitalIndemnity').value) : 0;
   let e = a+b+c+d;
-  if(e > 100){
+  if(e !== 100){
     this.commissionSplitErrHos = true;
   } else {
     this.commissionSplitErrHos = false;
@@ -685,7 +687,7 @@ export class GroupSetupComponent implements OnInit {
   let c= this.agentformgrp.get('CommissonSplit2empPaidci').value !== undefined && this.agentformgrp.get('CommissonSplit2empPaidci').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit2empPaidci').value) : 0;
   let d= this.agentformgrp.get('CommissonSplit3empPaidci').value !== undefined && this.agentformgrp.get('CommissonSplit3empPaidci').value !== ''? parseInt(this.agentformgrp.get('CommissonSplit3empPaidci').value) : 0;
   let e = a+b+c+d;
-  if(e > 100){
+  if(e !== 100){
     this.commissionSplitErrEmpCI = true;
   } else {
     this.commissionSplitErrEmpCI = false;
@@ -698,7 +700,7 @@ export class GroupSetupComponent implements OnInit {
   let c= this.agentformgrp.get('CommissonSplit2volCi').value !== undefined && this.agentformgrp.get('CommissonSplit2volCi').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit2volCi').value) : 0;
   let d= this.agentformgrp.get('CommissonSplit3volCi').value !== undefined && this.agentformgrp.get('CommissonSplit3volCi').value !== ''? parseInt(this.agentformgrp.get('CommissonSplit3volCi').value) : 0;
   let e = a+b+c+d;
-  if(e > 100){
+  if(e !== 100){
     this.commissionSplitErrVolCI = true;
   } else {
     this.commissionSplitErrVolCI = false;
@@ -711,7 +713,7 @@ export class GroupSetupComponent implements OnInit {
   let c= this.agentformgrp.get('CommissonSplit2VolGrpLife').value !== undefined && this.agentformgrp.get('CommissonSplit2VolGrpLife').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit2VolGrpLife').value) : 0;
   let d= this.agentformgrp.get('CommissonSplit3VolGrpLife').value !== undefined && this.agentformgrp.get('CommissonSplit3VolGrpLife').value !== ''? parseInt(this.agentformgrp.get('CommissonSplit3VolGrpLife').value) : 0;
   let e = a+b+c+d;
-  if(e > 100){
+  if(e !== 100){
     this.commissionSplitErrVolGpLf = true;
   } else {
     this.commissionSplitErrVolGpLf = false;
@@ -724,7 +726,7 @@ export class GroupSetupComponent implements OnInit {
   let c= this.agentformgrp.get('CommissonSplit2BasicgrpLife').value !== undefined && this.agentformgrp.get('CommissonSplit2BasicgrpLife').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit2BasicgrpLife').value) : 0;
   let d= this.agentformgrp.get('CommissonSplit3BasicgrpLife').value !== undefined && this.agentformgrp.get('CommissonSplit3BasicgrpLife').value !== ''? parseInt(this.agentformgrp.get('CommissonSplit3BasicgrpLife').value) : 0;
   let e = a+b+c+d;
-  if(e > 100){
+  if(e !== 100){
     this.commissionSplitErrBGL = true;
   } else {
     this.commissionSplitErrBGL = false;
@@ -1641,6 +1643,7 @@ export class GroupSetupComponent implements OnInit {
     }
 
     if(this.editServiceCall|| !form.invalid){
+    
       body.grpId = this.groupsData.grpId;
       this.eppcreategroupservice.postEppEdit(body).subscribe(
         (data: any) => {
@@ -1676,6 +1679,7 @@ export class GroupSetupComponent implements OnInit {
               timeOut:3000,
               
             });
+          
             this.router.navigate(['/group-setup', this.groupNumber]);
         }
         

@@ -63,6 +63,7 @@ export class FPPGComponent implements OnInit, OnChanges {
   //   return this.fppgformgrp.get(['FCfppgEffectiveDate']);
   // }
   ngOnInit() {
+    debugger;
     this.lookUpDataSitusStates = JSON.parse(localStorage.getItem('lookUpSitusApiData'));
     this.fppgData = JSON.parse(localStorage.getItem('GroupNumApiData'));
 
