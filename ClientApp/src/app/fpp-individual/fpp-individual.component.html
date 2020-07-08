@@ -28,11 +28,11 @@
   
       <div class="row" style="justify-content:space-evenly;margin-right: 7%;">
 
-        <div class="radio-button">
+        <!-- <div class="radio-button">
           <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCfppiEmpAmtMax_Action" />
             <label class="radio-label"> {{item.name}}</label></div>
-        </div>
-        <div class="col-3">
+        </div> -->
+        <div class="col-4">
 
           <span class="label label-default">Emp GI Amount Max($)</span>
 
@@ -42,13 +42,13 @@
 
 
 
-        <div class="col-3">
+        <div class="col-4">
           <span class="label label-default">Emp QI Amount Max($)</span>
 
           <input type="text" class="form-control mb-2" formControlName="FCfppiEmpQIAmtMax" style="width: 100%;" placeholder="Employee QI Amount Max"required
           onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
-        <div class="col-3">
+        <div class="col-4">
           <span class="label label-default">Emp Max Amount($)</span>
           <input type="text" class="form-control mb-2" formControlName="FCfppiEmpAmtMax" style="width: 100%;" placeholder="Employee Max Amount"required
           onkeyup="this.value=this.value.replace(/[^\d]/,'')">
@@ -57,24 +57,24 @@
       </div>
 
       <div class="row mt-2" style="justify-content:space-evenly;margin-right: 7%;">
-        <div class="radio-button">
+        <!-- <div class="radio-button">
           <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCfppiSpouseAmtMax_Action" />
             <label class="radio-label"> {{item.name}}</label></div>
-        </div>
-        <div class="col-3">
+        </div> -->
+        <div class="col-4">
           <span class="label label-default">Spouse GI Amount Max($)</span>
 
           <input type="text" class="form-control mb-2 " formControlName="FCfppiSpouseGIAmtMax" style="width: 100%;" placeholder="Spouse GI Amount Max
             "required
             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
-        <div class="col-3">
+        <div class="col-4">
           <span class="label label-default">Spouse QI Amount Max($)</span>
           <input type="text" class="form-control mb-2 " formControlName="FCfppiSpouseQIAmtMax" style="width: 100%;" placeholder="Spouse QI Amount Max"required
           onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
-        <div class="col-3">
-          <span class="label label-default">Spouse Max Amount($)</span>
+        <div class="col-4">
+          <span class="label label-default">Spouse SI Max Amount($)</span>
           <input type="text" class="form-control mb-2 " formControlName="FCfppiSpouseMaxAmt" style="width: 100%;" placeholder="Spouse Max Amount"required
           onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
@@ -109,7 +109,7 @@
           <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCfppiUserToken_Action" />
             <label class="radio-label"> {{item.name}}</label></div>
         </div> -->
-        <div class="col-4">
+        <div class="col-6">
 
           <span class="label label-default">User Token</span>
           <input type="text" class="form-control mb-2 " formControlName="FCfppiUserToken" style="width: 100%;" placeholder="User Token">
@@ -119,7 +119,7 @@
           <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCfppiCaseToken_Action" />
             <label class="radio-label"> {{item.name}}</label></div>
         </div> -->
-        <div class="col-4">
+        <div class="col-6">
           <span class="label label-default">Case Token</span>
           <input type="text" class="form-control mb-2 " formControlName="FCfppiCaseToken" style="width: 100%;" placeholder="Case Token">
         </div>
