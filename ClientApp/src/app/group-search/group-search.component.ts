@@ -68,6 +68,11 @@ export class GroupSearchComponent implements OnInit {
   }
 
   navigateGrpScreen(){
+    let key = 'AddGroup';
+    if (localStorage.getItem("AddGroup") !== null) {
+      localStorage.clear();
+    }
+    localStorage.setItem(key, '1');
     this.router.navigate(['/group-setup']);
    
   }

@@ -29,12 +29,12 @@
         <p>Group Name: {{existingGrp.grpNm}}</p>
         <p>Group Number: {{existingGrp.grpNbr}}</p>
         <button type="button" class="btn btn-success mt-4 mb-4" (click)="goToSetup(existingGrp.grpNbr)">Go To Group Setup Screen</button>
-        <button type="button" class="btn btn-success mt-4 mb-4 ml-4" (click)="goToSearch()">Back To Group Screen</button>
+        <button type="button" class="btn btn-success mt-4 mb-4 ml-4" (click)="goToSearch()">Back To Group Search Screen</button>
     </div>
     <div *ngIf="!existingGrp" style="margin-top: 5%;">
         <p>Existing Group not Located</p>
-        <button type="button" class="btn btn-success mt-4 mb-4" (click)="goToSearch()">Back To Group Screen</button>
-        <button type="button" class="btn btn-success mt-4 mb-4 ml-4" [disabled]="disabledFlag" (click)="navigateGrpScreen()">Add Group</button>
+        <button type="button" class="btn btn-success mt-4 mb-4" (click)="goToSearch()">Back To Group Search Screen</button>
+        <button type="button" class="btn btn-success mt-4 mb-4 ml-4" [disabled]="disabledFlag" (click)="navigateGrpScreen()">Add Group</button> 
       
     </div>
 </div>
