@@ -552,6 +552,21 @@ export class GroupSetupComponent implements OnInit {
     })
    // this.status = this.eppcreategroupservice.getUserStatus();
     this.fromSearchFlag = this.groupsearchService.getFromSearchFlag();
+    if(localStorage.getItem('AddGroup') !== null){
+      localStorage.clear();
+      this.addToggle = true;
+      this.editToggle = false;
+      this.cloneToggle = false;
+      this.toggleFlag = false;
+      this.fieldsetDisabled = false;
+    // this.agentformgrp.enable();
+      this.editServiceCall = false;
+      this.eppcreategroupservice.setChaStatus('Add');
+      //this.eppcreategroupservice.setUserStatus('Add');
+      this.status = this.eppcreategroupservice.getUserStatus();
+      this.bSubmitDisable = false;
+    }
+
 
   }
 
@@ -570,19 +585,16 @@ export class GroupSetupComponent implements OnInit {
     this.status = this.eppcreategroupservice.getUserStatus();
   }
   onAdd() {
-    this.addToggle = true;
-    this.editToggle = false;
-    this.cloneToggle = false;
-    this.toggleFlag = false;
-    this.fieldsetDisabled = false;
-   // this.agentformgrp.enable();
-    this.editServiceCall = false;
-    this.eppcreategroupservice.setChaStatus('Edit');
-    //this.eppcreategroupservice.setUserStatus('Add');
-    this.status = this.eppcreategroupservice.getUserStatus();
-    this.bSubmitDisable = false;
     
+    let key = 'AddGroup';
+    if (localStorage.getItem("AddGroup") !== null) {
+      localStorage.clear();
+    }
+    localStorage.setItem(key, '1');
+
     this.router.navigate(['/group-setup']);
+    
+
 
   }
   onClone() {
@@ -596,7 +608,6 @@ export class GroupSetupComponent implements OnInit {
     this.editServiceCall = false;
     this.groupNumber = '';
     this.groupName = '';
-    this.minDate ='';
     this.bSubmitDisable = false;
 
   }
