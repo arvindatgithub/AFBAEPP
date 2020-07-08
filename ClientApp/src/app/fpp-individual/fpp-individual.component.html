@@ -105,20 +105,20 @@
 
     
       <div class="row mt-2" style="justify-content:space-evenly;">
-        <div class="radio-button">
+        <!-- <div class="radio-button">
           <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCfppiUserToken_Action" />
             <label class="radio-label"> {{item.name}}</label></div>
-        </div>
+        </div> -->
         <div class="col-4">
 
           <span class="label label-default">User Token</span>
           <input type="text" class="form-control mb-2 " formControlName="FCfppiUserToken" style="width: 100%;" placeholder="User Token">
         </div>
 
-        <div class="radio-button">
+        <!-- <div class="radio-button">
           <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCfppiCaseToken_Action" />
             <label class="radio-label"> {{item.name}}</label></div>
-        </div>
+        </div> -->
         <div class="col-4">
           <span class="label label-default">Case Token</span>
           <input type="text" class="form-control mb-2 " formControlName="FCfppiCaseToken" style="width: 100%;" placeholder="Case Token">

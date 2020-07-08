@@ -56,8 +56,6 @@ export class GroupSearchComponent implements OnInit {
   }
 
   goToSetup(grpNbr) {
-    console.log('Existing Group Number-- go to set up screen '+ grpNbr);
-    
     this.groupSearchService.setFromSearchFlag(true);
     this.groupSearchService.setEditGrpNbr(grpNbr);
     this.router.navigate(['/group-setup',grpNbr]);
@@ -67,6 +65,11 @@ export class GroupSearchComponent implements OnInit {
   goToSearch() {
     this.groupSearchSection = true;
     this.groupSearchResults = false;
+  }
+
+  navigateGrpScreen(){
+    this.router.navigate(['/group-setup']);
+   
   }
 
   // applyFilter(event: Event) {
