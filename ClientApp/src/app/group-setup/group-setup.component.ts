@@ -1161,7 +1161,7 @@ export class GroupSetupComponent implements OnInit {
       "grpNbr": this.groupNumber,
       "grpNm": this.groupName,
       "grpEfftvDt": new Date(this.groupSetupFG.get('fcEffDate').value),
-      "grpSitusSt": this.grpSitusState,
+      "grpSitusSt": this.selectedState,
       // "actvFlg": "false",
       "actvFlg": this.isChecked.toString(),
       "occClass": parseInt(this.groupSetupOCC.get('FCOccControl').value),

@@ -54,7 +54,6 @@ export class BasicGroupLifeComponent implements OnInit, OnChanges {
   }
   ngOnInit() {
     this.lookUpDataSitusStates = JSON.parse(localStorage.getItem('lookUpSitusApiData'));
-   
     this.bglData = JSON.parse(localStorage.getItem('GroupNumApiData'));
 
     if (this.bglData !== undefined) {
@@ -66,11 +65,14 @@ export class BasicGroupLifeComponent implements OnInit, OnChanges {
         } else {
           this.bglStatus = this.lookupValue;
         }
+      }else {
+        this.latest_datebasicgrplife = this.datepipe.transform(this.bglData.grpEfftvDt, 'yyyy-MM-dd')=='0001-01-01' ?
+         '':this.datepipe.transform(this.bglData.grpEfftvDt, 'yyyy-MM-dd') ;
       }
 
       this.basicGrpLfformgrp = this.fb.group({
         FCbasicEffectiveDate_Action: [(this.bglData.isBGLActive) ? this.bglData.bgl.effctv_dt_action : this.radioButtonArr[1].value, Validators.required],
-        FCbasicEffectiveDate: [(this.bglData.isBGLActive) ? this.bglDate : this.minDate, Validators.required],
+        FCbasicEffectiveDate: [(this.bglData.isBGLActive) ? this.bglDate : this.latest_datebasicgrplife, Validators.required],
         FCbasicSitusState_Action: [(this.bglData.isBGLActive) ? this.bglData.bgl.grp_situs_state_action : this.radioButtonArr[1].value, Validators.required],
         FCbasicSitusState: [(this.bglData.isBGLActive) ? this.bglStatus : this.bglStatus, Validators.required],
         FCbasicEmpFcAmt_Action: [(this.bglData.isBGLActive) ? this.bglData.bgl.emp_face_amt_mon_bnft_action : this.radioButtonArr[1].value, Validators.required],

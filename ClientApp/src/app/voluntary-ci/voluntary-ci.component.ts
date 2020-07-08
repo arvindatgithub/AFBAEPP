@@ -52,7 +52,6 @@ export class VoluntaryCIComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.lookUpDataSitusStates = JSON.parse(localStorage.getItem('lookUpSitusApiData'));
 
-
     this.volCiData = JSON.parse(localStorage.getItem('GroupNumApiData'));
 
     if (this.volCiData !== undefined) {
@@ -64,9 +63,13 @@ export class VoluntaryCIComponent implements OnInit, OnChanges {
         } else {
           this.volCiSitus = this.lookupValue;
         }
+      }else {
+        this.latest_datevolci = this.datepipe.transform(this.volCiData.grpEfftvDt, 'yyyy-MM-dd')=='0001-01-01' ? 
+        '':this.datepipe.transform(this.volCiData.grpEfftvDt, 'yyyy-MM-dd') ;
       }
+
       this.volCIformgrp = this.fb.group({
-        FCVolCIEffectiveDate: [(this.volCiData.isVOL_CIActive) ? this.volCiDate : this.minDate, Validators.required],
+        FCVolCIEffectiveDate: [(this.volCiData.isVOL_CIActive) ? this.volCiDate : this.latest_datevolci, Validators.required],
         FCVolCIEffectiveDate_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.effctv_dt_action : this.radioButtonArr[1].value, Validators.required],
         FCVolCISitusState: [(this.volCiData.isVOL_CIActive) ? this.volCiSitus : this.volCiSitus, Validators.required],
         FCVolCISitusState_Action: [(this.volCiData.isVOL_CIActive) ? this.volCiData.voL_CI.grp_situs_state_action : this.radioButtonArr[1].value, Validators.required],

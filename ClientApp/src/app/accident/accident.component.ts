@@ -100,12 +100,14 @@ export class AccidentComponent implements OnInit, OnChanges {
         this.ch_fname_01 = this.accidentData.acC_HI.ch_fname_01 == 1 ? true : false;
         this.ch_dob_01 = this.accidentData.acC_HI.ch_dob_01 == 1 ? true : false;
         this.ch_gndr_01 = this.accidentData.acC_HI.ch_gndr_01 == 1 ? true : false;
+      }else {
+        this.latest_dateaccident = this.datepipe.transform(this.accidentData.grpEfftvDt, 'yyyy-MM-dd')=='0001-01-01' ? '':this.datepipe.transform(this.accidentData.grpEfftvDt, 'yyyy-MM-dd') ;
       }
 
       this.accformgrp = this.fb.group({
         FCaccSitusState_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.grp_situs_state_action : this.radioButtonArr[1].value, Validators.required],
         FCaccSitusState: [(this.accidentData.isACC_HIActive) ? this.accidentSitus : this.accidentSitus, Validators.required],
-        FCaccEffectiveDate: [(this.accidentData.isACC_HIActive) ? this.accidentDate : this.minDate, Validators.required],
+        FCaccEffectiveDate: [(this.accidentData.isACC_HIActive) ? this.accidentDate : this.latest_dateaccident, Validators.required],
         FCaccEffectiveDate_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.effctv_dt_action : this.radioButtonArr[1].value, Validators.required],
         FCaccOnOff: [(this.accidentData.isACC_HIActive) ? this.on_off : this.jobs[2].abbrev, Validators.required],
         FCaccOnOff_Action: [(this.accidentData.isACC_HIActive) ? this.accidentData.acC_HI.sp_smkr_no_smkr_action : this.radioButtonArr[1].value, Validators.required],

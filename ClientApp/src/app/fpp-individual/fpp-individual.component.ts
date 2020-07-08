@@ -50,16 +50,19 @@ export class FPPIndividualComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.lookUpDataSitusStates = JSON.parse(localStorage.getItem('lookUpSitusApiData'));
-
     this.fppiData = JSON.parse(localStorage.getItem('GroupNumApiData'));
 
     if (this.fppiData !== undefined) {
 
       if (this.fppiData.isFPPIActive) {
         this.fppiDate = this.datepipe.transform(this.fppiData.fppi.effctv_dt, 'yyyy-MM-dd');
+      }else {
+        this.latest_datefpp = this.datepipe.transform(this.fppiData.grpEfftvDt, 'yyyy-MM-dd')=='0001-01-01' ? 
+        '':this.datepipe.transform(this.fppiData.grpEfftvDt, 'yyyy-MM-dd');
       }
+
       this.fppiformgrp = this.fb.group({
-        FCfppiEffectiveDate: [(this.fppiData.isFPPIActive) ? this.fppiDate : this.minDate, Validators.required],
+        FCfppiEffectiveDate: [(this.fppiData.isFPPIActive) ? this.fppiDate : this.latest_datefpp, Validators.required],
         FCfppiEffectiveDate_Action: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.effctv_dt_action : this.radioButtonArr[1].value, Validators.required],
         FCfppiAgentSign: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.agnt_sig_txt_1 : "", Validators.required],
         FCfppiAgentSign_Action: [(this.fppiData.isFPPIActive) ? this.fppiData.fppi.agnt_sig_txt_1_action : this.radioButtonArr[1].value, Validators.required],

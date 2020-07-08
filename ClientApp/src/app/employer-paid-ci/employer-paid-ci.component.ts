@@ -56,7 +56,6 @@ export class EmployerPaidCIComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.lookUpDataSitusStates = JSON.parse(localStorage.getItem('lookUpSitusApiData'));
-   
     this.empCiData = JSON.parse(localStorage.getItem('GroupNumApiData'));
 
     if (this.empCiData !== undefined) {
@@ -68,10 +67,13 @@ export class EmployerPaidCIComponent implements OnInit, OnChanges {
           this.empCiStatus = this.lookupValue;
         }
 
+      }else {
+        this.latest_dateemppaisci = this.datepipe.transform(this.empCiData.grpEfftvDt, 'yyyy-MM-dd')=='0001-01-01' ?
+         '':this.datepipe.transform(this.empCiData.grpEfftvDt, 'yyyy-MM-dd') ;;
       }
 
       this.empCIformgrp = this.fb.group({
-        FCempCIEffectiveDate: [(this.empCiData.isER_CIActive) ? this.empCiDate : this.minDate, Validators.required],
+        FCempCIEffectiveDate: [(this.empCiData.isER_CIActive) ? this.empCiDate : this.latest_dateemppaisci, Validators.required],
         FCempCIEffectiveDate_Action: [(this.empCiData.isER_CIActive) ? this.empCiData.eR_CI.effctv_dt_action : this.radioButtonArr[1].value, Validators.required],
         FCempCISitusState_Action: [(this.empCiData.isER_CIActive) ? this.empCiData.eR_CI.grp_situs_state_action : this.radioButtonArr[1].value, Validators.required],
         FCempCISitusState: [(this.empCiData.isER_CIActive) ? this.empCiStatus : this.empCiStatus, Validators.required],
