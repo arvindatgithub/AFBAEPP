@@ -35,11 +35,11 @@
 
     <div class="row mt-4" style="justify-content:space-evenly;margin-right: 7%;">
 
-      <div class="radio-button">
+      <!-- <div class="radio-button">
         <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCfppgEmpAmtMax_Action" />
           <label class="radio-label"> {{item.name}}</label></div>
-      </div>
-      <div class="col-3">
+      </div> -->
+      <div class="col-4">
 
         <span class="label label-default">Emp GI Amount Max($)</span>
 
@@ -50,14 +50,14 @@
 
 
 
-      <div class="col-3">
+      <div class="col-4">
         <span class="label label-default">Emp QI Amount Max($)</span>
 
         <input type="text" formControlName="FCfppgEmpQIAmtMax" class="form-control mb-2 " style="width: 100%;"
           placeholder="Employee QI Amount Max" required
           onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
-      <div class="col-3">
+      <div class="col-4">
         <span class="label label-default">Emp SI Max Amount($)</span>
         <input type="text" class="form-control mb-2" formControlName="FCfppgEmpAmtMax" style="width: 100%;"
           placeholder="Employee Max Amount" required
@@ -67,11 +67,11 @@
     </div>
 
     <div class="row mt-4" style="justify-content:space-evenly;margin-right: 7%;">
-      <div class="radio-button">
+      <!-- <div class="radio-button">
         <div *ngFor="let item of radioButtonArr"><input type="radio" value={{item.value}} formControlName="FCfppgSpouseAmtMax_Action" />
           <label class="radio-label"> {{item.name}}</label></div>
-      </div>
-      <div class="col-3">
+      </div> -->
+      <div class="col-4">
         <span class="label label-default">Spouse GI Amount Max($)</span>
 
         <input type="text" formControlName="FCfppgSpouseGIAmtMax" class="form-control mb-2 " style="width: 100%;"
@@ -79,13 +79,13 @@
            "required
            onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
-      <div class="col-3">
+      <div class="col-4">
         <span class="label label-default">Spouse QI Amount Max($)</span>
         <input type="text" formControlName="FCfppgSpouseQIAmtMax" class="form-control mb-2 " style="width: 100%;"
           placeholder="Spouse QI Amount Max"required
           onkeyup="this.value=this.value.replace(/[^\d]/,'')">
       </div>
-      <div class="col-3">
+      <div class="col-4">
         <span class="label label-default">Spouse SI Max Amount($)</span>
         <input type="text" formControlName="FCfppgSpouseMaxAmt" class="form-control mb-2 " style="width: 100%;"
           placeholder="Spouse Max Amount"required

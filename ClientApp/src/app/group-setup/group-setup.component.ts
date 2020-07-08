@@ -621,7 +621,7 @@ export class GroupSetupComponent implements OnInit {
   let c= this.agentformgrp.get('CommissonSplit2fppg').value !== undefined && this.agentformgrp.get('CommissonSplit2fppg').value!=='' ? parseInt(this.agentformgrp.get('CommissonSplit2fppg').value) : 0;
   let d= this.agentformgrp.get('CommissonSplit3fppg').value !== undefined && this.agentformgrp.get('CommissonSplit3fppg').value !== ''? parseInt(this.agentformgrp.get('CommissonSplit3fppg').value) : 0;
   let e = a+b+c+d;
-  if(e > 100){
+  if(e >= 100){
     this.commissionSplitErrFppg = true;
   } else {
     this.commissionSplitErrFppg = false;
@@ -1260,12 +1260,12 @@ export class GroupSetupComponent implements OnInit {
         sp_max_amt: this.fppgComponent.fppgformgrp.value.FCfppgSpouseMaxAmt,
         effctv_dt_action: this.fppgComponent.fppgformgrp.value.FCfppgEffectiveDate_Action,
         grp_situs_state_action: this.fppgComponent.fppgformgrp.value.FCfppgSitusState_Action,
-        emp_gi_max_amt_action: this.fppgComponent.fppgformgrp.value.FCfppgEmpAmtMax_Action,
-        sp_gi_max_amt_action: this.fppgComponent.fppgformgrp.value.FCfppgSpouseAmtMax_Action,
-        emp_qi_max_amt_action: this.fppgComponent.fppgformgrp.value.FCfppgEmpAmtMax_Action,
-        sp_qi_max_amt_action: this.fppgComponent.fppgformgrp.value.FCfppgSpouseAmtMax_Action,
-        emp_max_amt_action: this.fppgComponent.fppgformgrp.value.FCfppgEmpAmtMax_Action,
-        sp_max_amt_action: this.fppgComponent.fppgformgrp.value.FCfppgSpouseAmtMax_Action,
+        emp_gi_max_amt_action: "10001",
+        sp_gi_max_amt_action: "10001",
+        emp_qi_max_amt_action: "10001",
+        sp_qi_max_amt_action: "10001",
+        emp_max_amt_action: "10001",
+        sp_max_amt_action: "10001",
         agnt_cd_1: this.agentformgrp.get('AgentNumberfppg').value,
         agnt_nm: this.agentformgrp.get('AgentNamefppg').value,
         agnt_comm_split_1: this.agentformgrp.get('CommissonSplitfppg').value===null ? "":this.agentformgrp.get('CommissonSplitfppg').value,
@@ -1593,12 +1593,12 @@ export class GroupSetupComponent implements OnInit {
         "emp_plan_cd_action": this.fppComponent.fppiformgrp.value.FCfppiPlanCodeManualEntry_Action,
         "sp_plan_cd_action": this.fppComponent.fppiformgrp.value.FCfppiPlanCodeManualEntry_Action,
         "ch_plan_cd_action": this.fppComponent.fppiformgrp.value.FCfppiPlanCodeManualEntry_Action,
-        "emp_gi_max_amt_action": this.fppComponent.fppiformgrp.value.FCfppiEmpAmtMax_Action,
-        "sp_gi_max_amt_action": this.fppComponent.fppiformgrp.value.FCfppiSpouseAmtMax_Action,
-        "emp_qi_max_amt_action": this.fppComponent.fppiformgrp.value.FCfppiEmpAmtMax_Action,
-        "sp_qi_max_amt_action": this.fppComponent.fppiformgrp.value.FCfppiSpouseAmtMax_Action,
-        "emp_max_amt_action": this.fppComponent.fppiformgrp.value.FCfppiEmpAmtMax_Action,
-        "sp_max_amt_action": this.fppComponent.fppiformgrp.value.FCfppiSpouseAmtMax_Action,
+        "emp_gi_max_amt_action": "10001",
+        "sp_gi_max_amt_action":"10001",
+        "emp_qi_max_amt_action": "10001",
+        "sp_qi_max_amt_action": "10001",
+        "emp_max_amt_action": "10001",
+        "sp_max_amt_action": "10001",
         agnt_cd_1: this.agentformgrp.get('AgentNumberFppIndivisual').value,
         agnt_nm: this.agentformgrp.get('AgentNameFppIndivisual').value,
         agnt_comm_split_1: this.agentformgrp.get('CommissonSplitFppIndivisual').value===null ? "":this.agentformgrp.get('CommissonSplitFppIndivisual').value,
