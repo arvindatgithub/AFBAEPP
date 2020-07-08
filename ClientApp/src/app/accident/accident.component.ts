@@ -30,7 +30,7 @@ export class AccidentComponent implements OnInit, OnChanges {
     { value: '10001', name: 'Update if Blank' },
     { value: '10003', name: 'Validate' }
   ]
-  jobs = [{ name: 'On the Job Only', abbrev: 'on' },
+  jobs = [{ name: '24 Hour Coverage', abbrev: 'on' },
   { name: 'Off the Job Only', abbrev: 'off' },
   { name: 'Both – Required on File', abbrev: 'noupdate' }];
 

@@ -581,6 +581,9 @@ export class GroupSetupComponent implements OnInit {
     //this.eppcreategroupservice.setUserStatus('Add');
     this.status = this.eppcreategroupservice.getUserStatus();
     this.bSubmitDisable = false;
+    
+    this.router.navigate(['/group-setup']);
+
   }
   onClone() {
     this.addToggle = false;
@@ -1626,7 +1629,7 @@ export class GroupSetupComponent implements OnInit {
 
     }
 
-    if(this.editServiceCall){
+    if(this.editServiceCall|| !form.invalid){
       body.grpId = this.groupsData.grpId;
       this.eppcreategroupservice.postEppEdit(body).subscribe(
         (data: any) => {
@@ -1639,10 +1642,17 @@ export class GroupSetupComponent implements OnInit {
             });
 
         }
+        else if(err.status===400){
+          this.toastr.error(err.error,'Error',{
+            timeOut:3000,
+          }); 
+        }
        
       }
+      
       );
-    } else {
+    }
+     else {
       if(!form.invalid){
         console.log("form.invalid",form.invalid);
         this.eppcreategroupservice.PosteppCreate(body).subscribe((response: any) => {

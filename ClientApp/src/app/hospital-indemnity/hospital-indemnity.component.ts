@@ -24,7 +24,7 @@ export class HospitalIndemnityComponent implements OnInit, OnChanges {
   disabled = false;
   public minDate
   latest_datehospitalindemnity;
-  jobs = [{ name: 'On the Job Only', abbrev: 'on' },
+  jobs = [{ name: '24 Hour Coverage', abbrev: 'on' },
   { name: 'Off the Job Only', abbrev: 'off' },
   { name: 'both', abbrev: 'noupdate' }];
 

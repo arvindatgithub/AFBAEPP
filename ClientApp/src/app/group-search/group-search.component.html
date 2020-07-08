@@ -1,6 +1,6 @@
 
 <div class="container">
-<form class="group-search-section" *ngIf="groupSearchSection">
+<form class="group-search-section" #search="ngForm" *ngIf="groupSearchSection">
     <h3>Group Search</h3>
     <div class="row" style="margin-top: 5%;">
         <div class="col-md-4 form-group">
@@ -17,8 +17,10 @@
             [(ngModel)]="searchBoxVal" (input)="onSearchChange($event.target.value)"
             placeholder="Search">
         </div>
+      
     </div>
     <button type="button" class="btn btn-success mt-4 mb-4" [disabled]="disabledFlag" (click)="GroupSearch()">Search For Existing Group</button>
+    <button type="button" class="btn btn-success mt-4 mb-4 ml-4" [disabled]="disabledFlag" (click)="navigateGrpScreen()">Add Group</button>
 </form>
 <div class="group-search-results" *ngIf="!groupSearchSection">
     <h3>Group Search Results</h3>
@@ -27,10 +29,12 @@
         <p>Group Name: {{existingGrp.grpNm}}</p>
         <p>Group Number: {{existingGrp.grpNbr}}</p>
         <button type="button" class="btn btn-success mt-4 mb-4" (click)="goToSetup(existingGrp.grpNbr)">Go To Group Setup Screen</button>
+        <button type="button" class="btn btn-success mt-4 mb-4 ml-4" (click)="goToSearch()">Back To Group Screen</button>
     </div>
     <div *ngIf="!existingGrp" style="margin-top: 5%;">
         <p>Existing Group not Located</p>
         <button type="button" class="btn btn-success mt-4 mb-4" (click)="goToSearch()">Back To Group Screen</button>
+      
     </div>
 </div>
 </div>
