@@ -312,18 +312,18 @@ export class GroupSetupComponent implements OnInit {
           CommissonSplit: [this.agentCommissionSPlit_0, Validators.required],
           AgentName: [this.agent_name, Validators.required],
 
-          AgentNumber1: [this.agentNumber_1, Validators.required],
-          AgentSubCount1: [this.agentSubCount_1, Validators.required],
-          CommissonSplit1: [this.agentCommissionSPlit_1, Validators.required],
+          AgentNumber1: [this.agentNumber_1],
+          AgentSubCount1: [this.agentSubCount_1],
+          CommissonSplit1: [this.agentCommissionSPlit_1],
 
 
-          AgentNumber2: [this.agentNumber_2, Validators.required],
-          AgentSubCount2: [this.agentSubCount_2, Validators.required],
-          CommissonSplit2: [this.agentCommissionSPlit_2, Validators.required],
+          AgentNumber2: [this.agentNumber_2],
+          AgentSubCount2: [this.agentSubCount_2],
+          CommissonSplit2: [this.agentCommissionSPlit_2],
 
-          AgentNumber3: [this.agentNumber_3, Validators.required],
-          AgentSubCount3: [this.agentSubCount_3, Validators.required],
-          CommissonSplit3: [this.agentCommissionSPlit_3, Validators.required],
+          AgentNumber3: [this.agentNumber_3],
+          AgentSubCount3: [this.agentSubCount_3],
+          CommissonSplit3: [this.agentCommissionSPlit_3],
           //Fppg
           AgentNumberfppg: [(this.groupsData.isFPPGActive) ? this.groupsData.fppg.agnt_cd_1 : this.agentNumber_0, Validators.required],
           AgentSubCountfppg: [(this.groupsData.isFPPGActive) ? this.groupsData.fppg.agntsub_1 : this.agentSubCount_0, Validators.required],
@@ -1643,10 +1643,10 @@ export class GroupSetupComponent implements OnInit {
 
     }
 
-    if (this.editServiceCall && !form.invalid&&(this.agentformgrp.get('AgentNumber').value.valid &&
-    this.agentformgrp.get('AgentSubCount.').value.valid &&
-    this.agentformgrp.get('CommissonSplit').value.valid && 
-    this.agentformgrp.get('AgentName').value.valid)) {
+    if (this.editServiceCall && !form.invalid && (this.agentformgrp.get('AgentNumber').valid &&
+    this.agentformgrp.get('AgentSubCount').valid &&
+    this.agentformgrp.get('CommissonSplit').valid && 
+    this.agentformgrp.get('AgentName').valid)) {
       if (this.isCheckedFppg || this.isCheckedFppInd || this.isCheckedHospital || this.isCheckedVolGrpLife || this.isCheckedVolutaryCi || this.isCheckedBasicGrpLife || this.isCheckedEmpPaidCi || this.isCheckedAccident) {
 
         if (this.fppgComponent.fppgformgrp.valid || this.fppComponent.fppiformgrp.valid || this.hospitalIndemnityComponent.hospformgrp.valid || this.VolgrpLifeComponent.volGrpLfformgrp.valid || this.VolCiComponent.volCIformgrp.valid || this.basicgrplifeComponent.basicGrpLfformgrp.valid || this.empPaidCiComponent.empCIformgrp.valid || this.accidentComponent.accformgrp.valid 
@@ -1683,10 +1683,11 @@ export class GroupSetupComponent implements OnInit {
       }
     }
     else {
-      if (!form.invalid && (this.agentformgrp.get('AgentNumber').value.valid &&
-      this.agentformgrp.get('AgentSubCount.').value.valid &&
-      this.agentformgrp.get('CommissonSplit').value.valid && 
-      this.agentformgrp.get('AgentName').value.valid)) {
+      console.log("this.agentformgrp.get('AgentNumber').value.valid",this.agentformgrp.get('AgentNumber').valid);
+      if (!form.invalid && (this.agentformgrp.get('AgentNumber').valid &&
+      this.agentformgrp.get('AgentSubCount').valid &&
+      this.agentformgrp.get('CommissonSplit').valid && 
+      this.agentformgrp.get('AgentName').valid)) {
         if (this.isCheckedFppg || this.isCheckedFppInd || this.isCheckedHospital || this.isCheckedVolGrpLife || this.isCheckedVolutaryCi || this.isCheckedBasicGrpLife || this.isCheckedEmpPaidCi || this.isCheckedAccident) {
 
           if ((this.fppgComponent.fppgformgrp.valid || this.fppComponent.fppiformgrp.valid ||
