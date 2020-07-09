@@ -139,19 +139,19 @@
         <!-- first-row -->
         <div class="row" style="justify-content:space-evenly;">
           <div class="col-md-3">
-            <span class="label label-default">Agent Number</span>
+            <span class="label label-default">Agent Number<span aria-hidden="true" class="required">*</span></span>
             <input type="text" maxlength="5" formControlName="AgentNumber" [(ngModel)]="agentNumber_0" name="text"
                    (change)="changeAgNum0($event.target.value)" class="form-control mb-2" style="width: 100%;"
                    placeholder="Primary Agent Number" onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/,'')">
           </div>
           <div class="col-md-3">
-            <span class="label label-default">Agent SubCount</span>
+            <span class="label label-default">Agent SubCount<span aria-hidden="true" class="required">*</span></span>
             <input type="text" maxlength="3" formControlName="AgentSubCount" [(ngModel)]="agentSubCount_0" class="form-control mb-2"
                    (change)="changeAgSub0($event.target.value)" style="width: 100%;" placeholder="Agent SubCount"
                    onkeyup="this.value=this.value.replace(/[^\d]/,'')">
           </div>
           <div class="col-md-3">
-            <span class="label label-default">Commisson Split %</span>
+            <span class="label label-default">Commisson Split %<span aria-hidden="true" class="required">*</span></span>
             <input type="text" formControlName="CommissonSplit" [(ngModel)]="agentCommissionSPlit_0"
                    (change)="changeAgComSpl0($event.target.value)" class="form-control mb-2 " style="width: 100%;"
                    placeholder="Commisson Split" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
@@ -159,7 +159,7 @@
           </div>
 
           <div class="col-md-3">
-            <span class="label label-default">Agent Name</span>
+            <span class="label label-default">Agent Name<span aria-hidden="true" class="required">*</span></span>
             <input type="text" formControlName="AgentName" [(ngModel)]="agent_name" class="form-control mb-2 "
                    (change)="changeAgNm0($event.target.value)" style="width: 100%;" placeholder="Agent Name"
                    onkeyup="this.value=this.value.replace(/[^a-zA-Z_]*/,'')">
@@ -1168,4 +1168,5 @@
       Setup Information
     </button>
   </form> 
+  
 </div>

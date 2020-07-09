@@ -7,7 +7,7 @@
         <label class="radio-label"> {{item.name}}</label></div>
     </div>
     <div class="col-3">
-      <span class="label label-default">Product Effective Date</span>
+      <span class="label label-default">Product Effective Date<span aria-hidden="true" class="required">*</span></span>
       <input type="date" [value]="latest_dateemppaisci" class="form-control mb-2 " style="width: 100%;"
       formControlName="FCempCIEffectiveDate" placeholder="Group Effective Date">
 
@@ -17,7 +17,7 @@
         <label class="radio-label"> {{item.name}}</label></div>
     </div>
     <div class="col-3">
-      <span class="label label-default">Situs State</span>
+      <span class="label label-default">Situs State<span aria-hidden="true" class="required">*</span></span>
       <select class="form-control" formControlName="FCempCISitusState">
         <!-- <option hidden disabled selected value> -- select Situs State -- </option> -->
         <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates" [selected]="lookUpDataSitusState.id==empCiStatus"
@@ -41,7 +41,7 @@
     <div class="col-4">
 
       <span class="label label-default">Spouse Standard Face
-        Amount($)</span>
+        Amount($)<span aria-hidden="true" class="required">*</span></span>
       <input type="text" class="form-control mb-2 " formControlName="FCempCISpouseFcAmt" style="width: 100%;" placeholder="Spouse Standard Face Amount"required
       onkeyup="this.value=this.value.replace(/[^\d]/,'')">
     </div>
@@ -52,7 +52,7 @@
     </div>
     <div class="col-4">
       <span class="label label-default">Employee Standard Face
-        Amount($)</span>
+        Amount($)<span aria-hidden="true" class="required">*</span></span>
 
       <input type="text" class="form-control mb-2 " style="width: 100%;" formControlName="FCempCIEmpFcAmt" placeholder="Employee Standard Face Amount"required
       onkeyup="this.value=this.value.replace(/[^\d]/,'')">
@@ -83,17 +83,17 @@
         <label class="radio-label"> {{item.name}}</label></div>
     </div>
     <div class=" col-3">
-      <span class="label label-default">Employee Plan Code </span>
+      <span class="label label-default">Employee Plan Code <span aria-hidden="true" class="required">*</span></span>
       <input type="text" class="form-control mb-2 " formControlName="FCempCIEMPPlanCode" style="width: 100%;" placeholder=" Employee Plan Code ">
     </div>
    
     <div class="col-3">
-      <span class="label label-default"> Spouse Plan Code</span>
+      <span class="label label-default"> Spouse Plan Code<span aria-hidden="true" class="required">*</span></span>
       <input type="text" class="form-control mb-2 " formControlName="FCempCISpouseFcAmt" style="width: 100%;" placeholder="Spouse Plan Code">
     </div>
 
     <div class="col-3">
-      <span class="label label-default"> Child Plan Code</span>
+      <span class="label label-default"> Child Plan Code<span aria-hidden="true" class="required">*</span></span>
       <input type="text" class="form-control mb-2 " formControlName="FCempCIChdFcAmt" style="width: 100%;" placeholder="Child Plan Code">
     </div>
   </div>

@@ -8,7 +8,7 @@
             <label class="radio-label"> {{item.name}}</label></div>
         </div>
         <div class="col-3">
-          <span class="label label-default">Product Effective Date</span>
+          <span class="label label-default">Product Effective Date<span aria-hidden="true" class="required">*</span></span>
           <input type="date" [value] = "latest_datefpp" formControlName = "FCfppiEffectiveDate" class="form-control mb-2 " style="width: 100%;"
             placeholder="Group Effective Date">
 
@@ -18,7 +18,7 @@
             <label class="radio-label"> {{item.name}}</label></div>
         </div>
         <div class="col-3">
-          <span class="label label-default">Agent Signature</span>
+          <span class="label label-default">Agent Signature<span aria-hidden="true" class="required">*</span></span>
           <input type="text" class="form-control mb-2" formControlName = "FCfppiAgentSign" style="width: 100%;" placeholder="Agent Signature">
         </div>
         <div class="mt-4">
@@ -34,7 +34,7 @@
         </div> -->
         <div class="col-4">
 
-          <span class="label label-default">Emp GI Amount Max($)</span>
+          <span class="label label-default">Emp GI Amount Max($)<span aria-hidden="true" class="required">*</span></span>
 
           <input type="text" class="form-control mb-2" formControlName="FCfppiEmpGIAmtMax" style="width: 100%;" placeholder="Employee GI Amount Max"required
           onkeyup="this.value=this.value.replace(/[^\d]/,'')">
@@ -43,13 +43,13 @@
 
 
         <div class="col-4">
-          <span class="label label-default">Emp QI Amount Max($)</span>
+          <span class="label label-default">Emp QI Amount Max($)<span aria-hidden="true" class="required">*</span></span>
 
           <input type="text" class="form-control mb-2" formControlName="FCfppiEmpQIAmtMax" style="width: 100%;" placeholder="Employee QI Amount Max"required
           onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
         <div class="col-4">
-          <span class="label label-default">Emp SI Max Amount($)</span>
+          <span class="label label-default">Emp SI Max Amount($)<span aria-hidden="true" class="required">*</span></span>
           <input type="text" class="form-control mb-2" formControlName="FCfppiEmpAmtMax" style="width: 100%;" placeholder="Employee Max Amount"required
           onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
@@ -62,19 +62,19 @@
             <label class="radio-label"> {{item.name}}</label></div>
         </div> -->
         <div class="col-4">
-          <span class="label label-default">Spouse GI Amount Max($)</span>
+          <span class="label label-default">Spouse GI Amount Max($)<span aria-hidden="true" class="required">*</span></span>
 
           <input type="text" class="form-control mb-2 " formControlName="FCfppiSpouseGIAmtMax" style="width: 100%;" placeholder="Spouse GI Amount Max
             "required
             onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
         <div class="col-4">
-          <span class="label label-default">Spouse QI Amount Max($)</span>
+          <span class="label label-default">Spouse QI Amount Max($)<span aria-hidden="true" class="required">*</span></span>
           <input type="text" class="form-control mb-2 " formControlName="FCfppiSpouseQIAmtMax" style="width: 100%;" placeholder="Spouse QI Amount Max"required
           onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
         <div class="col-4">
-          <span class="label label-default">Spouse SI Max Amount($)</span>
+          <span class="label label-default">Spouse SI Max Amount($)<span aria-hidden="true" class="required">*</span></span>
           <input type="text" class="form-control mb-2 " formControlName="FCfppiSpouseMaxAmt" style="width: 100%;" placeholder="Spouse Max Amount"required
           onkeyup="this.value=this.value.replace(/[^\d]/,'')">
         </div>
@@ -86,17 +86,17 @@
             <label class="radio-label"> {{item.name}}</label></div>
         </div>
         <div class="col-3">
-          <span class="label label-default"> Employee Plan code</span>
+          <span class="label label-default"> Employee Plan code<span aria-hidden="true" class="required">*</span></span>
           <input type="text" formControlName="FCfppiempPlanCode" class="form-control mb-2 " style="width: 100%;" placeholder="Plan code manual Entry">
         </div>
       
         <div class="col-3">
-          <span class="label label-default"> Spouse Plan code </span>
+          <span class="label label-default"> Spouse Plan code <span aria-hidden="true" class="required">*</span></span>
           <input type="text" formControlName="FCfppiSpousePlanCode" class="form-control mb-2 " style="width: 100%;" placeholder="Plan code manual Entry">
         </div>
       
         <div class="col-3">
-          <span class="label label-default"> Child Plan code</span>
+          <span class="label label-default"> Child Plan code<span aria-hidden="true" class="required">*</span></span>
           <input type="text" formControlName="FCfppiChildPlanCode" class="form-control mb-2 " style="width: 100%;" placeholder="Plan code manual Entry">
         </div>
       </div>
@@ -111,7 +111,7 @@
         </div> -->
         <div class="col-6">
 
-          <span class="label label-default">User Token</span>
+          <span class="label label-default">User Token<span aria-hidden="true" class="required">*</span></span>
           <input type="text" class="form-control mb-2 " formControlName="FCfppiUserToken" style="width: 100%;" placeholder="User Token">
         </div>
 
@@ -120,7 +120,7 @@
             <label class="radio-label"> {{item.name}}</label></div>
         </div> -->
         <div class="col-6">
-          <span class="label label-default">Case Token</span>
+          <span class="label label-default">Case Token<span aria-hidden="true" class="required">*</span></span>
           <input type="text" class="form-control mb-2 " formControlName="FCfppiCaseToken" style="width: 100%;" placeholder="Case Token">
         </div>
 

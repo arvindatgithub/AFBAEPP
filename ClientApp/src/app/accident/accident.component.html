@@ -6,7 +6,7 @@
           <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-3">
-        <span class="label label-default">Product Effective Date</span>   
+        <span class="label label-default">Product Effective Date<span aria-hidden="true" class="required">*</span></span>
         <input type="date" [value] = "latest_dateaccident" formControlName="FCaccEffectiveDate" class="form-control mb-2 " style="width: 100%;"
           placeholder="Group Effective Date">  
   
@@ -16,7 +16,7 @@
           <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-3">
-        <span class="label label-default">Situs State</span>
+        <span class="label label-default">Situs State<span aria-hidden="true" class="required">*</span></span>
         <select class="form-control"  formControlName="FCaccSitusState">
           <!-- <option hidden disabled selected value> -- select Situs State -- </option> -->
           <option *ngFor="let lookUpDataSitusState of lookUpDataSitusStates" [selected]="lookUpDataSitusState.id==accidentSitus"
@@ -34,7 +34,7 @@
           <label class="radio-label"> {{item.name}}</label></div>
       </div>
       <div class="col-4">
-        <span class="label">24 Hour or Off the Job </span>
+        <span class="label">24 Hour or Off the Job <span aria-hidden="true" class="required">*</span></span>
         <select  class="form-control" formControlName="FCaccOnOff">
           <option *ngFor="let job of jobs" value={{job.abbrev}}> 
             {{ job.name }}
